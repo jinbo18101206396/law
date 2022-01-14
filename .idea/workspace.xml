@@ -4,13 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6716618b-e78d-4520-832e-53c55af9bb65" name="Default Changelist" comment="">
+    <list default="true" id="6716618b-e78d-4520-832e-53c55af9bb65" name="Default Changelist" comment="no change">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application-local.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-local.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/modular/demo/controller/DemoController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/modular/demo/package-info.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/modular/demo/service/DemoService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/modular/test/TestMultiTranController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/modular/test/TestSingleTranController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/modular/test/factory/NormalUserFactory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/modular/test/service/GunsDbService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/modular/test/service/OtherDbService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/modular/test/service/TranTestService.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/application-local.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application-local.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cn/stylefeng/guns/modular/demo/controller/DemoController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cn/stylefeng/guns/modular/demo/service/DemoService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cn/stylefeng/guns/modular/test/TestMultiTranController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cn/stylefeng/guns/modular/test/TestSingleTranController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cn/stylefeng/guns/modular/test/factory/NormalUserFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cn/stylefeng/guns/modular/test/service/GunsDbService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cn/stylefeng/guns/modular/test/service/OtherDbService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/cn/stylefeng/guns/modular/test/service/TranTestService.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,24 +53,40 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/pom.xml" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/modular" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.31264368" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.repository.indices" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/modular" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/assets/modular/business/record" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/pages/modular/business" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/webapp/pages/modular/system" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/assets/modular/system" />
+      <recent name="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/modular" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="cn.stylefeng.guns.modular.controller" />
+      <recent name="cn.stylefeng.guns.modular.record.controller" />
+      <recent name="cn.stylefeng.guns.modular.record" />
+      <recent name="cn.stylefeng.guns.modular.util" />
+    </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="GunsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="guns" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="cn.stylefeng.guns.GunsApplication" />
@@ -76,8 +106,19 @@
       <workItem from="1642073847678" duration="19000" />
       <workItem from="1642076595893" duration="462000" />
       <workItem from="1642078766638" duration="9000" />
-      <workItem from="1642082572048" duration="896000" />
+      <workItem from="1642082572048" duration="4729000" />
+      <workItem from="1642124501392" duration="1321000" />
+      <workItem from="1642126453217" duration="13700000" />
+      <workItem from="1642164490114" duration="2240000" />
     </task>
+    <task id="LOCAL-00001" summary="no change">
+      <created>1642083737916</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1642083737916</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -94,5 +135,27 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="no change" />
+    <option name="LAST_COMMIT_MESSAGE" value="no change" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/modular/controller/BasicInfoController.java</url>
+          <line>98</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
