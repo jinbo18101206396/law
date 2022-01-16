@@ -49,9 +49,19 @@ public class BasicInfoViewController {
         return "/modular/business/record/record.html";
     }
 
-
+    /**
+     *
+     * @author liaoweiming
+     * @date 2022-01-16 14:41
+     */
     @GetResource(name = "基本信息表单", path = "/view/base" , requiredPermission = false)
     public String baseImfView() {
         return "/modular/business/record/baseImf.html";
+    }
+
+    @GetResource(name = "原告信息表单", path = "/view/plaintiff" , requiredPermission = false)
+    public String plaintiffImfView() {
+
+        return "/modular/business/record/plaintiffImf.html";
     }
 }
