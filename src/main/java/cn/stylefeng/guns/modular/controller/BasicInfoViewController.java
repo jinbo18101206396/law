@@ -48,4 +48,10 @@ public class BasicInfoViewController {
     public String indexView() {
         return "/modular/business/record/record.html";
     }
+
+
+    @GetResource(name = "基本信息表单", path = "/view/base" , requiredPermission = false)
+    public String baseImfView() {
+        return "/modular/business/record/baseImf.html";
+    }
 }
