@@ -1,0 +1,90 @@
+@layout("/layout/_container.html",{js:["/assets/modular/business/record/Basic_info.js"]}){
+
+<h1 style="text-align:center">基本信息（带*为必填项）</h1>
+<form class="layui-form" action="">
+    <div class="layui-form-item">
+        <label class="layui-form-label">立案时间<span style="color: red"> * </span></label>
+        <div class="layui-input-block">
+            <input type="text" name="title" id="test1" lay-verify="required" placeholder="请输入立案时间" autocomplete="off" class="layui-input"  >
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">开庭时间<span style="color: red"> * </span></label>
+        <div class="layui-input-block">
+            <input type="text" name="title" id="test2" lay-verify="required" placeholder="请输入开庭时间" autocomplete="off" class="layui-input"  >
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">开庭地点<span style="color: red"> * </span></label>
+        <div class="layui-input-block">
+            <input type="text" name="title" lay-verify="required" placeholder="请输入开庭地点" autocomplete="on" class="layui-input"  >
+        </div>
+    </div>
+    <div class="layui-form-item" id="last">
+        <label class="layui-form-label" >审判长<span style="color: red"> * </span></label>
+        <div class="layui-input-inline">
+            <input type="text" name="title" lay-verify="required" placeholder="审判长姓名" autocomplete="on" class="layui-input">
+        </div>
+        <div class="layui-input-inline" >
+            <div class="layui-btn-group" >
+                <button id="add" type="button" class="layui-btn layui-btn-primary layui-btn-sm" data-type="text">
+                    <i class="layui-icon">&#xe654;</i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item" id="last1">
+        <label class="layui-form-label" >审判员<span style="color: red"> * </span></label>
+        <div class="layui-input-inline">
+            <input type="text" name="title" lay-verify="required" placeholder="审判员姓名" autocomplete="on" class="layui-input">
+        </div>
+        <div class="layui-input-inline" >
+            <div class="layui-btn-group" >
+                <button id="add_judge" type="button" class="layui-btn layui-btn-primary layui-btn-sm" data-type="text">
+                    <i class="layui-icon">&#xe654;</i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item" id="last2">
+        <label class="layui-form-label" >陪审员</label>
+        <div class="layui-input-inline">
+            <input type="text" name="title" lay-verify="required" placeholder="陪审员姓名" autocomplete="on" class="layui-input">
+        </div>
+        <div class="layui-input-inline" >
+            <div class="layui-btn-group" >
+                <button id="add_2" type="button" class="layui-btn layui-btn-primary layui-btn-sm" data-type="text">
+                    <i class="layui-icon">&#xe654;</i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item" >
+        <label class="layui-form-label" >书记员<span style="color: red"> * </span></label>
+        <div class="layui-input-inline">
+            <input type="text" name="title" lay-verify="required" placeholder="书记员姓名" autocomplete="on" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">案号<span style="color: red"> * </span></label>
+        <div class="layui-input-block">
+            <input type="text" name="title" lay-verify="required" placeholder="请输入案号" autocomplete="on" class="layui-input"  >
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">案由<span style="color: red"> * </span></label>
+        <div class="layui-input-block">
+            <input type="text" name="title" lay-verify="required" placeholder="请输入案由" autocomplete="on" class="layui-input"  >
+        </div>
+    </div>
+    <p align="center">
+        <button type="button" class="layui-btn text-align: center;" > 保存 </button>
+    </p>
+    <script>
+        layui.config({
+            base: 'js/'
+        }).use('Basic_info');
+    </script>
+</form>
+@}
+
