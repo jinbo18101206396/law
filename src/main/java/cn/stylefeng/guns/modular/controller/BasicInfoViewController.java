@@ -76,4 +76,14 @@ public class BasicInfoViewController {
     public String defendantImfView() {
         return "/modular/business/record/defendantImf.html";
     }
+    /**
+     *
+     * @author wangjiaran
+     * @date 2022-01-17 15：00
+     */
+    @GetResource(name = "基本信息表单", path = "/view/Basic_info" , requiredPermission = false)
+    public String basic_infoView() {
+        return "/modular/business/record/Basic_Info.html";
+    }
 }
+
