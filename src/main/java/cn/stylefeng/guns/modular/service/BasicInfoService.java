@@ -15,6 +15,14 @@ import java.util.List;
 public interface BasicInfoService extends IService<BasicInfo> {
 
     /**
+     * 新增笔录基本信息
+     *
+     * @author jinbo
+     * @Date 2022-01-19
+     */
+    void add(BasicInfoRequest basicInfoRequest);
+
+    /**
      * 删除笔录
      *
      * @param basicInfoRequest 删除参数
@@ -24,13 +32,23 @@ public interface BasicInfoService extends IService<BasicInfo> {
     void del(BasicInfoRequest basicInfoRequest);
 
     /**
-     * 编辑笔录
+     * 编辑笔录基本信息
      *
      * @param basicInfoRequest 请求参数封装
      * @author 金波
      * @date 2022/01/14 15:07
      */
-    void edit(BasicInfoRequest basicInfoRequest);
+    void update(BasicInfoRequest basicInfoRequest);
+
+    /**
+     * 查看笔录基本信息详情
+     *
+     * @param basicInfoRequest 查看参数
+     * @return 详情结果
+     * @author 金波
+     * @date 2021/5/12 18:28
+     */
+    BasicInfo detail(BasicInfoRequest basicInfoRequest);
 
     /**
      * 查询笔录列表

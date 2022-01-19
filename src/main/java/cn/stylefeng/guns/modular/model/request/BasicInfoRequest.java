@@ -1,7 +1,6 @@
 package cn.stylefeng.guns.modular.model.request;
 
 import cn.stylefeng.roses.kernel.rule.pojo.request.BaseRequest;
-import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import javax.validation.constraints.NotNull;

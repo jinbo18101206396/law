@@ -29,14 +29,14 @@ import cn.stylefeng.roses.kernel.scanner.api.annotation.GetResource;
 import org.springframework.stereotype.Controller;
 
 /**
- * 笔录基本信息页面管理
+ * 笔录页面管理
  *
  * @author 金波
  * @date 2022/01/14
  */
 @Controller
-@ApiResource(name = "笔录基本信息相关的界面渲染")
-public class BasicInfoViewController {
+@ApiResource(name = "笔录的界面渲染")
+public class RecordViewController {
 
     /**
      * 笔录基本信息视图

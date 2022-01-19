@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.modular.mapper.ReplyMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.entity.Reply">
+        <id column="reply_id" property="replyId" />
+        <result column="name" property="name" />
+        <result column="content" property="content" />
+        <result column="is_counter_claim" property="isCounterClaim" />
+        <result column="court_number" property="courtNumber" />
+        <result column="create_time" property="createTime" />
+        <result column="create_user" property="createUser" />
+        <result column="update_time" property="updateTime" />
+        <result column="update_user" property="updateUser" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        reply_id AS "replyId", name AS "name", content AS "content", is_counter_claim AS "isCounterClaim", court_number AS "courtNumber", create_time AS "createTime", create_user AS "createUser", update_time AS "updateTime", update_user AS "updateUser"
+    </sql>
+
+
+    <select id="findList" resultType="cn.stylefeng.guns.modular.model.result.ReplyResult" parameterType="cn.stylefeng.guns.modular.model.request.ReplyRequest">
+        select
+        <include refid="Base_Column_List"/>
+        from reply where 1 = 1
+    </select>
+
+    <select id="findPage" resultType="cn.stylefeng.guns.modular.model.result.ReplyResult" parameterType="cn.stylefeng.guns.modular.model.request.ReplyRequest">
+        select
+        <include refid="Base_Column_List"/>
+        from reply where 1 = 1
+    </select>
+
+</mapper>

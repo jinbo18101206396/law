@@ -7,14 +7,14 @@ import java.math.BigDecimal;
 
 /**
  * <p>
- * 基本信息表
+ * 质证表
  * </p>
  *
  * @author jinbo
  * @since 2022-01-19
  */
 @Data
-public class BasicInfoResult implements Serializable {
+public class QueryResult implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -22,67 +22,52 @@ public class BasicInfoResult implements Serializable {
     /**
      * 主键
      */
-    private Long basicId;
+    private Long queryId;
 
     /**
-     * 用户id
+     * 原告/被告/反诉原告/反诉被告简称
      */
-    private Long userId;
+    private String name;
 
     /**
-     * 立案时间
+     * 证据名称
      */
-    private Date filingTime;
+    private String evidence;
 
     /**
-     * 开庭时间
+     * 真实性
      */
-    private Date courtTime;
+    private Boolean facticity;
 
     /**
-     * 开庭地点
+     * 合法性
      */
-    private String courtPlace;
+    private Boolean legality;
 
     /**
-     * 审判长
+     * 关联性
      */
-    private String chiefJudge;
+    private Boolean relevance;
 
     /**
-     * 审判员
+     * 理由
      */
-    private String judge;
+    private String reason;
 
     /**
-     * 陪审员
+     * 是否反诉
      */
-    private String juror;
+    private Boolean isCounterClaim;
 
     /**
-     * 书记员
+     * 质证类型：1-被告质证，2-原告及其他被告质证
      */
-    private String courtClerk;
+    private Integer queryType;
 
     /**
      * 案号
      */
     private String courtNumber;
-
-    /**
-     * 案由
-     */
-    private String courtCause;
-
-    /**
-     * 状态：1-在审，2-已结案
-     */
-    private Integer status;
-
-    /**
-     * 删除标记
-     */
-    private String delFlag;
 
     /**
      * 创建时间

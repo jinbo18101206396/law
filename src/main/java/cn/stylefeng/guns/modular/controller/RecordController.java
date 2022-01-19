@@ -39,18 +39,52 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 
 /**
- * 笔录控制器
+ * 笔录基本信息控制器
  *
  * @author 金波
  * @date 2022/01/14 15:07
  */
 @RestController
 @ApiResource(name = "笔录基本信息")
-public class BasicInfoController {
+public class RecordController {
 
     @Resource
     private BasicInfoService basicInfoService;
 
+    /**
+     * 保存笔录基本信息
+     *
+     * @author 金波
+     * @date 2021/05/12 13:50
+     */
+    @PostResource(name = "保存笔录基本信息", path = "/basic/save")
+    public ResponseData add(@RequestBody @Validated(BasicInfoRequest.add.class) BasicInfoRequest basicInfoRequest) {
+        basicInfoService.add(basicInfoRequest);
+        return new SuccessResponseData();
+    }
+
+    /**
+     * 编辑笔录基本信息
+     *
+     * @author 金波
+     * @date 2022/01/14 15:07
+     */
+    @PostResource(name = "编辑笔录基本信息", path = "/basic/edit")
+    public ResponseData edit(@RequestBody @Validated(BasicInfoRequest.edit.class) BasicInfoRequest basicInfoRequest) {
+        basicInfoService.update(basicInfoRequest);
+        return new SuccessResponseData();
+    }
+
+    /**
+     * 查看笔录基本信息详情
+     *
+     * @author 金波
+     * @date 2021/05/12 13:50
+     */
+    @GetResource(name = "查看笔录基本信息详情", path = "/basic/detail")
+    public ResponseData detail(@Validated(BasicInfoRequest.detail.class) BasicInfoRequest basicInfoRequest) {
+        return new SuccessResponseData(basicInfoService.detail(basicInfoRequest));
+    }
 
     /**
      * 删除笔录
@@ -58,43 +92,31 @@ public class BasicInfoController {
      * @author 金波
      * @date 2022/01/14 15:07
      */
-    @PostResource(name = "删除笔录", path = "/record/delete")
+    @PostResource(name = "删除笔录基本信息", path = "/basic/delete")
     public ResponseData delete(@RequestBody @Validated(BasicInfoRequest.delete.class) BasicInfoRequest basicInfoRequest) {
         basicInfoService.del(basicInfoRequest);
         return new SuccessResponseData();
     }
 
     /**
-     * 编辑笔录
+     * 分页查询笔录基本信息
      *
      * @author 金波
      * @date 2022/01/14 15:07
      */
-    @PostResource(name = "编辑笔录", path = "/record/edit")
-    public ResponseData edit(@RequestBody @Validated(BasicInfoRequest.edit.class) BasicInfoRequest basicInfoRequest) {
-        basicInfoService.edit(basicInfoRequest);
-        return new SuccessResponseData();
-    }
-
-    /**
-     * 分页查询笔录
-     *
-     * @author 金波
-     * @date 2022/01/14 15:07
-     */
-    @RequestMapping(name = "分页查询笔录", path = "/record/page")
+    @RequestMapping(name = "分页查询笔录", path = "/basic/page")
     @ResponseBody
     public ResponseData page(BasicInfoRequest basicInfoRequest) {
         return new SuccessResponseData(basicInfoService.findPage(basicInfoRequest));
     }
 
     /**
-     * 获取全部笔录
+     * 查询全部笔录基本信息
      *
      * @author 金波
      * @date 2022/01/14 15:07
      */
-    @GetResource(name = "查询全部笔录", path = "/record/list")
+    @GetResource(name = "查询全部笔录", path = "/basic/list")
     public ResponseData list(BasicInfoRequest basicInfoRequest) {
         return new SuccessResponseData(basicInfoService.findList(basicInfoRequest));
     }

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.modular.mapper.AccuserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.entity.Accuser">
+        <id column="accuser_id" property="accuserId" />
+        <result column="accuser" property="accuser" />
+        <result column="accuser_short" property="accuserShort" />
+        <result column="accuser_type" property="accuserType" />
+        <result column="accuser_address" property="accuserAddress" />
+        <result column="accuser_represent" property="accuserRepresent" />
+        <result column="accuser_duty" property="accuserDuty" />
+        <result column="court_number" property="courtNumber" />
+        <result column="accuser_right_duty" property="accuserRightDuty" />
+        <result column="accuser_avoid" property="accuserAvoid" />
+        <result column="is_mediate" property="isMediate" />
+        <result column="mediate_plan" property="mediatePlan" />
+        <result column="time_limit" property="timeLimit" />
+        <result column="is_delivery" property="isDelivery" />
+        <result column="email" property="email" />
+        <result column="final_statement" property="finalStatement" />
+        <result column="create_time" property="createTime" />
+        <result column="create_user" property="createUser" />
+        <result column="update_time" property="updateTime" />
+        <result column="update_user" property="updateUser" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        accuser_id AS "accuserId", accuser AS "accuser", accuser_short AS "accuserShort", accuser_type AS "accuserType", accuser_address AS "accuserAddress", accuser_represent AS "accuserRepresent", accuser_duty AS "accuserDuty", court_number AS "courtNumber", accuser_right_duty AS "accuserRightDuty", accuser_avoid AS "accuserAvoid", is_mediate AS "isMediate", mediate_plan AS "mediatePlan", time_limit AS "timeLimit", is_delivery AS "isDelivery", email AS "email", final_statement AS "finalStatement", create_time AS "createTime", create_user AS "createUser", update_time AS "updateTime", update_user AS "updateUser"
+    </sql>
+
+
+    <select id="findList" resultType="cn.stylefeng.guns.modular.model.result.AccuserResult" parameterType="cn.stylefeng.guns.modular.model.request.AccuserRequest">
+        select
+        <include refid="Base_Column_List"/>
+        from accuser where 1 = 1
+    </select>
+
+    <select id="findPage" resultType="cn.stylefeng.guns.modular.model.result.AccuserResult" parameterType="cn.stylefeng.guns.modular.model.request.AccuserRequest">
+        select
+        <include refid="Base_Column_List"/>
+        from accuser where 1 = 1
+    </select>
+
+</mapper>

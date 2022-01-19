@@ -18,8 +18,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,6 +33,14 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    public void add(BasicInfoRequest basicInfoRequest) {
+        BasicInfo basicInfo = new BasicInfo();
+        BeanUtil.copyProperties(basicInfoRequest, basicInfo);
+        this.save(basicInfo);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     public void del(BasicInfoRequest basicInfoRequest) {
         BasicInfo basicInfo = this.queryBasicInfoById(basicInfoRequest);
         basicInfo.setDelFlag(YesOrNotEnum.Y.getCode());
@@ -43,10 +49,16 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void edit(BasicInfoRequest basicInfoRequest) {
+    public void update(BasicInfoRequest basicInfoRequest) {
         BasicInfo basicInfo = this.queryBasicInfoById(basicInfoRequest);
         BeanUtil.copyProperties(basicInfoRequest,basicInfo);
         this.updateById(basicInfo);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public BasicInfo detail(BasicInfoRequest basicInfoRequest) {
+        return this.queryBasicInfoById(basicInfoRequest);
     }
 
     @Override
