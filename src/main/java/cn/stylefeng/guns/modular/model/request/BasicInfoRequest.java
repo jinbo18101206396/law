@@ -3,6 +3,7 @@ package cn.stylefeng.guns.modular.model.request;
 import cn.stylefeng.roses.kernel.rule.pojo.request.BaseRequest;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -25,16 +26,19 @@ public class BasicInfoRequest extends BaseRequest {
     /**
      * 立案时间
      */
-    private String filingTime;
+    @NotNull(message = "filingTime不能为空", groups = {add.class, edit.class})
+    private Date filingTime;
 
     /**
      * 开庭时间
      */
-    private String courtTime;
+    @NotNull(message = "courtTime不能为空", groups = {add.class, edit.class})
+    private Date courtTime;
 
     /**
      * 开庭地点
      */
+    @NotNull(message = "courtPlace不能为空", groups = {add.class, edit.class})
     private String courtPlace;
 
     /**
@@ -53,18 +57,26 @@ public class BasicInfoRequest extends BaseRequest {
     private String juror;
 
     /**
+     * 人民陪审员
+     */
+    private String peopleJuror;
+
+    /**
      * 书记员
      */
+    @NotNull(message = "courtClerk不能为空", groups = {add.class, edit.class})
     private String courtClerk;
 
     /**
      * 案号
      */
+    @NotNull(message = "courtNumber不能为空", groups = {add.class, edit.class})
     private String courtNumber;
 
     /**
      * 案由
      */
+    @NotNull(message = "courtCause不能为空", groups = {add.class, edit.class})
     private String courtCause;
 
     /**

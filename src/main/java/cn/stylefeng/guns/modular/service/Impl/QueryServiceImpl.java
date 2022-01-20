@@ -2,17 +2,11 @@ package cn.stylefeng.guns.modular.service.Impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
-import cn.stylefeng.guns.modular.entity.Argue;
-import cn.stylefeng.guns.modular.entity.BasicInfo;
-import cn.stylefeng.guns.modular.entity.Proof;
 import cn.stylefeng.guns.modular.entity.Query;
 import cn.stylefeng.guns.modular.mapper.QueryMapper;
-import cn.stylefeng.guns.modular.model.request.ArgueRequest;
-import cn.stylefeng.guns.modular.model.request.BasicInfoRequest;
 import cn.stylefeng.guns.modular.model.request.QueryRequest;
-import  cn.stylefeng.guns.modular.service.QueryService;
+import cn.stylefeng.guns.modular.service.QueryService;
 import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
-import cn.stylefeng.roses.kernel.rule.enums.YesOrNotEnum;
 import cn.stylefeng.roses.kernel.system.api.exception.SystemModularException;
 import cn.stylefeng.roses.kernel.system.api.exception.enums.organization.PositionExceptionEnum;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -47,7 +41,7 @@ public class QueryServiceImpl extends ServiceImpl<QueryMapper, Query> implements
     @Override
     public void update(QueryRequest queryRequest) {
         Query query = this.queryQueryById(queryRequest);
-        BeanUtil.copyProperties(queryRequest,query);
+        BeanUtil.copyProperties(queryRequest, query);
         this.updateById(query);
     }
 

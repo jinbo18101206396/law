@@ -4,31 +4,34 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.entity.Allege">
-        <id column="allege_id" property="allegeId" />
-        <result column="name" property="name" />
-        <result column="claim_item" property="claimItem" />
-        <result column="fact_reason" property="factReason" />
-        <result column="is_counter_claim" property="isCounterClaim" />
-        <result column="court_number" property="courtNumber" />
-        <result column="create_time" property="createTime" />
-        <result column="create_user" property="createUser" />
-        <result column="update_time" property="updateTime" />
-        <result column="update_user" property="updateUser" />
+        <id column="allege_id" property="allegeId"/>
+        <result column="name" property="name"/>
+        <result column="claim_item" property="claimItem"/>
+        <result column="fact_reason" property="factReason"/>
+        <result column="is_counter_claim" property="isCounterClaim"/>
+        <result column="court_number" property="courtNumber"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_user" property="updateUser"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        allege_id AS "allegeId", name AS "name", claim_item AS "claimItem", fact_reason AS "factReason", is_counter_claim AS "isCounterClaim", court_number AS "courtNumber", create_time AS "createTime", create_user AS "createUser", update_time AS "updateTime", update_user AS "updateUser"
+        allege_id
+        AS "allegeId", name AS "name", claim_item AS "claimItem", fact_reason AS "factReason", is_counter_claim AS "isCounterClaim", court_number AS "courtNumber", create_time AS "createTime", create_user AS "createUser", update_time AS "updateTime", update_user AS "updateUser"
     </sql>
 
 
-    <select id="findList" resultType="cn.stylefeng.guns.modular.model.result.AllegeResult" parameterType="cn.stylefeng.guns.modular.model.request.AllegeRequest">
+    <select id="findList" resultType="cn.stylefeng.guns.modular.model.result.AllegeResult"
+            parameterType="cn.stylefeng.guns.modular.model.request.AllegeRequest">
         select
         <include refid="Base_Column_List"/>
         from allege where 1 = 1
     </select>
 
-    <select id="findPage" resultType="cn.stylefeng.guns.modular.model.result.AllegeResult" parameterType="cn.stylefeng.guns.modular.model.request.AllegeRequest">
+    <select id="findPage" resultType="cn.stylefeng.guns.modular.model.result.AllegeResult"
+            parameterType="cn.stylefeng.guns.modular.model.request.AllegeRequest">
         select
         <include refid="Base_Column_List"/>
         from allege where 1 = 1

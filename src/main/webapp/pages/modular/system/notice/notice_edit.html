@@ -9,38 +9,47 @@
                     <div class="layui-inline layui-col-md12">
                         <label class="layui-form-label layui-form-required">通知标题</label>
                         <div class="layui-input-block">
-                            <input name="noticeTitle" placeholder="请输入通知标题" type="text" class="layui-input" lay-verify="required" required autocomplete="off"/>
+                            <input name="noticeTitle" placeholder="请输入通知标题" type="text" class="layui-input"
+                                   lay-verify="required" required autocomplete="off"/>
                         </div>
                     </div>
                     <div class="layui-inline layui-col-md12">
                         <label class="layui-form-label">通知摘要</label>
                         <div class="layui-input-block">
-                            <input name="noticeSummary" placeholder="请输入通知摘要" type="text" class="layui-input" autocomplete="off"/>
+                            <input name="noticeSummary" placeholder="请输入通知摘要" type="text" class="layui-input"
+                                   autocomplete="off"/>
                         </div>
                     </div>
                     <div class="layui-inline layui-col-md12">
                         <label class="layui-form-label layui-form-required">优先级</label>
                         <div class="layui-input-block">
-                            <tag:dict_select id="priorityLevel" name="priorityLevel" type="select" head-type="2" head-name="" head-value="" default-value="" dict-type-code="priority_level" lay-verify="required" >
+                            <tag:dict_select id="priorityLevel" name="priorityLevel" type="select" head-type="2"
+                                             head-name="" head-value="" default-value="" dict-type-code="priority_level"
+                                             lay-verify="required">
                             </tag:dict_select>
                         </div>
                     </div>
                     <div class="layui-inline layui-col-md6">
                         <label class="layui-form-label layui-form-required">开始时间</label>
                         <div class="layui-input-block">
-                            <input name="noticeBeginTime" placeholder="请输入开始时间" type="text" class="layui-input date-icon date-input" lay-verify="required" required autocomplete="off"/>
+                            <input name="noticeBeginTime" placeholder="请输入开始时间" type="text"
+                                   class="layui-input date-icon date-input" lay-verify="required" required
+                                   autocomplete="off"/>
                         </div>
                     </div>
                     <div class="layui-inline layui-col-md6">
                         <label class="layui-form-label layui-form-required">结束时间</label>
                         <div class="layui-input-block">
-                            <input name="noticeEndTime" placeholder="请输入结束时间" type="text" class="layui-input date-icon date-input" lay-verify="required" required autocomplete="off"/>
+                            <input name="noticeEndTime" placeholder="请输入结束时间" type="text"
+                                   class="layui-input date-icon date-input" lay-verify="required" required
+                                   autocomplete="off"/>
                         </div>
                     </div>
                     <div class="layui-inline layui-col-md12">
                         <label class="layui-form-label layui-form-required">通知范围</label>
                         <div class="layui-input-block">
-                            <select id="noticeScopeSelect" name="noticeScope" lay-verify="required" lay-filter="noticeScopeFilter">
+                            <select id="noticeScopeSelect" name="noticeScope" lay-verify="required"
+                                    lay-filter="noticeScopeFilter">
                                 <option value="all">全部用户</option>
                                 <option value="select">选择用户</option>
                             </select>

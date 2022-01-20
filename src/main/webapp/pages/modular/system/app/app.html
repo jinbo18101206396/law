@@ -18,8 +18,10 @@
                                 <input id="appCode" class="layui-input" type="text" placeholder="应用编码"/>
                             </div>
                             <div class="layui-inline">
-                                <button id="btnSearch" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>搜索</button>
-                                <button id="btnAdd" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i>添加</button>
+                                <button id="btnSearch" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>搜索
+                                </button>
+                                <button id="btnAdd" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i>添加
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -36,9 +38,11 @@
 </script>
 
 <script type="text/html" id="activeTpl">
-    <input type="checkbox" lay-filter="activeFilter" value="{{d.appId}}" lay-skin="switch" lay-text="已激活|未激活" {{d.activeFlag=='Y'?'checked':''}}/>
+    <input type="checkbox" lay-filter="activeFilter" value="{{d.appId}}" lay-skin="switch" lay-text="已激活|未激活"
+           {{d.activeFlag=='Y'?'checked':''}}/>
 </script>
 <script type="text/html" id="statusTpl">
-    <input type="checkbox" lay-filter="statusFilter" value="{{d.appId}}" lay-skin="switch" lay-text="启用|禁用" {{d.statusFlag=='1'?'checked':''}}/>
+    <input type="checkbox" lay-filter="statusFilter" value="{{d.appId}}" lay-skin="switch" lay-text="启用|禁用"
+           {{d.statusFlag=='1'?'checked':''}}/>
 </script>
 @}

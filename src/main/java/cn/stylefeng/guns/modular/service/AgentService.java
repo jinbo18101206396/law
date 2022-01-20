@@ -1,11 +1,10 @@
 package cn.stylefeng.guns.modular.service;
 
-import cn.stylefeng.guns.modular.entity.Accuser;
 import cn.stylefeng.guns.modular.entity.Agent;
-import cn.stylefeng.guns.modular.model.request.AccuserRequest;
 import cn.stylefeng.guns.modular.model.request.AgentRequest;
 import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
 import com.baomidou.mybatisplus.extension.service.IService;
+
 import java.util.List;
 
 /**

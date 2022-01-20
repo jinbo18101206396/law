@@ -1,10 +1,10 @@
 package cn.stylefeng.guns.modular.service;
 
 import cn.stylefeng.guns.modular.entity.Accuser;
-import cn.stylefeng.guns.modular.entity.BasicInfo;
 import cn.stylefeng.guns.modular.model.request.AccuserRequest;
 import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
 import com.baomidou.mybatisplus.extension.service.IService;
+
 import java.util.List;
 
 /**
@@ -18,28 +18,64 @@ import java.util.List;
 public interface AccuserService extends IService<Accuser> {
 
     /**
-     * 新增
+     * 通过原告全称和案号更新是否申请回避信息
      *
-     * @author jinbo
-     * @Date 2022-01-19
+     * @param accuserRequest 查看参数
+     * @return
+     * @author 金波
+     * @date 2022/01/20
      */
     void add(AccuserRequest accuserRequest);
 
     /**
-     * 删除
+     * 通过原告全称和案号更新是否申请回避信息
      *
-     * @author jinbo
-     * @Date 2022-01-19
+     * @param accuserRequest 查看参数
+     * @return
+     * @author 金波
+     * @date 2022/01/20
      */
     void delete(AccuserRequest accuserRequest);
 
     /**
-     * 更新
+     * 通过原告全称和案号更新是否申请回避信息
      *
-     * @author jinbo
-     * @Date 2022-01-19
+     * @param accuserRequest 查看参数
+     * @return
+     * @author 金波
+     * @date 2022/01/20
      */
-    void update(AccuserRequest accuserRequest);
+    void updateById(AccuserRequest accuserRequest);
+
+    /**
+     * 通过原告全称和案号更新是否申请回避信息
+     *
+     * @param accuserRequest 查看参数
+     * @return
+     * @author 金波
+     * @date 2022/01/20
+     */
+    void updateByNumberAndType(AccuserRequest accuserRequest);
+
+    /**
+     * 通过原告全称和案号更新是否申请回避信息
+     *
+     * @param accuserRequest 查看参数
+     * @return
+     * @author 金波
+     * @date 2022/01/20
+     */
+    void updateRightDutyByAccuserAndNumber(AccuserRequest accuserRequest);
+
+    /**
+     * 通过原告全称和案号更新是否申请回避信息
+     *
+     * @param accuserRequest 查看参数
+     * @return 详情结果
+     * @author 金波
+     * @date 2022/01/20
+     */
+    void updateAvoidByAccuserAndNumber(AccuserRequest accuserRequest);
 
     /**
      * 查看详情
@@ -50,6 +86,16 @@ public interface AccuserService extends IService<Accuser> {
      * @date 2021/5/12 18:28
      */
     Accuser detail(AccuserRequest accuserRequest);
+
+    /**
+     * 根据案号查看原告信息
+     *
+     * @param accuserRequest 查看参数
+     * @return 详情结果
+     * @author 金波
+     * @date 2021/5/12 18:28
+     */
+    Accuser queryAccuserByCourtNumber(AccuserRequest accuserRequest);
 
     /**
      * 查询列表

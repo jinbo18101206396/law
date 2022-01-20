@@ -2,14 +2,10 @@ package cn.stylefeng.guns.modular.service.Impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
-import cn.stylefeng.guns.modular.entity.Argue;
-import cn.stylefeng.guns.modular.entity.BasicInfo;
 import cn.stylefeng.guns.modular.entity.Defendant;
-import cn.stylefeng.guns.modular.entity.State;
 import cn.stylefeng.guns.modular.mapper.DefendantMapper;
 import cn.stylefeng.guns.modular.model.request.DefendantRequest;
-import cn.stylefeng.guns.modular.model.request.StateRequest;
-import  cn.stylefeng.guns.modular.service.DefendantService;
+import cn.stylefeng.guns.modular.service.DefendantService;
 import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
 import cn.stylefeng.roses.kernel.system.api.exception.SystemModularException;
 import cn.stylefeng.roses.kernel.system.api.exception.enums.organization.PositionExceptionEnum;
@@ -44,15 +40,43 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
     }
 
     @Override
-    public void update(DefendantRequest defendantRequest) {
+    public void updateById(DefendantRequest defendantRequest) {
         Defendant defendant = this.queryDefendantById(defendantRequest);
-        BeanUtil.copyProperties(defendantRequest,defendant);
+        BeanUtil.copyProperties(defendantRequest, defendant);
+        this.updateById(defendant);
+    }
+
+    @Override
+    public void updateByNumberAndType(DefendantRequest defendantRequest) {
+        Defendant defendant = this.queryDefendantByWrapper(defendantRequest);
+        BeanUtil.copyProperties(defendantRequest, defendant);
         this.updateById(defendant);
     }
 
     @Override
     public Defendant detail(DefendantRequest defendantRequest) {
         return this.queryDefendantById(defendantRequest);
+    }
+
+    @Override
+    public Defendant queryDefendantByCourtNumber(DefendantRequest defendantRequest) {
+        return this.queryDefendantByWrapper(defendantRequest);
+    }
+
+    @Override
+    public void updateRightDutyByDefendantAndNumber(DefendantRequest defendantRequest) {
+        Defendant defendant = this.queryDefendantByWrapper(defendantRequest);
+        String defendantRightDuty = defendantRequest.getDefendantRightDuty();
+        defendant.setDefendantRightDuty(defendantRightDuty);
+        this.updateById(defendant);
+    }
+
+    @Override
+    public void updateAvoidByDefendantAndNumber(DefendantRequest defendantRequest) {
+        Defendant defendant = this.queryDefendantByWrapper(defendantRequest);
+        String defendantAvoid = defendantRequest.getDefendantAvoid();
+        defendant.setDefendantAvoid(defendantAvoid);
+        this.updateById(defendant);
     }
 
     @Override
@@ -70,7 +94,7 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
      *
      * @return 实体对象
      * @author 金波
-     * @date 2022/01/14 15:07
+     * @date 2022/01/14
      */
     private Defendant queryDefendantById(DefendantRequest defendantRequest) {
         Defendant defendant = this.getById(defendantRequest.getDefendantId());
@@ -81,13 +105,36 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
     }
 
     /**
+     * 根据案号和被告类型获取对象信息
+     *
+     * @return 实体对象
+     * @author 金波
+     * @date 2022/01/14
+     */
+    private Defendant queryDefendantByWrapper(DefendantRequest defendantRequest) {
+        LambdaQueryWrapper<Defendant> wrapper = this.createWrapper(defendantRequest);
+        Defendant defendant = this.getOne(wrapper);
+        if (ObjectUtil.isEmpty(defendant)) {
+            throw new SystemModularException(PositionExceptionEnum.CANT_FIND_POSITION, defendant.getCourtNumber());
+        }
+        return defendant;
+    }
+
+    /**
      * 实体构建 QueryWrapper
      *
      * @author 金波
-     * @date 2022/01/14 15:07
+     * @date 2022/01/14
      */
-    private LambdaQueryWrapper<State> createWrapper(StateRequest stateRequest) {
-        LambdaQueryWrapper<State> queryWrapper = new LambdaQueryWrapper<State>();
+    private LambdaQueryWrapper<Defendant> createWrapper(DefendantRequest defendantRequest) {
+        LambdaQueryWrapper<Defendant> queryWrapper = new LambdaQueryWrapper<Defendant>();
+        String courtNumber = defendantRequest.getCourtNumber();
+        Integer accuserType = defendantRequest.getDefendantType();
+        String defendant = defendantRequest.getDefendant();
+
+        queryWrapper.eq(ObjectUtil.isNotNull(courtNumber), Defendant::getCourtNumber, courtNumber);
+        queryWrapper.eq(ObjectUtil.isNotNull(accuserType), Defendant::getDefendantType, accuserType);
+        queryWrapper.eq(ObjectUtil.isNotNull(defendant), Defendant::getDefendant, defendant);
 
         return queryWrapper;
     }

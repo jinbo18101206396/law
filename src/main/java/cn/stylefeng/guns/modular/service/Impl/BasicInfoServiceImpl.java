@@ -18,6 +18,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 /**
@@ -51,7 +52,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
     @Transactional(rollbackFor = Exception.class)
     public void update(BasicInfoRequest basicInfoRequest) {
         BasicInfo basicInfo = this.queryBasicInfoById(basicInfoRequest);
-        BeanUtil.copyProperties(basicInfoRequest,basicInfo);
+        BeanUtil.copyProperties(basicInfoRequest, basicInfo);
         this.updateById(basicInfo);
     }
 
@@ -59,6 +60,12 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
     @Transactional(rollbackFor = Exception.class)
     public BasicInfo detail(BasicInfoRequest basicInfoRequest) {
         return this.queryBasicInfoById(basicInfoRequest);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public BasicInfo queryBasicInfoByCourtNumber(BasicInfoRequest basicInfoRequest) {
+        return this.queryBasicInfoByWrapper(basicInfoRequest);
     }
 
     @Override
@@ -88,6 +95,23 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         return basicInfo;
     }
 
+
+    /**
+     * 根据案号获取对象信息
+     *
+     * @return 实体对象
+     * @author 金波
+     * @date 2022/01/14 15:07
+     */
+    private BasicInfo queryBasicInfoByWrapper(BasicInfoRequest basicInfoRequest) {
+        LambdaQueryWrapper<BasicInfo> wrapper = this.createWrapper(basicInfoRequest);
+        BasicInfo basicInfo = this.getOne(wrapper);
+        if (ObjectUtil.isEmpty(basicInfo)) {
+            throw new SystemModularException(PositionExceptionEnum.CANT_FIND_POSITION, basicInfo.getCourtNumber());
+        }
+        return basicInfo;
+    }
+
     /**
      * 实体构建 QueryWrapper
      *
@@ -103,9 +127,9 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         int status = basicInfoRequest.getStatus();
 
         queryWrapper.eq(ObjectUtil.isNotNull(basicId), BasicInfo::getBasicId, basicId);
-        queryWrapper.eq(ObjectUtil.isNotNull(judge), BasicInfo::getJudge, judge);
+        queryWrapper.like(ObjectUtil.isNotNull(judge), BasicInfo::getJudge, judge);
         queryWrapper.eq(ObjectUtil.isNotNull(courtNumber), BasicInfo::getCourtNumber, courtNumber);
-        queryWrapper.eq(ObjectUtil.isNotNull(courtCause), BasicInfo::getCourtCause, courtCause);
+        queryWrapper.like(ObjectUtil.isNotNull(courtCause), BasicInfo::getCourtCause, courtCause);
         queryWrapper.eq(ObjectUtil.isNotNull(status), BasicInfo::getStatus, status);
 
         // 查询未删除状态的

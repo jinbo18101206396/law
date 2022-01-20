@@ -4,32 +4,35 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.entity.Argue">
-        <id column="argue_id" property="argueId" />
-        <result column="accuser" property="accuser" />
-        <result column="accuser_argue" property="accuserArgue" />
-        <result column="defendant" property="defendant" />
-        <result column="defendant_argue" property="defendantArgue" />
-        <result column="is_counter_claim" property="isCounterClaim" />
-        <result column="court_number" property="courtNumber" />
-        <result column="create_time" property="createTime" />
-        <result column="create_user" property="createUser" />
-        <result column="update_time" property="updateTime" />
-        <result column="update_user" property="updateUser" />
+        <id column="argue_id" property="argueId"/>
+        <result column="accuser" property="accuser"/>
+        <result column="accuser_argue" property="accuserArgue"/>
+        <result column="defendant" property="defendant"/>
+        <result column="defendant_argue" property="defendantArgue"/>
+        <result column="is_counter_claim" property="isCounterClaim"/>
+        <result column="court_number" property="courtNumber"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_user" property="updateUser"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        argue_id AS "argueId", accuser AS "accuser", accuser_argue AS "accuserArgue", defendant AS "defendant", defendant_argue AS "defendantArgue", is_counter_claim AS "isCounterClaim", court_number AS "courtNumber", create_time AS "createTime", create_user AS "createUser", update_time AS "updateTime", update_user AS "updateUser"
+        argue_id
+        AS "argueId", accuser AS "accuser", accuser_argue AS "accuserArgue", defendant AS "defendant", defendant_argue AS "defendantArgue", is_counter_claim AS "isCounterClaim", court_number AS "courtNumber", create_time AS "createTime", create_user AS "createUser", update_time AS "updateTime", update_user AS "updateUser"
     </sql>
 
 
-    <select id="findList" resultType="cn.stylefeng.guns.modular.model.result.ArgueResult" parameterType="cn.stylefeng.guns.modular.model.request.ArgueRequest">
+    <select id="findList" resultType="cn.stylefeng.guns.modular.model.result.ArgueResult"
+            parameterType="cn.stylefeng.guns.modular.model.request.ArgueRequest">
         select
         <include refid="Base_Column_List"/>
         from argue where 1 = 1
     </select>
 
-    <select id="findPage" resultType="cn.stylefeng.guns.modular.model.result.ArgueResult" parameterType="cn.stylefeng.guns.modular.model.request.ArgueRequest">
+    <select id="findPage" resultType="cn.stylefeng.guns.modular.model.result.ArgueResult"
+            parameterType="cn.stylefeng.guns.modular.model.request.ArgueRequest">
         select
         <include refid="Base_Column_List"/>
         from argue where 1 = 1

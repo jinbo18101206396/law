@@ -14,18 +14,19 @@
         </li>
 
         @if(objectUtil.isNotEmpty(layuiAppIndexMenus)){
-            @for(item in layuiAppIndexMenus) {
-                <li class="layui-nav-item layui-hide-xs" lay-unselect><a nav-bind="${item.appCode}"><i class="layui-icon ${item.appIcon}"></i>${item.appName}</a></li>
-            @}
+        @for(item in layuiAppIndexMenus) {
+        <li class="layui-nav-item layui-hide-xs" lay-unselect><a nav-bind="${item.appCode}"><i
+                class="layui-icon ${item.appIcon}"></i>${item.appName}</a></li>
+        @}
         @}
         <!-- 小屏幕下变为下拉形式 -->
         <li class="layui-nav-item layui-hide-sm layui-show-xs-inline-block" lay-unselect>
             <a>更多</a>
             <dl class="layui-nav-child">
                 @if(objectUtil.isNotEmpty(layuiAppIndexMenus)){
-                    @for(item in layuiAppIndexMenus) {
-                        <dd lay-unselect><a nav-bind="${item.appCode}">${item.appName}</a></dd>
-                    @}
+                @for(item in layuiAppIndexMenus) {
+                <dd lay-unselect><a nav-bind="${item.appCode}">${item.appName}</a></dd>
+                @}
                 @}
             </dl>
         </li>
@@ -46,7 +47,8 @@
             <a ew-event="fullScreen" title="全屏"><i class="layui-icon layui-icon-screen-full"></i></a>
         </li>
         <li class="layui-nav-item layui-hide-xs" lay-unselect>
-            <a ew-event="lockScreen" title="锁屏" data-url="${ctxPath}/view/lock"><i class="layui-icon layui-icon-password"></i></a>
+            <a ew-event="lockScreen" title="锁屏" data-url="${ctxPath}/view/lock"><i
+                    class="layui-icon layui-icon-password"></i></a>
         </li>
         <li class="layui-nav-item" lay-unselect>
             <a>
@@ -63,7 +65,8 @@
             </dl>
         </li>
         <li class="layui-nav-item" lay-unselect>
-            <a ew-event="theme" title="主题" data-url="${ctxPath}/view/theme"><i class="layui-icon layui-icon-more-vertical"></i></a>
+            <a ew-event="theme" title="主题" data-url="${ctxPath}/view/theme"><i
+                    class="layui-icon layui-icon-more-vertical"></i></a>
         </li>
     </ul>
 </div>

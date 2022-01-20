@@ -2,18 +2,18 @@ package cn.stylefeng.guns.modular.service.Impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
-import cn.stylefeng.guns.modular.entity.Query;
 import cn.stylefeng.guns.modular.entity.Reply;
 import cn.stylefeng.guns.modular.mapper.ReplyMapper;
 import cn.stylefeng.guns.modular.model.request.ProofRequest;
 import cn.stylefeng.guns.modular.model.request.ReplyRequest;
-import  cn.stylefeng.guns.modular.service.ReplyService;
+import cn.stylefeng.guns.modular.service.ReplyService;
 import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
 import cn.stylefeng.roses.kernel.system.api.exception.SystemModularException;
 import cn.stylefeng.roses.kernel.system.api.exception.enums.organization.PositionExceptionEnum;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 /**
@@ -43,7 +43,7 @@ public class ReplyServiceImpl extends ServiceImpl<ReplyMapper, Reply> implements
     @Override
     public void update(ReplyRequest replyRequest) {
         Reply reply = this.queryReplyById(replyRequest);
-        BeanUtil.copyProperties(replyRequest,reply);
+        BeanUtil.copyProperties(replyRequest, reply);
         this.updateById(reply);
     }
 

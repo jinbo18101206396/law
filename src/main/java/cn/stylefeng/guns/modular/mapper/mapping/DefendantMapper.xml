@@ -4,40 +4,43 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.entity.Defendant">
-        <id column="defendant_id" property="defendantId" />
-        <result column="defendant" property="defendant" />
-        <result column="defendant_short" property="defendantShort" />
-        <result column="defendant_type" property="defendantType" />
-        <result column="defendant_address" property="defendantAddress" />
-        <result column="defendant_represent" property="defendantRepresent" />
-        <result column="defendant_duty" property="defendantDuty" />
-        <result column="court_number" property="courtNumber" />
-        <result column="defendant_right_duty" property="defendantRightDuty" />
-        <result column="defendant_avoid" property="defendantAvoid" />
-        <result column="is_mediate" property="isMediate" />
-        <result column="mediate_plan" property="mediatePlan" />
-        <result column="time_limit" property="timeLimit" />
-        <result column="is_delivery" property="isDelivery" />
-        <result column="email" property="email" />
-        <result column="final_statement" property="finalStatement" />
-        <result column="create_time" property="createTime" />
-        <result column="create_user" property="createUser" />
-        <result column="update_time" property="updateTime" />
-        <result column="update_user" property="updateUser" />
+        <id column="defendant_id" property="defendantId"/>
+        <result column="defendant" property="defendant"/>
+        <result column="defendant_short" property="defendantShort"/>
+        <result column="defendant_type" property="defendantType"/>
+        <result column="defendant_address" property="defendantAddress"/>
+        <result column="defendant_represent" property="defendantRepresent"/>
+        <result column="defendant_duty" property="defendantDuty"/>
+        <result column="court_number" property="courtNumber"/>
+        <result column="defendant_right_duty" property="defendantRightDuty"/>
+        <result column="defendant_avoid" property="defendantAvoid"/>
+        <result column="is_mediate" property="isMediate"/>
+        <result column="mediate_plan" property="mediatePlan"/>
+        <result column="time_limit" property="timeLimit"/>
+        <result column="is_delivery" property="isDelivery"/>
+        <result column="email" property="email"/>
+        <result column="final_statement" property="finalStatement"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_user" property="updateUser"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        defendant_id AS "defendantId", defendant AS "defendant", defendant_short AS "defendantShort", defendant_type AS "defendantType", defendant_address AS "defendantAddress", defendant_represent AS "defendantRepresent", defendant_duty AS "defendantDuty", court_number AS "courtNumber", defendant_right_duty AS "defendantRightDuty", defendant_avoid AS "defendantAvoid", is_mediate AS "isMediate", mediate_plan AS "mediatePlan", time_limit AS "timeLimit", is_delivery AS "isDelivery", email AS "email", final_statement AS "finalStatement", create_time AS "createTime", create_user AS "createUser", update_time AS "updateTime", update_user AS "updateUser"
+        defendant_id
+        AS "defendantId", defendant AS "defendant", defendant_short AS "defendantShort", defendant_type AS "defendantType", defendant_address AS "defendantAddress", defendant_represent AS "defendantRepresent", defendant_duty AS "defendantDuty", court_number AS "courtNumber", defendant_right_duty AS "defendantRightDuty", defendant_avoid AS "defendantAvoid", is_mediate AS "isMediate", mediate_plan AS "mediatePlan", time_limit AS "timeLimit", is_delivery AS "isDelivery", email AS "email", final_statement AS "finalStatement", create_time AS "createTime", create_user AS "createUser", update_time AS "updateTime", update_user AS "updateUser"
     </sql>
 
-    <select id="findList" resultType="cn.stylefeng.guns.modular.model.result.DefendantResult" parameterType="cn.stylefeng.guns.modular.model.request.DefendantRequest">
+    <select id="findList" resultType="cn.stylefeng.guns.modular.model.result.DefendantResult"
+            parameterType="cn.stylefeng.guns.modular.model.request.DefendantRequest">
         select
         <include refid="Base_Column_List"/>
         from defendant where 1 = 1
     </select>
 
-    <select id="findPage" resultType="cn.stylefeng.guns.modular.model.result.DefendantResult" parameterType="cn.stylefeng.guns.modular.model.request.DefendantRequest">
+    <select id="findPage" resultType="cn.stylefeng.guns.modular.model.result.DefendantResult"
+            parameterType="cn.stylefeng.guns.modular.model.request.DefendantRequest">
         select
         <include refid="Base_Column_List"/>
         from defendant where 1 = 1

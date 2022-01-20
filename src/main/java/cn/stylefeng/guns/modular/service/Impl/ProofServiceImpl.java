@@ -2,13 +2,10 @@ package cn.stylefeng.guns.modular.service.Impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
-import cn.stylefeng.guns.modular.entity.BasicInfo;
-import cn.stylefeng.guns.modular.entity.Inquiry;
 import cn.stylefeng.guns.modular.entity.Proof;
 import cn.stylefeng.guns.modular.mapper.ProofMapper;
-import cn.stylefeng.guns.modular.model.request.InquiryRequest;
 import cn.stylefeng.guns.modular.model.request.ProofRequest;
-import  cn.stylefeng.guns.modular.service.ProofService;
+import cn.stylefeng.guns.modular.service.ProofService;
 import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
 import cn.stylefeng.roses.kernel.system.api.exception.SystemModularException;
 import cn.stylefeng.roses.kernel.system.api.exception.enums.organization.PositionExceptionEnum;
@@ -45,7 +42,7 @@ public class ProofServiceImpl extends ServiceImpl<ProofMapper, Proof> implements
     @Override
     public void update(ProofRequest proofRequest) {
         Proof proof = this.queryProofById(proofRequest);
-        BeanUtil.copyProperties(proofRequest,proof);
+        BeanUtil.copyProperties(proofRequest, proof);
         this.updateById(proof);
     }
 

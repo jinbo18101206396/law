@@ -1,12 +1,9 @@
 package cn.stylefeng.guns.modular.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -19,7 +16,7 @@ import java.io.Serializable;
 @TableName("accuser")
 public class Accuser implements Serializable {
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * 主键
@@ -73,13 +70,13 @@ public class Accuser implements Serializable {
      * 是否听清诉讼权力和义务
      */
     @TableField("accuser_right_duty")
-    private Boolean accuserRightDuty;
+    private String accuserRightDuty;
 
     /**
      * 对审判员和书记员是否申请回避
      */
     @TableField("accuser_avoid")
-    private Boolean accuserAvoid;
+    private String accuserAvoid;
 
     /**
      * 是否能够调解
@@ -120,25 +117,25 @@ public class Accuser implements Serializable {
     /**
      * 创建时间
      */
-      @TableField(value = "create_time", fill = FieldFill.INSERT)
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
     private Date createTime;
 
     /**
      * 创建人
      */
-      @TableField(value = "create_user", fill = FieldFill.INSERT)
+    @TableField(value = "create_user", fill = FieldFill.INSERT)
     private Long createUser;
 
     /**
      * 更新时间
      */
-      @TableField(value = "update_time", fill = FieldFill.UPDATE)
+    @TableField(value = "update_time", fill = FieldFill.UPDATE)
     private Date updateTime;
 
     /**
      * 更新人
      */
-      @TableField(value = "update_user", fill = FieldFill.UPDATE)
+    @TableField(value = "update_user", fill = FieldFill.UPDATE)
     private Long updateUser;
 
 
@@ -206,19 +203,19 @@ public class Accuser implements Serializable {
         this.courtNumber = courtNumber;
     }
 
-    public Boolean getAccuserRightDuty() {
+    public String getAccuserRightDuty() {
         return accuserRightDuty;
     }
 
-    public void setAccuserRightDuty(Boolean accuserRightDuty) {
+    public void setAccuserRightDuty(String accuserRightDuty) {
         this.accuserRightDuty = accuserRightDuty;
     }
 
-    public Boolean getAccuserAvoid() {
+    public String getAccuserAvoid() {
         return accuserAvoid;
     }
 
-    public void setAccuserAvoid(Boolean accuserAvoid) {
+    public void setAccuserAvoid(String accuserAvoid) {
         this.accuserAvoid = accuserAvoid;
     }
 
@@ -305,26 +302,26 @@ public class Accuser implements Serializable {
     @Override
     public String toString() {
         return "Accuser{" +
-        "accuserId=" + accuserId +
-        ", accuser=" + accuser +
-        ", accuserShort=" + accuserShort +
-        ", accuserType=" + accuserType +
-        ", accuserAddress=" + accuserAddress +
-        ", accuserRepresent=" + accuserRepresent +
-        ", accuserDuty=" + accuserDuty +
-        ", courtNumber=" + courtNumber +
-        ", accuserRightDuty=" + accuserRightDuty +
-        ", accuserAvoid=" + accuserAvoid +
-        ", isMediate=" + isMediate +
-        ", mediatePlan=" + mediatePlan +
-        ", timeLimit=" + timeLimit +
-        ", isDelivery=" + isDelivery +
-        ", email=" + email +
-        ", finalStatement=" + finalStatement +
-        ", createTime=" + createTime +
-        ", createUser=" + createUser +
-        ", updateTime=" + updateTime +
-        ", updateUser=" + updateUser +
-        "}";
+                "accuserId=" + accuserId +
+                ", accuser=" + accuser +
+                ", accuserShort=" + accuserShort +
+                ", accuserType=" + accuserType +
+                ", accuserAddress=" + accuserAddress +
+                ", accuserRepresent=" + accuserRepresent +
+                ", accuserDuty=" + accuserDuty +
+                ", courtNumber=" + courtNumber +
+                ", accuserRightDuty=" + accuserRightDuty +
+                ", accuserAvoid=" + accuserAvoid +
+                ", isMediate=" + isMediate +
+                ", mediatePlan=" + mediatePlan +
+                ", timeLimit=" + timeLimit +
+                ", isDelivery=" + isDelivery +
+                ", email=" + email +
+                ", finalStatement=" + finalStatement +
+                ", createTime=" + createTime +
+                ", createUser=" + createUser +
+                ", updateTime=" + updateTime +
+                ", updateUser=" + updateUser +
+                "}";
     }
 }

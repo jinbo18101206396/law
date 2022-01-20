@@ -26,9 +26,10 @@ public class StateRequest extends BaseRequest {
     private Long stateId;
 
     /**
-     * 陈述类型：简易程序、普通程序独任制、普通程序合议制
+     * 陈述类型：1-简易程序,2-普通程序独任制,3-普通程序合议制
      */
-    private String stateType;
+    @NotNull(message = "stateType不能为空", groups = {add.class, edit.class})
+    private Integer stateType;
 
     /**
      * 陈述内容
@@ -38,6 +39,7 @@ public class StateRequest extends BaseRequest {
     /**
      * 案号
      */
+    @NotNull(message = "courtNumber不能为空", groups = {add.class, edit.class})
     private String courtNumber;
 
     /**

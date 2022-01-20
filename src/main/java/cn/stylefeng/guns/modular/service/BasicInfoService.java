@@ -4,6 +4,7 @@ import cn.stylefeng.guns.modular.entity.BasicInfo;
 import cn.stylefeng.guns.modular.model.request.BasicInfoRequest;
 import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
 import com.baomidou.mybatisplus.extension.service.IService;
+
 import java.util.List;
 
 /**
@@ -46,9 +47,19 @@ public interface BasicInfoService extends IService<BasicInfo> {
      * @param basicInfoRequest 查看参数
      * @return 详情结果
      * @author 金波
-     * @date 2021/5/12 18:28
+     * @date 2022/01/14 15:07
      */
     BasicInfo detail(BasicInfoRequest basicInfoRequest);
+
+    /**
+     * 根据案号查看笔录基本信息详情
+     *
+     * @param basicInfoRequest 查看参数
+     * @return 详情结果
+     * @author 金波
+     * @date 2022/01/14 15:07
+     */
+    BasicInfo queryBasicInfoByCourtNumber(BasicInfoRequest basicInfoRequest);
 
     /**
      * 查询笔录列表

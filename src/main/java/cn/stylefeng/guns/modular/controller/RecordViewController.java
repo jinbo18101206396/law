@@ -44,44 +44,43 @@ public class RecordViewController {
      * @author 金波
      * @date 2022/01/14
      */
-    @GetResource(name = "笔录基本信息视图", path = "/view/record" , requiredPermission = false)
+    @GetResource(name = "笔录基本信息视图", path = "/view/record", requiredPermission = false)
     public String indexView() {
         return "/modular/business/record/record.html";
     }
 
     /**
-     *
      * @author liaoweiming
      * @date 2022-01-16 14:41
      */
-    @GetResource(name = "基本信息表单", path = "/view/base" , requiredPermission = false)
+    @GetResource(name = "基本信息表单", path = "/view/base", requiredPermission = false)
     public String baseImfView() {
         return "/modular/business/record/baseImf.html";
     }
 
     /**
-     *@author liaoweiming
-     *@date 2022-01-17 17:32
+     * @author liaoweiming
+     * @date 2022-01-17 17:32
      */
-    @GetResource(name = "原告信息表单", path = "/view/plaintiff" , requiredPermission = false)
+    @GetResource(name = "原告信息表单", path = "/view/plaintiff", requiredPermission = false)
     public String plaintiffImfView() {
         return "/modular/business/record/plaintiffImf.html";
     }
 
     /**
-     *@author liaoweiming
-     *@date 2022-01-17 17:32
+     * @author liaoweiming
+     * @date 2022-01-17 17:32
      */
-    @GetResource(name = "被告信息表单", path = "/view/defendant" , requiredPermission = false)
+    @GetResource(name = "被告信息表单", path = "/view/defendant", requiredPermission = false)
     public String defendantImfView() {
         return "/modular/business/record/defendantImf.html";
     }
+
     /**
-     *
      * @author wangjiaran
      * @date 2022-01-17 15：00
      */
-    @GetResource(name = "基本信息表单", path = "/view/Basic_info" , requiredPermission = false)
+    @GetResource(name = "基本信息表单", path = "/view/Basic_info", requiredPermission = false)
     public String basic_infoView() {
         return "/modular/business/record/Basic_Info.html";
     }

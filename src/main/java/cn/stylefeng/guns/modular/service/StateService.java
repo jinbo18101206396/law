@@ -1,12 +1,10 @@
 package cn.stylefeng.guns.modular.service;
 
-import cn.stylefeng.guns.modular.entity.BasicInfo;
-import cn.stylefeng.guns.modular.entity.Reply;
 import cn.stylefeng.guns.modular.entity.State;
-import cn.stylefeng.guns.modular.model.request.ReplyRequest;
 import cn.stylefeng.guns.modular.model.request.StateRequest;
 import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
 import com.baomidou.mybatisplus.extension.service.IService;
+
 import java.util.List;
 
 /**
@@ -49,18 +47,28 @@ public interface StateService extends IService<State> {
      *
      * @param stateRequest 查看参数
      * @return 详情结果
-     * @author 金波
-     * @date 2021/5/12 18:28
+     * @author jinbo
+     * @Date 2022-01-19
      */
     State detail(StateRequest stateRequest);
+
+    /**
+     * 根据陈述类型获取陈述内容
+     *
+     * @param stateRequest 查看参数
+     * @return 详情结果
+     * @author jinbo
+     * @Date 2022-01-19
+     */
+    State content(StateRequest stateRequest);
 
     /**
      * 查询列表
      *
      * @param stateRequest 请求参数
      * @return 列表
-     * @author 金波
-     * @date 2022/01/14 15:07
+     * @author jinbo
+     * @Date 2022-01-19
      */
     List<State> findList(StateRequest stateRequest);
 

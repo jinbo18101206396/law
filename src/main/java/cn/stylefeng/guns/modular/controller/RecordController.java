@@ -36,6 +36,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import javax.annotation.Resource;
 
 /**
@@ -55,9 +56,9 @@ public class RecordController {
      * 保存笔录基本信息
      *
      * @author 金波
-     * @date 2021/05/12 13:50
+     * @date 2021/05/12
      */
-    @PostResource(name = "保存笔录基本信息", path = "/basic/save")
+    @PostResource(name = "保存笔录基本信息", path = "/basic/add")
     public ResponseData add(@RequestBody @Validated(BasicInfoRequest.add.class) BasicInfoRequest basicInfoRequest) {
         basicInfoService.add(basicInfoRequest);
         return new SuccessResponseData();
@@ -67,7 +68,7 @@ public class RecordController {
      * 编辑笔录基本信息
      *
      * @author 金波
-     * @date 2022/01/14 15:07
+     * @date 2022/01/14
      */
     @PostResource(name = "编辑笔录基本信息", path = "/basic/edit")
     public ResponseData edit(@RequestBody @Validated(BasicInfoRequest.edit.class) BasicInfoRequest basicInfoRequest) {
@@ -76,21 +77,10 @@ public class RecordController {
     }
 
     /**
-     * 查看笔录基本信息详情
-     *
-     * @author 金波
-     * @date 2021/05/12 13:50
-     */
-    @GetResource(name = "查看笔录基本信息详情", path = "/basic/detail")
-    public ResponseData detail(@Validated(BasicInfoRequest.detail.class) BasicInfoRequest basicInfoRequest) {
-        return new SuccessResponseData(basicInfoService.detail(basicInfoRequest));
-    }
-
-    /**
      * 删除笔录
      *
      * @author 金波
-     * @date 2022/01/14 15:07
+     * @date 2022/01/14
      */
     @PostResource(name = "删除笔录基本信息", path = "/basic/delete")
     public ResponseData delete(@RequestBody @Validated(BasicInfoRequest.delete.class) BasicInfoRequest basicInfoRequest) {
@@ -99,10 +89,21 @@ public class RecordController {
     }
 
     /**
-     * 分页查询笔录基本信息
+     * 查看笔录基本信息详情
      *
      * @author 金波
-     * @date 2022/01/14 15:07
+     * @date 2022/01/14
+     */
+    @GetResource(name = "查看笔录基本信息详情", path = "/basic/detail")
+    public ResponseData detail(@Validated(BasicInfoRequest.detail.class) BasicInfoRequest basicInfoRequest) {
+        return new SuccessResponseData(basicInfoService.detail(basicInfoRequest));
+    }
+
+    /**
+     * 分页查询笔录基本信息(系统首页)
+     *
+     * @author 金波
+     * @date 2022/01/14
      */
     @RequestMapping(name = "分页查询笔录", path = "/basic/page")
     @ResponseBody
@@ -114,7 +115,7 @@ public class RecordController {
      * 查询全部笔录基本信息
      *
      * @author 金波
-     * @date 2022/01/14 15:07
+     * @date 2022/01/14
      */
     @GetResource(name = "查询全部笔录", path = "/basic/list")
     public ResponseData list(BasicInfoRequest basicInfoRequest) {

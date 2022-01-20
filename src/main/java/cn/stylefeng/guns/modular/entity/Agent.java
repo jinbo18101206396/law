@@ -1,12 +1,9 @@
 package cn.stylefeng.guns.modular.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -19,7 +16,7 @@ import java.io.Serializable;
 @TableName("agent")
 public class Agent implements Serializable {
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * 主键
@@ -60,25 +57,25 @@ public class Agent implements Serializable {
     /**
      * 创建时间
      */
-      @TableField(value = "create_time", fill = FieldFill.INSERT)
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
     private Date createTime;
 
     /**
      * 创建人
      */
-      @TableField(value = "create_user", fill = FieldFill.INSERT)
+    @TableField(value = "create_user", fill = FieldFill.INSERT)
     private Long createUser;
 
     /**
      * 更新时间
      */
-      @TableField(value = "update_time", fill = FieldFill.UPDATE)
+    @TableField(value = "update_time", fill = FieldFill.UPDATE)
     private Date updateTime;
 
     /**
      * 更新人
      */
-      @TableField(value = "update_user", fill = FieldFill.UPDATE)
+    @TableField(value = "update_user", fill = FieldFill.UPDATE)
     private Long updateUser;
 
 
@@ -165,16 +162,16 @@ public class Agent implements Serializable {
     @Override
     public String toString() {
         return "Agent{" +
-        "agentId=" + agentId +
-        ", agent=" + agent +
-        ", agentAddress=" + agentAddress +
-        ", agentType=" + agentType +
-        ", agentName=" + agentName +
-        ", courtNumber=" + courtNumber +
-        ", createTime=" + createTime +
-        ", createUser=" + createUser +
-        ", updateTime=" + updateTime +
-        ", updateUser=" + updateUser +
-        "}";
+                "agentId=" + agentId +
+                ", agent=" + agent +
+                ", agentAddress=" + agentAddress +
+                ", agentType=" + agentType +
+                ", agentName=" + agentName +
+                ", courtNumber=" + courtNumber +
+                ", createTime=" + createTime +
+                ", createUser=" + createUser +
+                ", updateTime=" + updateTime +
+                ", updateUser=" + updateUser +
+                "}";
     }
 }

@@ -1,9 +1,9 @@
 package cn.stylefeng.guns.modular.model.result;
 
 import lombok.Data;
-import java.util.Date;
+
 import java.io.Serializable;
-import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * <p>
@@ -25,9 +25,9 @@ public class StateResult implements Serializable {
     private Long stateId;
 
     /**
-     * 陈述类型：简易程序、普通程序独任制、普通程序合议制
+     * 陈述类型：1-简易程序,2-普通程序独任制,3-普通程序合议制
      */
-    private String stateType;
+    private Integer stateType;
 
     /**
      * 陈述内容

@@ -2,17 +2,17 @@ package cn.stylefeng.guns.modular.service.Impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
-import cn.stylefeng.guns.modular.entity.Defendant;
 import cn.stylefeng.guns.modular.entity.Inquiry;
 import cn.stylefeng.guns.modular.mapper.InquiryMapper;
 import cn.stylefeng.guns.modular.model.request.InquiryRequest;
-import  cn.stylefeng.guns.modular.service.InquiryService;
+import cn.stylefeng.guns.modular.service.InquiryService;
 import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
 import cn.stylefeng.roses.kernel.system.api.exception.SystemModularException;
 import cn.stylefeng.roses.kernel.system.api.exception.enums.organization.PositionExceptionEnum;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 /**
@@ -42,7 +42,7 @@ public class InquiryServiceImpl extends ServiceImpl<InquiryMapper, Inquiry> impl
     @Override
     public void update(InquiryRequest inquiryRequest) {
         Inquiry inquiry = this.queryInqueryById(inquiryRequest);
-        BeanUtil.copyProperties(inquiryRequest,inquiry);
+        BeanUtil.copyProperties(inquiryRequest, inquiry);
         this.updateById(inquiry);
     }
 

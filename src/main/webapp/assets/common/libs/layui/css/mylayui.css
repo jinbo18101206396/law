@@ -6,17 +6,17 @@
     font-weight: 400;
     line-height: 20px;
     text-align: center;
-    position :relative;
+    position: relative;
 }
 
-.mylayui-input{
+.mylayui-input {
     color: #595959;
     height: 38px;
     line-height: 1.3;
     border-width: 1px;
     border-style: solid;
     background-color: #fff;
-    border-radius: 2px  ;
+    border-radius: 2px;
     display: block;
     width: 90%;
     padding-left: 10px;

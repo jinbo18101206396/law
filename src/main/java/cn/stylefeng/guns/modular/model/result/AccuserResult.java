@@ -1,9 +1,9 @@
 package cn.stylefeng.guns.modular.model.result;
 
 import lombok.Data;
-import java.util.Date;
+
 import java.io.Serializable;
-import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * <p>
@@ -62,12 +62,12 @@ public class AccuserResult implements Serializable {
     /**
      * 是否听清诉讼权力和义务
      */
-    private Boolean accuserRightDuty;
+    private String accuserRightDuty;
 
     /**
      * 对审判员和书记员是否申请回避
      */
-    private Boolean accuserAvoid;
+    private String accuserAvoid;
 
     /**
      * 是否能够调解

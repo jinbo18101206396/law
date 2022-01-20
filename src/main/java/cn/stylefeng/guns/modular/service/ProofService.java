@@ -1,12 +1,10 @@
 package cn.stylefeng.guns.modular.service;
 
-import cn.stylefeng.guns.modular.entity.BasicInfo;
-import cn.stylefeng.guns.modular.entity.Inquiry;
 import cn.stylefeng.guns.modular.entity.Proof;
-import cn.stylefeng.guns.modular.model.request.InquiryRequest;
 import cn.stylefeng.guns.modular.model.request.ProofRequest;
 import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
 import com.baomidou.mybatisplus.extension.service.IService;
+
 import java.util.List;
 
 /**

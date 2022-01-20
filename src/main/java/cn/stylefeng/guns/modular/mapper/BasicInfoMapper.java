@@ -1,10 +1,11 @@
 package cn.stylefeng.guns.modular.mapper;
+
 import cn.stylefeng.guns.modular.entity.BasicInfo;
 import cn.stylefeng.guns.modular.model.request.BasicInfoRequest;
 import cn.stylefeng.guns.modular.model.result.BasicInfoResult;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Param;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public interface BasicInfoMapper extends BaseMapper<BasicInfo> {
     /**
      * 查询项目列表
      *
-     * @param page           分页参数
+     * @param page             分页参数
      * @param basicInfoRequest 查询条件信息
      * @author jinbo
      * @since 2022-01-14

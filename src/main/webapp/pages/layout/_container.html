@@ -4,12 +4,12 @@
 @/**
 @ * 模板变量
 @ *
-@ * title          :  标题
-@ * layoutContent  :  html 代码块
-@ * js             :  js 参数类型：数组
-@ * css            :  css 参数类型：数组
-@ * bg             :  背景颜色
-@ * plugins        :  插件 参数类型：数组
+@ * title : 标题
+@ * layoutContent : html 代码块
+@ * js : js 参数类型：数组
+@ * css : css 参数类型：数组
+@ * bg : 背景颜色
+@ * plugins : 插件 参数类型：数组
 @ **/
 
 <head>
@@ -27,20 +27,21 @@
 
     <!--插件css-->
     @if(isNotEmpty(plugins)){
-        <!-- 此处由layui模块注册 建议弃用 -->
-        @if(array.contain(plugins,"ztree")){
-            <link href="${ctxPath}/assets/expand/plugins/ztree/zTreeStyle.css?v=${constants.getReleaseVersion()}" rel="stylesheet" type="text/css" />
-        @}
+    <!-- 此处由layui模块注册 建议弃用 -->
+    @if(array.contain(plugins,"ztree")){
+    <link href="${ctxPath}/assets/expand/plugins/ztree/zTreeStyle.css?v=${constants.getReleaseVersion()}"
+          rel="stylesheet" type="text/css"/>
+    @}
     @}
 
     <!--业务css-->
     @if(isNotEmpty(css)){
-        @for(item in css){
-            @if(strutil.startWith(item,"/")){
-                @item = ctxPath + item;
-            @}
-            <link href="${item}?v=${constants.getReleaseVersion()}" rel="stylesheet" type="text/css" />
-        @}
+    @for(item in css){
+    @if(strutil.startWith(item,"/")){
+    @item = ctxPath + item;
+    @}
+    <link href="${item}?v=${constants.getReleaseVersion()}" rel="stylesheet" type="text/css"/>
+    @}
     @}
 </head>
 
@@ -57,37 +58,39 @@ ${layoutContent}
         version: '${constants.getReleaseVersion()}'
     };
 </script>
-<script type="text/javascript" src="${ctxPath}/assets/common/libs/layui/layui.js?v=${constants.getReleaseVersion()}"></script>
+<script type="text/javascript"
+        src="${ctxPath}/assets/common/libs/layui/layui.js?v=${constants.getReleaseVersion()}"></script>
 <script type="text/javascript" src="${ctxPath}/assets/common/js/common.js?v=${constants.getReleaseVersion()}"></script>
 
 <!-- 插件js -->
 @if(isNotEmpty(plugins)){
-    <!-- ztree 由layui模块注册 建议弃用 -->
-    @if(array.contain(plugins,"ztree")){
-        <script src="${ctxPath}/assets/expand/plugins/jquery/jquery-3.2.1.min.js?v=${constants.getReleaseVersion()}"></script>
-        <script src="${ctxPath}/assets/expand/plugins/ztree/jquery.ztree.all.min.js?v=${constants.getReleaseVersion()}"></script>
-    @}
-    @if(array.contain(plugins,"ue")){
-        <script src="${ctxPath}/assets/expand/plugins/jquery/jquery-3.2.1.min.js?v=${constants.getReleaseVersion()}"></script>
-        <script src="${ctxPath}/assets/expand/plugins/ueditor/ueditor.config.js?v=${constants.getReleaseVersion()}"></script>
-        <script src="${ctxPath}/assets/expand/plugins/ueditor/ueditor.all.js?v=${constants.getReleaseVersion()}"></script>
-    @}
-    @if(array.contain(plugins,"tinymce")){
-        <script src="${ctxPath}/assets/common/libs/tinymce/tinymce.min.js?v=${constants.getReleaseVersion()}"></script>
-    @}
-    @if(array.contain(plugins,"pinyin")){
-        <script type="text/javascript" src="${ctxPath}/assets/common/libs/py/ChinesePY.js?v=${constants.getReleaseVersion()}"></script>
-    @}
+<!-- ztree 由layui模块注册 建议弃用 -->
+@if(array.contain(plugins,"ztree")){
+<script src="${ctxPath}/assets/expand/plugins/jquery/jquery-3.2.1.min.js?v=${constants.getReleaseVersion()}"></script>
+<script src="${ctxPath}/assets/expand/plugins/ztree/jquery.ztree.all.min.js?v=${constants.getReleaseVersion()}"></script>
+@}
+@if(array.contain(plugins,"ue")){
+<script src="${ctxPath}/assets/expand/plugins/jquery/jquery-3.2.1.min.js?v=${constants.getReleaseVersion()}"></script>
+<script src="${ctxPath}/assets/expand/plugins/ueditor/ueditor.config.js?v=${constants.getReleaseVersion()}"></script>
+<script src="${ctxPath}/assets/expand/plugins/ueditor/ueditor.all.js?v=${constants.getReleaseVersion()}"></script>
+@}
+@if(array.contain(plugins,"tinymce")){
+<script src="${ctxPath}/assets/common/libs/tinymce/tinymce.min.js?v=${constants.getReleaseVersion()}"></script>
+@}
+@if(array.contain(plugins,"pinyin")){
+<script type="text/javascript"
+        src="${ctxPath}/assets/common/libs/py/ChinesePY.js?v=${constants.getReleaseVersion()}"></script>
+@}
 @}
 
 <!-- 业务js -->
 @if(isNotEmpty(js)){
-    @for(item in js){
-        @if(strutil.startWith(item,"/")){
-            @item = ctxPath + item;
-        @}
-        <script src="${item}?v=${constants.getReleaseVersion()}"></script>
-    @}
+@for(item in js){
+@if(strutil.startWith(item,"/")){
+@item = ctxPath + item;
+@}
+<script src="${item}?v=${constants.getReleaseVersion()}"></script>
+@}
 @}
 </body>
 </html>

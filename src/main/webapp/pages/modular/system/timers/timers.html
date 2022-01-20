@@ -22,8 +22,10 @@
                                 </select>
                             </div>
                             <div class="layui-inline">
-                                <button id="btnSearch" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>搜索</button>
-                                <button id="btnAdd" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i>添加</button>
+                                <button id="btnSearch" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>搜索
+                                </button>
+                                <button id="btnAdd" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i>添加
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -40,6 +42,7 @@
 </script>
 
 <script type="text/html" id="statusTpl">
-    <input type="checkbox" lay-filter="status" value="{{d.timerId}}" lay-skin="switch" lay-text="运行|停止" {{d.jobStatus=='1'?'checked':''}}/>
+    <input type="checkbox" lay-filter="status" value="{{d.timerId}}" lay-skin="switch" lay-text="运行|停止"
+           {{d.jobStatus=='1'?'checked':''}}/>
 </script>
 @}

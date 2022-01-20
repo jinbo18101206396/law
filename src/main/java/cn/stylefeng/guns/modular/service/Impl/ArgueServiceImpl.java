@@ -2,11 +2,10 @@ package cn.stylefeng.guns.modular.service.Impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
-import cn.stylefeng.guns.modular.entity.Allege;
 import cn.stylefeng.guns.modular.entity.Argue;
 import cn.stylefeng.guns.modular.mapper.ArgueMapper;
 import cn.stylefeng.guns.modular.model.request.ArgueRequest;
-import  cn.stylefeng.guns.modular.service.ArgueService;
+import cn.stylefeng.guns.modular.service.ArgueService;
 import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
 import cn.stylefeng.roses.kernel.system.api.exception.SystemModularException;
 import cn.stylefeng.roses.kernel.system.api.exception.enums.organization.PositionExceptionEnum;
@@ -43,7 +42,7 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
     @Override
     public void update(ArgueRequest argueRequest) {
         Argue argue = this.queryArgueById(argueRequest);
-        BeanUtil.copyProperties(argueRequest,argue);
+        BeanUtil.copyProperties(argueRequest, argue);
         this.updateById(argue);
     }
 

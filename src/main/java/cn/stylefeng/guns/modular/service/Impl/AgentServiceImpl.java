@@ -2,17 +2,17 @@ package cn.stylefeng.guns.modular.service.Impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
-import cn.stylefeng.guns.modular.entity.Accuser;
 import cn.stylefeng.guns.modular.entity.Agent;
 import cn.stylefeng.guns.modular.mapper.AgentMapper;
 import cn.stylefeng.guns.modular.model.request.AgentRequest;
-import  cn.stylefeng.guns.modular.service.AgentService;
+import cn.stylefeng.guns.modular.service.AgentService;
 import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
 import cn.stylefeng.roses.kernel.system.api.exception.SystemModularException;
 import cn.stylefeng.roses.kernel.system.api.exception.enums.organization.PositionExceptionEnum;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 /**
@@ -42,7 +42,7 @@ public class AgentServiceImpl extends ServiceImpl<AgentMapper, Agent> implements
     @Override
     public void update(AgentRequest agentRequest) {
         Agent agent = this.queryAgentById(agentRequest);
-        BeanUtil.copyProperties(agentRequest,agent);
+        BeanUtil.copyProperties(agentRequest, agent);
         this.updateById(agent);
     }
 

@@ -1,11 +1,10 @@
 package cn.stylefeng.guns.modular.service;
 
-import cn.stylefeng.guns.modular.entity.BasicInfo;
 import cn.stylefeng.guns.modular.entity.Defendant;
-import cn.stylefeng.guns.modular.model.request.BasicInfoRequest;
 import cn.stylefeng.guns.modular.model.request.DefendantRequest;
 import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
 import com.baomidou.mybatisplus.extension.service.IService;
+
 import java.util.List;
 
 /**
@@ -21,27 +20,42 @@ public interface DefendantService extends IService<Defendant> {
     /**
      * 新增
      *
-     * @author jinbo
-     * @Date 2022-01-19
+     * @param defendantRequest 查看参数
+     * @return
+     * @author 金波
+     * @date 2022/01/20
      */
     void add(DefendantRequest defendantRequest);
 
     /**
      * 删除
      *
-     * @author jinbo
-     * @Date 2022-01-19
+     * @param defendantRequest 查看参数
+     * @return
+     * @author 金波
+     * @date 2022/01/20
      */
     void delete(DefendantRequest defendantRequest);
 
     /**
-     * 更新
+     * 通过ID编辑被告信息
      *
-     * @author jinbo
-     * @Date 2022-01-19
+     * @param defendantRequest 查看参数
+     * @return
+     * @author 金波
+     * @date 2022/01/20
      */
-    void update(DefendantRequest defendantRequest);
+    void updateById(DefendantRequest defendantRequest);
 
+    /**
+     * 通过案号和被告类型编辑被告信息
+     *
+     * @param defendantRequest 查看参数
+     * @return
+     * @author 金波
+     * @date 2021/5/12 18:28
+     */
+    void updateByNumberAndType(DefendantRequest defendantRequest);
 
     /**
      * 查看详情
@@ -52,6 +66,36 @@ public interface DefendantService extends IService<Defendant> {
      * @date 2021/5/12 18:28
      */
     Defendant detail(DefendantRequest defendantRequest);
+
+    /**
+     * 根据案号查看被告信息
+     *
+     * @param defendantRequest 查看参数
+     * @return 详情结果
+     * @author 金波
+     * @date 2021/5/12 18:28
+     */
+    Defendant queryDefendantByCourtNumber(DefendantRequest defendantRequest);
+
+    /**
+     * 通过被告全称和案号更新权利告知信息
+     *
+     * @param defendantRequest 查看参数
+     * @return
+     * @author 金波
+     * @date 2022/01/20
+     */
+    void updateRightDutyByDefendantAndNumber(DefendantRequest defendantRequest);
+
+    /**
+     * 通过被告全称和案号更新是否申请回避信息
+     *
+     * @param defendantRequest 查看参数
+     * @return
+     * @author 金波
+     * @date 2022/01/20
+     */
+    void updateAvoidByDefendantAndNumber(DefendantRequest defendantRequest);
 
     /**
      * 查询列表

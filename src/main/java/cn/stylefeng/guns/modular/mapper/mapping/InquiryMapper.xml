@@ -4,33 +4,36 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.entity.Inquiry">
-        <id column="inquiry_id" property="inquiryId" />
-        <result column="question" property="question" />
-        <result column="accuser" property="accuser" />
-        <result column="accuser_answer" property="accuserAnswer" />
-        <result column="defendant" property="defendant" />
-        <result column="defendant_answer" property="defendantAnswer" />
-        <result column="is_counter_claim" property="isCounterClaim" />
-        <result column="court_number" property="courtNumber" />
-        <result column="create_time" property="createTime" />
-        <result column="create_user" property="createUser" />
-        <result column="update_time" property="updateTime" />
-        <result column="update_user" property="updateUser" />
+        <id column="inquiry_id" property="inquiryId"/>
+        <result column="question" property="question"/>
+        <result column="accuser" property="accuser"/>
+        <result column="accuser_answer" property="accuserAnswer"/>
+        <result column="defendant" property="defendant"/>
+        <result column="defendant_answer" property="defendantAnswer"/>
+        <result column="is_counter_claim" property="isCounterClaim"/>
+        <result column="court_number" property="courtNumber"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_user" property="updateUser"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        inquiry_id AS "inquiryId", question AS "question", accuser AS "accuser", accuser_answer AS "accuserAnswer", defendant AS "defendant", defendant_answer AS "defendantAnswer", is_counter_claim AS "isCounterClaim", court_number AS "courtNumber", create_time AS "createTime", create_user AS "createUser", update_time AS "updateTime", update_user AS "updateUser"
+        inquiry_id
+        AS "inquiryId", question AS "question", accuser AS "accuser", accuser_answer AS "accuserAnswer", defendant AS "defendant", defendant_answer AS "defendantAnswer", is_counter_claim AS "isCounterClaim", court_number AS "courtNumber", create_time AS "createTime", create_user AS "createUser", update_time AS "updateTime", update_user AS "updateUser"
     </sql>
 
 
-    <select id="findList" resultType="cn.stylefeng.guns.modular.model.result.InquiryResult" parameterType="cn.stylefeng.guns.modular.model.request.InquiryRequest">
+    <select id="findList" resultType="cn.stylefeng.guns.modular.model.result.InquiryResult"
+            parameterType="cn.stylefeng.guns.modular.model.request.InquiryRequest">
         select
         <include refid="Base_Column_List"/>
         from inquiry where 1 = 1
     </select>
 
-    <select id="findPage" resultType="cn.stylefeng.guns.modular.model.result.InquiryResult" parameterType="cn.stylefeng.guns.modular.model.request.InquiryRequest">
+    <select id="findPage" resultType="cn.stylefeng.guns.modular.model.result.InquiryResult"
+            parameterType="cn.stylefeng.guns.modular.model.request.InquiryRequest">
         select
         <include refid="Base_Column_List"/>
         from inquiry where 1 = 1

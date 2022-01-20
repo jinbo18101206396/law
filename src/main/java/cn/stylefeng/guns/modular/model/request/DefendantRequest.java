@@ -28,21 +28,25 @@ public class DefendantRequest extends BaseRequest {
     /**
      * 被告全称
      */
+    @NotNull(message = "defendant不能为空", groups = {add.class, edit.class})
     private String defendant;
 
     /**
      * 被告简称
      */
+    @NotNull(message = "defendantShort不能为空", groups = {add.class, edit.class})
     private String defendantShort;
 
     /**
      * 被告类型：1-单位，2-个人
      */
+    @NotNull(message = "defendantType不能为空", groups = {add.class, edit.class})
     private Integer defendantType;
 
     /**
      * 被告地址
      */
+    @NotNull(message = "defendantAddress不能为空", groups = {add.class, edit.class})
     private String defendantAddress;
 
     /**
@@ -58,17 +62,18 @@ public class DefendantRequest extends BaseRequest {
     /**
      * 案号
      */
+    @NotNull(message = "courtNumber不能为空", groups = {add.class, edit.class})
     private String courtNumber;
 
     /**
      * 是否听清诉讼权力和义务
      */
-    private Boolean defendantRightDuty;
+    private String defendantRightDuty;
 
     /**
      * 对审判员和书记员是否申请回避
      */
-    private Boolean defendantAvoid;
+    private String defendantAvoid;
 
     /**
      * 是否能够调解
