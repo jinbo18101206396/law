@@ -130,16 +130,7 @@
             z-index: 1;
         }
 
-        \@media screen and
-
-        (
-        min-height:
-
-        550
-        px
-
-        )
-        {
+        \@media screen and (min-height: 550px) {
         .login-wrapper {
             margin: -250px auto 0;
             position: absolute;
@@ -155,7 +146,6 @@
             right: 0;
             left: 0;
         }
-
         }
 
         .layui-btn {
@@ -229,28 +219,23 @@
         <h2>用户注册</h2>
         <div class="layui-form-item layui-input-icon-group">
             <i class="layui-icon layui-icon-cellphone-fine"></i>
-            <input class="layui-input" name="phone" placeholder="请输入手机号" autocomplete="off" lay-verType="tips"
-                   lay-verify="phoneX|required" required/>
+            <input class="layui-input" name="phone" placeholder="请输入手机号" autocomplete="off" lay-verType="tips" lay-verify="phoneX|required" required/>
         </div>
         <div class="layui-form-item layui-input-icon-group">
             <i class="layui-icon layui-icon-email"></i>
-            <input class="layui-input" name="email" placeholder="请输入邮箱账号" autocomplete="off" lay-verType="tips"
-                   lay-verify="email|required" required/>
+            <input class="layui-input" name="email" placeholder="请输入邮箱账号" autocomplete="off" lay-verType="tips" lay-verify="email|required" required/>
         </div>
         <div class="layui-form-item layui-input-icon-group">
             <i class="layui-icon layui-icon-password"></i>
-            <input class="layui-input" name="password" placeholder="请输入新的登录密码" type="password" lay-verType="tips"
-                   lay-verify="required|psw" required/>
+            <input class="layui-input" name="password" placeholder="请输入新的登录密码" type="password" lay-verType="tips" lay-verify="required|psw" required/>
         </div>
         <div class="layui-form-item layui-input-icon-group">
             <i class="layui-icon layui-icon-key"></i>
-            <input class="layui-input" name="password2" placeholder="请再次输入登录密码" type="password" lay-verType="tips"
-                   lay-verify="equalTo" lay-equalTo="[name=password]" required/>
+            <input class="layui-input" name="password2" placeholder="请再次输入登录密码" type="password" lay-verType="tips" lay-verify="equalTo" lay-equalTo="[name=password]" required/>
         </div>
         <div class="layui-form-item layui-input-icon-group login-captcha-group">
             <i class="layui-icon layui-icon-auz"></i>
-            <input class="layui-input" name="code" placeholder="请输入验证码" autocomplete="off" lay-verType="tips"
-                   lay-verify="required" required/>
+            <input class="layui-input" name="code" placeholder="请输入验证码" autocomplete="off" lay-verType="tips" lay-verify="required" required/>
             <button type="button" id="btnGetCode" class="login-captcha login-captcha-btn layui-input">获取验证码</button>
         </div>
         <div class="layui-form-item">

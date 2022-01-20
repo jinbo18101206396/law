@@ -15,7 +15,7 @@
     <![endif]-->
     <style>
         body {
-            background-image: linear-gradient(135deg, #168af0 0%, #6eeaa4 100%);
+            background-image:linear-gradient(135deg, #168af0 0%, #6eeaa4 100%);
             background-repeat: no-repeat;
             background-size: cover;
             min-height: 100vh;
@@ -131,32 +131,22 @@
             z-index: 1;
         }
 
-        \@media screen and
+        \@media screen and (min-height: 550px) {
+            .login-wrapper {
+                margin: -250px auto 0;
+                position: absolute;
+                top: 50%;
+                left: 0;
+                right: 0;
+                width: 100%;
+            }
 
-        (
-        min-height:
-
-        550
-        px
-
-        )
-        {
-        .login-wrapper {
-            margin: -250px auto 0;
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            width: 100%;
-        }
-
-        .login-copyright {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            left: 0;
-        }
-
+            .login-copyright {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                left: 0;
+            }
         }
 
         .layui-btn {
@@ -181,24 +171,21 @@
 <body>
 <canvas id="canvas" width="1920" height="1080"></canvas>
 <div class="login-wrapper layui-anim layui-anim-scale layui-hide">
-    <form class="layui-form">
+        <form class="layui-form">
         <h2>用户登录</h2>
         <div class="layui-form-item layui-input-icon-group">
             <i class="layui-icon layui-icon-username"></i>
-            <input class="layui-input" id="account" name="account" placeholder="请输入登录账号" autocomplete="off"
-                   lay-verType="tips" lay-verify="required" required/>
+            <input class="layui-input" id="account" name="account" placeholder="请输入登录账号" autocomplete="off" lay-verType="tips" lay-verify="required" required/>
         </div>
         <div class="layui-form-item layui-input-icon-group">
             <i class="layui-icon layui-icon-password"></i>
-            <input class="layui-input" id="password" name="password" placeholder="请输入登录密码" type="password"
-                   lay-verType="tips" lay-verify="required" required/>
+            <input class="layui-input" id="password" name="password" placeholder="请输入登录密码" type="password" lay-verType="tips" lay-verify="required" required/>
         </div>
         @if(security.getCaptchaOpen()){
         <div class="layui-form-item layui-input-icon-group login-captcha-group">
             <i class="layui-icon layui-icon-auz"></i>
             <input id="verKey" name="verKey" type="hidden"/>
-            <input class="layui-input" id="verCode" name="verCode" placeholder="请输入验证码" autocomplete="off"
-                   lay-verType="tips" maxlength="5" lay-verify="required" required/>
+            <input class="layui-input" id="verCode" name="verCode" placeholder="请输入验证码" autocomplete="off" lay-verType="tips" maxlength="5" lay-verify="required" required/>
             <img class="login-captcha" alt=""/>
         </div>
 
@@ -211,14 +198,12 @@
             <button id="loginSubmit" class="layui-btn layui-btn-fluid" lay-filter="loginSubmit" lay-submit>登录</button>
         </div>
         <div class="layui-form-item login-oauth-group text-center">
-            <a href="${ctxPath}/oauth/render/qq"><i class="layui-icon layui-icon-login-qq"
-                                                    style="color:#3492ed;"></i></a>&emsp;
+            <a href="${ctxPath}/oauth/render/qq"><i class="layui-icon layui-icon-login-qq" style="color:#3492ed;"></i></a>&emsp;
             <a href="${ctxPath}/oauth/render/gitee">
-                <img class="layui-icon" style="height: 28px;width: 28px; margin-top: -12px !important;"
-                     src="${ctxPath}/assets/expand/images/git.png"/>
+                <img class="layui-icon" style="height: 28px;width: 28px; margin-top: -12px !important;" src="${ctxPath}/assets/expand/images/git.png"/>
             </a>
         </div>
-    </form>
+        </form>
 
 </div>
 <div class="login-copyright">copyright © 2020 stylefeng.cn all rights reserved.</div>
@@ -232,11 +217,10 @@
 </script>
 
 <!-- js部分 -->
-<script type="text/javascript"
-        src="${ctxPath}/assets/common/libs/layui/layui.js?v=${constants.getReleaseVersion()}"></script>
+<script type="text/javascript" src="${ctxPath}/assets/common/libs/layui/layui.js?v=${constants.getReleaseVersion()}"></script>
 <script type="text/javascript" src="${ctxPath}/assets/common/js/common.js?v=${constants.getReleaseVersion()}"></script>
 <script>
-    layui.use(['layer', 'form', 'index', 'HttpRequest', 'admin', 'notice'], function () {
+    layui.use(['layer', 'form', 'index', 'HttpRequest','admin','notice'], function () {
         var $ = layui.jquery;
         var layer = layui.layer;
         var form = layui.form;
@@ -253,8 +237,8 @@
         }
 
         // 获取验证码
-        function getKaptcha() {
-            var request = new HttpRequest(Feng.ctxPath + '/captcha' + '?t=' + (new Date).getTime(), 'get');
+        function getKaptcha(){
+            var request = new HttpRequest(Feng.ctxPath + '/captcha'+ '?t=' + (new Date).getTime(), 'get');
             var result = request.start();
             $("#verKey").val(result.data.verKey)
             $('img.login-captcha').attr('src', result.data.verImage);
@@ -266,36 +250,30 @@
         });
 
         // 开启验证码
-    @if
-        (security.getCaptchaOpen())
-        {
+        @if(security.getCaptchaOpen()){
             getKaptcha();
-        @
-        }
+        @}
 
         // 登录操作
-        form.on('submit(loginSubmit)', function (data) {
-            admin.btnLoading('#loginSubmit', "登录中");
+        form.on('submit(loginSubmit)', function (data){
+            admin.btnLoading('#loginSubmit',"登录中");
             var request = new HttpRequest(Feng.ctxPath + "/login", 'post', function (data) {
                 // 清除顶部选择应用的缓存
                 index.clearTabCache();
                 // 重定向到首页
                 window.location.href = Feng.ctxPath + "/";
             }, function (data) {
-            @if
-                (security.getCaptchaOpen())
-                {
+                @if(security.getCaptchaOpen()){
                     //清空输入框
                     $("#verCode").val('');
                     //刷新验证码
                     getKaptcha();
-                @
-                }
+                @}
                 //停止loading
                 admin.btnLoading('#loginSubmit', false);
                 notice.msg(data.message, {icon: 2});
             });
-            data.field.rememberMe = $("#rememberMe").prop("checked");
+            data.field.rememberMe=$("#rememberMe").prop("checked");
             request.set(data.field);
             request.start(true);
             return false;
@@ -303,10 +281,10 @@
 
         // canvas绘画
         window.requestAnimationFrame =
-            window.requestAnimationFrame ||
-            window.mozRequestAnimationFrame ||
-            window.webkitRequestAnimationFrame ||
-            window.msRequestAnimationFrame;
+        window.requestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.msRequestAnimationFrame;
 
         var canvas = document.getElementById("canvas");
         var ctx = canvas.getContext("2d");

@@ -7,60 +7,53 @@
                 <div class="layui-inline layui-col-md12">
                     <label class="mylayui-form-label layui-form-required">原告类型</label>
                     <div class="layui-input-block">
-                        <input name="plaintiffType" type="radio" value="0" style="display: initial"
-                               checked="checked"/><span>单位</span>
-                        <input name="plaintiffType" type="radio" value="1" style="display: initial"/><span>个人</span>
+                        <input name="plaintiffType"  type="radio" value="0" style="display: initial" checked="checked" /><span>单位</span>
+                        <input name="plaintiffType"  type="radio" value="1" style="display: initial" /><span>个人</span>
                     </div>
                 </div>
-                <div class="layui-form-item layui-row">
-                    <input name="plaintiffId" type="hidden"/>
-                    <div id="mychange">
+                    <div class="layui-form-item layui-row">
+                        <input name="plaintiffId" type="hidden"/>
+                        <div id="mychange">
+                            <div class="layui-inline layui-col-md12">
+                                <label class="mylayui-form-label layui-form-required">原告全称</label>
+                                <div class="layui-input-block">
+                                    <input name="plaintiffName" placeholder="请输入原告名称" type="text" class="mylayui-input" lay-verify="required" required autocomplete="off"/>
+                                </div>
+                            </div>
+
+                            <div class="layui-inline layui-col-md12">
+                                <label class="mylayui-form-label layui-form-required" >原告地址</label>
+                                <div class="layui-input-block">
+                                    <input name="carColor" placeholder="请输入原告地址" type="text" class="mylayui-input" autocomplete="off"/>
+                                </div>
+                            </div>
+
+                            <div class="layui-inline layui-col-md12">
+                                <label class="mylayui-form-label layui-form-required">法人代表</label>
+                                <div class="layui-input-block">
+                                    <input name="legalRep" placeholder="请输入法人代表" type="text" class="mylayui-input" autocomplete="off"/>
+                                </div>
+                            </div>
+                            <div class="layui-inline layui-col-md12">
+                                <label class="mylayui-form-label layui-form-required">法人职务</label>
+                                <div class="layui-input-block">
+                                    <input name="LegalPos" placeholder="请输入法人职务" type="text" class="mylayui-input" autocomplete="off"/>
+                                </div>
+                            </div>
+                        </div>
                         <div class="layui-inline layui-col-md12">
-                            <label class="mylayui-form-label layui-form-required">原告全称</label>
+                            <label class="mylayui-form-label">委托诉讼代理人</label>
                             <div class="layui-input-block">
-                                <input name="plaintiffName" placeholder="请输入原告名称" type="text" class="mylayui-input"
-                                       lay-verify="required" required autocomplete="off"/>
+                                <input name="attorney" placeholder="请输入委托诉讼代理人" type="text" class="mylayui-input" autocomplete="off"/>
                             </div>
                         </div>
 
                         <div class="layui-inline layui-col-md12">
-                            <label class="mylayui-form-label layui-form-required">原告地址</label>
+                            <label class="mylayui-form-label">委托诉讼代理人单位</label>
                             <div class="layui-input-block">
-                                <input name="carColor" placeholder="请输入原告地址" type="text" class="mylayui-input"
-                                       autocomplete="off"/>
+                                <input name="attorneyUnit" placeholder="请输入委托诉讼代理人单位" type="text" class="mylayui-input" autocomplete="off"/>
                             </div>
                         </div>
-
-                        <div class="layui-inline layui-col-md12">
-                            <label class="mylayui-form-label layui-form-required">法人代表</label>
-                            <div class="layui-input-block">
-                                <input name="legalRep" placeholder="请输入法人代表" type="text" class="mylayui-input"
-                                       autocomplete="off"/>
-                            </div>
-                        </div>
-                        <div class="layui-inline layui-col-md12">
-                            <label class="mylayui-form-label layui-form-required">法人职务</label>
-                            <div class="layui-input-block">
-                                <input name="LegalPos" placeholder="请输入法人职务" type="text" class="mylayui-input"
-                                       autocomplete="off"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="mylayui-form-label">委托诉讼代理人</label>
-                        <div class="layui-input-block">
-                            <input name="attorney" placeholder="请输入委托诉讼代理人" type="text" class="mylayui-input"
-                                   autocomplete="off"/>
-                        </div>
-                    </div>
-
-                    <div class="layui-inline layui-col-md12">
-                        <label class="mylayui-form-label">委托诉讼代理人单位</label>
-                        <div class="layui-input-block">
-                            <input name="attorneyUnit" placeholder="请输入委托诉讼代理人单位" type="text" class="mylayui-input"
-                                   autocomplete="off"/>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

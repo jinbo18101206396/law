@@ -9,8 +9,7 @@
             @if(objectUtil.isEmpty(menu.children)){
             <li class="layui-nav-item">
                 @if(itemLP.first && menuLP.first){
-                <a id="firstPageAction" lay-href="${menu.layuiPath}"><i
-                        class="layui-icon ${menu.layuiIcon}"></i>&emsp;<cite>${menu.menuName}</cite></a>
+                <a id="firstPageAction" lay-href="${menu.layuiPath}"><i class="layui-icon ${menu.layuiIcon}"></i>&emsp;<cite>${menu.menuName}</cite></a>
                 @}else{
                 <a lay-href="${menu.layuiPath}"><i
                         class="layui-icon ${menu.layuiIcon}"></i>&emsp;<cite>${menu.menuName}</cite></a>
@@ -44,8 +43,7 @@
                                 <a>${subSubMenu.menuName}</a>
                                 <dl class="layui-nav-child">
                                     @for(subSubSubMenu in subSubMenu.children){
-                                    @if(itemLP.first && menuLP.first && subMenuLP.first && subSubMenuLP.first &&
-                                    subSubSubMenuLP.first){
+                                    @if(itemLP.first && menuLP.first && subMenuLP.first && subSubMenuLP.first && subSubSubMenuLP.first){
                                     <dd><a id="firstPageAction" lay-href="${subSubSubMenu.layuiPath}">${subSubSubMenu.menuName}</a>
                                     </dd>
                                     @}else{

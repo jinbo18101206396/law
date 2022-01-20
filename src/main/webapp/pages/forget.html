@@ -130,32 +130,22 @@
             z-index: 1;
         }
 
-        \@media screen and
+        \@media screen and (min-height: 550px) {
+            .login-wrapper {
+                margin: -250px auto 0;
+                position: absolute;
+                top: 50%;
+                left: 0;
+                right: 0;
+                width: 100%;
+            }
 
-        (
-        min-height:
-
-        550
-        px
-
-        )
-        {
-        .login-wrapper {
-            margin: -250px auto 0;
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            width: 100%;
-        }
-
-        .login-copyright {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            left: 0;
-        }
-
+            .login-copyright {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                left: 0;
+            }
         }
 
         .layui-btn {

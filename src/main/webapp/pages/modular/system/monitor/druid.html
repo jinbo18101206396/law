@@ -7,29 +7,26 @@
     <title>${constants.getSystemName()}</title>
     <link rel="stylesheet" href="${ctxPath}/assets/common/libs/layui/css/layui.css?v=${constants.getReleaseVersion()}"/>
     <link rel="stylesheet" href="${ctxPath}/assets/common/module/admin.css?v=${constants.getReleaseVersion()}"/>
-    <link rel="stylesheet" href="${ctxPath}/assets/expand/css/style.css?v=${constants.getReleaseVersion()}"
-          media="all"/>
+    <link rel="stylesheet" href="${ctxPath}/assets/expand/css/style.css?v=${constants.getReleaseVersion()}" media="all"/>
 </head>
 <body>
-<div class="layui-fluid">
-    <div class="layui-row layui-col-space15">
-        <div class="layui-col-lg12">
-            <iframe id="iframe" src="${ctxPath}/druid/index.html" frameborder="no" width="100%"
-                    scrolling="auto"></iframe>
+    <div class="layui-fluid">
+        <div class="layui-row layui-col-space15" >
+            <div class="layui-col-lg12">
+                <iframe id="iframe" src="${ctxPath}/druid/index.html" frameborder="no" width="100%" scrolling="auto" ></iframe>
+            </div>
         </div>
     </div>
-</div>
-<!-- js部分 -->
-@/* 加入contextPath属性和session超时的配置 */
-<script type="text/javascript">
-    var Feng = {
-        ctxPath: "${ctxPath}",
-        version: '${constants.getReleaseVersion()}'
-    };
-    document.getElementById("iframe").height = document.documentElement.clientHeight + 'px;'
-</script>
-<script type="text/javascript"
-        src="${ctxPath}/assets/common/libs/layui/layui.js?v=${constants.getReleaseVersion()}"></script>
-<script type="text/javascript" src="${ctxPath}/assets/common/js/common.js?v=${constants.getReleaseVersion()}"></script>
+    <!-- js部分 -->
+    @/* 加入contextPath属性和session超时的配置 */
+    <script type="text/javascript">
+        var Feng = {
+            ctxPath: "${ctxPath}",
+            version: '${constants.getReleaseVersion()}'
+        };
+        document.getElementById("iframe").height = document.documentElement.clientHeight+'px;'
+    </script>
+    <script type="text/javascript" src="${ctxPath}/assets/common/libs/layui/layui.js?v=${constants.getReleaseVersion()}"></script>
+    <script type="text/javascript" src="${ctxPath}/assets/common/js/common.js?v=${constants.getReleaseVersion()}"></script>
 </body>
 </html>

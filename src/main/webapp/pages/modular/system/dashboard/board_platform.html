@@ -7,8 +7,7 @@
     <title>${constants.getSystemName()}</title>
     <link rel="stylesheet" href="${ctxPath}/assets/common/libs/layui/css/layui.css?v=${constants.getReleaseVersion()}"/>
     <link rel="stylesheet" href="${ctxPath}/assets/common/module/admin.css?v=${constants.getReleaseVersion()}"/>
-    <link rel="stylesheet" href="${ctxPath}/assets/expand/css/style.css?v=${constants.getReleaseVersion()}"
-          media="all"/>
+    <link rel="stylesheet" href="${ctxPath}/assets/expand/css/style.css?v=${constants.getReleaseVersion()}" media="all"/>
 
     <style>
         /** 应用快捷块样式 */
@@ -449,9 +448,7 @@
                                     <li>框架整体的包名变为cn.stylefeng开头</li>
                                     <li>优化了shiro相关的几个服务类的结构，整体业务逻辑不变，优化了部分包结构和类之间的关系，项目整体更加简洁和易维护</li>
                                     <li>整合了guns-core，和roses项目的kernel-core，并把kernel-core上传到了maven的中央仓库</li>
-                                    <li>
-                                        剔除了guns-generator模块，抽出单独的项目https://gitee.com/stylefeng/guns-generator来维护，并且guns-generator也上传到了maven中央仓库
-                                    </li>
+                                    <li>剔除了guns-generator模块，抽出单独的项目https://gitee.com/stylefeng/guns-generator来维护，并且guns-generator也上传到了maven中央仓库</li>
                                     <li>框架整体回归了单模块应用，返璞归真，开箱即用，快速开发新项目，新业务</li>
                                     <li>另外更新了Guns技术文档的版本到5.1，与项目版本保持一致</li>
                                 </ul>
@@ -561,15 +558,11 @@
                                     <span class="layui-badge-rim">2017-09-26</span>
                                 </h3>
                                 <ul>
-                                    <li>
-                                        单模块拆分成如下多模块,guns-parent(maven父项目),guns-core(guns基础模块),guns-admin(guns后台管理系统),guns-rest(rest服务模块)
-                                    </li>
+                                    <li>单模块拆分成如下多模块,guns-parent(maven父项目),guns-core(guns基础模块),guns-admin(guns后台管理系统),guns-rest(rest服务模块)</li>
                                     <li>新增REST API服务,用于提供REST接口</li>
                                     <li>GUNS-REST服务基于JWT TOKEN鉴权机制,给予访问者访问资源的权限</li>
                                     <li>GUNS-REST服务对传输过程中的数据进行MD5签名校验,防止过程中的信息被篡改,签名过程中利用随机字符串进行签名混淆</li>
-                                    <li>
-                                        guns-rest项目新增信息传递时的保护措施(对传输数据进行加密),并且加密方式可自由拓展,只需实现DataSecurityAction接口,并配置相关实现类到spring容器即可
-                                    </li>
+                                    <li>guns-rest项目新增信息传递时的保护措施(对传输数据进行加密),并且加密方式可自由拓展,只需实现DataSecurityAction接口,并配置相关实现类到spring容器即可</li>
                                     <li>修复guns-rest项目json解析顺序导致签名验签失败的问题</li>
                                 </ul>
                             </div>
@@ -747,8 +740,7 @@
                         </tr>
                         <tr>
                             <td>gitee地址</td>
-                            <td><a href="https://gitee.com/stylefeng/guns" target="_blank">https://gitee.com/stylefeng/guns</a>
-                            </td>
+                            <td><a href="https://gitee.com/stylefeng/guns" target="_blank">https://gitee.com/stylefeng/guns</a></td>
                         </tr>
                         <tr>
                             <td>主要特色</td>
@@ -757,28 +749,22 @@
                         <tr>
                             <td>获取源码</td>
                             <td>
-                                <a href="https://gitee.com/stylefeng/guns" target="_blank"
-                                   class="layui-btn layui-btn-sm">前往官网</a>
-                                <a href="https://www.stylefeng.cn/" target="_blank"
-                                   class="layui-btn layui-btn-danger layui-btn-sm">获取VIP</a>
+                                <a href="https://gitee.com/stylefeng/guns" target="_blank" class="layui-btn layui-btn-sm">前往官网</a>
+                                <a href="https://www.stylefeng.cn/" target="_blank" class="layui-btn layui-btn-danger layui-btn-sm">获取VIP</a>
                             </td>
                         </tr>
                         <tr>
                             <td>获取文档</td>
                             <td>
-                                <a href="https://gitee.com/stylefeng/guns/wikis/Guns%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3?sort_id=200535"
-                                   target="_blank" class="layui-btn layui-btn-sm">免费文档</a>
-                                <a href="https://www.stylefeng.cn/doc/guns" target="_blank"
-                                   class="layui-btn layui-btn-danger layui-btn-sm">付费文档(更全)</a>
+                                <a href="https://gitee.com/stylefeng/guns/wikis/Guns%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3?sort_id=200535" target="_blank" class="layui-btn layui-btn-sm">免费文档</a>
+                                <a href="https://www.stylefeng.cn/doc/guns" target="_blank" class="layui-btn layui-btn-danger layui-btn-sm">付费文档(更全)</a>
                             </td>
                         </tr>
                         <tr>
                             <td>获取视频教程</td>
                             <td>
-                                <a href="https://gitee.com/stylefeng/guns/wikis/Guns%E8%A7%86%E9%A2%91%E6%95%99%E7%A8%8B?sort_id=55850"
-                                   target="_blank" class="layui-btn layui-btn-sm">免费视频</a>
-                                <a href="https://www.stylefeng.cn/video/roses" target="_blank"
-                                   class="layui-btn layui-btn-danger layui-btn-sm">付费视频(更全)</a>
+                                <a href="https://gitee.com/stylefeng/guns/wikis/Guns%E8%A7%86%E9%A2%91%E6%95%99%E7%A8%8B?sort_id=55850" target="_blank" class="layui-btn layui-btn-sm">免费视频</a>
+                                <a href="https://www.stylefeng.cn/video/roses" target="_blank" class="layui-btn layui-btn-danger layui-btn-sm">付费视频(更全)</a>
                             </td>
                         </tr>
                         </tbody>
@@ -805,8 +791,7 @@
                         </tr>
                         <tr>
                             <td>树形框架</td>
-                            <td><a href="http://www.treejs.cn/v3/main.php#_zTreeInfo" target="_blank">zTree v3.5.28</a>
-                            </td>
+                            <td><a href="http://www.treejs.cn/v3/main.php#_zTreeInfo" target="_blank">zTree v3.5.28</a></td>
                         </tr>
                         <tr>
                             <td>其他框架</td>
@@ -867,8 +852,7 @@
                     <div class="layui-carousel admin-carousel admin-news">
                         <div carousel-item>
                             <div>
-                                <a href="https://www.oschina.net/project/top_cn_2018" target="_blank"
-                                   class="layui-bg-green">
+                                <a href="https://www.oschina.net/project/top_cn_2018" target="_blank" class="layui-bg-green">
                                     Guns - 2018年度最受欢迎中国开源软件Top20
                                 </a>
                             </div>
@@ -878,8 +862,7 @@
                                 </a>
                             </div>
                             <div>
-                                <a href="https://gitee.com/explore/starred?lang=Java" target="_blank"
-                                   class="layui-bg-blue">
+                                <a href="https://gitee.com/explore/starred?lang=Java" target="_blank" class="layui-bg-blue">
                                     Guns - 码云开源软件 Java排行榜 第四名
                                 </a>
                             </div>
@@ -900,8 +883,7 @@
     };
 </script>
 
-<script type="text/javascript"
-        src="${ctxPath}/assets/common/libs/layui/layui.js?v=${constants.getReleaseVersion()}"></script>
+<script type="text/javascript" src="${ctxPath}/assets/common/libs/layui/layui.js?v=${constants.getReleaseVersion()}"></script>
 <script type="text/javascript" src="${ctxPath}/assets/common/js/common.js?v=${constants.getReleaseVersion()}"></script>
 
 <script>

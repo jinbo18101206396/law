@@ -105,7 +105,7 @@ public class RecordController {
      * @author 金波
      * @date 2022/01/14
      */
-    @RequestMapping(name = "分页查询笔录", path = "/basic/page")
+    @RequestMapping(name = "分页查询笔录", path = "/record/page")
     @ResponseBody
     public ResponseData page(BasicInfoRequest basicInfoRequest) {
         return new SuccessResponseData(basicInfoService.findPage(basicInfoRequest));

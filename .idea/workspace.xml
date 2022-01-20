@@ -4,7 +4,112 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6716618b-e78d-4520-832e-53c55af9bb65" name="Default Changelist" comment="interface" />
+    <list default="true" id="6716618b-e78d-4520-832e-53c55af9bb65" name="Default Changelist" comment="no">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/modular/controller/RecordController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/modular/controller/RecordController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/echarts/china.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/echarts/china.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/af.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/af.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/ar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/ar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/bg.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/bg.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/bs.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/bs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/ca.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/ca.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/cs.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/cs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/da.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/da.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/de.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/de.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/el.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/el.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/es.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/es.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/et.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/et.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/eu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/eu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/fa.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/fa.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/fi.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/fi.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/fr.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/fr.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/gl.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/gl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/he.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/he.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/hi.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/hi.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/hr.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/hr.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/hu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/hu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/id.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/id.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/is.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/is.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/it.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/it.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/ja.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/ja.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/ka.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/ka.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/kk.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/kk.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/ko.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/ko.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/lb.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/lb.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/lt.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/lt.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/lv.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/lv.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/mk.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/mk.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/ms.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/ms.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/nb.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/nb.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/nl.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/nl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/nn.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/nn.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/pl.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/pl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/pt.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/pt.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/ro.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/ro.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/ru.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/fullcalendar/core/locales/ru.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/layui/css/mylayui.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/layui/css/mylayui.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/layui/font/iconfont.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/layui/font/iconfont.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/tinymce/langs/zh_CN.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/tinymce/langs/zh_CN.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/tinymce/plugins/emoticons/js/emojiimages.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/tinymce/plugins/emoticons/js/emojiimages.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/tinymce/plugins/emoticons/js/emojis.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/tinymce/plugins/emoticons/js/emojis.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/tinymce/tinymce.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/common/libs/tinymce/tinymce.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/404.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/404.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/component/tree_dlg.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/component/tree_dlg.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/component/view_hide.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/component/view_hide.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/forget.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/forget.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/layout/_sidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/layout/_sidebar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/business/record/Basic_Info.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/business/record/Basic_Info.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/business/record/defendantImf.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/business/record/defendantImf.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/business/record/plaintiffImf.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/business/record/plaintiffImf.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/business/record/record.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/business/record/record.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/config/config.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/config/config.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/config/sysConfig.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/config/sysConfig.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/config/sysConfig_add.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/config/sysConfig_add.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/config/sysConfig_edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/config/sysConfig_edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/dashboard/board_analyse.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/dashboard/board_analyse.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/dashboard/board_platform.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/dashboard/board_platform.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/dataCenter/exportCenter.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/dataCenter/exportCenter.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/dataCenter/importCenter.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/dataCenter/importCenter.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/datasource/datasource.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/datasource/datasource.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/datasource/datasource_add.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/datasource/datasource_add.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/fileInfo/file_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/fileInfo/file_info.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/fileInfo/file_info_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/fileInfo/file_info_details.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/index/change_password.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/index/change_password.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/index/lock_screen.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/index/lock_screen.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/index/message.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/index/message.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/index/personal_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/index/personal_info.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/index/welcome.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/index/welcome.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/message/message_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/message/message_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/message/message_view.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/message/message_view.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/monitor/druid.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/monitor/druid.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/monitor/systemInfo.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/monitor/systemInfo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/notice/notice.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/notice/notice.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/notice/notice_add.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/notice/notice_add.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/notice/notice_edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/notice/notice_edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/onlineUser/online_user.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/onlineUser/online_user.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/organization/organization.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/organization/organization.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/organization/organization_add.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/organization/organization_add.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/organization/organization_edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/organization/organization_edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/position/position.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/position/position.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/position/position_add.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/position/position_add.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/position/position_edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/position/position_edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/resource/resource.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/resource/resource.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/resource/resource_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/resource/resource_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/role/role_add.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/role/role_add.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/role/role_assign_api.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/role/role_assign_api.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/role/role_assign_menu_button.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/role/role_assign_menu_button.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/role/role_edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/role/role_edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/role/role_edit_data_scope.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/role/role_edit_data_scope.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/timers/timers.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/timers/timers.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/timers/timers_add.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/timers/timers_add.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/timers/timers_edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/timers/timers_edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/user/user.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/user/user.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/user/user_add.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/user/user_add.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/user/user_edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/modular/system/user/user_edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/register.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -109,7 +214,7 @@
       <workItem from="1642164490114" duration="2240000" />
       <workItem from="1642592060586" duration="11218000" />
       <workItem from="1642603342099" duration="1520000" />
-      <workItem from="1642661460262" duration="17254000" />
+      <workItem from="1642661460262" duration="17997000" />
     </task>
     <task id="LOCAL-00001" summary="no change">
       <created>1642083737916</created>
@@ -132,7 +237,14 @@
       <option name="project" value="LOCAL" />
       <updated>1642690968147</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="no">
+      <created>1642691250092</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1642691250092</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -154,7 +266,8 @@
     <MESSAGE value="no change" />
     <MESSAGE value="common info" />
     <MESSAGE value="interface" />
-    <option name="LAST_COMMIT_MESSAGE" value="interface" />
+    <MESSAGE value="no" />
+    <option name="LAST_COMMIT_MESSAGE" value="no" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
