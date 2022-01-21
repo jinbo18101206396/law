@@ -24,6 +24,7 @@
  */
 package cn.stylefeng.guns.modular.controller;
 
+import cn.stylefeng.guns.modular.model.request.AccuserRequest;
 import cn.stylefeng.guns.modular.model.request.DefendantRequest;
 import cn.stylefeng.guns.modular.service.DefendantService;
 import cn.stylefeng.roses.kernel.rule.pojo.response.ResponseData;
@@ -118,6 +119,30 @@ public class DefendantController {
     @PostResource(name = "更新被告最后陈述意见", path = "/defendant/statement")
     public ResponseData updateStatementByDefendantAndNumber(@RequestBody @Validated(DefendantRequest.edit.class) DefendantRequest defendantRequest) {
         defendantService.updateStatementByDefendantAndNumber(defendantRequest);
+        return new SuccessResponseData();
+    }
+
+    /**
+     * 通过被告全称和案号更新调解方案和庭外和解时间
+     *
+     * @author 金波
+     * @date 2022/01/20
+     */
+    @PostResource(name = "更新调解方案", path = "/defendant/mediate")
+    public ResponseData updateMediateByDefendantAndNumber(@RequestBody @Validated(DefendantRequest.edit.class) DefendantRequest defendantRequest) {
+        defendantService.updateMediateByDefendantAndNumber(defendantRequest);
+        return new SuccessResponseData();
+    }
+
+    /**
+     * 通过被告全称和案号更新电子送达裁判文书信息
+     *
+     * @author 金波
+     * @date 2022/01/21
+     */
+    @PostResource(name = "更新电子送达裁判文书信息", path = "/defendant/delivery")
+    public ResponseData updateDeliveryByAccuserAndNumber(@RequestBody @Validated(DefendantRequest.edit.class) DefendantRequest defendantRequest) {
+        defendantService.updateDeliveryByAccuserAndNumber(defendantRequest);
         return new SuccessResponseData();
     }
 }

@@ -2,8 +2,10 @@ package cn.stylefeng.guns.modular.service.Impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
+import cn.stylefeng.guns.modular.entity.Accuser;
 import cn.stylefeng.guns.modular.entity.Defendant;
 import cn.stylefeng.guns.modular.mapper.DefendantMapper;
+import cn.stylefeng.guns.modular.model.request.AccuserRequest;
 import cn.stylefeng.guns.modular.model.request.DefendantRequest;
 import cn.stylefeng.guns.modular.service.DefendantService;
 import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
@@ -84,6 +86,30 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
         Defendant defendant = this.queryDefendantByWrapper(defendantRequest);
         String finalStatement = defendantRequest.getFinalStatement();
         defendant.setFinalStatement(finalStatement);
+        this.updateById(defendant);
+    }
+
+    @Override
+    public void updateMediateByDefendantAndNumber(DefendantRequest defendantRequest) {
+        Defendant defendant = this.queryDefendantByWrapper(defendantRequest);
+        Boolean isMediate = defendantRequest.getIsMediate();
+        String mediatePlan = defendantRequest.getMediatePlan();
+        String timeLimit = defendantRequest.getTimeLimit();
+
+        defendant.setMediate(isMediate);
+        defendant.setMediatePlan(mediatePlan);
+        defendant.setTimeLimit(timeLimit);
+
+        this.updateById(defendant);
+    }
+
+    @Override
+    public void updateDeliveryByAccuserAndNumber(DefendantRequest defendantRequest) {
+        Defendant defendant = this.queryDefendantByWrapper(defendantRequest);
+        Boolean isDelivery = defendantRequest.getIsDelivery();
+        String email = defendantRequest.getEmail();
+        defendant.setDelivery(isDelivery);
+        defendant.setEmail(email);
         this.updateById(defendant);
     }
 
