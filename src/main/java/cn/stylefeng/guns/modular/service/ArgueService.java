@@ -39,7 +39,7 @@ public interface ArgueService extends IService<Argue> {
      * @author jinbo
      * @Date 2022-01-19
      */
-    void update(ArgueRequest argueRequest);
+    void updateById(ArgueRequest argueRequest);
 
 
     /**

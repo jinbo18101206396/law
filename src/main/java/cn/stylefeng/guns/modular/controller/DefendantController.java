@@ -108,4 +108,16 @@ public class DefendantController {
         defendantService.updateAvoidByDefendantAndNumber(defendantRequest);
         return new SuccessResponseData();
     }
+
+    /**
+     * 通过被告全称和案号更新最后陈述意见
+     *
+     * @author 金波
+     * @date 2022/01/21
+     */
+    @PostResource(name = "更新被告最后陈述意见", path = "/defendant/statement")
+    public ResponseData updateStatementByDefendantAndNumber(@RequestBody @Validated(DefendantRequest.edit.class) DefendantRequest defendantRequest) {
+        defendantService.updateStatementByDefendantAndNumber(defendantRequest);
+        return new SuccessResponseData();
+    }
 }

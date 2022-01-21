@@ -98,6 +98,16 @@ public interface DefendantService extends IService<Defendant> {
     void updateAvoidByDefendantAndNumber(DefendantRequest defendantRequest);
 
     /**
+     * 通过被告全称和案号更新最后陈述意见
+     *
+     * @param defendantRequest 查看参数
+     * @return
+     * @author 金波
+     * @date 2022/01/21
+     */
+    void updateStatementByDefendantAndNumber(DefendantRequest defendantRequest);
+
+    /**
      * 查询列表
      *
      * @param defendantRequest 请求参数

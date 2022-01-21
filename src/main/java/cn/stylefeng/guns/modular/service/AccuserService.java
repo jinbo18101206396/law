@@ -71,11 +71,21 @@ public interface AccuserService extends IService<Accuser> {
      * 通过原告全称和案号更新是否申请回避信息
      *
      * @param accuserRequest 查看参数
-     * @return 详情结果
+     * @return
      * @author 金波
      * @date 2022/01/20
      */
     void updateAvoidByAccuserAndNumber(AccuserRequest accuserRequest);
+
+    /**
+     * 通过原告全称和案号更新最后陈述意见
+     *
+     * @param accuserRequest 查看参数
+     * @return
+     * @author 金波
+     * @date 2022/01/21
+     */
+    void updateStatementByAccuserAndNumber(AccuserRequest accuserRequest);
 
     /**
      * 查看详情

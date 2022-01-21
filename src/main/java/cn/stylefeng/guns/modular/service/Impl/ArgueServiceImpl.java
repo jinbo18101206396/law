@@ -40,7 +40,7 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
     }
 
     @Override
-    public void update(ArgueRequest argueRequest) {
+    public void updateById(ArgueRequest argueRequest) {
         Argue argue = this.queryArgueById(argueRequest);
         BeanUtil.copyProperties(argueRequest, argue);
         this.updateById(argue);

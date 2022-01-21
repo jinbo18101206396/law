@@ -33,7 +33,6 @@ import cn.stylefeng.roses.kernel.scanner.api.annotation.PostResource;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.annotation.Resource;
 
 /**
@@ -56,8 +55,8 @@ public class AccuserController {
      * @date 2022/01/20
      */
     @PostResource(name = "保存原告信息", path = "/accuser/add")
-    public ResponseData add(@RequestBody @Validated(AccuserRequest.add.class) AccuserRequest accountRequest) {
-        accuserService.add(accountRequest);
+    public ResponseData add(@RequestBody @Validated(AccuserRequest.add.class) AccuserRequest accuserRequest) {
+        accuserService.add(accuserRequest);
         return new SuccessResponseData();
     }
 
@@ -108,4 +107,17 @@ public class AccuserController {
         accuserService.updateAvoidByAccuserAndNumber(accuserRequest);
         return new SuccessResponseData();
     }
+
+    /**
+     * 通过原告全称和案号更新最后陈述意见
+     *
+     * @author 金波
+     * @date 2022/01/20
+     */
+    @PostResource(name = "更新最后陈述意见", path = "/accuser/statement")
+    public ResponseData updateStatementByAccuserAndNumber(@RequestBody @Validated(AccuserRequest.edit.class) AccuserRequest accuserRequest) {
+        accuserService.updateStatementByAccuserAndNumber(accuserRequest);
+        return new SuccessResponseData();
+    }
+
 }

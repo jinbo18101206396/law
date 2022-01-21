@@ -75,6 +75,14 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
     }
 
     @Override
+    public void updateStatementByAccuserAndNumber(AccuserRequest accuserRequest) {
+        Accuser accuser = this.queryAccuserByWrapper(accuserRequest);
+        String finalStatement = accuserRequest.getFinalStatement();
+        accuser.setFinalStatement(finalStatement);
+        this.updateById(accuser);
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public Accuser detail(AccuserRequest accuserRequest) {
         return this.queryAccuserById(accuserRequest);

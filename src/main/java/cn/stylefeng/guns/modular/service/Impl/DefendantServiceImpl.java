@@ -80,6 +80,14 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
     }
 
     @Override
+    public void updateStatementByDefendantAndNumber(DefendantRequest defendantRequest) {
+        Defendant defendant = this.queryDefendantByWrapper(defendantRequest);
+        String finalStatement = defendantRequest.getFinalStatement();
+        defendant.setFinalStatement(finalStatement);
+        this.updateById(defendant);
+    }
+
+    @Override
     public List<Defendant> findList(DefendantRequest defendantRequest) {
         return null;
     }
