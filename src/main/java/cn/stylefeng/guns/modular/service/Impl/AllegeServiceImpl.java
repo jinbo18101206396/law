@@ -40,7 +40,7 @@ public class AllegeServiceImpl extends ServiceImpl<AllegeMapper, Allege> impleme
     }
 
     @Override
-    public void update(AllegeRequest allegeRequest) {
+    public void updateById(AllegeRequest allegeRequest) {
         Allege allege = this.queryAllegeById(allegeRequest);
         BeanUtil.copyProperties(allegeRequest, allege);
         this.updateById(allege);

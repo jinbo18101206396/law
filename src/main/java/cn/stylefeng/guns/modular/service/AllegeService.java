@@ -39,7 +39,7 @@ public interface AllegeService extends IService<Allege> {
      * @author jinbo
      * @Date 2022-01-19
      */
-    void update(AllegeRequest allegeRequest);
+    void updateById(AllegeRequest allegeRequest);
 
     /**
      * 查看详情

@@ -39,7 +39,7 @@ public interface ReplyService extends IService<Reply> {
      * @author jinbo
      * @Date 2022-01-19
      */
-    void update(ReplyRequest replyRequest);
+    void updateById(ReplyRequest replyRequest);
 
     /**
      * 查看详情
