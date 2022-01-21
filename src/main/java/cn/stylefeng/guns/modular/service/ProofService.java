@@ -34,12 +34,20 @@ public interface ProofService extends IService<Proof> {
     void delete(ProofRequest proofRequest);
 
     /**
-     * 更新
+     * 通过Id更新举证信息
      *
      * @author jinbo
      * @Date 2022-01-19
      */
-    void update(ProofRequest proofRequest);
+    void updateById(ProofRequest proofRequest);
+
+    /**
+     * 通过案号和名称更新举证信息
+     *
+     * @author jinbo
+     * @Date 2022-01-19
+     */
+    void updateByNumberAndName(ProofRequest proofRequest);
 
     /**
      * 查看详情
