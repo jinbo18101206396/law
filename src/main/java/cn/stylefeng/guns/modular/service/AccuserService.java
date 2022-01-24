@@ -88,6 +88,26 @@ public interface AccuserService extends IService<Accuser> {
     void updateStatementByAccuserAndNumber(AccuserRequest accuserRequest);
 
     /**
+     * 通过原告全称和案号更新调解方案
+     *
+     * @param accuserRequest 查看参数
+     * @return
+     * @author 金波
+     * @date 2022/01/21
+     */
+    void updateMediateByAccuserAndNumber(AccuserRequest accuserRequest);
+
+    /**
+     * 通过原告全称和案号更新电子送达裁判文书信息
+     *
+     * @param accuserRequest 查看参数
+     * @return
+     * @author 金波
+     * @date 2022/01/21
+     */
+    void updateDeliveryByAccuserAndNumber(AccuserRequest accuserRequest);
+
+    /**
      * 查看详情
      *
      * @param accuserRequest 查看参数

@@ -1,6 +1,7 @@
 package cn.stylefeng.guns.modular.service;
 
 import cn.stylefeng.guns.modular.entity.Defendant;
+import cn.stylefeng.guns.modular.model.request.AccuserRequest;
 import cn.stylefeng.guns.modular.model.request.DefendantRequest;
 import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -106,6 +107,26 @@ public interface DefendantService extends IService<Defendant> {
      * @date 2022/01/21
      */
     void updateStatementByDefendantAndNumber(DefendantRequest defendantRequest);
+
+    /**
+     * 通过被告全称和案号更新调解方案
+     *
+     * @param defendantRequest 查看参数
+     * @return
+     * @author 金波
+     * @date 2022/01/21
+     */
+    void updateMediateByDefendantAndNumber(DefendantRequest defendantRequest);
+
+    /**
+     * 通过被告全称和案号更新电子送达裁判文书信息
+     *
+     * @param defendantRequest 查看参数
+     * @return
+     * @author 金波
+     * @date 2022/01/21
+     */
+    void updateDeliveryByAccuserAndNumber(DefendantRequest defendantRequest);
 
     /**
      * 查询列表

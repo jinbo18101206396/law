@@ -2,8 +2,10 @@ package cn.stylefeng.guns.modular.service.Impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
+import cn.stylefeng.guns.modular.entity.Proof;
 import cn.stylefeng.guns.modular.entity.Query;
 import cn.stylefeng.guns.modular.mapper.QueryMapper;
+import cn.stylefeng.guns.modular.model.request.ProofRequest;
 import cn.stylefeng.guns.modular.model.request.QueryRequest;
 import cn.stylefeng.guns.modular.service.QueryService;
 import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
@@ -39,8 +41,15 @@ public class QueryServiceImpl extends ServiceImpl<QueryMapper, Query> implements
     }
 
     @Override
-    public void update(QueryRequest queryRequest) {
+    public void updateById(QueryRequest queryRequest) {
         Query query = this.queryQueryById(queryRequest);
+        BeanUtil.copyProperties(queryRequest, query);
+        this.updateById(query);
+    }
+
+    @Override
+    public void updateByNumberAndName(QueryRequest queryRequest) {
+        Query query = this.queryQueryByWrapper(queryRequest);
         BeanUtil.copyProperties(queryRequest, query);
         this.updateById(query);
     }
@@ -77,14 +86,33 @@ public class QueryServiceImpl extends ServiceImpl<QueryMapper, Query> implements
     }
 
     /**
+     * 根据案号和名称获取对象信息
+     *
+     * @return 实体对象
+     * @author 金波
+     * @date 2022/01/14
+     */
+    private Query queryQueryByWrapper(QueryRequest queryRequest) {
+        LambdaQueryWrapper<Query> wrapper = this.createWrapper(queryRequest);
+        Query query = this.getOne(wrapper);
+        if (ObjectUtil.isEmpty(query)) {
+            throw new SystemModularException(PositionExceptionEnum.CANT_FIND_POSITION, query.getCourtNumber());
+        }
+        return query;
+    }
+
+    /**
      * 实体构建 QueryWrapper
      *
      * @author 金波
-     * @date 2022/01/14 15:07
+     * @date 2022/01/21
      */
     private LambdaQueryWrapper<Query> createWrapper(QueryRequest queryRequest) {
         LambdaQueryWrapper<Query> queryWrapper = new LambdaQueryWrapper<Query>();
-
+        String courtNumber = queryRequest.getCourtNumber();
+        String name = queryRequest.getName();
+        queryWrapper.eq(ObjectUtil.isNotNull(courtNumber), Query::getCourtNumber, courtNumber);
+        queryWrapper.eq(ObjectUtil.isNotNull(name), Query::getName, name);
         return queryWrapper;
     }
 }

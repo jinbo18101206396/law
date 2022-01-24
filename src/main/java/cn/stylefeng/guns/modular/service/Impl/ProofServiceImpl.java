@@ -2,8 +2,10 @@ package cn.stylefeng.guns.modular.service.Impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
+import cn.stylefeng.guns.modular.entity.Accuser;
 import cn.stylefeng.guns.modular.entity.Proof;
 import cn.stylefeng.guns.modular.mapper.ProofMapper;
+import cn.stylefeng.guns.modular.model.request.AccuserRequest;
 import cn.stylefeng.guns.modular.model.request.ProofRequest;
 import cn.stylefeng.guns.modular.service.ProofService;
 import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
@@ -40,8 +42,15 @@ public class ProofServiceImpl extends ServiceImpl<ProofMapper, Proof> implements
     }
 
     @Override
-    public void update(ProofRequest proofRequest) {
+    public void updateById(ProofRequest proofRequest) {
         Proof proof = this.queryProofById(proofRequest);
+        BeanUtil.copyProperties(proofRequest, proof);
+        this.updateById(proof);
+    }
+
+    @Override
+    public void updateByNumberAndName(ProofRequest proofRequest) {
+        Proof proof = this.queryProofByWrapper(proofRequest);
         BeanUtil.copyProperties(proofRequest, proof);
         this.updateById(proof);
     }
@@ -77,14 +86,33 @@ public class ProofServiceImpl extends ServiceImpl<ProofMapper, Proof> implements
     }
 
     /**
+     * 根据案号和名称获取对象信息
+     *
+     * @return 实体对象
+     * @author 金波
+     * @date 2022/01/14
+     */
+    private Proof queryProofByWrapper(ProofRequest proofRequest) {
+        LambdaQueryWrapper<Proof> wrapper = this.createWrapper(proofRequest);
+        Proof proof = this.getOne(wrapper);
+        if (ObjectUtil.isEmpty(proof)) {
+            throw new SystemModularException(PositionExceptionEnum.CANT_FIND_POSITION, proof.getCourtNumber());
+        }
+        return proof;
+    }
+
+    /**
      * 实体构建 QueryWrapper
      *
      * @author 金波
-     * @date 2022/01/14 15:07
+     * @date 2022/01/21
      */
     private LambdaQueryWrapper<Proof> createWrapper(ProofRequest proofRequest) {
         LambdaQueryWrapper<Proof> queryWrapper = new LambdaQueryWrapper<Proof>();
-
+        String courtNumber = proofRequest.getCourtNumber();
+        String name = proofRequest.getName();
+        queryWrapper.eq(ObjectUtil.isNotNull(courtNumber), Proof::getCourtNumber, courtNumber);
+        queryWrapper.eq(ObjectUtil.isNotNull(name), Proof::getName, name);
         return queryWrapper;
     }
 }

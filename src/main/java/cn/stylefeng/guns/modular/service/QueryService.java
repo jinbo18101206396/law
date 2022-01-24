@@ -1,6 +1,7 @@
 package cn.stylefeng.guns.modular.service;
 
 import cn.stylefeng.guns.modular.entity.Query;
+import cn.stylefeng.guns.modular.model.request.ProofRequest;
 import cn.stylefeng.guns.modular.model.request.QueryRequest;
 import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -20,6 +21,8 @@ public interface QueryService extends IService<Query> {
     /**
      * 新增
      *
+     * @param queryRequest 查看参数
+     * @return
      * @author jinbo
      * @Date 2022-01-19
      */
@@ -28,18 +31,32 @@ public interface QueryService extends IService<Query> {
     /**
      * 删除
      *
+     * @param queryRequest 查看参数
+     * @return
      * @author jinbo
      * @Date 2022-01-19
      */
     void delete(QueryRequest queryRequest);
 
     /**
-     * 更新
+     * 通过Id更新质证信息
      *
+     * @param queryRequest 查看参数
+     * @return
      * @author jinbo
      * @Date 2022-01-19
      */
-    void update(QueryRequest queryRequest);
+    void updateById(QueryRequest queryRequest);
+
+    /**
+     * 通过案号和名称更新质证信息
+     *
+     * @param queryRequest 查看参数
+     * @return
+     * @author jinbo
+     * @Date 2022-01-19
+     */
+    void updateByNumberAndName(QueryRequest queryRequest);
 
     /**
      * 查看详情

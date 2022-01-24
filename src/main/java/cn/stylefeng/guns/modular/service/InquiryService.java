@@ -20,7 +20,9 @@ public interface InquiryService extends IService<Inquiry> {
     /**
      * 新增
      *
-     * @author jinbo
+     * @param inquiryRequest 请求参数
+     * @return
+     * @author 金波
      * @Date 2022-01-19
      */
     void add(InquiryRequest inquiryRequest);
@@ -28,26 +30,40 @@ public interface InquiryService extends IService<Inquiry> {
     /**
      * 删除
      *
-     * @author jinbo
+     * @param inquiryRequest 请求参数
+     * @return
+     * @author 金波
      * @Date 2022-01-19
      */
     void delete(InquiryRequest inquiryRequest);
 
     /**
-     * 更新
+     * 通过ID更新法庭询问信息
      *
-     * @author jinbo
+     * @param inquiryRequest 请求参数
+     * @return
+     * @author 金波
      * @Date 2022-01-19
      */
-    void update(InquiryRequest inquiryRequest);
+    void updateById(InquiryRequest inquiryRequest);
+
+    /**
+     * 通过案号更新法庭询问信息
+     *
+     * @param inquiryRequest 请求参数
+     * @return
+     * @author 金波
+     * @Date 2022-01-19
+     */
+    void updateByCourtNumber(InquiryRequest inquiryRequest);
 
     /**
      * 查看详情
      *
-     * @param inquiryRequest 查看参数
+     * @param inquiryRequest 请求参数
      * @return 详情结果
      * @author 金波
-     * @date 2021/5/12 18:28
+     * @Date 2022-01-19
      */
     Inquiry detail(InquiryRequest inquiryRequest);
 

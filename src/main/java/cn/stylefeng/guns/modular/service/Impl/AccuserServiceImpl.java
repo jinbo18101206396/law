@@ -14,6 +14,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -79,6 +80,28 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
         Accuser accuser = this.queryAccuserByWrapper(accuserRequest);
         String finalStatement = accuserRequest.getFinalStatement();
         accuser.setFinalStatement(finalStatement);
+        this.updateById(accuser);
+    }
+
+    @Override
+    public void updateMediateByAccuserAndNumber(AccuserRequest accuserRequest) {
+        Accuser accuser = this.queryAccuserByWrapper(accuserRequest);
+        Boolean isMediate = accuserRequest.getIsMediate();
+        String mediatePlan = accuserRequest.getMediatePlan();
+        String timeLimit = accuserRequest.getTimeLimit();
+        accuser.setMediate(isMediate);
+        accuser.setMediatePlan(mediatePlan);
+        accuser.setTimeLimit(timeLimit);
+        this.updateById(accuser);
+    }
+
+    @Override
+    public void updateDeliveryByAccuserAndNumber(AccuserRequest accuserRequest) {
+        Accuser accuser = this.queryAccuserByWrapper(accuserRequest);
+        Boolean isDelivery = accuserRequest.getIsDelivery();
+        String email = accuserRequest.getEmail();
+        accuser.setDelivery(isDelivery);
+        accuser.setEmail(email);
         this.updateById(accuser);
     }
 

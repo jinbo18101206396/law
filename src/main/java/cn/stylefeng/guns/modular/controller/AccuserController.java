@@ -120,4 +120,28 @@ public class AccuserController {
         return new SuccessResponseData();
     }
 
+    /**
+     * 通过原告全称和案号更新调解方案和庭外和解时间
+     *
+     * @author 金波
+     * @date 2022/01/20
+     */
+    @PostResource(name = "更新调解方案", path = "/accuser/mediate")
+    public ResponseData updateMediateByAccuserAndNumber(@RequestBody @Validated(AccuserRequest.edit.class) AccuserRequest accuserRequest) {
+        accuserService.updateMediateByAccuserAndNumber(accuserRequest);
+        return new SuccessResponseData();
+    }
+
+    /**
+     * 通过原告全称和案号更新电子送达裁判文书信息
+     *
+     * @author 金波
+     * @date 2022/01/21
+     */
+    @PostResource(name = "更新电子送达裁判文书信息", path = "/accuser/delivery")
+    public ResponseData updateDeliveryByAccuserAndNumber(@RequestBody @Validated(AccuserRequest.edit.class) AccuserRequest accuserRequest) {
+        accuserService.updateDeliveryByAccuserAndNumber(accuserRequest);
+        return new SuccessResponseData();
+    }
+
 }

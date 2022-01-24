@@ -41,7 +41,7 @@ public class ReplyServiceImpl extends ServiceImpl<ReplyMapper, Reply> implements
     }
 
     @Override
-    public void update(ReplyRequest replyRequest) {
+    public void updateById(ReplyRequest replyRequest) {
         Reply reply = this.queryReplyById(replyRequest);
         BeanUtil.copyProperties(replyRequest, reply);
         this.updateById(reply);
