@@ -1,0 +1,32 @@
+@layout("/layout/_form.html",{js:["/assets/modular/business/record/basicImfState.js"]}){
+<!-- 原告信息 -->
+<form class="layui-form" action="" onsubmit="return false">
+    <div class="layui-card">
+<!--        <div class="layui-card-header">法庭调查</div>-->
+        <div class="layui-card-body">
+            <div class="layui-form-item">
+                <label class="layui-form-label layui-form-required">陈述类型</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="stateType" lay-filter="stateType" value="0" title="简易程序" checked>
+                    <input type="radio" name="stateType" lay-filter="stateType" value="1" title="普通程序独任制" >
+                    <input type="radio" name="stateType" lay-filter="stateType" value="2" title="普通程序合议制" >
+                </div>
+            </div>
+            <div id="mychange">
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label layui-form-required">陈述内容</label>
+                    <div class="layui-input-block">
+                        <textarea id="state" name="content"  class="layui-textarea" required  lay-verify="required"> 审判员：当事人身份经核对无误，法庭宣布双方当事人及其诉讼代理人身份符合法律规定，出庭资格合法，可以参加诉讼。现在宣布开庭。北京市海淀区人民法院今天依法适用简易程序，公开审理原告__诉被告__一案，由本院审判员__独任审判，书记员__担任法庭记录。</textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="formDemo" style="display: table;margin: 0 auto;">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+@}

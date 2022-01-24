@@ -53,9 +53,9 @@ public class RecordViewController {
      * @author liaoweiming
      * @date 2022-01-16 14:41
      */
-    @GetResource(name = "基本信息表单", path = "/view/base", requiredPermission = false)
+    @GetResource(name = "基本信息表单", path = "/view/basicstate", requiredPermission = false)
     public String baseImfView() {
-        return "/modular/business/record/baseImf.html";
+        return "/modular/business/record/basicImfState.html";
     }
 
     /**
@@ -75,6 +75,12 @@ public class RecordViewController {
     public String defendantImfView() {
         return "/modular/business/record/defendantImf.html";
     }
+
+    @GetResource(name = "法庭调查1", path = "/view/courtinves", requiredPermission = false)
+    public String courtInvesView() {
+        return "/modular/business/record/courtInves.html";
+    }
+
 
     /**
      * @author wangjiaran
