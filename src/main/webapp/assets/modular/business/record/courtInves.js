@@ -64,8 +64,39 @@ layui.use('form', function() {
             "                        <textarea name=\"lji7n\" placeholder=\"请输入事实和理由\" class=\"layui-textarea\"></textarea>\n" +
             "                    </div>\n" +
             "                </div>";
+        var todayreply_html="            <div class=\"layui-form-item\">\n" +
+            "                <label class=\"layui-form-label layui-form-required\">反诉被告今</br>天是否答辩</label>\n" +
+            "                <div class=\"layui-input-block\">\n" +
+            "                    <input type=\"radio\" name=\"todayreply\" lay-filter=\"is_todayreply\" value=\"0\" title=\"答辩\" checked>\n" +
+            "                    <input type=\"radio\" name=\"todayreply\" lay-filter=\"is_todayreply\" value=\"1\" title=\"不答辩\" >\n" +
+            "                </div>\n" +
+            "            </div>\n" +
+            "\n" +
+            "            <div id=\"todayreply\">\n" +
+            "                <div id =\"addtodayreplyitem\">\n" +
+            "                    <div id=\"todayreplyitem1\">\n" +
+            "                        <div class=\"layui-form-item\" style=\"margin-top: 11px;\">\n" +
+            "                            <label class=\"layui-form-label\">\n" +
+            "                                <input type=\"text\" name=\"title\" placeholder=\"被告姓名\" class=\"layui-input\" style=\"margin-top: -9px;\">\n" +
+            "                            </label>\n" +
+            "                            <div class=\"layui-input-inline\" style=\"width: 50%;\">\n" +
+            "                                <div style=\"float: left;display: inline;width: 80%\">\n" +
+            "                                    <input type=\"text\" name=\"title\" placeholder=\"答辩内容\" autocomplete=\"on\" class=\"layui-input\">\n" +
+            "                                </div>\n" +
+            "                                <div style=\"float: right;display: inline ;margin-left: 10px;\">\n" +
+            "                                    <div class=\"layui-btn-group\">\n" +
+            "                                        <button id=\"todayreplyitem_add\" type=\"button\" class=\"layui-btn layui-btn-primary layui-btn-sm\" data-type=\"text\" style=\"height: 38px;\">\n" +
+            "                                            <i class=\"layui-icon\"></i>\n" +
+            "                                        </button>\n" +
+            "                                    </div>\n" +
+            "                                </div>\n" +
+            "                            </div>\n" +
+            "                        </div>\n" +
+            "                    </div>\n" +
+            "                </div>\n" +
+            "            </div>";
         if(type=="0"){
-            $("#counterclaim").html(counterclaim_html);
+            $("#counterclaim").html(counterclaim_html+todayreply_html);
         }else {
             $("#counterclaim").html("");
         }
@@ -174,7 +205,7 @@ $("#counterclaim").on('click','#counterclaimitem_add',function (){
 });
 
 var todayreplynum=1;
-$("#todayreply").on('click','#todayreplyitem_add',function (){
+$("#counterclaim").on('click','#todayreplyitem_add',function (){
     todayreplynum++;
     var todayreply_html="            <div class=\"layui-form-item\" id=\"todayreplyitem"+todayreplynum+"\" style=\"margin-top: 11px;\">\n" +
         "                <label class=\"layui-form-label\">\n" +

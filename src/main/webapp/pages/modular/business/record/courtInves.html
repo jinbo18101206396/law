@@ -96,39 +96,42 @@
                         <textarea name="lji7n" placeholder="请输入事实和理由" class="layui-textarea"></textarea>
                     </div>
                 </div>
-            </div>
 
-            <div class="layui-form-item">
-                <label class="layui-form-label layui-form-required">反诉被告今</br>天是否答辩</label>
-                <div class="layui-input-block">
-                    <input type="radio" name="todayreply" lay-filter="is_todayreply" value="0" title="答辩" checked>
-                    <input type="radio" name="todayreply" lay-filter="is_todayreply" value="1" title="不答辩" >
+                <div class="layui-form-item">
+                    <label class="layui-form-label layui-form-required">反诉被告今</br>天是否答辩</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="todayreply" lay-filter="is_todayreply" value="0" title="答辩" checked>
+                        <input type="radio" name="todayreply" lay-filter="is_todayreply" value="1" title="不答辩" >
+                    </div>
                 </div>
-            </div>
 
-            <div id="todayreply">
-                <div id ="addtodayreplyitem">
-                    <div id="todayreplyitem1">
-                        <div class="layui-form-item" style="margin-top: 11px;">
-                            <label class="layui-form-label">
-                                <input type="text" name="title" placeholder="被告姓名" class="layui-input" style="margin-top: -9px;">
-                            </label>
-                            <div class="layui-input-inline" style="width: 50%;">
-                                <div style="float: left;display: inline;width: 80%">
-                                    <input type="text" name="title" placeholder="答辩内容" autocomplete="on" class="layui-input">
-                                </div>
-                                <div style="float: right;display: inline ;margin-left: 10px;">
-                                    <div class="layui-btn-group">
-                                        <button id="todayreplyitem_add" type="button" class="layui-btn layui-btn-primary layui-btn-sm" data-type="text" style="height: 38px;">
-                                            <i class="layui-icon"></i>
-                                        </button>
+                <div id="todayreply">
+                    <div id ="addtodayreplyitem">
+                        <div id="todayreplyitem1">
+                            <div class="layui-form-item" style="margin-top: 11px;">
+                                <label class="layui-form-label">
+                                    <input type="text" name="title" placeholder="被告姓名" class="layui-input" style="margin-top: -9px;">
+                                </label>
+                                <div class="layui-input-inline" style="width: 50%;">
+                                    <div style="float: left;display: inline;width: 80%">
+                                        <input type="text" name="title" placeholder="答辩内容" autocomplete="on" class="layui-input">
+                                    </div>
+                                    <div style="float: right;display: inline ;margin-left: 10px;">
+                                        <div class="layui-btn-group">
+                                            <button id="todayreplyitem_add" type="button" class="layui-btn layui-btn-primary layui-btn-sm" data-type="text" style="height: 38px;">
+                                                <i class="layui-icon"></i>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
+
+
         </form>
     </div>
 </div>
