@@ -1,26 +1,129 @@
 @layout("/layout/_form.html",{js:["/assets/modular/business/record/courtInves.js"]}){
-<div class="layui-card">
+<div class="layui-card" xmlns="http://www.w3.org/1999/html">
     <div class="layui-card-body">
         <form class="layui-form " action="" onsubmit="return false">
             <div class="layui-form-item">
                 <label class="layui-form-label">审判员:</label>
                 <div class="layui-form-mid layui-word-aux">下面进行法庭调查，原告陈述诉讼请求和事实理由</div>
-
             </div>
             <div id="requestitem">
                 <div class="layui-form-item" id="item1" style="margin-top: 11px;">
                     <label class="layui-form-label">
-                        <input type="text" name="title" id="plaintiff1" lay-verify="required" placeholder="原告简称"  class="layui-input" style="margin-top: -9px;">
+                        <input type="text" name="title" placeholder="原告简称"  class="layui-input" style="margin-top: -9px;">
                     </label>
                     <div class="layui-input-inline" style="width: 50%;">
                         <div style="float: left;display: inline;width: 80%">
-                            <input type="text" name="title" id="request1" lay-verify="required" placeholder="诉讼请求项" autocomplete="on" class="layui-input">
+                            <input type="text" name="title"  placeholder="诉讼请求项" autocomplete="on" class="layui-input">
                         </div>
                         <div style="float: right;display: inline ;margin-left: 10px;">
                             <div class="layui-btn-group" >
                                 <button id="courtinves_add" type="button" class="layui-btn layui-btn-primary layui-btn-sm" data-type="text" style="height: 38px;">
                                     <i class="layui-icon">&#xe654;</i>
                                 </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">事实和理由</label>
+                <div class="layui-input-block">
+                    <textarea name="lji7n" placeholder="请输入事实和理由" class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">审判员:</label>
+                <div class="layui-input-block">
+                    <input type="text" name="6j8z" required  lay-verify="required"  autocomplete="off" class="layui-input" value="下面进行法庭调查，原告陈述诉讼请求和事实理由">
+                </div>
+            </div>
+
+            <div id="myreplyitem">
+                <div id="replyitem1">
+                    <div class="layui-form-item"  style="margin-top: 11px;">
+                        <label class="layui-form-label">
+                            <input type="text" name="title" id="defendant1" placeholder="被告姓名"  class="layui-input" style="margin-top: -9px;">
+                        </label>
+                        <div class="layui-input-inline" style="width: 50%;">
+                            <div style="float: left;display: inline;width: 80%">
+                                <input type="text" name="title"  placeholder="答辩内容" autocomplete="on" class="layui-input">
+                            </div>
+                            <div style="float: right;display: inline ;margin-left: 10px;">
+                                <div class="layui-btn-group" >
+                                    <button id="replyitem_add" type="button" class="layui-btn layui-btn-primary layui-btn-sm" data-type="text" style="height: 38px;">
+                                        <i class="layui-icon">&#xe654;</i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label layui-form-required">是否反诉</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="counterclaim" lay-filter="is_counterclaim" value="0" title="反诉" checked>
+                    <input type="radio" name="counterclaim" lay-filter="is_counterclaim" value="1" title="不反诉" >
+                </div>
+            </div>
+
+            <div id="counterclaim">
+                <div id ="addcounterclaimitem">
+                    <div id="counterclaimitem1">
+                        <div class="layui-form-item" style="margin-top: 11px;">
+                            <label class="layui-form-label">
+                                <input type="text" name="title" placeholder="反诉原告简称" class="layui-input" style="margin-top: -9px;">
+                            </label>
+                            <div class="layui-input-inline" style="width: 50%;">
+                                <div style="float: left;display: inline;width: 80%">
+                                    <input type="text" name="title" placeholder="诉讼请求项" autocomplete="on" class="layui-input">
+                                </div>
+                                <div style="float: right;display: inline ;margin-left: 10px;">
+                                    <div class="layui-btn-group">
+                                        <button id="counterclaimitem_add" type="button" class="layui-btn layui-btn-primary layui-btn-sm" data-type="text" style="height: 38px;">
+                                            <i class="layui-icon"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">事实和理由</label>
+                    <div class="layui-input-block">
+                        <textarea name="lji7n" placeholder="请输入事实和理由" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label layui-form-required">反诉被告今</br>天是否答辩</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="todayreply" lay-filter="is_todayreply" value="0" title="答辩" checked>
+                    <input type="radio" name="todayreply" lay-filter="is_todayreply" value="1" title="不答辩" >
+                </div>
+            </div>
+
+            <div id="todayreply">
+                <div id ="addtodayreplyitem">
+                    <div id="todayreplyitem1">
+                        <div class="layui-form-item" style="margin-top: 11px;">
+                            <label class="layui-form-label">
+                                <input type="text" name="title" placeholder="被告姓名" class="layui-input" style="margin-top: -9px;">
+                            </label>
+                            <div class="layui-input-inline" style="width: 50%;">
+                                <div style="float: left;display: inline;width: 80%">
+                                    <input type="text" name="title" placeholder="答辩内容" autocomplete="on" class="layui-input">
+                                </div>
+                                <div style="float: right;display: inline ;margin-left: 10px;">
+                                    <div class="layui-btn-group">
+                                        <button id="todayreplyitem_add" type="button" class="layui-btn layui-btn-primary layui-btn-sm" data-type="text" style="height: 38px;">
+                                            <i class="layui-icon"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
