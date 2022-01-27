@@ -240,22 +240,23 @@
 </div>
 <!--权利告知-->
 <h1 style="text-align:center">权利告知（带*为必填项）</h1>
-<div class="layui-fluid">
+<div class="layui-fluid" >
     <table border="1" class="layui-table">
         <tr>
             <td style="text-align: center">审判员</td>
             <td>
-                <div class="layui-input-block">
-                    <p>审判员：依据《中华人民共和国民事诉讼法》的规定，当事人在法庭上享有下列权利：</p>
-                    <p>1.原告有权承认、变更、放弃自己的诉讼请求，被告有权反驳原告的诉讼请求或提起反诉；</p>
-                    <p>2.当事人有权申请回避；</p>
-                    <p>3.当事人有权举证；</p>
-                    <p>4.当事人有权辩论、有权请求法庭调解</p>
-                    <p>当事人在享有上述权利的同时，负有以下义务：</p>
-                    <p>1.当事人有依法行使诉讼权利的义务；</p>
-                    <p>2.当事人有听从法庭指挥、遵守法庭纪律的义务；</p>
-                    <p>3.当事人有如实陈述事实、如实举证的义务。</p>
-                    <p>上述诉讼权利和义务双方是否听清？</p>
+                <div class="layui-input-block" >
+            <textarea name="ta1" type="text" class="layui-input " style="height: 200px;" >
+审判员：依据《中华人民共和国民事诉讼法》的规定，当事人在法庭上享有下列权利：
+1.原告有权承认、变更、放弃自己的诉讼请求，被告有权反驳原告的诉讼请求或提起反诉；
+2.当事人有权申请回避；
+3.当事人有权举证；
+4.当事人有权辩论、有权请求法庭调解
+当事人在享有上述权利的同时，负有以下义务：
+1.当事人有依法行使诉讼权利的义务；
+2.当事人有听从法庭指挥、遵守法庭纪律的义务；
+3.当事人有如实陈述事实、如实举证的义务。
+上述诉讼权利和义务双方是否听清？</textarea>
                 </div>
             </td>
         </tr>
@@ -263,7 +264,7 @@
             <td style="text-align: center">原告<span style="color: red">*</span></td>
             <td>
                 <div class="layui-input-block">
-                    <p>听清楚了</p>
+                    <textarea name="ta2" type="text" class="layui-input " style="height: 50px;">听清楚了</textarea>
                 </div>
             </td>
         </tr>
@@ -271,7 +272,7 @@
             <td style="text-align: center">被告<span style="color: red">*</span></td>
             <td>
                 <div class="layui-input-block">
-                    <p>听清楚了</p>
+                    <textarea name="ta2" type="text" class="layui-input " style="height: 50px;">听清楚了</textarea>
                 </div>
             </td>
         </tr>
@@ -279,15 +280,12 @@
             <td style="text-align: center">审判员</td>
             <td>
                 <div class="layui-input-block">
-                    <p>审判员：当事人对审判员和书记是否申请回避？</p>
+                    <textarea name="ta2" type="text" class="layui-input " style="height: 50px;">审判员：当事人对审判员和书记是否申请回避？</textarea>
                 </div>
             </td>
             </td>
         </tr>
         <tr>
-            <!--            <td>-->
-            <!--                <label class="layui-form-item;" sytle="vertical-align:middle;display:inline-block;">原告</label>-->
-            <!--            </td>-->
             <td style="text-align: center">原告<span style="color: red">*</span></td>
             <td>
                 <div class="layui-form-item">
@@ -295,7 +293,7 @@
                         <div class="site-title">
                             <div class="layui-form">
                                 <input type="radio" name="yuangaohuibi" title="不申请回避" checked>
-                                <input type="radio" name="yuangaohuibi" title="申请回避">
+                                <input type="radio" name="yuangaohuibi" title="申请回避" >
                             </div>
                         </div>
                     </div>
@@ -310,7 +308,7 @@
                         <div class="site-title">
                             <div class="layui-form">
                                 <input type="radio" name="beigaohuibi" title="不申请回避" checked>
-                                <input type="radio" name="beigaohuibi" title="申请回避">
+                                <input type="radio" name="beigaohuibi" title="申请回避" >
                             </div>
                         </div>
                     </div>
@@ -483,7 +481,7 @@
         <td style="text-align: center" width="30%">审判员</td>
 
         <td width="70%">
-            <p>下面进行举证质证，首先原告进行举证</p>
+            <textarea type="text" class="layui-input ">下面进行举证质证，首先原告进行举证</textarea>
         </td>
     </tr>
     <tr>
@@ -529,7 +527,7 @@
         <td style="text-align: center">审判员</td>
 
         <td>
-            <p>被告对原告提交的证据进行质证</p>
+            <textarea type="text" class="layui-input ">被告对原告提交的证据进行质证</textarea>
         </td>
     </tr>
     <tr>
@@ -617,9 +615,8 @@
     <h1 style="text-align:center">法庭调查-被告举证</h1>
     <tr>
         <td style="text-align: center" width="30%">审判员</td>
-
         <td width="70%">
-            <p>被告进行举证</p>
+            <textarea type="text" class="layui-input">被告进行举证</textarea>
         </td>
     </tr>
     <tr>
@@ -662,9 +659,8 @@
 <table class="layui-table" id="form_zhizheng">
     <tr>
         <td style="text-align: center">审判员</td>
-
         <td>
-            <p>被告对原告提交的证据进行质证</p>
+            <textarea type="text" class="layui-input">原告及其他被告对被告提交的证据进行质证</textarea>
         </td>
     </tr>
     <tr>
@@ -837,70 +833,57 @@
 
 <!--法庭调查表格4 法庭询问-->
 <h1 style="text-align:center">法庭调查-法庭询问</h1>
-<div class="layui-col-md7">
-    <table class="layui-table">
-        <tr>
-            <td style="text-align: center" width="30%">审判员</td>
-
-            <td width="70%">
-                <p>举证质证结束，下面进入法庭询问</p>
-            </td>
-        </tr>
-    </table>
-    <div class="layui-input-row" id="form_fatingdiaocha">
-        <div class="layui-input-inline">
+<table class="layui-table">
+    <tr>
+        <td style="text-align: center" width="30%">审判员</td>
+        <td width="70%">
+            <textarea type="text" class="layui-input">举证质证结束，下面进入法庭询问</textarea>
+        </td>
+    </tr>
+</table>
+<div class="layui-card">
+    <div class="layui-card-body">
+        <div class="layui-input-row" id="form_fatingdiaocha">
             <div class="layui-col-md11">
                 <div class="layui-card-header">
-                    <input type="text" name="title" id="aa" placeholder="问题" autocomplete="off" class="layui-input">
+                    <input type="text" name="title" id="aa" placeholder="问题" autocomplete="off" class="layui-input"  >
                 </div>
             </div>
             <div class="layui-col-md1">
-                <button id="button_fatingdiaocha" type="button" class="layui-btn layui-btn-primary layui-btn-sm"
-                        data-type="text">
+                <button id="button_fatingdiaocha" type="button" class="layui-btn layui-btn-primary layui-btn-sm" data-type="text">
                     <i class="layui-icon">&#xe654;</i>
                 </button>
             </div>
-            <div class="layui-col-md11">
-                <table class="layui-table" id="bb">
-                    <tr>
-                        <td style="text-align: center" width="30%">
-                            <div class="layui-card-header">
-                                <input type="text" name="title" id="cc" placeholder="原告姓名" autocomplete="off"
-                                       class="layui-input">
-                            </div>
-                        </td>
+            <table class="layui-table" id="bb">
+                <tr>
+                    <td>
+                        <div class="layui-card-header">
+                            <input type="text" name="title" id="cc" placeholder="原告姓名" autocomplete="off" class="layui-input"  >
+                        </div>
+                    </td>
+                    <td>
+                        <div class="layui-card-header">
+                            <input type="text" name="title" id="dd" placeholder="回答" autocomplete="off" class="layui-input"  >
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center" width="30%">
+                        <div class="layui-card-header">
+                            <input type="text" name="title" id="bbb" placeholder="被告姓名" autocomplete="off" class="layui-input"  >
+                        </div>
+                    </td>
 
-                        <td width="70%">
-                            <div class="layui-card-header">
-                                <input type="text" name="title" id="dd" placeholder="回答" autocomplete="off"
-                                       class="layui-input">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center" width="30%">
-                            <div class="layui-card-header">
-                                <input type="text" name="title" id="bbb" placeholder="被告姓名" autocomplete="off"
-                                       class="layui-input">
-                            </div>
-                        </td>
-
-                        <td width="70%">
-                            <div class="layui-card-header">
-                                <input type="text" name="title" id="ccc" placeholder="回答" autocomplete="off"
-                                       class="layui-input">
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+                    <td width="70%">
+                        <div class="layui-card-header">
+                            <input type="text" name="title" id="ccc" placeholder="回答" autocomplete="off" class="layui-input"  >
+                        </div>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>
-<div class="layui-col-md5">
-    <table id="demo" lay-filter="test"></table>
-</div>
-<hr>
 <!--法庭辩论 这个表格也有个小bug-->
 
 <table class="layui-table" id="form_bianlunyijian">
@@ -909,7 +892,7 @@
         <td style="text-align: center" width="30%">审判员</td>
 
         <td width="70%">
-            <p>法庭调查结束，现在进行法庭辩论，首先原告发表辩论意见</p>
+            <textarea type="text" class="layui-input">法庭调查结束，现在进行法庭辩论，首先原告发表辩论意见</textarea>
         </td>
     </tr>
     <tr>
@@ -1032,7 +1015,6 @@
     </table>
 </div>
 <!--//陈述意见表格 button=yuangaochenshu beigaochenshu-->
-<!--//form=form_chenshuyijian form_chenshuyijian2-->
 <table class="layui-table" id="form_chenshuyijian">
     <h1 style="text-align:center">陈述意见</h1>
     <tr>
@@ -1040,7 +1022,7 @@
             <p>审判员</p>
         </td>
         <td width="70%">
-            <p>双方发表最后陈述意见</p>
+            <textarea type="text" class="layui-input">双方发表最后陈述意见</textarea>
         </td>
     </tr>
     <tr>
@@ -1098,7 +1080,7 @@
             <p>审判员</p>
         </td>
         <td width="70%">
-            <p>当事人是否能够调解</p>
+            <textarea type="text" class="layui-input ">当事人是否能够调解</textarea>
         </td>
     </tr>
     <tr>
@@ -1162,7 +1144,7 @@
             <p>审判员</p>
         </td>
         <td width="70%">
-            <p>当事人是否同意电子送达裁判文书？</p>
+            <textarea type="text" class="layui-input ">当事人是否同意电子送达裁判文书？</textarea>
         </td>
     </tr>
     <tr>

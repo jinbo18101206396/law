@@ -208,7 +208,7 @@ $(function (){
             $("#mychange2").html(unitType2);
         }
     });})
-    // 法庭调查1 出了问题
+    // 法庭调查1
 
     var counterclaimnum=1;
     layui.use('form', function() {
@@ -578,48 +578,38 @@ $(function (){
     // 法庭调查4-法庭询问
     $("#button_fatingdiaocha").click(function () {
         var str=
-            '<div class="layui-input-inline">'+
+            '<div class="layui-input-row" id="form_fatingdiaocha">'+
             '<div class="layui-col-md11">'+
             '<div class="layui-card-header">'+
-            '<input type="text" name="title" id="aa" placeholder="问题" autocomplete="off" class="layui-input"  >'+
-            ' </div>'+
-            '  </div>'+
-            ' <div class="layui-col-md1">'+
-            '<button id="add1" type="button" class="layui-btn layui-btn-primary layui-btn-sm removeclass1" data-type="text" >'+
-            ' <i class="layui-icon">&#xe640;</i>'+
-            ' </button>'+
-            ' </div>'+
-            '<div class="layui-col-md11">'+
-            ' <table class="layui-table" id="bb">'+
-            '<tr>'+
-            '<td style="text-align: center" width="30%">'+
-            '<div class="layui-card-header">'+
-            '<input type="text" name="title" id="cc" placeholder="原告姓名" autocomplete="off" class="layui-input"  >'+
-            ' </div>'+
-            ' </td>'+
-
-            '<td width="70%">'+
-            '<div class="layui-card-header">'+
-            ' <input type="text" name="title" id="dd" placeholder="回答" autocomplete="off" class="layui-input">'+
+            '<input type="text" name="title" id="aa" placeholder="问题" autoComplete="off" class="layui-input">'+
             '</div>'+
-            ' </td>'+
-            ' </tr>'+
-            ' <tr>'+
-            '<td style="text-align: center" width="30%">'+
+            '</div>'+
+            '<div class="layui-col-md1">'+
+            '<button id="button_fatingdiaocha" type="button" class="layui-btn layui-btn-primary layui-btn-sm removeclass1" data-type="text">'+
+            '<i class="layui-icon">&#xe640;</i>'+
+            '</button>'+
+            '</div>'+
+            '<table class="layui-table" id="bb">'+
+            '<tr>'+
+            '<td>'+
             '<div class="layui-card-header">'+
-            '<input type="text" name="title" id="bbb" placeholder="被告姓名" autocomplete="off" class="layui-input">'+
+            '<input type="text" name="title" id="cc" placeholder="原告姓名" autoComplete="off" class="layui-input">'+
             ' </div>'+
             '</td>'+
-
-            '<td width="70%">'+
+            '<td>'+
             '<div class="layui-card-header">'+
-            '<input type="text" name="title" id="ccc" placeholder="回答" autocomplete="off" class="layui-input">'+
+            '<input type="text" name="title" id="dd" placeholder="回答" autoComplete="off" class="layui-input">'+
             '</div>'+
-            ' </td>'+
-            '</tr>'+
-            ' </table>'+
-            ' </div>'+
-            '</div>'
+            '</td>'+
+            '</tr><tr>'+
+            '<td style="text-align: center" width="30%">'+
+            '<div class="layui-card-header">'+
+            '<input type="text" name="title" id="bbb" placeholder="被告姓名" autoComplete="off" class="layui-input">'+
+            '</div></td>'+
+            ' <td width="70%">'+
+            '<div class="layui-card-header">'+
+            '<input type="text" name="title" id="ccc" placeholder="回答" autoComplete="off" class="layui-input">'+
+            '</div></td> </tr></table> </div>'
         $("#form_fatingdiaocha").append(str);
     });
 
