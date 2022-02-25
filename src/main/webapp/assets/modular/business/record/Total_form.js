@@ -208,6 +208,30 @@ $(function (){
             $("#mychange2").html(unitType2);
         }
     });})
+    // 基本信息陈述
+    layui.use('form', function() {
+        var form = layui.form;
+        //监听提交
+        form.on('submit(formDemo3)', function (data) {
+            layer.msg(JSON.stringify(data.field));
+            return false;
+        });
+        form.on('radio(stateType3)', function(data){
+            var type=data.value;
+            var firstType="审判员：当事人身份经核对无误，法庭宣布双方当事人及其诉讼代理人身份符合法律规定，出庭资格合法，可以参加诉讼。现在宣布开庭。北京市海淀区人民法院今天依法适用简易程序，公开审理原告__诉被告__一案，由本院审判员__独任审判，书记员__担任法庭记录。";
+            var secondType="审判员：当事人身份经核对无误，法庭宣布双方当事人及其诉讼代理人身份符合法律规定，出庭资格合法，可以参加诉讼。现在宣布开庭。北京市海淀区人民法院今天依法适用简易程序，公开审理原告__诉被告__一案，由本院审判员__担任审判长，与人民陪审员__共同组成合议庭，书记员__担任法庭记录。";
+            var thirdType="审判员：当事人身份经核对无误，法庭宣布双方当事人及其诉讼代理人身份符合法律规定，出庭资格合法，可以参加诉讼。现在宣布开庭。北京市海淀区人民法院今天依法适用简易程序，公开审理原告__诉被告__一案，由本院审判员__担任审判长，与陪审员__，人民陪审员__共同组成合议庭，书记员__担任法庭记录。";
+            if (type=="0"){
+                $("#state").val(firstType);
+            }
+            else if (type=="1"){
+                $("#state").val(secondType);
+            }
+            else if (type="2"){
+                $("#state").val(thirdType);
+            }
+        });
+    });
     // 法庭调查1
 
     var counterclaimnum=1;
@@ -614,106 +638,240 @@ $(function (){
     });
 
     // 法庭辩论
-    $("#bianlunyijian_yuangao").click(function () {
-        var str =
-            '<tr>'+
-            '<td>'+
-            '<div class="layui-card-header">'+
-            '<input type="text" name="title" id="evid_name1" placeholder="原告" autocomplete="off" class="layui-input"  >'+
-            '</div>'+
-            '</td>'+
-            '<td>'+
-            '<div class="layui-input-row" >'+
-            '<div class="layui-col-md9">'+
-            '<div class="layui-card-header">'+
-            '<input type="text" name="title" id="evid_name2" placeholder="原告辩论意见" autocomplete="off" class="layui-input"  >'+
-            '</div>'+
-            '</div>'+
-            '<div class="layui-col-md3">'+
-            '<button id="fansubeigao" type="button" class="layui-btn layui-btn-primary layui-btn-sm removeclass" data-type="text" >'+
-            '<i class="layui-icon">&#xe640;</i>'+
-            '</button>'+
-            ' </div>'+
-            '</div>'+
-            '</td>'+
-            '</tr>'
-        $("#form_bianlunyijian").append(str);
-    });
-    $("#beigaobianlun").click(function () {
-        var str =
-            '<tr>'+
-            '<td>'+
-            '<div class="layui-card-header">'+
-            '<input type="text" name="title" id="evid_name1" placeholder="被告" autocomplete="off" class="layui-input"  >'+
-            '</div>'+
-            '</td>'+
-            '<td>'+
-            '<div class="layui-input-row" >'+
-            '<div class="layui-col-md9">'+
-            '<div class="layui-card-header">'+
-            '<input type="text" name="title" id="evid_name2" placeholder="被告辩论意见" autocomplete="off" class="layui-input"  >'+
-            '</div>'+
-            '</div>'+
-            '<div class="layui-col-md3">'+
-            '<button id="fansuyuangao" type="button" class="layui-btn layui-btn-primary layui-btn-sm removeclass" data-type="text" >'+
-            '<i class="layui-icon">&#xe640;</i>'+
-            '</button>'+
-            ' </div>'+
-            '</div>'+
-            '</td>'+
-            '</tr>'
-        $("#form_bianlunyijian").append(str);
-    });
-    $("#fansubeigao").click(function () {
-        var str =
-            '<tr>'+
-            '<td>'+
-            '<div class="layui-card-header">'+
-            '<input type="text" name="title" id="evid_name1" placeholder="原告(反诉被告)" autocomplete="off" class="layui-input"  >'+
-            '</div>'+
-            '</td>'+
-            '<td>'+
-            '<div class="layui-input-row" >'+
-            '<div class="layui-col-md9">'+
-            '<div class="layui-card-header">'+
-            '<input type="text" name="title" id="evid_name2" placeholder="原告(反诉被告)辩论意见" autocomplete="off" class="layui-input"  >'+
-            '</div>'+
-            '</div>'+
-            '<div class="layui-col-md3">'+
-            '<button id="fansubeigao" type="button" class="layui-btn layui-btn-primary layui-btn-sm removeclass" data-type="text" >'+
-            '<i class="layui-icon">&#xe640;</i>'+
-            '</button>'+
-            ' </div>'+
-            '</div>'+
-            '</td>'+
-            '</tr>'
-        $("#last1").append(str);
-    });
-    $("#fansuyuangao").click(function () {
-        var str =
-            '<tr>'+
-            '<td>'+
-            '<div class="layui-card-header">'+
-            '<input type="text" name="title" id="evid_name1" placeholder="被告(反诉原告)" autocomplete="off" class="layui-input"  >'+
-            '</div>'+
-            '</td>'+
-            '<td>'+
-            '<div class="layui-input-row" >'+
-            '<div class="layui-col-md9">'+
-            '<div class="layui-card-header">'+
-            '<input type="text" name="title" id="evid_name2" placeholder="被告(反诉原告)辩论意见" autocomplete="off" class="layui-input"  >'+
-            '</div>'+
-            '</div>'+
-            '<div class="layui-col-md3">'+
-            '<button id="fansuyuangao" type="button" class="layui-btn layui-btn-primary layui-btn-sm removeclass" data-type="text" >'+
-            '<i class="layui-icon">&#xe640;</i>'+
-            '</button>'+
-            ' </div>'+
-            '</div>'+
-            '</td>'+
-            '</tr>'
-        $("#last1").append(str);
-    });
+    $(function () {
+        layui.use('form', function () {
+            var form = layui.form;
+            //监听提交
+
+            $("#bianlunyijian_yuangao").on('click',function () {
+                var str =
+                    '<tr>' +
+                    '<td>' +
+                    '<div class="layui-card-header">' +
+                    '<input type="text" name="title" id="evid_name1" placeholder="原告" autocomplete="off" class="layui-input"  >' +
+                    '</div>' +
+                    '</td>' +
+                    '<td>' +
+                    '<div class="layui-input-row" >' +
+                    '<div class="layui-col-md9">' +
+                    '<div class="layui-card-header">' +
+                    '<input type="text" name="title" id="evid_name2" placeholder="原告辩论意见" autocomplete="off" class="layui-input"  >' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="layui-col-md3">' +
+                    '<button id="fansubeigao" type="button" class="layui-btn layui-btn-primary layui-btn-sm removeclass" data-type="text" >' +
+                    '<i class="layui-icon">&#xe640;</i>' +
+                    '</button>' +
+                    ' </div>' +
+                    '</div>' +
+                    '</td>' +
+                    '</tr>'
+                $("#form_bianlunyijian").append(str);
+            });
+            $("#beigaobianlun").click(function () {
+                var str =
+                    '<tr>'+
+                    '<td>'+
+                    '<div class="layui-card-header">'+
+                    '<input type="text" name="title" id="evid_name1" placeholder="被告" autocomplete="off" class="layui-input"  >'+
+                    '</div>'+
+                    '</td>'+
+                    '<td>'+
+                    '<div class="layui-input-row" >'+
+                    '<div class="layui-col-md9">'+
+                    '<div class="layui-card-header">'+
+                    '<input type="text" name="title" id="evid_name2" placeholder="被告辩论意见" autocomplete="off" class="layui-input"  >'+
+                    '</div>'+
+                    '</div>'+
+                    '<div class="layui-col-md3">'+
+                    '<button id="fansuyuangaoa" type="button" class="layui-btn layui-btn-primary layui-btn-sm removeclass" data-type="text" >'+
+                    '<i class="layui-icon">&#xe640;</i>'+
+                    '</button>'+
+                    ' </div>'+
+                    '</div>'+
+                    '</td>'+
+                    '</tr>'
+                $("#form_bianlunyijian").append(str);
+            });
+
+            $("#fansubeigaoa").on('click', function () {
+                var str =
+                    '<tr>'+
+                    '<td width="30%">'+
+                    '<div class="layui-card-header">'+
+                    '<input type="text" name="title" id="text3_yuangaofansu" placeholder="原告(反诉被告)" autoComplete="off" class="layui-input">'+
+                    '</div>'+
+                    '</td>'+
+                    ' <td width="70%">'+
+                    '<div class="layui-input-row">'+
+                    '<div class="layui-col-md9">'+
+                    '<div class="layui-card-header">'+
+                    '<input type="text" name="title" id="yuangaobianlunyijian" placeholder="原告(反诉被告)辩论意见" autoComplete="off" class="layui-input">'+
+                    '</div>'+
+                    '</div>'+
+                    '<div class="layui-col-md3">'+
+                    '<button  id="fansubeigaoa" type="button"'+
+                    'class="layui-btn layui-btn-primary layui-btn-sm removeclass" >'+
+                    '<i class="layui-icon">&#xe640;</i>'+
+                    '</button>'+
+                    '</div>'+
+                    '</div>'+
+                    '</td>'+
+                    '</tr>'
+                $("#isFansu2a").append(str);
+            });
+
+            $("#fansuyuangaoa").on('click', function () {
+                var str =
+                    '<tr>'+
+                    '<td>'+
+                    '<div class="layui-card-header">'+
+                    '<input type="text" name="title" id="input_fansuyuangao" placeholder="被告(反诉原告)"'+
+                    ' autoComplete="off" class="layui-input">'+
+                    '</div>'+
+                    '</td>'+
+                    '<td>'+
+                    '<div class="layui-input-row">'+
+                    '<div class="layui-col-md9">'+
+                    '<div class="layui-card-header">'+
+                    '<input type="text" name="title" id="input_fansuyuan" placeholder="被告(反诉原告)辩论意见"'+
+                    'autoComplete="off" class="layui-input">'+
+                    '</div>'+
+                    '</div>'+
+                    '<div class="layui-col-md3">'+
+                    '<button id="fansuyuangaoa" type="button" class="layui-btn layui-btn-primary layui-btn-sm removeclass"  data-type="text">'+
+                    '<i class="layui-icon">&#xe640;</i>'+
+                    '</button>'+
+                    '</div>'+
+                    '</div>'+
+                    '</td>'+
+                    '</tr>'
+                $("#isFansu2a").append(str);
+            });
+
+            form.on('radio(isCounterclaim)', function (data) {
+                var type = data.value;
+                if (type == "0") {
+                    $("#isFansua").show();
+
+                } else {
+                    $("#isFansua").hide();
+
+                }
+                form.render();
+            })
+            $("body").on('click', ".removeclass", function () {
+                //元素移除前校验是否被引用
+                var parentEle = $(this).parent().parent().parent().parent();
+                parentEle.remove();
+
+            });
+        });
+    })
+    // $("#bianlunyijian_yuangao").click(function () {
+    //     var str =
+    //         '<tr>'+
+    //         '<td>'+
+    //         '<div class="layui-card-header">'+
+    //         '<input type="text" name="title" id="evid_name1" placeholder="原告" autocomplete="off" class="layui-input"  >'+
+    //         '</div>'+
+    //         '</td>'+
+    //         '<td>'+
+    //         '<div class="layui-input-row" >'+
+    //         '<div class="layui-col-md9">'+
+    //         '<div class="layui-card-header">'+
+    //         '<input type="text" name="title" id="evid_name2" placeholder="原告辩论意见" autocomplete="off" class="layui-input"  >'+
+    //         '</div>'+
+    //         '</div>'+
+    //         '<div class="layui-col-md3">'+
+    //         '<button id="fansubeigao" type="button" class="layui-btn layui-btn-primary layui-btn-sm removeclass" data-type="text" >'+
+    //         '<i class="layui-icon">&#xe640;</i>'+
+    //         '</button>'+
+    //         ' </div>'+
+    //         '</div>'+
+    //         '</td>'+
+    //         '</tr>'
+    //     $("#form_bianlunyijian").append(str);
+    // });
+    // $("#beigaobianlun").click(function () {
+    //     var str =
+    //         '<tr>'+
+    //         '<td>'+
+    //         '<div class="layui-card-header">'+
+    //         '<input type="text" name="title" id="evid_name1" placeholder="被告" autocomplete="off" class="layui-input"  >'+
+    //         '</div>'+
+    //         '</td>'+
+    //         '<td>'+
+    //         '<div class="layui-input-row" >'+
+    //         '<div class="layui-col-md9">'+
+    //         '<div class="layui-card-header">'+
+    //         '<input type="text" name="title" id="evid_name2" placeholder="被告辩论意见" autocomplete="off" class="layui-input"  >'+
+    //         '</div>'+
+    //         '</div>'+
+    //         '<div class="layui-col-md3">'+
+    //         '<button id="fansuyuangao" type="button" class="layui-btn layui-btn-primary layui-btn-sm removeclass" data-type="text" >'+
+    //         '<i class="layui-icon">&#xe640;</i>'+
+    //         '</button>'+
+    //         ' </div>'+
+    //         '</div>'+
+    //         '</td>'+
+    //         '</tr>'
+    //     $("#form_bianlunyijian").append(str);
+    // });
+    // $("#fansubeigao").on('click',function () {
+    // // $("#fansubeigao").click(function () {
+    //     var str =
+    //         '<tr>'+
+    //         '<td>'+
+    //         '<div class="layui-card-header">'+
+    //         '<input type="text" name="title" id="evid_name1" placeholder="原告(反诉被告)" autocomplete="off" class="layui-input"  >'+
+    //         '</div>'+
+    //         '</td>'+
+    //         '<td>'+
+    //         '<div class="layui-input-row" >'+
+    //         '<div class="layui-col-md9">'+
+    //         '<div class="layui-card-header">'+
+    //         '<input type="text" name="title" id="evid_name2" placeholder="原告(反诉被告)辩论意见" autocomplete="off" class="layui-input"  >'+
+    //         '</div>'+
+    //         '</div>'+
+    //         '<div class="layui-col-md3">'+
+    //         '<button id="fansubeigao" type="button" class="layui-btn layui-btn-primary layui-btn-sm removeclass" data-type="text" >'+
+    //         '<i class="layui-icon">&#xe640;</i>'+
+    //         '</button>'+
+    //         ' </div>'+
+    //         '</div>'+
+    //         '</td>'+
+    //         '</tr>'
+    //     $("#last1").append(str);
+    // });
+    //
+    // $("#fansuyuangao").on('click',function () {
+    // // $("#fansuyuangao").click(function () {
+    //     var str =
+    //         '<tr>'+
+    //         '<td>'+
+    //         '<div class="layui-card-header">'+
+    //         '<input type="text" name="title" id="evid_name1" placeholder="被告(反诉原告)" autocomplete="off" class="layui-input"  >'+
+    //         '</div>'+
+    //         '</td>'+
+    //         '<td>'+
+    //         '<div class="layui-input-row" >'+
+    //         '<div class="layui-col-md9">'+
+    //         '<div class="layui-card-header">'+
+    //         '<input type="text" name="title" id="evid_name2" placeholder="被告(反诉原告)辩论意见" autocomplete="off" class="layui-input"  >'+
+    //         '</div>'+
+    //         '</div>'+
+    //         '<div class="layui-col-md3">'+
+    //         '<button id="fansuyuangao" type="button" class="layui-btn layui-btn-primary layui-btn-sm removeclass" data-type="text" >'+
+    //         '<i class="layui-icon">&#xe640;</i>'+
+    //         '</button>'+
+    //         ' </div>'+
+    //         '</div>'+
+    //         '</td>'+
+    //         '</tr>'
+    //     $("#last1").append(str);
+    // });
+
     $("body").on('click', ".removeclass", function () {
         //元素移除前校验是否被引用
         var approvalName = $(this).parent().parent().parent().prev('div.layui-form-item').children().val();
@@ -729,64 +887,65 @@ $(function (){
         parentEle.remove();
     });
 
-    $("input[name='isfansu']").change(function (){
-        var type =$("input[name='isfansu']:checked").val();
-        var personType=
-            '<table class="layui-table" >\n'+
-            '<tr> <td width="30%">\n'+
-            '<div class="layui-card-header">\n'+
-            '<input type="text" name="title" id="text3_yuangaofansu" placeholder="原告(反诉被告)" autoComplete="off" class="layui-input">\n'+
-            '</div>\n'+
-            '</td>\n'+
-            '<td width="70%">\n'+
-            '<div class="layui-input-row">\n'+
-            '<div class="layui-col-md9">\n'+
-            '<div class="layui-card-header">\n'+
-            '<input type="text" name="title" id="yuangaobianlunyijian" placeholder="原告(反诉被告)辩论意见" autoComplete="off" class="layui-input">\n'+
-            '</div>\n'+
-            '</div>\n'+
-            '<div class="layui-col-md3">\n'+
-            '<button id="fansubeigao" type="button"\n'+
-            'class="layui-btn layui-btn-primary layui-btn-sm" removeclass\n'+
-            'data-type="text">\n'+
-            '<i class="layui-icon">&#xe654;</i>\n'+
-            '</button>\n'+
-            '</div>\n'+
-            '</div>\n'+
-            '</td>\n'+
-            '</tr>\n'+
-            '<tr><td>'+
-            '<div class="layui-card-header">'+
-            '<input type="text" name="title" id="input_fansuyuangao" placeholder="被告(反诉原告)"'+
-            'autoComplete="off" class="layui-input">'+
-            '</div>'+
-            '</td>'+
-            '<td>'+
-            '<div class="layui-input-row">'+
-            '<div class="layui-col-md9">'+
-            '<div class="layui-card-header">'+
-            '<input type="text" name="title" id="input_fansuyuan" placeholder="被告(反诉原告)辩论意见"'+
-            'autoComplete="off" class="layui-input">'+
-            '</div>'+
-            ' </div>'+
-            '<div class="layui-col-md3">'+
-            '<button id="fansuyuangao" type="button" class="layui-btn layui-btn-primary layui-btn-sm" removeclass data-type="text">'+
-            '<i class="layui-icon">&#xe654;</i>'+
-            '</button>'+
-            '</div>'+
-            '</div>'+
-            '</td>'+
-            '</tr>'+
-            '</table>'
-
-        var unitType=""
-        if (type=="1"){
-            $("#mychange").html(personType);
-        }
-        else{
-            $("#mychange").html(unitType);
-        }
-    })
+    // $("input[name='isfansu']").change(function (){
+    //     var type =$("input[name='isfansu']:checked").val();
+    //     var personType=
+    //         '<table class="layui-table" >\n'+
+    //         '<tr> <td width="30%">\n'+
+    //         '<div class="layui-card-header">\n'+
+    //         '<input type="text" name="title" id="text3_yuangaofansu" placeholder="原告(反诉被告)" autoComplete="off" class="layui-input">\n'+
+    //         '</div>\n'+
+    //         '</td>\n'+
+    //         '<td width="70%">\n'+
+    //         '<div class="layui-input-row">\n'+
+    //         '<div class="layui-col-md9">\n'+
+    //         '<div class="layui-card-header">\n'+
+    //         '<input type="text" name="title" id="yuangaobianlunyijian" placeholder="原告(反诉被告)辩论意见" autoComplete="off" class="layui-input">\n'+
+    //         '</div>\n'+
+    //         '</div>\n'+
+    //         '<div class="layui-col-md3">\n'+
+    //         '<button id="fansubeigao" type="button"\n'+
+    //         'class="layui-btn layui-btn-primary layui-btn-sm removeclass" \n'+
+    //         'data-type="text">\n'+
+    //         '<i class="layui-icon">&#xe654;</i>\n'+
+    //         '</button>\n'+
+    //         '</div>\n'+
+    //         '</div>\n'+
+    //         '</td>\n'+
+    //         '</tr>\n'+
+    //         '<tr><td>'+
+    //         '<div class="layui-card-header">'+
+    //         '<input type="text" name="title" id="input_fansuyuangao" placeholder="被告(反诉原告)"'+
+    //         'autoComplete="off" class="layui-input">'+
+    //         '</div>'+
+    //         '</td>'+
+    //         '<td>'+
+    //         '<div class="layui-input-row">'+
+    //         '<div class="layui-col-md9">'+
+    //         '<div class="layui-card-header">'+
+    //         '<input type="text" name="title" id="input_fansuyuan" placeholder="被告(反诉原告)辩论意见"'+
+    //         'autoComplete="off" class="layui-input">'+
+    //         '</div>'+
+    //         ' </div>'+
+    //         '<div class="layui-col-md3">'+
+    //         '<button id="fansuyuangao" type="button" class="layui-btn layui-btn-primary layui-btn-sm removeclass"  data-type="text">'+
+    //         '<i class="layui-icon">&#xe654;</i>'+
+    //         '</button>'+
+    //         '</div>'+
+    //         '</div>'+
+    //         '</td>'+
+    //         '</tr>'+
+    //         '</table>'
+    //
+    //     var unitType=""
+    //     if (type=="1"){
+    //         $("#mychange").html(personType);
+    //     }
+    //     else{
+    //         $("#mychange").html(unitType);
+    //     }
+    // })
+    //双方发表陈述意见
     $("#yuangaochenshu").click(function () {
         var str =
             '<tr>'+
@@ -895,6 +1054,7 @@ $(function (){
             '</div>'+
             '</td>'+
             '</tr>'
+
         $("#form_beigaodianziwenshusongda").append(str);
     });
 })
