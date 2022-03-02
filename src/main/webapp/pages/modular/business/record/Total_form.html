@@ -148,14 +148,14 @@
             <div class="layui-form-item">
                 <label class="layui-form-label" style="text-align: center; margin-top: -8px;">委托诉讼</br>代理人</label>
                 <div class="layui-input-block">
-                    <input type="text" name="agent" value="1" required lay-verify="required" placeholder="请输入委托诉讼代理人"
+                    <input type="text" name="agent" val="1" required lay-verify="required" placeholder="请输入委托诉讼代理人"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item" style="margin-top: 11px;">
                 <label class="layui-form-label" style="text-align: center;margin-top: -8px;">委托诉讼</br>代理人单位</label>
                 <div class="layui-input-block">
-                    <input type="text" name="agent_address" value="1" required lay-verify="required" placeholder="请输入委托诉讼代理人单位"
+                    <input type="text" name="agent_address" val="1" required lay-verify="required" placeholder="请输入委托诉讼代理人单位"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
@@ -209,14 +209,14 @@
             <div class="layui-form-item">
                 <label class="layui-form-label" style="text-align: center; margin-top: -8px;">委托诉讼</br>代理人</label>
                 <div class="layui-input-block">
-                    <input type="text" name="agent" value="2" required lay-verify="required" placeholder="请输入委托诉讼代理人"
+                    <input type="text" name="agent" val="2" required lay-verify="required" placeholder="请输入委托诉讼代理人"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item" style="margin-top: 11px;">
                 <label class="layui-form-label" style="text-align: center;margin-top: -8px;">委托诉讼</br>代理人单位</label>
                 <div class="layui-input-block">
-                    <input type="text" name="agent_address" value="2" required lay-verify="required" placeholder="请输入委托诉讼代理人单位"
+                    <input type="text" name="agent_address" val="2" required lay-verify="required" placeholder="请输入委托诉讼代理人单位"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
@@ -1139,7 +1139,7 @@
         </td>
     </tr>
 </table>
-<!--是否调解表格-->
+<!--是否调解表格 mediate-->
 
 <table class="layui-table" id="form_shifoutiaojie">
     <h1 style="text-align:center">是否调解</h1>
@@ -1153,14 +1153,18 @@
     </tr>
     <tr>
         <td>
-            <p>原告</p>
+            <input type="text" id="mediate_accuser"  placeholder="原告" autocomplete="off" class="layui-input">
         </td>
         <td>
             <div class="layui-form-item">
                 <div class="site-title">
                     <div class="layui-form">
-                        <textarea type="text" class="layui-input">能</textarea>
-                        <!--                        <textarea type="text" name="yuangao_radio_tiaojie" value="能" ></textarea>-->
+                        <div class="site-title">
+                            <div class="layui-form">
+                                <input type="radio" value="1" name="is_mediate_accuser" title="能" checked>
+                                <input type="radio" value="2" name="is_mediate_accuser" title="不能" >
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1169,42 +1173,47 @@
 </table>
 <table>
     <tr>
-        <textarea name="yuangao_tiaojiefangan" placeholder="调解方案" class="layui-textarea"></textarea>
+        <textarea name="mediate_plan_accuser" placeholder="调解方案" class="layui-textarea"></textarea>
     </tr>
     <tr>
-        <input type="text" name="title" id="hejieshixian" lay-verify="required" placeholder="庭外和解时限" autocomplete="off"
+        <input type="text" name="title" id="time_limit_accuser" lay-verify="required" placeholder="庭外和解时限" autocomplete="off"
                class="layui-input">
     </tr>
 </table>
-<table class="layui-table" id="form_beigaotiaojie">
-    <tr>
-        <td width="30%">
-            <p>被告
-            <p>
-        </td>
-        <td width="70%">
-            <div class="layui-input-row">
-                <div class="layui-col-md9">
-                    <div class="layui-form">
-                        <textarea type="text" class="layui-input">能</textarea>
+
+<div id="form_mediate_defendant">
+    <table class="layui-table" >
+        <tr>
+            <td width="30%">
+                <input type="text" id="mediate_defendant1"  placeholder="被告1" autocomplete="off" class="layui-input">
+            </td>
+            <td width="70%">
+                <div class="layui-input-row">
+                    <div class="layui-col-md9">
+                        <div class="layui-form">
+                            <div class="site-title">
+                                <div class="layui-form">
+                                    <input type="radio" value="1" name="is_mediate_defendant1" title="能" checked>
+                                    <input type="radio" value="2" name="is_mediate_defendant1" title="不能" >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md3">
+                        <button id="button_mediate_defendant" type="button" class="layui-btn layui-btn-primary layui-btn-sm"
+                                data-type="text">
+                            <i class="layui-icon">&#xe654;</i>
+                        </button>
                     </div>
                 </div>
-                <div class="layui-col-md3">
-                    <button id="button_beigaotiaojie" type="button" class="layui-btn layui-btn-primary layui-btn-sm"
-                            removeclass data-type="text">
-                        <i class="layui-icon">&#xe654;</i>
-                    </button>
-                </div>
-            </div>
-        </td>
-    </tr>
-</table>
-<tr>
-    <textarea name="beigao_tiaojiefangan" placeholder="调解方案" class="layui-textarea"></textarea>
-</tr>
+            </td>
+        </tr>
+    </table>
+    <textarea id="mediate_plan_defendant1" placeholder="调解方案" class="layui-textarea"></textarea>
+</div>
 
-<!--电子文书送达表格-->
-<table class="layui-table" id="form_dianziwenshusongda">
+<!--电子文书送达表格 delivery-->
+<table class="layui-table">
     <h1 style="text-align:center">电子送达裁判文书</h1>
     <tr>
         <td width="30%">
@@ -1216,12 +1225,17 @@
     </tr>
     <tr>
         <td>
-            <p>原告</p>
+            <input type="text" id="delivery_accuser"  placeholder="原告" autocomplete="off" class="layui-input">
         </td>
         <td>
             <div class="layui-form-item">
                 <div class="site-title">
-                    <textarea type="text" class="layui-input ">同意</textarea>
+                    <div class="site-title">
+                        <div class="layui-form">
+                            <input type="radio" value="1" name="is_delivery_accuser" title="同意" checked>
+                            <input type="radio" value="2" name="is_delivery_accuser" title="不同意" >
+                        </div>
+                    </div>
                 </div>
             </div>
         </td>
@@ -1229,40 +1243,43 @@
 </table>
 <table class="layui-table">
     <tr>
-        <input type="text" name="title" id="yuangao_email" placeholder="原告电子邮件地址" autocomplete="off"
+        <input type="text" id="email_accuser" placeholder="原告电子邮件地址" autocomplete="off"
                class="layui-input">
     </tr>
 </table>
-<table class="layui-table" id="form_beigaodianziwenshusongda">
-    <tr >
-        <td width="30%">
-            <p>被告1
-        </td>
-        <td width="70%">
-            <form class="layui-form-item">
-                <div class="layui-input-row">
-                    <div class="layui-col-md9">
-                        <textarea type="text" class="layui-input ">同意</textarea>
+<div id="form_delivery">
+    <table class="layui-table">
+        <tr>
+            <td width="30%">
+                <input type="text" id="delivery_defendant1"  placeholder="被告1" autocomplete="off" class="layui-input">
+            </td>
+            <td width="70%">
+                <form class="layui-form-item">
+                    <div class="layui-input-row">
+                        <div class="layui-col-md9">
+                            <div class="site-title">
+                                <div class="layui-form">
+                                    <input type="radio" value="1" name="is_delivery_defendant1" title="同意" checked>
+                                    <input type="radio" value="2" name="is_delivery_defendant1" title="不同意" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            <button id="button_delivery" type="button"
+                                    class="layui-btn layui-btn-primary layui-btn-sm"  data-type="text">
+                                <i class="layui-icon">&#xe654;</i>
+                            </button>
+                        </div>
                     </div>
-                    <div class="layui-col-md3">
-                        <button id="button_beigaodianziwenshusongda" type="button"
-                                class="layui-btn layui-btn-primary layui-btn-sm"  data-type="text">
-                            <i class="layui-icon">&#xe654;</i>
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </td>
-    </tr>
-</table>
-<tr>
-    <input type="text" name="title" id="beigao_email" placeholder="被告电子邮件地址" autocomplete="off" class="layui-input">
-</tr>
-<hr>
+                </form>
+            </td>
+        </tr>
+    </table>
+    <input type="text" name="title" id="email_defendant1" placeholder="被告电子邮件地址" autocomplete="off" class="layui-input">
+</div>
 <p align="center">
     <button type="button" class="layui-btn layui-btn-primary text-align: center;"> 暂存</button>
     <button type="button" class="layui-btn text-align: center;"> 保存</button>
 </p>
 <hr>
-<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 @}

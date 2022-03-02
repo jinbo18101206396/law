@@ -1,5 +1,6 @@
-$(function (){
-    layui.use(['element', 'jquery', 'layer', 'form', 'laydate'], function () {
+
+// (function (){
+    layui.use(['element', 'jquery', 'layer', 'form', 'laydate','table'], function () {
         var form = layui.form
             , element = layui.element
             // , laydate = layui.laydate
@@ -1100,10 +1101,10 @@ $(function (){
         form.on('radio(isCounterclaim)', function (data) {
             var type = data.value;
             if (type == "true") {
-                $("#isFansua").show();
+                $("#argue_counter_defendant_form").show();
 
             } else {
-                $("#isFansua").hide();
+                $("#argue_counter_defendant_form").hide();
 
             }
             form.render();
@@ -1183,61 +1184,88 @@ $(function (){
         });
 
 //双方是否调解表格
-        $("#button_beigaotiaojie").click(function () {
+        var mediate_defendantnum=1;
+        $("#button_mediate_defendant").click(function () {
+            mediate_defendantnum++;
             var str =
+                ' <div id="form_mediate_defendant">'+
+                '<table class="layui-table">'+
                 '<tr>\n'+
                 '<td width="30%">\n'+
-                '<p>被告<p>\n'+
+                '<input type="text" id="mediate_defendant'+mediate_defendantnum+'" placeholder="被告'+mediate_defendantnum+'" autoComplete="off"'+
+                'class="layui-input">'+
                 '</td>'+
                 '<td width="70%">\n'+
                 '<div class="layui-input-row">\n'+
                 '<div class="layui-col-md9">\n'+
                 '<div class="layui-input-block">'+
-                '<div class="layui-form-radio">'+
-                ' <input type="radio" name="name" value="no">'+
-                '<i class="layui-anim layui-icon"></i>'+
-                '<div>能</div>'+
+                '<div class="site-title">'+
+                '<div class="layui-form">'+
+                '<input type="radio" value="1" name="is_mediate_defendant'+mediate_defendantnum+'" title="能" checked>'+
+                '<input type="radio" value="2" name="is_mediate_defendant'+mediate_defendantnum+'" title="不能">'+
                 '</div>'+
-                '<div class="layui-unselect layui-form-radio">'+
-                '<input type="radio" name="name" value="yes">'+
-                '<i class="layui-anim layui-icon"></i>'+
-                '<div>不能</div>'+
                 '</div>'+
                 '</div>'+
                 '</div>'+
                 '<div class="layui-col-md3">\n'+
-                '<button id="beigaotiaojie" type="button" class="layui-btn layui-btn-primary layui-btn-sm removeclass" data-type="text">\n'+
+                '<button id="button_mediate_defendant" type="button" class="layui-btn layui-btn-primary layui-btn-sm defendant_mediate_move" data-type="text">\n'+
                 '<i class="layui-icon">&#xe640;</i>\n'+
                 '</button>\n'+
                 '</div>\n'+
                 '</div>'+
                 '</td>'+
-                '</tr>'
-            $("#form_beigaotiaojie").append(str);
+                '</tr>'+
+                '</table>'+
+                '<textarea id="mediate_plan_defendant'+mediate_defendantnum+'" placeholder="调解方案" class="layui-textarea"></textarea>'+
+                '</div>';
+            $("#form_mediate_defendant").append(str);
+
         });
+        $("body").on('click', ".defendant_mediate_move", function () {
+            //元素移除前校验是否被引用
+            var approvalName = $(this).parent().parent().prev('div.layui-form-item').children().val();
+            var parentEle = $(this).parent().parent().parent().parent().parent().parent().parent();
+            parentEle.remove();
+            mediate_defendantnum--;
+        });
+//电子文书送达表格
         var ElectronicInstruments=1;
-        $("#button_beigaodianziwenshusongda").click(function () {
+        $("#button_delivery").click(function () {
             ElectronicInstruments++;
             var str =
-                '<tr>\n'+
-                '<td width="30%">\n'+
-                '<p>被告'+ElectronicInstruments+'<p>\n'+
-                '</td>'+
-                '<td width="70%">\n'+
-                '<div class="layui-input-row">\n'+
-                '<div class="layui-col-md9">\n'+
-                '<textarea type="text" class="layui-input ">同意</textarea>'+
-                '</div>'+
-                '<div class="layui-col-md3">\n'+
-                '<button id="beigaotiaojie" type="button" class="layui-btn layui-btn-primary layui-btn-sm removeclass" data-type="text">\n'+
-                '<i class="layui-icon">&#xe640;</i>\n'+
-                '</button>\n'+
-                '</div>\n'+
-                '</div>'+
-                '</td>'+
-                '</tr>'
-
-            $("#form_beigaodianziwenshusongda").append(str);
+                '<div id="form_delivery">'+
+                '<table class="layui-table">'+
+                '<tr> <td width="30%">'+
+                '<input type="text" id="delivery_defendant'+ElectronicInstruments+'" placeholder="被告'+ElectronicInstruments+'" autoComplete="off"'+
+                ' class="layui-input"></td>'+
+                '<td width="70%">'+
+                '<form class="layui-form-item">'+
+                '<div class="layui-input-row">'+
+                '<div class="layui-col-md9">'+
+                '<div class="site-title">'+
+                '<div class="layui-form">'+
+                '<input type="radio" value="1" name="is_delivery_defendant'+ElectronicInstruments+'" title="同意"'+
+                'checked>'+
+                '<input type="radio" value="2" name="is_delivery_defendant'+ElectronicInstruments+'" title="不同意">'+
+                '</div></div> </div>'+
+                '<div class="layui-col-md3">'+
+                '<button id="button_delivery" type="button"'+
+                'class="layui-btn layui-btn-primary layui-btn-sm delivery_remove" data-type="text">'+
+                '<i class="layui-icon">&#xe640;</i>'+
+                '</button>' +
+                '</div></div></form></td> </tr>'+
+                '</table>'+
+                '<input type="text" name="title" id="email_defendant'+ElectronicInstruments+'" placeholder="被告电子邮件地址" autoComplete="off"'+
+                'class="layui-input">'+
+                '</div>';
+            $("#form_delivery").append(str);
+        });
+        $("body").on('click', ".delivery_remove", function () {
+            //元素移除前校验是否被引用
+            var approvalName = $(this).parent().parent().prev('div.layui-form-item').children().val();
+            var parentEle = $(this).parent().parent().parent().parent().parent().parent().parent().parent();
+            parentEle.remove();
+            ElectronicInstruments--;
         });
     });
-});
+// });
