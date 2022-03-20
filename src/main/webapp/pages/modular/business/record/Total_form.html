@@ -168,65 +168,76 @@
     </div>
 </div>
 <!--被告信息表单-->
-<div class="layui-card">
-    <div class="layui-card-header" style="text-align:center;font-size: 25px; ">被告信息</div>
-    <div class="layui-card-body">
-        <form class="layui-form" action="" onsubmit="return false">
-
-            <div class="layui-form-item">
-                <label class="layui-form-label layui-form-required">被告类型</label>
-                <div class="layui-input-block">
-                    <input type="radio" name="defendant_type" lay-filter="defendantType" value="1" title="单位" checked>
-                    <input type="radio" name="defendant_type" lay-filter="defendantType" value="2" title="个人">
+<div id="form_defendant">
+    <div class="layui-card">
+        <div class="layui-card-header" style="text-align:center;font-size: 25px; ">被告信息</div>
+        <div class="layui-card-body">
+            <form class="layui-form" action="" onsubmit="return false">
+                <div class="layui-row">
+                    <div class="layui-col-md9">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-required">被告类型</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="defendant_type1" data-index="1" lay-filter="defendantType1" value="1" title="单位" checked>
+                                <input type="radio" name="defendant_type1"  data-index="1" lay-filter="defendantType1" value="2" title="个人">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md3">
+                        <div class="layui-btn-group">
+                            <button id="add_defendant" type="button" class="layui-btn layui-btn-primary layui-btn-sm"
+                                    data-type="text">
+                                <i class="layui-icon">&#xe654;</i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div id="mychange2">
-                <div class="layui-form-item">
-                    <label class="layui-form-label layui-form-required">被告全称</label>
-                    <div class="layui-input-block">
-                        <input type="text" id="defendant" name="Defendant" required lay-verify="required" placeholder="请输入被告全称"
-                               autocomplete="off" class="layui-input">
+                <div id="mychange1">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label layui-form-required">被告全称</label>
+                        <div class="layui-input-block">
+                            <input type="text" id="defendant1" name="defendant1" required lay-verify="required" placeholder="请输入被告全称"
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label layui-form-required">被告简称</label>
+                        <div class="layui-input-block">
+                            <input type="text" id="defendant_short1" name="defendantShort1" required lay-verify="required" placeholder="请输入被告简称"
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label layui-form-required">法人代表</label>
+                        <div class="layui-input-block">
+                            <input type="text" id="defendant_representative1" name="defendant_representative1" required lay-verify="required" placeholder="请输入法人代表"
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label layui-form-required">法人职务</label>
+                        <div class="layui-input-block">
+                            <input type="text" id="defendant_duty1" name="defendant_duty1" required lay-verify="required" placeholder="请输入法人职务"
+                                   autocomplete="off" class="layui-input">
+                        </div>
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label layui-form-required">被告简称</label>
+                    <label class="layui-form-label" style="text-align: center; margin-top: -8px;">委托诉讼</br>代理人</label>
                     <div class="layui-input-block">
-                        <input type="text" id="defendant_short" name="defendantShort" required lay-verify="required" placeholder="请输入被告简称"
+                        <input type="text" name="agent1" val="2" required lay-verify="required" placeholder="请输入委托诉讼代理人"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label layui-form-required">法人代表</label>
+                <div class="layui-form-item" style="margin-top: 11px;">
+                    <label class="layui-form-label" style="text-align: center;margin-top: -8px;">委托诉讼</br>代理人单位</label>
                     <div class="layui-input-block">
-                        <input type="text" id="defendant_representative" name="defendantRepresentative" required lay-verify="required" placeholder="请输入法人代表"
+                        <input type="text" name="agent_address1" val="2" required lay-verify="required" placeholder="请输入委托诉讼代理人单位"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label layui-form-required">法人职务</label>
-                    <div class="layui-input-block">
-                        <input type="text" id="defendant_duty" name="defendantDuty" required lay-verify="required" placeholder="请输入法人职务"
-                               autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label" style="text-align: center; margin-top: -8px;">委托诉讼</br>代理人</label>
-                <div class="layui-input-block">
-                    <input type="text" name="agent" val="2" required lay-verify="required" placeholder="请输入委托诉讼代理人"
-                           autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item" style="margin-top: 11px;">
-                <label class="layui-form-label" style="text-align: center;margin-top: -8px;">委托诉讼</br>代理人单位</label>
-                <div class="layui-input-block">
-                    <input type="text" name="agent_address" val="2" required lay-verify="required" placeholder="请输入委托诉讼代理人单位"
-                           autocomplete="off" class="layui-input">
-                </div>
-            </div>
-
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 <!--基本信息陈述-->
