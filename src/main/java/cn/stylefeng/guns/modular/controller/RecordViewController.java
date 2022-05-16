@@ -95,5 +95,10 @@ public class RecordViewController {
     public String Total_formView() {
         return "/modular/business/record/Total_form.html";
     }
+
+    @GetResource(name = "主页", path = "/view/index", requiredPermission = false)
+    public String MyIndex_View() {
+        return "/modular/business/record/index.html";
+    }
 }
 
