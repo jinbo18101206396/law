@@ -38,6 +38,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 笔录基本信息控制器
@@ -63,6 +64,18 @@ public class RecordController {
         basicInfoService.add(basicInfoRequest);
         return new SuccessResponseData();
     }
+
+    /**
+     *@author liaoweiming
+     *@date 2022-05-21 21:54
+     */
+    @PostResource(name = "提交数据", path = "/record/wholemsg")
+    public ResponseData wholemsg(HttpServletRequest request) {
+        String wholemsg=request.getParameter("wholemsg");
+        System.out.println(wholemsg);
+        return new SuccessResponseData();
+    }
+
 
     /**
      * 编辑笔录基本信息

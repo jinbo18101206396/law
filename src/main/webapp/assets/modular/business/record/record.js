@@ -93,6 +93,14 @@ layui.use(['table', 'HttpRequest', 'func', 'form','laydate'], function () {
         Record.search();
     });
 
+    // 新建按钮点击事件
+    $('#btnAdd').click(function () {
+        $(location).attr('href', '/view/index');
+        // window.open("/view/index");
+        // Feng.newCrontab("/view/index","笔录信息")
+        // Feng.ceo
+    });
+
 
     // 工具条点击事件
     table.on('tool(' + Record.tableId + ')', function (obj) {

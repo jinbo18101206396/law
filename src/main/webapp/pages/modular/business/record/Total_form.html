@@ -4,75 +4,82 @@
     <div class="layui-card-header" style="text-align:center;font-size: 25px; ">基本信息（带*为必填项）</div>
     <div class="layui-card-body>">
         <h1 style="text-align:center"></h1>
-        <form class="layui-form" action="">
+        <form class="layui-form">
+
             <div class="layui-form-item">
                 <label class="layui-form-label layui-form-required">立案时间</label>
                 <div class="layui-input-block">
-                    <input type="text" name="title" id="kaitingshijian" lay-verify="required" placeholder="请输入立案时间"
+                    <input type="text" id="filling_time" required lay-verify="required" placeholder="请输入立案时间"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label layui-form-required">开庭时间</label>
                 <div class="layui-input-block">
-                    <input type="text" name="title" id="lianshijian" lay-verify="required" placeholder="请输入开庭时间"
+                    <input type="text" id="court_time" required lay-verify="required" placeholder="请输入开庭时间"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label layui-form-required">开庭地点</label>
                 <div class="layui-input-block">
-                    <input type="text" name="title" lay-verify="required" placeholder="请输入开庭地点" autocomplete="on"
+                    <input type="text" id="court_place" lay-verify="required" placeholder="请输入开庭地点"
                            class="layui-input">
                 </div>
             </div>
-            <div id="form_shenpanzhang">
-                <div class="layui-form-item">
-                    <label class="layui-form-label layui-form-required">审判长</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="title" lay-verify="required" placeholder="审判长姓名" autocomplete="on"
-                               class="layui-input">
-                    </div>
-                    <div class="layui-input-inline">
-                        <div class="layui-btn-group">
-                            <button id="add_shenpanzhang" type="button" class="layui-btn layui-btn-primary layui-btn-sm"
-                                    data-type="text">
-                                <i class="layui-icon">&#xe654;</i>
-                            </button>
+            <div id="based_chief_judge">
+                <div id="form_judge_chief">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label layui-form-required">审判长1</label>
+                        <div class="layui-input-inline">
+                            <input type="text"  id="chief_judge1" lay-verify="required" placeholder="审判长姓名" autocomplete="off"
+                                   class="layui-input">
+                        </div>
+                        <div class="layui-input-inline">
+                            <div class="layui-btn-group">
+                                <button id="add_judge_chief" type="button" class="layui-btn layui-btn-primary layui-btn-sm"
+                                        data-type="text">
+                                    <i class="layui-icon">&#xe654;</i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="form_shenpanyuan">
-                <div class="layui-form-item">
-                    <label class="layui-form-label layui-form-required">审判员 </label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="title" lay-verify="required" placeholder="审判员姓名" autocomplete="on"
-                               class="layui-input">
-                    </div>
-                    <div class="layui-input-inline">
-                        <div class="layui-btn-group">
-                            <button id="add_shenpanyuan" type="button" class="layui-btn layui-btn-primary layui-btn-sm"
-                                    data-type="text">
-                                <i class="layui-icon">&#xe654;</i>
-                            </button>
+            <div id="based_judge">
+                <div id="form_judge">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label layui-form-required">审判员1 </label>
+                        <div class="layui-input-inline">
+                            <input type="text"  id="judge1"  lay-verify="required" placeholder="审判员姓名" autocomplete="off"
+                                   class="layui-input">
+                        </div>
+                        <div class="layui-input-inline">
+                            <div class="layui-btn-group">
+                                <button id="add_judge" type="button" class="layui-btn layui-btn-primary layui-btn-sm"
+                                        data-type="text">
+                                    <i class="layui-icon">&#xe654;</i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="form_peishenyuan">
-                <div class="layui-form-item">
-                    <label class="layui-form-label ">陪审员</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="title" lay-verify="required" placeholder="陪审员姓名" autocomplete="on"
-                               class="layui-input">
-                    </div>
-                    <div class="layui-input-inline">
-                        <div class="layui-btn-group">
-                            <button id="add_peishenyuan" type="button" class="layui-btn layui-btn-primary layui-btn-sm"
-                                    data-type="text">
-                                <i class="layui-icon">&#xe654;</i>
-                            </button>
+            <div id="based_juror">
+                <div id="form_juror">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label ">陪审员1</label>
+                        <div class="layui-input-inline">
+                            <input type="text"  id="juror1" lay-verify="required" placeholder="陪审员姓名" autocomplete="on"
+                                   class="layui-input">
+                        </div>
+                        <div class="layui-input-inline">
+                            <div class="layui-btn-group">
+                                <button id="add_juror" type="button" class="layui-btn layui-btn-primary layui-btn-sm"
+                                        data-type="text">
+                                    <i class="layui-icon">&#xe654;</i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -80,28 +87,23 @@
             <div class="layui-form-item">
                 <label class="layui-form-label layui-form-required">书记员 </label>
                 <div class="layui-input-inline">
-                    <input type="text" name="title" lay-verify="required" placeholder="书记员姓名" autocomplete="on"
+                    <input type="text"  id="court_clerk" name="courtClerk" lay-verify="required" placeholder="书记员姓名" autocomplete="on"
                            class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label layui-form-required">案号 </label>
                 <div class="layui-input-block">
-                    <input type="text" name="title" lay-verify="required" placeholder="请输入案号" autocomplete="on"
+                    <input type="text"  id="court_number" name="courtNumber" lay-verify="required" placeholder="请输入案号" autocomplete="on"
                            class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label layui-form-requireds">案由 </label>
                 <div class="layui-input-block">
-                    <input type="text" name="title" lay-verify="required" placeholder="请输入案由" autocomplete="on"
-                           class="layui-input">
+                    <textarea  required id="court_cause" name="courtCause" lay-verify="required" placeholder="请输入案由" class="layui-textarea"></textarea>
                 </div>
             </div>
-            <!--            <p align="center">-->
-            <!--                <button type="button" class="layui-btn layui-btn-primary text-align: center;" > 暂存 </button>-->
-            <!--                <button type="button" class="layui-btn text-align: center;" > 保存 </button>-->
-            <!--            </p>-->
         </form>
     </div>
 </div>
@@ -113,36 +115,36 @@
             <div class="layui-form-item">
                 <label class="layui-form-label layui-form-required">原告类型</label>
                 <div class="layui-input-block">
-                    <input type="radio" name="plaintiffType" lay-filter="plaintiffType" value="0" title="单位" checked>
-                    <input type="radio" name="plaintiffType" lay-filter="plaintiffType" value="1" title="个人">
+                    <input type="radio"  name="accuser_type" lay-filter="plaintiffType" value="1" title="单位" checked>
+                    <input type="radio"  name="accuser_type" lay-filter="plaintiffType" value="2" title="个人">
                 </div>
             </div>
             <div id="mychange_liao">
                 <div class="layui-form-item">
                     <label class="layui-form-label layui-form-required">原告全称</label>
                     <div class="layui-input-block">
-                        <input type="text" name="6j8z" required lay-verify="required" placeholder="请输入原告全称"
+                        <input type="text" id="accuser" name="Accuser" required lay-verify="required" placeholder="请输入原告全称"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label layui-form-required">原告简称</label>
                     <div class="layui-input-block">
-                        <input type="text" name="m61tp" required lay-verify="required" placeholder="请输入原告简称"
+                        <input type="text" id="accuser_short"  required lay-verify="required" placeholder="请输入原告简称"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label layui-form-required">法人代表</label>
                     <div class="layui-input-block">
-                        <input type="text" name="gjnmk" required lay-verify="required" placeholder="请输入法人代表"
+                        <input type="text" id="accuser_represent" name="accuserRepresent" required lay-verify="required" placeholder="请输入法人代表"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label layui-form-required">法人职务</label>
                     <div class="layui-input-block">
-                        <input type="text" name="ugu" required lay-verify="required" placeholder="请输入法人职务"
+                        <input type="text" id="accuser_duty" name="accuserDuty"  required lay-verify="required" placeholder="请输入法人职务"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
@@ -151,91 +153,91 @@
             <div class="layui-form-item">
                 <label class="layui-form-label" style="text-align: center; margin-top: -8px;">委托诉讼</br>代理人</label>
                 <div class="layui-input-block">
-                    <input type="text" name="o1j1g" required lay-verify="required" placeholder="请输入委托诉讼代理人"
+                    <input type="text" name="agent" val="1" required lay-verify="required" placeholder="请输入委托诉讼代理人"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item" style="margin-top: 11px;">
                 <label class="layui-form-label" style="text-align: center;margin-top: -8px;">委托诉讼</br>代理人单位</label>
                 <div class="layui-input-block">
-                    <input type="text" name="glg6" required lay-verify="required" placeholder="请输入委托诉讼代理人单位"
+                    <input type="text" name="agent_address" val="1" required lay-verify="required" placeholder="请输入委托诉讼代理人单位"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
-
-            <!--            <div class="layui-form-item">-->
-            <!--                <div class="layui-input-block">-->
-            <!--                    <button class="layui-btn" lay-submit lay-filter="formDemo" style="display: table;margin: 0 auto;">保存</button>-->
-            <!--                </div>-->
-            <!--            </div>-->
         </form>
     </div>
 </div>
 <!--被告信息表单-->
-<div class="layui-card">
-    <div class="layui-card-header" style="text-align:center;font-size: 25px; ">被告信息</div>
-    <div class="layui-card-body">
-        <form class="layui-form" action="" onsubmit="return false">
-
-            <div class="layui-form-item">
-                <label class="layui-form-label layui-form-required">被告类型</label>
-                <div class="layui-input-block">
-                    <input type="radio" name="plaintiffType" lay-filter="defendantType" value="0" title="单位" checked>
-                    <input type="radio" name="plaintiffType" lay-filter="defendantType" value="1" title="个人">
+<div id="form_defendant">
+    <div class="layui-card">
+        <div class="layui-card-header" style="text-align:center;font-size: 25px; ">被告信息</div>
+        <div class="layui-card-body">
+            <form class="layui-form" action="" onsubmit="return false">
+                <div class="layui-row">
+                    <div class="layui-col-md9">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-required">被告类型</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="defendant_type1" data-index="1" lay-filter="defendantType1" value="1" title="单位" checked>
+                                <input type="radio" name="defendant_type1"  data-index="1" lay-filter="defendantType1" value="2" title="个人">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md3">
+                        <div class="layui-btn-group">
+                            <button id="add_defendant" type="button" class="layui-btn layui-btn-primary layui-btn-sm"
+                                    data-type="text">
+                                <i class="layui-icon">&#xe654;</i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div id="mychange2">
-                <div class="layui-form-item">
-                    <label class="layui-form-label layui-form-required">被告全称</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="6j8z" required lay-verify="required" placeholder="请输入被告全称"
-                               autocomplete="off" class="layui-input">
+                <div id="mychange1">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label layui-form-required">被告全称</label>
+                        <div class="layui-input-block">
+                            <input type="text" id="defendant1" name="defendant1" required lay-verify="required" placeholder="请输入被告全称"
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label layui-form-required">被告简称</label>
+                        <div class="layui-input-block">
+                            <input type="text" id="defendant_short1" name="defendantShort1" required lay-verify="required" placeholder="请输入被告简称"
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label layui-form-required">法人代表</label>
+                        <div class="layui-input-block">
+                            <input type="text" id="defendant_representative1" name="defendant_representative1" required lay-verify="required" placeholder="请输入法人代表"
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label layui-form-required">法人职务</label>
+                        <div class="layui-input-block">
+                            <input type="text" id="defendant_duty1" name="defendant_duty1" required lay-verify="required" placeholder="请输入法人职务"
+                                   autocomplete="off" class="layui-input">
+                        </div>
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label layui-form-required">被告简称</label>
+                    <label class="layui-form-label" style="text-align: center; margin-top: -8px;">委托诉讼</br>代理人</label>
                     <div class="layui-input-block">
-                        <input type="text" name="m61tp" required lay-verify="required" placeholder="请输入被告简称"
+                        <input type="text" name="agent1" val="2" required lay-verify="required" placeholder="请输入委托诉讼代理人"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label layui-form-required">法人代表</label>
+                <div class="layui-form-item" style="margin-top: 11px;">
+                    <label class="layui-form-label" style="text-align: center;margin-top: -8px;">委托诉讼</br>代理人单位</label>
                     <div class="layui-input-block">
-                        <input type="text" name="gjnmk" required lay-verify="required" placeholder="请输入法人代表"
+                        <input type="text" name="agent_address1" val="2" required lay-verify="required" placeholder="请输入委托诉讼代理人单位"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label layui-form-required">法人职务</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="ugu" required lay-verify="required" placeholder="请输入法人职务"
-                               autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label" style="text-align: center; margin-top: -8px;">委托诉讼</br>代理人</label>
-                <div class="layui-input-block">
-                    <input type="text" name="o1j1g" required lay-verify="required" placeholder="请输入委托诉讼代理人"
-                           autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item" style="margin-top: 11px;">
-                <label class="layui-form-label" style="text-align: center;margin-top: -8px;">委托诉讼</br>代理人单位</label>
-                <div class="layui-input-block">
-                    <input type="text" name="glg6" required lay-verify="required" placeholder="请输入委托诉讼代理人单位"
-                           autocomplete="off" class="layui-input">
-                </div>
-            </div>
-
-            <!--            <div class="layui-form-item">-->
-            <!--                <div class="layui-input-block">-->
-            <!--                    <button class="layui-btn" lay-submit lay-filter="formDemo" style="display: table;margin: 0 auto;">保存</button>-->
-            <!--                </div>-->
-            <!--            </div>-->
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 <!--基本信息陈述-->
@@ -246,24 +248,19 @@
             <div class="layui-form-item">
                 <label class="layui-form-label layui-form-required">陈述类型</label>
                 <div class="layui-input-block">
-                    <input type="radio" name="stateType" lay-filter="stateType3" value="0" title="简易程序" checked>
-                    <input type="radio" name="stateType" lay-filter="stateType3" value="1" title="普通程序独任制" >
-                    <input type="radio" name="stateType" lay-filter="stateType3" value="2" title="普通程序合议制" >
+                    <input type="radio" name="statement_type" lay-filter="stateType" value="1" title="简易程序" checked>
+                    <input type="radio" name="statement_type" lay-filter="stateType" value="2" title="普通程序独任制" >
+                    <input type="radio" name="statement_type" lay-filter="stateType" value="3" title="普通程序合议制" >
                 </div>
             </div>
             <div id="mychange3">
                 <div class="layui-form-item layui-form-text">
                     <label class="layui-form-label layui-form-required">陈述内容</label>
                     <div class="layui-input-block">
-                        <textarea id="state" name="content"  class="layui-textarea" required  lay-verify="required"> 审判员：当事人身份经核对无误，法庭宣布双方当事人及其诉讼代理人身份符合法律规定，出庭资格合法，可以参加诉讼。现在宣布开庭。北京市海淀区人民法院今天依法适用简易程序，公开审理原告__诉被告__一案，由本院审判员__独任审判，书记员__担任法庭记录。</textarea>
+                        <textarea id="state_content" name="stateContent"  class="layui-textarea" required  lay-verify="required"> 审判员：当事人身份经核对无误，法庭宣布双方当事人及其诉讼代理人身份符合法律规定，出庭资格合法，可以参加诉讼。现在宣布开庭。北京市海淀区人民法院今天依法适用简易程序，公开审理原告__诉被告__一案，由本院审判员__独任审判，书记员__担任法庭记录。</textarea>
                     </div>
                 </div>
             </div>
-<!--            <div class="layui-form-item">-->
-<!--                <div class="layui-input-block">-->
-<!--                    <button class="layui-btn" lay-submit lay-filter="formDemo3" style="display: table;margin: 0 auto;">保存</button>-->
-<!--                </div>-->
-<!--            </div>-->
         </div>
     </div>
 </form>
@@ -293,7 +290,7 @@
             <td style="text-align: center">原告<span style="color: red">*</span></td>
             <td>
                 <div class="layui-input-block">
-                    <textarea name="ta2" type="text" class="layui-input " style="height: 50px;">听清楚了</textarea>
+                    <textarea id="accuser_listen" name="accuserListen" type="text" class="layui-input " style="height: 50px;">听清楚了</textarea>
                 </div>
             </td>
         </tr>
@@ -301,7 +298,7 @@
             <td style="text-align: center">被告<span style="color: red">*</span></td>
             <td>
                 <div class="layui-input-block">
-                    <textarea name="ta2" type="text" class="layui-input " style="height: 50px;">听清楚了</textarea>
+                    <textarea   id="attendant_listen" name="attendantListen" type="text" class="layui-input " style="height: 50px;">听清楚了</textarea>
                 </div>
             </td>
         </tr>
@@ -309,7 +306,7 @@
             <td style="text-align: center">审判员</td>
             <td>
                 <div class="layui-input-block">
-                    <textarea name="ta2" type="text" class="layui-input " style="height: 50px;">审判员：当事人对审判员和书记是否申请回避？</textarea>
+                    <textarea name="ta4" type="text" class="layui-input " style="height: 50px;">审判员：当事人对审判员和书记是否申请回避？</textarea>
                 </div>
             </td>
             </td>
@@ -321,8 +318,8 @@
                     <div class="layui-input-block">
                         <div class="site-title">
                             <div class="layui-form">
-                                <input type="radio" name="yuangaohuibi" title="不申请回避" checked>
-                                <input type="radio" name="yuangaohuibi" title="申请回避" >
+                                <input type="radio" value="1" name="accuser_avoid" title="不申请回避" checked>
+                                <input type="radio" value="2" name="accuser_avoid" title="申请回避" >
                             </div>
                         </div>
                     </div>
@@ -336,8 +333,8 @@
                     <div class="layui-input-block">
                         <div class="site-title">
                             <div class="layui-form">
-                                <input type="radio" name="beigaohuibi" title="不申请回避" checked>
-                                <input type="radio" name="beigaohuibi" title="申请回避" >
+                                <input type="radio" value="1" name="defendant_avoid" title="不申请回避" checked>
+                                <input type="radio" value="2" name="defendant_avoid" title="申请回避" >
                             </div>
                         </div>
                     </div>
@@ -347,7 +344,7 @@
         </tr>
     </table>
 </div>
-<!--法庭调查1-诉讼请求及答辩-->
+<!--法庭调查1-诉讼请求及答辩 lawsuit-->
 
 <div class="layui-card" xmlns="http://www.w3.org/1999/html">
     <div class="layui-card-header" style="text-align:center;font-size: 25px; ">法庭调查-诉讼请求及答辩</div>
@@ -356,56 +353,58 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">审判员:</label>
                 <div class="layui-input-block">
-                <input type="text" name="6j8z" required lay-verify="required" autocomplete="off" class="layui-input"
-                       value="下面进行法庭调查，原告陈述诉讼请求和事实理由">
+                    <input type="text" name="6j8z" required lay-verify="required" autocomplete="off" class="layui-input"
+                           value="下面进行法庭调查，原告陈述诉讼请求和事实理由">
                 </div>
             </div>
-            <div id="requestitem">
-                <div class="layui-form-item" id="item1" style="margin-top: 11px;">
-                    <label class="layui-form-label">
-                        <input type="text" name="title" placeholder="原告简称" class="layui-input"
-                               style="margin-top: -9px;">
-                    </label>
-                    <div class="layui-input-inline" style="width: 50%;">
-                        <div style="float: left;display: inline;width: 80%">
-                            <input type="text" name="title" placeholder="诉讼请求项" autocomplete="on" class="layui-input">
+            <div id="lawsuitd_accuser_item">
+                <div id="requestitem">
+                    <div class="layui-form-item" id="item1" style="margin-top: 11px;">
+                        <label class="layui-form-label">
+                            <input type="text" id="lawsuit_accuser_short1" name="accuserShort1" placeholder="原告简称" class="layui-input"
+                                   style="margin-top: -9px;">
+                        </label>
+                        <div class="layui-input-inline" style="width: 50%;">
+                            <div style="float: left;display: inline;width: 80%">
+                                <input type="text" id="lawsuit_claim_item1" name="claimItem1" placeholder="诉讼请求项1" autocomplete="on" class="layui-input">
+                            </div>
+                            <div style="float: right;display: inline ;margin-left: 10px;">
+                                <div class="layui-btn-group">
+                                    <button id="courtinves_add" type="button"
+                                            class="layui-btn layui-btn-primary layui-btn-sm" data-type="text"
+                                            style="height: 38px;">
+                                        <i class="layui-icon">&#xe654;</i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <div style="float: right;display: inline ;margin-left: 10px;">
-                            <div class="layui-btn-group">
-                                <button id="courtinves_add" type="button"
-                                        class="layui-btn layui-btn-primary layui-btn-sm" data-type="text"
-                                        style="height: 38px;">
-                                    <i class="layui-icon">&#xe654;</i>
-                                </button>
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">事实和理由</label>
+                            <div class="layui-input-block">
+                                <textarea id="lawsuit_fact_reason1" name="factReason1" placeholder="请输入事实和理由" class="layui-textarea"></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="layui-form-item layui-form-text">
-                <label class="layui-form-label">事实和理由</label>
-                <div class="layui-input-block">
-                    <textarea name="lji7n" placeholder="请输入事实和理由" class="layui-textarea"></textarea>
-                </div>
-            </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">审判员:</label>
                 <div class="layui-input-block">
-                    <input type="text" name="6j8z" required lay-verify="required" autocomplete="off" class="layui-input"
-                           value="下面进行法庭调查，原告陈述诉讼请求和事实理由">
+                    <input type="text" name="fact_reason" required lay-verify="required" autocomplete="off" class="layui-input"
+                           value="对于原告的诉讼请求及事实理由，被告进行答辩。">
                 </div>
             </div>
 
-            <div id="myreplyitem">
+            <div id="lawsuitd_defendant">
                 <div id="replyitem1">
                     <div class="layui-form-item" style="margin-top: 11px;">
                         <label class="layui-form-label">
-                            <input type="text" name="title" id="defendant1" placeholder="被告姓名" class="layui-input"
+                            <input type="text"  id="lawsuit_defendant1" name="defendantShort1" placeholder="被告姓名" class="layui-input"
                                    style="margin-top: -9px;">
                         </label>
                         <div class="layui-input-inline" style="width: 50%;">
                             <div style="float: left;display: inline;width: 80%">
-                                <input type="text" name="title" placeholder="答辩内容" autocomplete="on"
+                                <input type="text" id="lawsuit_content1" name="Content1" placeholder="被告答辩内容1" autocomplete="on"
                                        class="layui-input">
                             </div>
                             <div style="float: right;display: inline ;margin-left: 10px;">
@@ -424,23 +423,23 @@
 
             <div class="layui-form-item">
                 <label class="layui-form-label layui-form-required">是否反诉</label>
-                <div class="layui-input-block">
-                    <input type="radio" name="counterclaim" lay-filter="is_counterclaim" value="0" title="反诉" checked>
-                    <input type="radio" name="counterclaim" lay-filter="is_counterclaim" value="1" title="不反诉">
+                <div class="layui-input-block" id="lawsuitd_is_counterclaim">
+                    <input type="radio" name="is_counterclaim" lay-filter="is_counterclaim" value="2" title="反诉" val="true" checked>
+                    <input type="radio" name="is_counterclaim" lay-filter="is_counterclaim" value="1" title="不反诉" vai="false">
                 </div>
             </div>
 
             <div id="counterclaim">
-                <div id="addcounterclaimitem">
+                <div id="lawsuitd_counterclaim_item">
                     <div id="counterclaimitem1">
                         <div class="layui-form-item" style="margin-top: 11px;">
                             <label class="layui-form-label">
-                                <input type="text" name="title" placeholder="反诉原告简称" class="layui-input"
+                                <input type="text" id="lawsuit_counter_accuser1" name="counterAccuserShort1" placeholder="反诉原告简称" class="layui-input"
                                        style="margin-top: -9px;">
                             </label>
                             <div class="layui-input-inline" style="width: 50%;">
                                 <div style="float: left;display: inline;width: 80%">
-                                    <input type="text" name="title" placeholder="诉讼请求项" autocomplete="on"
+                                    <input type="text" id="lawsuit_counterclaim_item1" name="counterClaimItem1" placeholder="反诉原告诉讼请求项1" autocomplete="on"
                                            class="layui-input">
                                 </div>
                                 <div style="float: right;display: inline ;margin-left: 10px;">
@@ -453,35 +452,36 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="layui-form-item layui-form-text">
+                                <label class="layui-form-label">事实和理由</label>
+                                <div class="layui-input-block">
+                                    <textarea id="lawsuit_counter_factReason1" name="counterFactReason1" placeholder="请输入事实和理由" class="layui-textarea"></textarea>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="layui-form-item layui-form-text">
-                    <label class="layui-form-label">事实和理由</label>
-                    <div class="layui-input-block">
-                        <textarea name="lji7n" placeholder="请输入事实和理由" class="layui-textarea"></textarea>
-                    </div>
-                </div>
+
 
                 <div class="layui-form-item">
                     <label class="layui-form-label layui-form-required">反诉被告今</br>天是否答辩</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="todayreply" lay-filter="is_todayreply" value="0" title="答辩" checked>
-                        <input type="radio" name="todayreply" lay-filter="is_todayreply" value="1" title="不答辩">
+                        <input type="radio" name="today_counter" lay-filter="is_todayreply" value="2" title="答辩" checked>
+                        <input type="radio" name="today_counter" lay-filter="is_todayreply" value="1" title="不答辩">
                     </div>
                 </div>
 
                 <div id="todayreply">
-                    <div id="addtodayreplyitem">
+                    <div id="right_today_counter">
                         <div id="todayreplyitem1">
                             <div class="layui-form-item" style="margin-top: 11px;">
                                 <label class="layui-form-label">
-                                    <input type="text" name="title" placeholder="被告姓名" class="layui-input"
+                                    <input type="text" id="lawsuit_name_counter1" name="nameCounter1" placeholder="反诉被告姓名" class="layui-input"
                                            style="margin-top: -9px;">
                                 </label>
                                 <div class="layui-input-inline" style="width: 50%;">
                                     <div style="float: left;display: inline;width: 80%">
-                                        <input type="text" name="title" placeholder="答辩内容" autocomplete="on"
+                                        <input type="text" id="lawsuit_content_counter1" name="contentCounter1" placeholder="反诉被告答辩内容1" autocomplete="on"
                                                class="layui-input">
                                     </div>
                                     <div style="float: right;display: inline ;margin-left: 10px;">
@@ -505,364 +505,412 @@
 </div>
 
 
-<!--法庭调查2-原告举证-->
+<!--法庭调查2-原告举证 accshow-->
 <h1 style="text-align:center">法庭调查-原告举证</h1>
-<table class="layui-table" id="form_ofyuangaojuzheng">
-    <tr>
-        <td style="text-align: center" width="30%">审判员</td>
+<div id="accshowd_evidence">
+    <div id="form_ofAccuserEvidence">
+        <table class="layui-table" >
+            <tr>
+                <td style="text-align: center" width="30%">审判员</td>
 
-        <td width="70%">
-            <textarea type="text" class="layui-input ">下面进行举证质证，首先原告进行举证</textarea>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <div class="layui-card-header">
-                <input type="text" name="title" id="zhengjumingcheng" placeholder="证据名称" autocomplete="off"
-                       class="layui-input">
-            </div>
-        </td>
-        <td>
-            <div class="layui-input-row">
-                <div class="layui-col-md9">
+                <td width="70%">
+                    <textarea type="text" class="layui-input ">下面进行举证质证，首先原告进行举证</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <div class="layui-card-header">
-                        <input type="text" name="title" id="zhengmingshixiang" placeholder="证明事项" autocomplete="off"
+                        <input type="text" id="evidence_query1" name="accshow_evidence1" placeholder="证据名称1" autocomplete="off"
                                class="layui-input">
                     </div>
-                </div>
-                <div class="layui-col-md3">
-                    <button id="button_ofyuangaojuzheng" type="button" class="layui-btn layui-btn-primary layui-btn-sm"
-                            removeclass data-type="text">
-                        <i class="layui-icon">&#xe654;</i>
-                    </button>
-                </div>
-            </div>
-        </td>
-    </tr>
-</table>
-<hr>
-<div class="layui-col-md2">
-    <div class="layui-form-item">
-        <label class="layui-form-label">事实和理由</label>
+                </td>
+                <td>
+                    <div class="layui-input-row">
+                        <div class="layui-col-md9">
+                            <div class="layui-card-header">
+                                <input type="text" id="content_query1" name="accshow_content1" placeholder="证明事项" autocomplete="off"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            <button id="button_ofAccuserEvidence" lay-submit lay-filiter="button_ofAttendantQuestion" type="button" class="layui-btn layui-btn-primary layui-btn-sm"
+                                    data-type="text">
+                                <i class="layui-icon">&#xe654;</i>
+                            </button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: center" width="30%">
+                    <div class="layui-col-md2">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">事实和理由</label>
+                        </div>
+                    </div>
+                </td>
+                <td style="text-align: center" width="70%">
+                    <div class="layui-col-md10">
+                        <div class="layui-input-row">
+                            <textarea id="accshow_fact_reason1" name="factReason1" placeholder="理由" class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
-<div class="layui-col-md10">
-    <div class="layui-input-row">
-        <textarea name="desc" placeholder="理由" class="layui-textarea"></textarea>
-    </div>
-</div>
-<hr>
+<div id="accshowd_query_evidence">
+    <div id="form_ofAttendantQuestion">
+        <table class="layui-table" >
+            <tr>
+                <td style="text-align: center">审判员</td>
 
-<table class="layui-table" id="form_ofbeigaozhizheng">
-    <tr>
-        <td style="text-align: center">审判员</td>
-
-        <td>
-            <textarea type="text" class="layui-input ">被告对原告提交的证据进行质证</textarea>
-        </td>
-    </tr>
-    <tr>
-        <td width="30%">
-            <div class="layui-card-header">
-                <input type="text" name="title" id="beigaoxingming1" placeholder="被告姓名" autocomplete="off"
-                       class="layui-input">
-            </div>
-        </td>
-        <td width="70%">
-            <div class="layui-input-row">
-                <div class="layui-col-md9">
+                <td>
+                    <textarea type="text" class="layui-input ">被告对原告提交的证据进行质证</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td width="30%">
                     <div class="layui-card-header">
-                        <input type="text" name="title" id="zhengjumingcheng1" placeholder="证据名称" autocomplete="off"
+                        <input type="text" name="defendant_short1" id="accshow_defendant1" placeholder="被告姓名" autocomplete="off"
                                class="layui-input">
                     </div>
-                </div>
-                <div class="layui-col-md3">
-                    <button id="button_ofbeigaozhizheng" type="button" class="layui-btn layui-btn-primary layui-btn-sm "
-                            data-type="text">
-                        <i class="layui-icon">&#xe654;</i>
-                    </button>
-                </div>
-            </div>
-        </td>
-    </tr>
+                </td>
+                <td width="70%">
+                    <div class="layui-input-row">
+                        <div class="layui-col-md9">
+                            <div class="layui-card-header">
+                                <input type="text" name="evidenceQuery1" id="accshow_query_evidence1" placeholder="证据名称1" autocomplete="off"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            <button id="button_ofAttendantQuestion" type="button" class="layui-btn layui-btn-primary layui-btn-sm "
+                                    data-type="text">
+                                <i class="layui-icon">&#xe654;</i>
+                            </button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td width="30%">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">真实性</label>
+                        <div class="site-title">
+                            <div class="layui-form">
+                                <input type="radio" name="accshow_facticity1" lay-filter="text1" title="是" value="true" checked>
+                                <input type="radio" name="accshow_facticity1" lay-filter="text1" title="否" value="false">
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td width="70%">
+                    <div class="layui-col-md10">
+                        <div class="layui-input-row">
+                            <textarea id="accshow_query_facticity1" placeholder="理由" class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td width="30%">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">合法性</label>
+                        <div class="site-title">
+                            <div class="layui-form">
+                                <input type="radio" name="accshow_legality1" title="是" value="true" checked>
+                                <input type="radio" name="accshow_legality1" title="否" value="false">
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td width="70%">
+                    <div class="layui-col-md10">
+                        <div class="layui-input-row">
+                            <textarea id="accshow_query_legality1" placeholder="理由" class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td width="30%">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">关联性</label>
+                        <div class="site-title">
+                            <div class="layui-form">
+                                <input type="radio" name="accshow_relevance1" title="是" value="true" checked>
+                                <input type="radio" name="accshow_relevance1" title="否" value="false">
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td width="70%">
+                    <div class="layui-col-md10">
+                        <div class="layui-input-row">
+                            <textarea id="accshow_query_relevace1" placeholder="理由" class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
 
-</table>
-<hr>
-<div class="layui-col-md2">
-    <div class="layui-form-item">
-        <label class="layui-form-label">真实性</label>
-        <div class="site-title">
-            <div class="layui-form">
-                <input type="radio" name="zhenshixing" title="是" checked>
-                <input type="radio" name="zhenshixing" title="否">
-            </div>
-        </div>
-    </div>
-</div>
-<div class="layui-col-md10">
-    <div class="layui-input-row">
-        <textarea name="desc" placeholder="理由" class="layui-textarea"></textarea>
-    </div>
-</div>
-
-<hr>
-
-<div class="layui-col-md2">
-    <div class="layui-form-item">
-        <label class="layui-form-label">合法性</label>
-        <div class="site-title">
-            <div class="layui-form">
-                <input type="radio" name="hefaxing" title="是" checked>
-                <input type="radio" name="hefaxing" title="否">
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="layui-col-md10">
-    <div class="layui-input-row">
-        <textarea name="desc" placeholder="理由" class="layui-textarea"></textarea>
-    </div>
-</div>
-<hr>
-<div class="layui-col-md2">
-    <div class="layui-form-item">
-        <label class="layui-form-label">完整性</label>
-        <div class="site-title">
-            <div class="layui-form">
-                <input type="radio" name="wanzhengxing" title="是" checked>
-                <input type="radio" name="wanzhengxing" title="否">
-            </div>
-        </div>
-    </div>
-</div>
-<div class="layui-col-md10">
-    <div class="layui-input-row">
-        <textarea name="desc" placeholder="理由" class="layui-textarea"></textarea>
-    </div>
-</div>
-<!--法庭调查3 被告举证-->
-<table class="layui-table" id="form_beigaojuzheng">
-    <h1 style="text-align:center">法庭调查-被告举证</h1>
-    <tr>
-        <td style="text-align: center" width="30%">审判员</td>
-        <td width="70%">
-            <textarea type="text" class="layui-input">被告进行举证</textarea>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <div class="layui-card-header">
-                <input type="text" name="title" id="zhengjumingcheng2" placeholder="证据名称" autocomplete="off"
-                       class="layui-input">
-            </div>
-        </td>
-        <td>
-            <div class="layui-input-row">
-                <div class="layui-col-md9">
+<!--法庭调查3 被告举证 defendshow-->
+<div id="defendshowd_evidence">
+    <div id="form_ofAttendantEvidence">
+        <table class="layui-table" >
+            <h1 style="text-align:center">法庭调查-被告举证</h1>
+            <tr>
+                <td style="text-align: center" width="30%">审判员</td>
+                <td width="70%">
+                    <textarea type="text" class="layui-input">被告进行举证</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <div class="layui-card-header">
-                        <input type="text" name="title" id="zhengmingshixiang2" placeholder="证明事项" autocomplete="off"
+                        <input type="text" name="defendshow_evidence1" id="evidence_AttendantQuery1" placeholder="证据名称1" autocomplete="off"
                                class="layui-input">
                     </div>
-                </div>
-                <div class="layui-col-md3">
-                    <button id="button_beigaojuzheng" type="button" class="layui-btn layui-btn-primary layui-btn-sm"
-                            removeclass data-type="text">
-                        <i class="layui-icon">&#xe654;</i>
-                    </button>
-                </div>
-            </div>
-        </td>
-    </tr>
-</table>
-<hr>
-<div class="layui-col-md2">
-    <div class="layui-form-item">
-        <label class="layui-form-label">事实和理由</label>
+                </td>
+                <td>
+                    <div class="layui-input-row">
+                        <div class="layui-col-md9">
+                            <div class="layui-card-header">
+                                <input type="text" name="defendshow_content1" id="content_AttendantQuery1" placeholder="证明事项" autocomplete="off"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            <button id="button_ofAttendantEvidence" type="button" class="layui-btn layui-btn-primary layui-btn-sm"
+                                    data-type="text">
+                                <i class="layui-icon">&#xe654;</i>
+                            </button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: center" width="30%">
+                    <div class="layui-col-md2">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">事实和理由</label>
+                        </div>
+                    </div>
+                </td>
+                <td style="text-align: center" width="70%">
+                    <div class="layui-col-md10">
+                        <div class="layui-input-row">
+                            <textarea id="defendshow_fact_reason1" name="factAttendantQuery1" placeholder="理由" class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
-<div class="layui-col-md10">
-    <div class="layui-input-row">
-        <textarea name="desc" placeholder="理由" class="layui-textarea"></textarea>
-    </div>
-</div>
-<hr>
-<table class="layui-table" id="form_zhizheng">
-    <tr>
-        <td style="text-align: center">审判员</td>
-        <td>
-            <textarea type="text" class="layui-input">原告及其他被告对被告提交的证据进行质证</textarea>
-        </td>
-    </tr>
-    <tr>
-        <td width="30%">
-            <div class="layui-card-header">
-                <input type="text" name="title" id="yuangaoxingming" placeholder="原告姓名" autocomplete="off"
-                       class="layui-input">
-            </div>
-        </td>
-        <td width="70%">
-            <div class="layui-input-row">
-                <div class="layui-col-md9">
+<div id="defendshowd_accuser">
+    <div id="form_AccuserQuestion">
+        <table class="layui-table">
+            <tr>
+                <td style="text-align: center">审判员</td>
+                <td>
+                    <textarea type="text" class="layui-input">原告及其他被告对被告提交的证据进行质证</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td width="30%">
                     <div class="layui-card-header">
-                        <input type="text" name="title" id=" " placeholder="证据编号" autocomplete="off"
+                        <input type="text" id="defendshow_accuser1" name="nameOthersAccuser1"  placeholder="原告姓名" autocomplete="off"
                                class="layui-input">
                     </div>
-                </div>
-                <div class="layui-col-md3">
-                    <button id="button_zhizheng" type="button" class="layui-btn layui-btn-primary layui-btn-sm "
-                            data-type="text">
-                        <i class="layui-icon">&#xe654;</i>
-                    </button>
-                </div>
-            </div>
-        </td>
-    </tr>
-</table>
-<hr>
-<div class="layui-col-md2">
-    <div class="layui-form-item">
-        <label class="layui-form-label">真实性</label>
-        <div class="site-title">
-            <div class="layui-form">
-                <input type="radio" name="zhenshixing" title="是" checked>
-                <input type="radio" name="zhenshixing" title="否">
-            </div>
-        </div>
+                </td>
+                <td width="70%">
+                    <div class="layui-input-row">
+                        <div class="layui-col-md9">
+                            <div class="layui-card-header">
+                                <input type="text" id="defendshow_evidencenum1" name="evidenceNum1"  placeholder="证据编号1" autocomplete="off"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            <button id="button_AccuserQuestion" type="button" class="layui-btn layui-btn-primary layui-btn-sm "
+                                    data-type="text">
+                                <i class="layui-icon">&#xe654;</i>
+                            </button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td width="30%">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">真实性</label>
+                        <div class="site-title">
+                            <div class="layui-form">
+                                <input type="radio" name="defendshow_facticity1" title="是" value="true" checked>
+                                <input type="radio" name="defendshow_facticity1" title="否" value="false">
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td width="70%">
+                    <div class="layui-col-md10">
+                        <div class="layui-input-row">
+                            <textarea id="defendshow_query_facticity1" placeholder="理由" class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td width="30%">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">合法性</label>
+                        <div class="site-title">
+                            <div class="layui-form">
+                                <input type="radio" name="defendshow_legality1" title="是" value="true" checked>
+                                <input type="radio" name="defendshow_legality1" title="否" value="false">
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td width="70%">
+                    <div class="layui-col-md10">
+                        <div class="layui-input-row">
+                            <textarea id="defendshow_query_legality1" placeholder="理由" class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td width="30%">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">关联性</label>
+                        <div class="site-title">
+                            <div class="layui-form">
+                                <input type="radio" name="defendshow_relevance1" title="是" value="true" checked>
+                                <input type="radio" name="defendshow_relevance1" title="否" value="false">
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td width="70%">
+                    <div class="layui-col-md10">
+                        <div class="layui-input-row">
+                            <textarea id="defendshow_query_relevace1" placeholder="理由" class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
-<div class="layui-col-md10">
-    <div class="layui-input-row">
-        <textarea name="desc" placeholder="理由" class="layui-textarea"></textarea>
-    </div>
-</div>
-
-<hr>
-
-<div class="layui-col-md2">
-    <div class="layui-form-item">
-        <label class="layui-form-label">合法性</label>
-        <div class="site-title">
-            <div class="layui-form">
-                <input type="radio" name="hefaxing" title="是" checked>
-                <input type="radio" name="hefaxing" title="否">
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="layui-col-md10">
-    <div class="layui-input-row">
-        <textarea name="desc" placeholder="理由" class="layui-textarea"></textarea>
-    </div>
-</div>
-<hr>
-<div class="layui-col-md2">
-    <div class="layui-form-item">
-        <label class="layui-form-label">完整性</label>
-        <div class="site-title">
-            <div class="layui-form">
-                <input type="radio" name="wanzhengxing" title="是" checked>
-                <input type="radio" name="wanzhengxing" title="否">
-            </div>
-        </div>
-    </div>
-</div>
-<div class="layui-col-md10">
-    <div class="layui-input-row">
-        <textarea name="desc" placeholder="理由" class="layui-textarea"></textarea>
-    </div>
-</div>
-<table class="layui-table" id="form_yuangaozhizheng">
-    <tr>
-        <td width="30%">
-            <div class="layui-card-header">
-                <input type="text" name="title" id="beigaoxingming" placeholder="被告姓名" autocomplete="off"
-                       class="layui-input">
-            </div>
-        </td>
-        <td width="70%">
-            <div class="layui-input-row">
-                <div class="layui-col-md9">
+<div id="defendshowd_defendant">
+    <div id="form_accuser_query">
+        <table class="layui-table">
+            <tr>
+                <td width="30%">
                     <div class="layui-card-header">
-                        <input type="text" name="title" id="zhengjubianhao" placeholder="证据编号" autocomplete="off"
+                        <input type="text" name="title" id="defendshow_defendant1" placeholder="被告姓名" autocomplete="off"
                                class="layui-input">
                     </div>
-                </div>
-                <div class="layui-col-md3">
-                    <button id="button_yuangaozhizheng" type="button" class="layui-btn layui-btn-primary layui-btn-sm "
-                            data-type="text">
-                        <i class="layui-icon">&#xe654;</i>
-                    </button>
-                </div>
-            </div>
-        </td>
-    </tr>
-</table>
-<hr>
-<div class="layui-col-md2">
-    <div class="layui-form-item">
-        <label class="layui-form-label">真实性</label>
-        <div class="site-title">
-            <div class="layui-form">
-                <input type="radio" name="zhenshixing" title="是" checked>
-                <input type="radio" name="zhenshixing" title="否">
-            </div>
-        </div>
+                </td>
+                <td width="70%">
+                    <div class="layui-input-row">
+                        <div class="layui-col-md9">
+                            <div class="layui-card-header">
+                                <input type="text" name="title" id="defendshow_numevidence1" placeholder="证据编号1" autocomplete="off"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            <button id="button_accuser_query" type="button" class="layui-btn layui-btn-primary layui-btn-sm "
+                                    data-type="text">
+                                <i class="layui-icon">&#xe654;</i>
+                            </button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td width="30%">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">真实性</label>
+                        <div class="site-title">
+                            <div class="layui-form">
+                                <input type="radio" name="defendshow_numfacticity1" title="是" value="true" checked>
+                                <input type="radio" name="defendshow_numfacticity1" title="否" value="false">
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td width="70%">
+                    <div class="layui-col-md10">
+                        <div class="layui-input-row">
+                            <textarea id="defendshow_reason_facticity1" placeholder="理由" class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td width="30%">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">合法性</label>
+                        <div class="site-title">
+                            <div class="layui-form">
+                                <input type="radio" name="defendshow_numlegality1" title="是" value="true" checked>
+                                <input type="radio" name="defendshow_numlegality1" title="否" value="false">
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td width="70%">
+                    <div class="layui-col-md10">
+                        <div class="layui-input-row">
+                            <textarea name="defendshow_reason_legality1" placeholder="理由" class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td width="30%">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">关联性</label>
+                        <div class="site-title">
+                            <div class="layui-form">
+                                <input type="radio" name="defendshow_numrelevance1" title="是" value="true" checked>
+                                <input type="radio" name="defendshow_numrelevance1" title="否" value="false">
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td width="70%">
+                    <div class="layui-col-md10">
+                        <div class="layui-input-row">
+                            <textarea name="defendshow_reason_relevace1" placeholder="理由" class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
-<div class="layui-col-md10">
-    <div class="layui-input-row">
-        <textarea name="desc" placeholder="理由" class="layui-textarea"></textarea>
-    </div>
-</div>
-
-<hr>
-
-<div class="layui-col-md2">
-    <div class="layui-form-item">
-        <label class="layui-form-label">合法性</label>
-        <div class="site-title">
-            <div class="layui-form">
-                <input type="radio" name="hefaxing" title="是" checked>
-                <input type="radio" name="hefaxing" title="否">
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="layui-col-md10">
-    <div class="layui-input-row">
-        <textarea name="desc" placeholder="理由" class="layui-textarea"></textarea>
-    </div>
-</div>
-<hr>
-<div class="layui-col-md2">
-    <div class="layui-form-item">
-        <label class="layui-form-label">完整性</label>
-        <div class="site-title">
-            <div class="layui-form">
-                <input type="radio" name="wanzhengxing" title="是" checked>
-                <input type="radio" name="wanzhengxing" title="否">
-            </div>
-        </div>
-    </div>
-</div>
-<hr>
 <div class="layui-col-md2">
     <div class="layui-form-label">是否反诉</div>
 </div>
 <div class="layui-col-md10">
     <div class="site-title">
-        <div class="layui-form">
-            <input type="radio" name="shifoufansu" title="反诉" checked>
-            <input type="radio" name="shifoufansu" title="不反诉">
+        <div class="layui-form" id="defendshowd_is_counterclaim">
+            <input type="radio" name="defendshow_is_counterclaim" title="反诉" value="true" checked>
+            <input type="radio" name="defendshow_is_counterclaim" title="不反诉" value="false">
         </div>
     </div>
 </div>
-<hr>
 
-<!--法庭调查表格4 法庭询问-->
+<!--法庭调查表格4 法庭询问 -->
 <h1 style="text-align:center">法庭调查-法庭询问</h1>
 <table class="layui-table">
     <tr>
@@ -872,109 +920,110 @@
         </td>
     </tr>
 </table>
-<div class="layui-card">
-    <div class="layui-card-body">
-        <div class="layui-input-row" id="form_fatingdiaocha">
-            <div class="layui-col-md11">
-                <div class="layui-card-header">
-                    <input type="text" name="title" id="aa" placeholder="问题" autocomplete="off" class="layui-input"  >
+<div id="inquiryd_question">
+    <div class="layui-card">
+        <div class="layui-card-body">
+            <div class="layui-input-row" id="form_inquiry">
+                <div class="layui-col-md11">
+                    <div class="layui-card-header">
+                        <input type="text" name="inquiry_question1"  placeholder="问题1" autocomplete="off" class="layui-input"  >
+                    </div>
                 </div>
-            </div>
-            <div class="layui-col-md1">
-                <button id="button_fatingdiaocha" type="button" class="layui-btn layui-btn-primary layui-btn-sm" data-type="text">
-                    <i class="layui-icon">&#xe654;</i>
-                </button>
-            </div>
-            <table class="layui-table" id="bb">
-                <tr>
-                    <td>
-                        <div class="layui-card-header">
-                            <input type="text" name="title" id="cc" placeholder="原告姓名" autocomplete="off" class="layui-input"  >
-                        </div>
-                    </td>
-                    <td>
-                        <div class="layui-card-header">
-                            <input type="text" name="title" id="dd" placeholder="回答" autocomplete="off" class="layui-input"  >
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="text-align: center" width="30%">
-                        <div class="layui-card-header">
-                            <input type="text" name="title" id="bbb" placeholder="被告姓名" autocomplete="off" class="layui-input"  >
-                        </div>
-                    </td>
+                <div class="layui-col-md1">
+                    <button id="button_inquiry" type="button" class="layui-btn layui-btn-primary layui-btn-sm" data-type="text">
+                        <i class="layui-icon">&#xe654;</i>
+                    </button>
+                </div>
+                <table class="layui-table" id="bb">
+                    <tr>
+                        <td>
+                            <div class="layui-card-header">
+                                <input type="text" id="inquiry_accuser1" placeholder="原告姓名" autocomplete="off" class="layui-input"  >
+                            </div>
+                        </td>
+                        <td>
+                            <div class="layui-card-header">
+                                <input type="text" name="title" id="inquiry_accuser_answer1" placeholder="回答" autocomplete="off" class="layui-input"  >
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center" width="30%">
+                            <div class="layui-card-header">
+                                <input type="text" name="title" id="inquiry_defendant1" placeholder="被告姓名" autocomplete="off" class="layui-input"  >
+                            </div>
+                        </td>
 
-                    <td width="70%">
-                        <div class="layui-card-header">
-                            <input type="text" name="title" id="ccc" placeholder="回答" autocomplete="off" class="layui-input"  >
-                        </div>
-                    </td>
-                </tr>
-            </table>
+                        <td width="70%">
+                            <div class="layui-card-header">
+                                <input type="text" name="title" id="defendant_answer1" placeholder="回答" autocomplete="off" class="layui-input"  >
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
 </div>
-<!--法庭辩论 这个表格也有个小bug-->
+<!--法庭辩论 argue-->
+<div id="argued">
+    <form class="layui-form">
+        <table class="layui-table" id="form_argue">
+            <h1 style="text-align:center">法庭辩论</h1>
+            <tr>
+                <td style="text-align: center" width="30%">审判员</td>
 
-<form class="layui-form">
-    <table class="layui-table" id="form_bianlunyijian">
-        <h1 style="text-align:center">法庭辩论</h1>
-        <tr>
-            <td style="text-align: center" width="30%">审判员</td>
-
-            <td width="70%">
-                <textarea type="text" class="layui-input">法庭调查结束，现在进行法庭辩论，首先原告发表辩论意见</textarea>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="layui-card-header">
-                    <input type="text" name="title" id="evid_name1" placeholder="原告" autocomplete="off" class="layui-input">
-                </div>
-            </td>
-            <td>
-                <div class="layui-input-row">
-                    <div class="layui-col-md9">
-                        <div class="layui-card-header">
-                            <input type="text" name="title" id="evid_name2" placeholder="原告辩论意见" autocomplete="off"
-                                   class="layui-input">
+                <td width="70%">
+                    <textarea type="text" class="layui-input">法庭调查结束，现在进行法庭辩论，首先原告发表辩论意见</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="layui-card-header">
+                        <input type="text" id="argue_accuser1"  placeholder="原告" autocomplete="off" class="layui-input">
+                    </div>
+                </td>
+                <td>
+                    <div class="layui-input-row">
+                        <div class="layui-col-md9">
+                            <div class="layui-card-header">
+                                <input type="text" id="argue_accuser_argue1"  placeholder="原告辩论意见1" autocomplete="off"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            <button id="argue_accuser_button" type="button" class="layui-btn layui-btn-primary layui-btn-sm"
+                                    data-type="text">
+                                <i class="layui-icon">&#xe654;</i>
+                            </button>
                         </div>
                     </div>
-                    <div class="layui-col-md3">
-                        <button id="bianlunyijian_yuangao" type="button" class="layui-btn layui-btn-primary layui-btn-sm"
-                                removeclass data-type="text">
-                            <i class="layui-icon">&#xe654;</i>
-                        </button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="layui-card-header">
+                        <input type="text" id="argue_defendant1"  placeholder="被告" autocomplete="off" class="layui-input">
                     </div>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="layui-card-header">
-                    <input type="text" name="title" id="evid_name3" placeholder="被告" autocomplete="off" class="layui-input">
-                </div>
-            </td>
-            <td>
-                <div class="layui-input-row">
-                    <div class="layui-col-md9">
-                        <div class="layui-card-header">
-                            <input type="text" name="title" id="Beigao" placeholder="被告辩论意见" autocomplete="off"
-                                   class="layui-input">
+                </td>
+                <td>
+                    <div class="layui-input-row">
+                        <div class="layui-col-md9">
+                            <div class="layui-card-header">
+                                <input type="text" id="argue_defendant_argue1"  placeholder="被告辩论意见1" autocomplete="off"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            <button id="argue_defendant_button" type="button" class="layui-btn layui-btn-primary layui-btn-sm"
+                                    data-type="text">
+                                <i class="layui-icon">&#xe654;</i>
+                            </button>
                         </div>
                     </div>
-                    <div class="layui-col-md3">
-                        <button id="beigaobianlun" type="button" class="layui-btn layui-btn-primary layui-btn-sm"
-                                removeclass data-type="text">
-                            <i class="layui-icon">&#xe654;</i>
-                        </button>
-                    </div>
-                </div>
-            </td>
-        </tr>
-    </table>
-    <div id="isFansu1">
+                </td>
+            </tr>
+        </table>
         <table class="layui-table">
             <tr>
                 <td style="text-align: center" width="30%">
@@ -984,10 +1033,9 @@
                     <div class="layui-form-item">
                         <div class="layui-input-block">
                             <div class="site-title">
-                                <div class="layui-form">
-                                    <input type="radio" name="Counterclaim" lay-filter="isCounterclaim" value="0" title="反诉" checked>
-                                    <input type="radio" name="Counterclaim" lay-filter="isCounterclaim" value="1" title="不反诉"
-                                    >
+                                <div class="layui-form" id="argued_is_counterclaim">
+                                    <input type="radio" name="argue_is_counterclaim" lay-filter="isCounterclaim" value="true" title="反诉" checked>
+                                    <input type="radio" name="argue_is_counterclaim" lay-filter="isCounterclaim" value="false" title="不反诉">
                                 </div>
                             </div>
                         </div>
@@ -996,118 +1044,124 @@
             </tr>
 
         </table>
-        <div id="isFansua">
-            <table class="layui-table" id="isFansu2a">
-                <tr >
-                    <td width="30%">
-                        <div class="layui-card-header">
-                            <input type="text" name="title" id="text3_yuangaofansu" placeholder="原告(反诉被告)" autoComplete="off" class="layui-input">
-                        </div>
-                    </td>
-                    <td width="70%">
-                        <div class="layui-input-row">
-                            <div class="layui-col-md9">
-                                <div class="layui-card-header">
-                                    <input type="text" name="title" id="yuangaobianlunyijian" placeholder="原告(反诉被告)辩论意见" autoComplete="off" class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-col-md3">
-                                <button id="fansubeigaoa" type="button"
-                                        class="layui-btn layui-btn-primary layui-btn-sm"
-                                        data-type="text">
-                                    <i class="layui-icon">&#xe654;</i>
-                                </button>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="layui-card-header">
-                            <input type="text" name="title" id="input_fansuyuangao" placeholder="被告(反诉原告)"
-                                   autoComplete="off" class="layui-input">
-                        </div>
-                    </td>
-                    <td>
-                        <div class="layui-input-row">
-                            <div class="layui-col-md9">
-                                <div class="layui-card-header">
-                                    <input type="text" name="title" id="input_fansuyuan" placeholder="被告(反诉原告)辩论意见"
-                                           autoComplete="off" class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-col-md3">
-                                <button id="fansuyuangaoa" type="button" class="layui-btn layui-btn-primary layui-btn-sm"  data-type="text">
-                                    <i class="layui-icon">&#xe654;</i>
-                                </button>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
-</form>
-
-<!--//陈述意见表格 button=yuangaochenshu beigaochenshu-->
-<table class="layui-table" id="form_chenshuyijian">
-    <h1 style="text-align:center">陈述意见</h1>
-    <tr>
-        <td width="30%">
-            <p>审判员</p>
-        </td>
-        <td width="70%">
-            <textarea type="text" class="layui-input">双方发表最后陈述意见</textarea>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <p>原告</p>
-        </td>
-        <td>
-            <div class="layui-input-row">
-                <div class="layui-col-md9">
+        <table class="layui-table" id="argue_counter_defendant_form">
+            <tr >
+                <td width="30%">
                     <div class="layui-card-header">
-                        <input type="text" name="title" id="" placeholder="原告陈述意见" autocomplete="off"
-                               class="layui-input">
+                        <input type="text" id="argue_counter_defendant1" placeholder="原告(反诉被告)" autoComplete="off" class="layui-input">
+                    </div>
+                </td>
+                <td width="70%">
+                    <div class="layui-input-row">
+                        <div class="layui-col-md9">
+                            <div class="layui-card-header">
+                                <input type="text" id="argue_counter_defendant_debate1" placeholder="原告(反诉被告)辩论意见1" autoComplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            <button id="argue_counter_defendant_button" type="button"
+                                    class="layui-btn layui-btn-primary layui-btn-sm"
+                                    data-type="text">
+                                <i class="layui-icon">&#xe654;</i>
+                            </button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="layui-card-header">
+                        <input type="text" name="title" id="argue_counter_accuser1" placeholder="被告(反诉原告)"
+                               autoComplete="off" class="layui-input">
+                    </div>
+                </td>
+                <td>
+                    <div class="layui-input-row">
+                        <div class="layui-col-md9">
+                            <div class="layui-card-header">
+                                <input type="text" name="title" id="argue_counter_accuser_debate1" placeholder="被告(反诉原告)辩论意见1"
+                                       autoComplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            <button id="argue_defendant_debate_button" type="button" class="layui-btn layui-btn-primary layui-btn-sm"  data-type="text">
+                                <i class="layui-icon">&#xe654;</i>
+                            </button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<!--陈述意见表格 final-->
+<div id="finald_accuser">
+    <table class="layui-table" id="form_final_accuser">
+        <h1 style="text-align:center">陈述意见</h1>
+        <tr>
+            <td width="30%">
+                <p>审判员</p>
+            </td>
+            <td width="70%">
+                <textarea type="text" class="layui-input">双方发表最后陈述意见</textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="layui-card-header">
+                    <input type="text" name="title" id="final_accuser1" placeholder="原告" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </td>
+            <td>
+                <div class="layui-input-row">
+                    <div class="layui-col-md9">
+                        <div class="layui-card-header">
+                            <input type="text" name="title" id="final_accuser_state1" placeholder="原告陈述意见1" autocomplete="off"
+                                   class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-col-md3">
+                        <button id="final_accuser_state" type="button" class="layui-btn layui-btn-primary layui-btn-sm"
+                                data-type="text">
+                            <i class="layui-icon">&#xe654;</i>
+                        </button>
                     </div>
                 </div>
-                <div class="layui-col-md3">
-                    <button id="yuangaochenshu" type="button" class="layui-btn layui-btn-primary layui-btn-sm"
-                            removeclass data-type="text">
-                        <i class="layui-icon">&#xe654;</i>
-                    </button>
+            </td>
+        </tr>
+    </table>
+</div>
+<div id="finald_defendant">
+    <table class="layui-table" id="form_final_defendant">
+        <tr>
+            <td width="30%">
+                <div class="layui-card-header">
+                    <input type="text" name="title" id="final_defendant1" placeholder="被告" autocomplete="off"
+                           class="layui-input">
                 </div>
-            </div>
-        </td>
-    </tr>
-</table>
-<table class="layui-table" id="form_chenshuyijian2">
-    <tr>
-        <td width="30%">
-            <p>被告</p>
-        </td>
-        <td width="70%">
-            <div class="layui-input-row">
-                <div class="layui-col-md9">
-                    <div class="layui-card-header">
-                        <input type="text" name="title" id="input_beigaochenshu" placeholder="被告陈述意见" autocomplete="off"
-                               class="layui-input">
+            </td>
+            <td width="70%">
+                <div class="layui-input-row">
+                    <div class="layui-col-md9">
+                        <div class="layui-card-header">
+                            <input type="text" name="title" id="final_defendant_state1" placeholder="被告陈述意见1" autocomplete="off"
+                                   class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-col-md3">
+                        <button id="final_defendant_state" type="button" class="layui-btn layui-btn-primary layui-btn-sm" data-type="text">
+                            <i class="layui-icon">&#xe654;</i>
+                        </button>
                     </div>
                 </div>
-                <div class="layui-col-md3">
-                    <button id="beigaochenshu" type="button" class="layui-btn layui-btn-primary layui-btn-sm"
-                            removeclass data-type="text">
-                        <i class="layui-icon">&#xe654;</i>
-                    </button>
-                </div>
-            </div>
-        </td>
-    </tr>
-</table>
-<!--是否调解表格-->
+            </td>
+        </tr>
+    </table>
+</div>
+<!--是否调解表格 mediate-->
 
-<table class="layui-table" id="form_shifoutiaojie">
+<table class="layui-table">
     <h1 style="text-align:center">是否调解</h1>
     <tr>
         <td width="30%">
@@ -1119,14 +1173,18 @@
     </tr>
     <tr>
         <td>
-            <p>原告</p>
+            <input type="text" id="mediate_accuser"  placeholder="原告" autocomplete="off" class="layui-input">
         </td>
         <td>
             <div class="layui-form-item">
                 <div class="site-title">
                     <div class="layui-form">
-                        <input type="radio" name="yuangao_radio_tiaojie" title="能" checked>
-                        <input type="radio" name="yuangao_radio_tiaojie" title="不能">
+                        <div class="site-title">
+                            <div class="layui-form">
+                                <input type="radio" value="1" name="is_mediate_accuser" title="能" checked>
+                                <input type="radio" value="2" name="is_mediate_accuser" title="不能" >
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1135,43 +1193,47 @@
 </table>
 <table>
     <tr>
-        <textarea name="yuangao_tiaojiefangan" placeholder="调解方案" class="layui-textarea"></textarea>
+        <textarea name="mediate_plan_accuser" placeholder="调解方案" class="layui-textarea"></textarea>
     </tr>
     <tr>
-        <input type="text" name="title" id="hejieshixian" lay-verify="required" placeholder="庭外和解时限" autocomplete="off"
+        <input type="text" name="title" id="time_limit_accuser" lay-verify="required" placeholder="庭外和解时限" autocomplete="off"
                class="layui-input">
     </tr>
 </table>
-<table class="layui-table" id="form_beigaotiaojie">
-    <tr>
-        <td width="30%">
-            <p>被告
-            <p>
-        </td>
-        <td width="70%">
-            <div class="layui-input-row">
-                <div class="layui-col-md9">
-                    <div class="layui-form">
-                        <input type="radio" name="beigao_radio_tiaojie" title="能" checked>
-                        <input type="radio" name="beigao_radio_tiaojie" title="不能">
+<div id="mediated_defendant">
+    <div id="form_mediate_defendant">
+        <table class="layui-table" >
+            <tr>
+                <td width="30%">
+                    <input type="text" id="mediate_defendant1"  placeholder="被告1" autocomplete="off" class="layui-input">
+                </td>
+                <td width="70%">
+                    <div class="layui-input-row">
+                        <div class="layui-col-md9">
+                            <div class="layui-form">
+                                <div class="site-title">
+                                    <div class="layui-form" id="mediated_is_mediate1">
+                                        <input type="radio" value="1" name="is_mediate_defendant1" title="能" checked>
+                                        <input type="radio" value="2" name="is_mediate_defendant1" title="不能" >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            <button id="button_mediate_defendant" type="button" class="layui-btn layui-btn-primary layui-btn-sm"
+                                    data-type="text">
+                                <i class="layui-icon">&#xe654;</i>
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div class="layui-col-md3">
-                    <button id="button_beigaotiaojie" type="button" class="layui-btn layui-btn-primary layui-btn-sm"
-                            removeclass data-type="text">
-                        <i class="layui-icon">&#xe654;</i>
-                    </button>
-                </div>
-            </div>
-        </td>
-    </tr>
-</table>
-<tr>
-    <textarea name="beigao_tiaojiefangan" placeholder="调解方案" class="layui-textarea"></textarea>
-</tr>
-
-<!--电子文书送达表格-->
-<table class="layui-table" id="form_dianziwenshusongda">
+                </td>
+            </tr>
+        </table>
+        <textarea id="mediate_plan_defendant1" placeholder="调解方案" class="layui-textarea"></textarea>
+    </div>
+</div>
+<!--电子文书送达表格 delivery-->
+<table class="layui-table">
     <h1 style="text-align:center">电子送达裁判文书</h1>
     <tr>
         <td width="30%">
@@ -1183,14 +1245,16 @@
     </tr>
     <tr>
         <td>
-            <p>原告</p>
+            <input type="text" id="delivery_accuser"  placeholder="原告" autocomplete="off" class="layui-input">
         </td>
         <td>
             <div class="layui-form-item">
                 <div class="site-title">
-                    <div class="layui-form">
-                        <input type="radio" name="yuangao_radio_dianziwenshusongda" title="同意" checked>
-                        <input type="radio" name="yuangao_radio_dianziwenshusongda" title="不同意">
+                    <div class="site-title">
+                        <div class="layui-form">
+                            <input type="radio" value="1" name="is_delivery_accuser" title="同意" checked>
+                            <input type="radio" value="2" name="is_delivery_accuser" title="不同意" >
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1199,42 +1263,44 @@
 </table>
 <table class="layui-table">
     <tr>
-        <input type="text" name="title" id="yuangao_email" placeholder="原告电子邮件地址" autocomplete="off"
+        <input type="text" id="email_accuser" placeholder="原告电子邮件地址" autocomplete="off"
                class="layui-input">
     </tr>
 </table>
-<table class="layui-table" id="form_beigaodianziwenshusongda">
-    <tr>
-        <td width="30%">
-            <p>被告
-            <p>
-        </td>
-        <td width="70%">
-            <div class="layui-input-row">
-                <div class="layui-col-md9">
-                    <div class="layui-form">
-                        <input type="radio" name="beigao_radio_dianziwenshusongda" title="同意" checked>
-                        <input type="radio" name="beigao_radio_dianziwenshusongda" title="不同意">
-                    </div>
-                </div>
-                <div class="layui-col-md3">
-                    <button id="button_beigaodianziwenshusongda" type="button"
-                            class="layui-btn layui-btn-primary layui-btn-sm" removeclass data-type="text">
-                        <i class="layui-icon">&#xe654;</i>
-                    </button>
-                </div>
-            </div>
-        </td>
-    </tr>
-</table>
-<tr>
-    <input type="text" name="title" id="beigao_email" placeholder="被告电子邮件地址" autocomplete="off" class="layui-input">
-</tr>
-<hr>
+<div id="deliveryd_defendant">
+    <div id="form_delivery">
+        <table class="layui-table">
+            <tr>
+                <td width="30%">
+                    <input type="text" id="delivery_defendant1"  placeholder="被告1" autocomplete="off" class="layui-input">
+                </td>
+                <td width="70%">
+                    <form class="layui-form-item">
+                        <div class="layui-input-row">
+                            <div class="layui-col-md9">
+                                <div class="site-title">
+                                    <div class="layui-form" id="delivery_is_deliveryd1">
+                                        <input type="radio" value="1" name="is_delivery_defendant1" title="同意" checked>
+                                        <input type="radio" value="2" name="is_delivery_defendant1" title="不同意" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-md3">
+                                <button id="button_delivery" type="button" lay-submit lay-filter="button_delivery"
+                                        class="layui-btn layui-btn-primary layui-btn-sm"  data-type="text">
+                                    <i class="layui-icon">&#xe654;</i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </td>
+            </tr>
+        </table>
+        <input type="text" name="title" id="email_defendant1" placeholder="被告电子邮件地址" autocomplete="off" class="layui-input">
+    </div>
+</div>
 <p align="center">
     <button type="button" class="layui-btn layui-btn-primary text-align: center;"> 暂存</button>
     <button type="button" class="layui-btn text-align: center;"> 保存</button>
 </p>
-<hr>
-<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 @}
