@@ -1,11 +1,8 @@
 package cn.stylefeng.guns.modular.service;
 
 import cn.stylefeng.guns.modular.entity.Proof;
-import cn.stylefeng.guns.modular.model.request.ProofRequest;
-import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
-
-import java.util.List;
 
 /**
  * <p>
@@ -18,65 +15,43 @@ import java.util.List;
 public interface ProofService extends IService<Proof> {
 
     /**
-     * 新增
+     * 保存原告举证信息
      *
-     * @author jinbo
-     * @Date 2022-01-19
-     */
-    void add(ProofRequest proofRequest);
-
-    /**
-     * 删除
-     *
-     * @author jinbo
-     * @Date 2022-01-19
-     */
-    void delete(ProofRequest proofRequest);
-
-    /**
-     * 通过Id更新举证信息
-     *
-     * @author jinbo
-     * @Date 2022-01-19
-     */
-    void updateById(ProofRequest proofRequest);
-
-    /**
-     * 通过案号和名称更新举证信息
-     *
-     * @author jinbo
-     * @Date 2022-01-19
-     */
-    void updateByNumberAndName(ProofRequest proofRequest);
-
-    /**
-     * 查看详情
-     *
-     * @param proofRequest 查看参数
-     * @return 详情结果
+     * @param recordJsonObject 请求参数
+     * @return
      * @author 金波
-     * @date 2021/5/12 18:28
+     * @Date 2022-05-24
      */
-    Proof detail(ProofRequest proofRequest);
+    void saveAccuserEvidence(String courtNumber, String counterClaim, JSONObject recordJsonObject);
 
     /**
-     * 查询列表
+     * 保存被告举证信息
      *
-     * @param proofRequest 请求参数
-     * @return 列表
+     * @param recordJsonObject 请求参数
+     * @return
      * @author 金波
-     * @date 2022/01/14 15:07
+     * @Date 2022-05-24
      */
-    List<Proof> findList(ProofRequest proofRequest);
+    void saveDefendantEvidence(String courtNumber, String counterClaim, JSONObject recordJsonObject);
 
     /**
-     * 分页查询列表
+     * 保存反诉原告举证信息
      *
-     * @param proofRequest 查看参数
-     * @return 结果
+     * @param recordJsonObject 请求参数
+     * @return
      * @author 金波
-     * @date 2022/01/14 15:07
+     * @Date 2022-05-24
      */
-    PageResult<Proof> findPage(ProofRequest proofRequest);
+    void saveCounterClaimAccuserEvidence(String courtNumber, String counterClaim, JSONObject recordJsonObject);
+
+    /**
+     * 保存反诉被告举证信息
+     *
+     * @param recordJsonObject 请求参数
+     * @return
+     * @author 金波
+     * @Date 2022-05-24
+     */
+    void saveCounterClaimDefendantEvidence(String courtNumber, String counterClaim, JSONObject recordJsonObject);
 
 }

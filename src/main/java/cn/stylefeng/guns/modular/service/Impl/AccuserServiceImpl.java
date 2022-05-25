@@ -1,20 +1,17 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.util.ObjectUtil;
 import cn.stylefeng.guns.modular.entity.Accuser;
+import cn.stylefeng.guns.modular.entity.Agent;
 import cn.stylefeng.guns.modular.mapper.AccuserMapper;
-import cn.stylefeng.guns.modular.model.request.AccuserRequest;
+import cn.stylefeng.guns.modular.mapper.AgentMapper;
 import cn.stylefeng.guns.modular.service.AccuserService;
-import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
-import cn.stylefeng.roses.kernel.system.api.exception.SystemModularException;
-import cn.stylefeng.roses.kernel.system.api.exception.enums.organization.PositionExceptionEnum;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,153 +25,134 @@ import java.util.List;
 @Service
 public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> implements AccuserService {
 
+    private AccuserMapper accuserMapper;
+    private AgentMapper agentMapper;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void add(AccuserRequest accuserRequest) {
-        Accuser accuser = new Accuser();
-        BeanUtil.copyProperties(accuserRequest, accuser);
-        this.save(accuser);
-    }
+    public void saveAccuserInfo(String courtNumber, JSONObject recordJsonObject) {
+        //原告信息
+        JSONArray accuserInfoArray = recordJsonObject.getJSONArray("accuserInfo");
+        //权利告知
+        JSONObject rightInfoObject = JSONObject.parseObject(recordJsonObject.getString("rightInfo"));
+        //是否能够调解
+        JSONObject mediateInfoObject = JSONObject.parseObject(recordJsonObject.getString("mediateInfo"));
+        //电子判决文书送达
+        JSONArray deliveryInfoArray = recordJsonObject.getJSONArray("deliveryInfo");
+        //最后陈述意见
+        JSONArray finalStatementInfoArray = recordJsonObject.getJSONArray("finalStatementInfo");
 
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void delete(AccuserRequest accuserRequest) {
+        for (int i = 0; i < accuserInfoArray.size(); i++) {
+            Accuser accuser = new Accuser();
+            JSONObject accuserInfoObject = accuserInfoArray.getJSONObject(i);
+            String accuserName = accuserInfoObject.get("accuser").toString();
+            accuser.setAccuser(accuserName);
+            accuser.setAccuserShort(accuserInfoObject.get("accuser_short").toString());
+            accuser.setAccuserType(accuserInfoObject.get("accuser_type").toString());
+            accuser.setAccuserAddress(accuserInfoObject.get("accuser_address").toString());
+            accuser.setAccuserRepresent(accuserInfoObject.get("accuser_represent").toString());
+            accuser.setAccuserDuty(accuserInfoObject.get("accuser_duty").toString());
+            accuser.setCourtNumber(courtNumber);
 
-    }
+            //是否听清诉讼权利和义务（1-听清，2-没听清）、是否申请回避(1-回避，2-不回避)
+            JSONArray accuserRightDutyArray = rightInfoObject.getJSONArray("accuser_right_duty");
+            for (int j = 0; j < accuserRightDutyArray.size(); j++) {
+                JSONObject accuserRightDutyObject = accuserRightDutyArray.getJSONObject(j);
+                String rightDutyAccuserName = accuserRightDutyObject.get("accuser").toString();
+                if (!"".equals(rightDutyAccuserName) && rightDutyAccuserName.equals(accuserName)) {
+                    accuser.setAccuserRightDuty(accuserRightDutyObject.get("right_duty").toString());
+                    accuser.setAccuserAvoid(accuserRightDutyObject.get("avoid").toString());
+                }
+            }
 
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void updateById(AccuserRequest accuserRequest) {
-        Accuser accuser = this.queryAccuserById(accuserRequest);
-        BeanUtil.copyProperties(accuserRequest, accuser);
-        this.updateById(accuser);
-    }
+            //是否能够调解（1-能，2-不能）、调解方案、庭外和解时限
+            JSONArray mediateAccuserArray = mediateInfoObject.getJSONArray("mediate_accuser");
+            for (int k = 0; k < mediateAccuserArray.size(); k++) {
+                JSONObject mediateAccuserObject = mediateAccuserArray.getJSONObject(k);
+                String mediateAccuserName = mediateAccuserObject.get("accuser").toString();
+                if (!"".equals(mediateAccuserName) && mediateAccuserName.equals(accuserName)) {
+                    accuser.setIsMediate(mediateAccuserObject.get("is_mediate").toString());
+                    accuser.setMediatePlan(mediateAccuserObject.get("mediate_plan").toString());
+                    accuser.setTimeLimit(mediateAccuserObject.get("time_limit").toString());
+                }
+            }
 
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void updateByNumberAndType(AccuserRequest accuserRequest) {
-        Accuser accuser = this.queryAccuserByWrapper(accuserRequest);
-        BeanUtil.copyProperties(accuserRequest, accuser);
-        this.updateById(accuser);
-    }
+            //是否同意电子裁判文书送达（1-同意，2-不同意）、邮件地址
+            for (int m = 0; m < deliveryInfoArray.size(); m++) {
+                JSONObject deliveryObject = deliveryInfoArray.getJSONObject(m);
+                //格式：姓名（类型），例如：张三（原告）
+                String deliveryAccuserName = deliveryObject.get("name").toString();
+                String name = deliveryAccuserName.split("（")[0];
+                String type = deliveryAccuserName.split("（")[1];
+                if (name.equals(accuserName) && type.startsWith("原告")) {
+                    accuser.setIsDelivery(deliveryObject.get("is_delivery").toString());
+                    accuser.setEmail(deliveryObject.get("email").toString());
+                }
+            }
 
-    @Override
-    public void updateRightDutyByAccuserAndNumber(AccuserRequest accuserRequest) {
-        Accuser accuser = this.queryAccuserByWrapper(accuserRequest);
-        String accuserRightDuty = accuserRequest.getAccuserRightDuty();
-        accuser.setAccuserRightDuty(accuserRightDuty);
-        this.updateById(accuser);
-    }
-
-    @Override
-    public void updateAvoidByAccuserAndNumber(AccuserRequest accuserRequest) {
-        Accuser accuser = this.queryAccuserByWrapper(accuserRequest);
-        String accuserAvoid = accuserRequest.getAccuserAvoid();
-        accuser.setAccuserAvoid(accuserAvoid);
-        this.updateById(accuser);
-    }
-
-    @Override
-    public void updateStatementByAccuserAndNumber(AccuserRequest accuserRequest) {
-        Accuser accuser = this.queryAccuserByWrapper(accuserRequest);
-        String finalStatement = accuserRequest.getFinalStatement();
-        accuser.setFinalStatement(finalStatement);
-        this.updateById(accuser);
-    }
-
-    @Override
-    public void updateMediateByAccuserAndNumber(AccuserRequest accuserRequest) {
-        Accuser accuser = this.queryAccuserByWrapper(accuserRequest);
-        Boolean isMediate = accuserRequest.getIsMediate();
-        String mediatePlan = accuserRequest.getMediatePlan();
-        String timeLimit = accuserRequest.getTimeLimit();
-        accuser.setMediate(isMediate);
-        accuser.setMediatePlan(mediatePlan);
-        accuser.setTimeLimit(timeLimit);
-        this.updateById(accuser);
-    }
-
-    @Override
-    public void updateDeliveryByAccuserAndNumber(AccuserRequest accuserRequest) {
-        Accuser accuser = this.queryAccuserByWrapper(accuserRequest);
-        Boolean isDelivery = accuserRequest.getIsDelivery();
-        String email = accuserRequest.getEmail();
-        accuser.setDelivery(isDelivery);
-        accuser.setEmail(email);
-        this.updateById(accuser);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public Accuser detail(AccuserRequest accuserRequest) {
-        return this.queryAccuserById(accuserRequest);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public Accuser queryAccuserByCourtNumber(AccuserRequest accuserRequest) {
-        return this.queryAccuserByWrapper(accuserRequest);
-    }
-
-    @Override
-    public List<Accuser> findList(AccuserRequest accuserRequest) {
-        return null;
-    }
-
-    @Override
-    public PageResult<Accuser> findPage(AccuserRequest accuserRequest) {
-        return null;
-    }
-
-    /**
-     * 根据主键id获取对象信息
-     *
-     * @return 实体对象
-     * @author 金波
-     * @date 2022/01/14
-     */
-    private Accuser queryAccuserById(AccuserRequest accuserRequest) {
-        Accuser accuser = this.getById(accuserRequest.getAccuserId());
-        if (ObjectUtil.isEmpty(accuser)) {
-            throw new SystemModularException(PositionExceptionEnum.CANT_FIND_POSITION, accuser.getAccuserId());
+            //最后陈述意见
+            for (int m = 0; m < finalStatementInfoArray.size(); m++) {
+                JSONObject finalStatementObject = finalStatementInfoArray.getJSONObject(m);
+                //格式：姓名（类型），例如：张三（原告）
+                String finalStatementAccuserName = finalStatementObject.get("name").toString();
+                String name = finalStatementAccuserName.split("（")[0];
+                String type = finalStatementAccuserName.split("（")[1];
+                if (name.equals(accuserName) && type.startsWith("原告")) {
+                    accuser.setFinalStatement(finalStatementObject.get("final_statement").toString());
+                }
+            }
+            this.save(accuser);
         }
-        return accuser;
     }
 
-    /**
-     * 根据案号和原告类型获取对象信息
-     *
-     * @return 实体对象
-     * @author 金波
-     * @date 2022/01/14
-     */
-    private Accuser queryAccuserByWrapper(AccuserRequest accuserRequest) {
-        LambdaQueryWrapper<Accuser> wrapper = this.createWrapper(accuserRequest);
-        Accuser accuser = this.getOne(wrapper);
-        if (ObjectUtil.isEmpty(accuser)) {
-            throw new SystemModularException(PositionExceptionEnum.CANT_FIND_POSITION, accuser.getCourtNumber());
+    @Override
+    public JSONArray getAccuserInfoArray(String courtNumber) {
+        //原告信息
+        JSONArray accuserInfoArray = new JSONArray();
+        LambdaQueryWrapper<Accuser> accuserQueryWrapper = new LambdaQueryWrapper<>();
+        accuserQueryWrapper.eq(Accuser::getCourtNumber, courtNumber);
+        List<Accuser> accusers = accuserMapper.selectList(accuserQueryWrapper);
+
+        //委托诉讼代理人
+        LambdaQueryWrapper<Agent> agentQueryWrapper = new LambdaQueryWrapper<>();
+        agentQueryWrapper.eq(Agent::getCourtNumber, courtNumber);
+        agentQueryWrapper.eq(Agent::getAgentType,"1");
+        List<Agent> agents = agentMapper.selectList(agentQueryWrapper);
+
+        for (int i = 0; i < accusers.size(); i++) {
+            JSONObject accuserInfoObject = new JSONObject();
+            Accuser accuser = accusers.get(i);
+            String accuserType = accuser.getAccuserType();
+            String accUserName = accuser.getAccuser();
+            String accuserShort = accuser.getAccuserShort();
+            String accuserAddress = accuser.getAccuserAddress();
+            String accuserRepresent = accuser.getAccuserRepresent();
+            String accuserDuty = accuser.getAccuserDuty();
+
+            JSONArray accuserAgentArray = new JSONArray();
+            for (int j = 0; j < agents.size(); j++) {
+                Agent agent = agents.get(j);
+                //原告姓名
+                String agentName = agent.getAgentName();
+                //委托诉讼代理人
+                String name = agent.getAgent();
+                String agentAddress = agent.getAgentAddress();
+                JSONObject accuserAgentObject = new JSONObject();
+                if (agentName.equals(accuserShort) || agentName.equals(accUserName)) {
+                    accuserAgentObject.put("agent", name);
+                    accuserAgentObject.put("agent_address", agentAddress);
+                    accuserAgentArray.add(accuserAgentObject);
+                }
+            }
+            accuserInfoObject.put("accuser_type", accuserType);
+            accuserInfoObject.put("accuser", accUserName);
+            accuserInfoObject.put("accuser_short", accuserShort);
+            accuserInfoObject.put("accuser_address", accuserAddress);
+            accuserInfoObject.put("accuser_represent", accuserRepresent);
+            accuserInfoObject.put("accuser_duty", accuserDuty);
+            accuserInfoObject.put("accuser_agent", accuserAgentArray);
+            accuserInfoArray.add(accuserInfoObject);
         }
-        return accuser;
-    }
-
-    /**
-     * 实体构建 QueryWrapper
-     *
-     * @author 金波
-     * @date 2022/01/14
-     */
-    private LambdaQueryWrapper<Accuser> createWrapper(AccuserRequest accuserRequest) {
-        LambdaQueryWrapper<Accuser> queryWrapper = new LambdaQueryWrapper<Accuser>();
-
-        String courtNumber = accuserRequest.getCourtNumber();
-        Integer accuserType = accuserRequest.getAccuserType();
-        String accuser = accuserRequest.getAccuser();
-
-        queryWrapper.eq(ObjectUtil.isNotNull(courtNumber), Accuser::getCourtNumber, courtNumber);
-        queryWrapper.eq(ObjectUtil.isNotNull(accuserType), Accuser::getAccuserType, accuserType);
-        queryWrapper.eq(ObjectUtil.isNotNull(accuser), Accuser::getAccuser, accuser);
-
-        return queryWrapper;
+        return accuserInfoArray;
     }
 }

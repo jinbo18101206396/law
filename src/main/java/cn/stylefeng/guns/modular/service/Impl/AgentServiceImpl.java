@@ -1,19 +1,12 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.util.ObjectUtil;
 import cn.stylefeng.guns.modular.entity.Agent;
 import cn.stylefeng.guns.modular.mapper.AgentMapper;
-import cn.stylefeng.guns.modular.model.request.AgentRequest;
 import cn.stylefeng.guns.modular.service.AgentService;
-import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
-import cn.stylefeng.roses.kernel.system.api.exception.SystemModularException;
-import cn.stylefeng.roses.kernel.system.api.exception.enums.organization.PositionExceptionEnum;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * <p>
@@ -26,65 +19,61 @@ import java.util.List;
 @Service
 public class AgentServiceImpl extends ServiceImpl<AgentMapper, Agent> implements AgentService {
 
-
     @Override
-    public void add(AgentRequest agentRequest) {
-        Agent agent = new Agent();
-        BeanUtil.copyProperties(agentRequest, agent);
-        this.save(agent);
-    }
-
-    @Override
-    public void delete(AgentRequest agentRequest) {
-
-    }
-
-    @Override
-    public void update(AgentRequest agentRequest) {
-        Agent agent = this.queryAgentById(agentRequest);
-        BeanUtil.copyProperties(agentRequest, agent);
-        this.updateById(agent);
-    }
-
-    @Override
-    public Agent detail(AgentRequest agentRequest) {
-        return this.queryAgentById(agentRequest);
-    }
-
-    @Override
-    public List<Agent> findList(AgentRequest agentRequest) {
-        return null;
-    }
-
-    @Override
-    public PageResult<Agent> findPage(AgentRequest agentRequest) {
-        return null;
-    }
-
-    /**
-     * 根据主键id获取对象信息
-     *
-     * @return 实体对象
-     * @author 金波
-     * @date 2022/01/14 15:07
-     */
-    private Agent queryAgentById(AgentRequest agentRequest) {
-        Agent agent = this.getById(agentRequest.getAgentId());
-        if (ObjectUtil.isEmpty(agent)) {
-            throw new SystemModularException(PositionExceptionEnum.CANT_FIND_POSITION, agent.getAgentId());
+    public void saveAgentInfo(String courtNumber, JSONObject recordJsonObject) {
+        //原告信息
+        JSONArray accuserInfoArray = recordJsonObject.getJSONArray("accuserInfo");
+        if (accuserInfoArray.size() > 0) {
+            saveAccuserAgent(courtNumber, accuserInfoArray);
         }
-        return agent;
+        //被告信息
+        JSONArray defendantInfoArray = recordJsonObject.getJSONArray("defendantInfo");
+        if (defendantInfoArray.size() > 0) {
+            saveDefendantAgent(courtNumber, defendantInfoArray);
+        }
     }
 
-    /**
-     * 实体构建 QueryWrapper
-     *
-     * @author 金波
-     * @date 2022/01/14 15:07
-     */
-    private LambdaQueryWrapper<Agent> createWrapper(AgentRequest agentRequest) {
-        LambdaQueryWrapper<Agent> queryWrapper = new LambdaQueryWrapper<Agent>();
+    public void saveAccuserAgent(String courtNumber, JSONArray accuserInfoArray) {
+        for (int i = 0; i < accuserInfoArray.size(); i++) {
+            JSONObject accuserInfoObject = accuserInfoArray.getJSONObject(i);
+            String accuserName = accuserInfoObject.get("accuser").toString();
+            JSONArray accuserAgentArray = accuserInfoObject.getJSONArray("accuser_agent");
+            //原告代理
+            for (int j = 0; j < accuserAgentArray.size(); j++) {
+                Agent accuserAgent = new Agent();
+                JSONObject accuserAgentObject = accuserAgentArray.getJSONObject(j);
+                String agentName = accuserAgentObject.get("agent").toString();
+                String agentAddress = accuserAgentObject.get("agent_address").toString();
+                accuserAgent.setAgent(agentName);
+                accuserAgent.setAgentAddress(agentAddress);
+                accuserAgent.setAgentName(accuserName);
+                //代理类型（1-原告代理，2-被告代理）
+                accuserAgent.setAgentType("1");
+                accuserAgent.setCourtNumber(courtNumber);
+                this.save(accuserAgent);
+            }
+        }
+    }
 
-        return queryWrapper;
+    public void saveDefendantAgent(String courtNumber, JSONArray defendantInfoArray) {
+        for (int m = 0; m < defendantInfoArray.size(); m++) {
+            JSONObject defendantInfoObject = defendantInfoArray.getJSONObject(m);
+            String defendantName = defendantInfoObject.get("defendant").toString();
+            JSONArray defendantAgentArray = defendantInfoObject.getJSONArray("defendant_agent");
+            //被告代理
+            for (int n = 0; n < defendantAgentArray.size(); n++) {
+                Agent defendantAgent = new Agent();
+                JSONObject defendantAgentObject = defendantAgentArray.getJSONObject(n);
+                String agentName = defendantAgentObject.get("agent").toString();
+                String agentAddress = defendantAgentObject.get("agent_address").toString();
+                defendantAgent.setAgent(agentName);
+                defendantAgent.setAgentAddress(agentAddress);
+                defendantAgent.setAgentName(defendantName);
+                //代理类型（1-原告代理，2-被告代理）
+                defendantAgent.setAgentType("2");
+                defendantAgent.setCourtNumber(courtNumber);
+                this.save(defendantAgent);
+            }
+        }
     }
 }

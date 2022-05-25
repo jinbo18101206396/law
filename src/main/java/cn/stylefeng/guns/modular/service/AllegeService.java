@@ -3,6 +3,7 @@ package cn.stylefeng.guns.modular.service;
 import cn.stylefeng.guns.modular.entity.Allege;
 import cn.stylefeng.guns.modular.model.request.AllegeRequest;
 import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -18,57 +19,24 @@ import java.util.List;
 public interface AllegeService extends IService<Allege> {
 
     /**
-     * 新增
+     * 保存原告诉讼请求项信息
      *
-     * @author jinbo
-     * @Date 2022-01-19
-     */
-    void add(AllegeRequest allegeRequest);
-
-    /**
-     * 删除
-     *
-     * @author jinbo
-     * @Date 2022-01-19
-     */
-    void delete(AllegeRequest allegeRequest);
-
-    /**
-     * 更新
-     *
-     * @author jinbo
-     * @Date 2022-01-19
-     */
-    void updateById(AllegeRequest allegeRequest);
-
-    /**
-     * 查看详情
-     *
-     * @param allegeRequest 查看参数
-     * @return 详情结果
+     * @param recordJsonObject 请求参数
+     * @return
      * @author 金波
-     * @date 2021/5/12 18:28
+     * @Date 2022-05-24
      */
-    Allege detail(AllegeRequest allegeRequest);
+    void saveAccuserClaimItem(String courtNumber, String counterClaim, JSONObject recordJsonObject);
+
 
     /**
-     * 查询列表
+     * 保存反诉原告诉讼请求项信息
      *
-     * @param allegeRequest 请求参数
-     * @return 列表
+     * @param recordJsonObject 请求参数
+     * @return
      * @author 金波
-     * @date 2022/01/14 15:07
+     * @Date 2022-05-24
      */
-    List<Allege> findList(AllegeRequest allegeRequest);
-
-    /**
-     * 分页查询列表
-     *
-     * @param allegeRequest 查看参数
-     * @return 结果
-     * @author 金波
-     * @date 2022/01/14 15:07
-     */
-    PageResult<Allege> findPage(AllegeRequest allegeRequest);
+    void saveCounterClaimAccuserItem(String courtNumber, String counterClaim, JSONObject recordJsonObject);
 
 }

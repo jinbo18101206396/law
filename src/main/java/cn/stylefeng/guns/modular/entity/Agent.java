@@ -40,7 +40,7 @@ public class Agent implements Serializable {
      * 代理类型：1-原告代理，2-被告代理
      */
     @TableField("agent_type")
-    private Integer agentType;
+    private String agentType;
 
     /**
      * 原告或被告全称
@@ -103,11 +103,11 @@ public class Agent implements Serializable {
         this.agentAddress = agentAddress;
     }
 
-    public Integer getAgentType() {
+    public String getAgentType() {
         return agentType;
     }
 
-    public void setAgentType(Integer agentType) {
+    public void setAgentType(String agentType) {
         this.agentType = agentType;
     }
 

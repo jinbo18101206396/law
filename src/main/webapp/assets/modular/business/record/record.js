@@ -24,7 +24,15 @@ layui.use(['table', 'HttpRequest', 'func', 'form','laydate'], function () {
             {field: 'judge',align: "center",sort: true, title: '审判员'},
             {field: 'courtClerk',align: "center", sort: true, title: '书记员'},
             {field: 'courtCause',align: "center", sort: true, title: '案由'},
-            {field: 'status',align: "center", sort: true, title: '案件状态'},
+            {
+                field: 'status', align: "center", sort: true, title: '案件状态', templet: function (data) {
+                    if (data.status === 1) {
+                        return '<span class="layui-badge layui-badge-green">在审</span>';
+                    } else {
+                        return '<span class="layui-badge layui-badge-red">已结案</span>';
+                    }
+                }
+            },
             {align: 'center', toolbar: '#tableBar', title: '操作',minWidth: 250}
         ]];
     };
@@ -75,6 +83,19 @@ layui.use(['table', 'HttpRequest', 'func', 'form','laydate'], function () {
         Feng.confirm("是否删除?", operation);
     };
 
+    /**
+     * 点击详情
+     *
+     * @param data 点击按钮时候的行数据
+     */
+    Record.onDetailItem = function (data) {
+
+
+
+        //获取笔录信息，传到前台
+        $(location).attr('href', '/view/record/detail');
+    };
+
     // 渲染表格
     var tableResult = table.render({
         elem: '#' + Record.tableId,
@@ -93,14 +114,13 @@ layui.use(['table', 'HttpRequest', 'func', 'form','laydate'], function () {
         Record.search();
     });
 
-    // 新建按钮点击事件
+    // 新建笔录按钮点击事件
     $('#btnAdd').click(function () {
         $(location).attr('href', '/view/record/add');
         // window.open("/view/index");
         // Feng.newCrontab("/view/index","笔录信息")
         // Feng.ceo
     });
-
 
     // 工具条点击事件
     table.on('tool(' + Record.tableId + ')', function (obj) {
@@ -111,6 +131,11 @@ layui.use(['table', 'HttpRequest', 'func', 'form','laydate'], function () {
             Record.openEditDlg(data);
         } else if (layEvent === 'delete') {
             Record.onDeleteItem(data);
+        }else if (layEvent == 'detail'){
+
+            alert(data)
+
+            Record.onDetailItem(data);
         }
     });
 

@@ -1,21 +1,12 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.util.ObjectUtil;
-import cn.stylefeng.guns.modular.entity.Accuser;
 import cn.stylefeng.guns.modular.entity.Proof;
 import cn.stylefeng.guns.modular.mapper.ProofMapper;
-import cn.stylefeng.guns.modular.model.request.AccuserRequest;
-import cn.stylefeng.guns.modular.model.request.ProofRequest;
 import cn.stylefeng.guns.modular.service.ProofService;
-import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
-import cn.stylefeng.roses.kernel.system.api.exception.SystemModularException;
-import cn.stylefeng.roses.kernel.system.api.exception.enums.organization.PositionExceptionEnum;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * <p>
@@ -30,89 +21,109 @@ public class ProofServiceImpl extends ServiceImpl<ProofMapper, Proof> implements
 
 
     @Override
-    public void add(ProofRequest proofRequest) {
-        Proof proof = new Proof();
-        BeanUtil.copyProperties(proofRequest, proof);
-        this.save(proof);
-    }
+    public void saveAccuserEvidence(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
+        //法庭调查
+        JSONObject courtInvestigateObject = recordJsonObject.getJSONObject("courtInvestigate");
+        JSONArray accuserInfoArray = recordJsonObject.getJSONArray("accuserInfo");
 
-    @Override
-    public void delete(ProofRequest proofRequest) {
-
-    }
-
-    @Override
-    public void updateById(ProofRequest proofRequest) {
-        Proof proof = this.queryProofById(proofRequest);
-        BeanUtil.copyProperties(proofRequest, proof);
-        this.updateById(proof);
-    }
-
-    @Override
-    public void updateByNumberAndName(ProofRequest proofRequest) {
-        Proof proof = this.queryProofByWrapper(proofRequest);
-        BeanUtil.copyProperties(proofRequest, proof);
-        this.updateById(proof);
-    }
-
-    @Override
-    public Proof detail(ProofRequest proofRequest) {
-        return this.queryProofById(proofRequest);
-    }
-
-    @Override
-    public List<Proof> findList(ProofRequest proofRequest) {
-        return null;
-    }
-
-    @Override
-    public PageResult<Proof> findPage(ProofRequest proofRequest) {
-        return null;
-    }
-
-    /**
-     * 根据主键id获取对象信息
-     *
-     * @return 实体对象
-     * @author 金波
-     * @date 2022/01/14 15:07
-     */
-    private Proof queryProofById(ProofRequest proofRequest) {
-        Proof proof = this.getById(proofRequest.getProofId());
-        if (ObjectUtil.isEmpty(proof)) {
-            throw new SystemModularException(PositionExceptionEnum.CANT_FIND_POSITION, proof.getProofId());
+        //拼接所有原告的姓名
+        StringBuffer accuserName = new StringBuffer();
+        for (int i = 0; i < accuserInfoArray.size(); i++) {
+            JSONObject accuserInfoObject = accuserInfoArray.getJSONObject(i);
+            String accuserShort = accuserInfoObject.get("accuser_short").toString();
+            accuserName.append(accuserShort);
         }
-        return proof;
-    }
+        //原告举证
+        JSONArray accuserEvidenceArray = courtInvestigateObject.getJSONArray("accuser_evidence");
+        String accuserEvidenceFactReason = courtInvestigateObject.get("accuser_evidence_fact_reason").toString();
 
-    /**
-     * 根据案号和名称获取对象信息
-     *
-     * @return 实体对象
-     * @author 金波
-     * @date 2022/01/14
-     */
-    private Proof queryProofByWrapper(ProofRequest proofRequest) {
-        LambdaQueryWrapper<Proof> wrapper = this.createWrapper(proofRequest);
-        Proof proof = this.getOne(wrapper);
-        if (ObjectUtil.isEmpty(proof)) {
-            throw new SystemModularException(PositionExceptionEnum.CANT_FIND_POSITION, proof.getCourtNumber());
+        for (int i = 0; i < accuserEvidenceArray.size(); i++) {
+            JSONObject accuserEvidenceObject = accuserEvidenceArray.getJSONObject(i);
+            String evidence = accuserEvidenceObject.get("evidence").toString();
+            String content = accuserEvidenceObject.get("content").toString();
+
+            Proof proof = new Proof();
+            proof.setName(accuserName.toString());
+            proof.setType("原告");
+            proof.setEvidence(evidence);
+            proof.setContent(content);
+            proof.setFactReason(accuserEvidenceFactReason);
+            proof.setIsCounterClaim(counterClaim);
+            proof.setCourtNumber(courtNumber);
+            this.save(proof);
         }
-        return proof;
     }
 
-    /**
-     * 实体构建 QueryWrapper
-     *
-     * @author 金波
-     * @date 2022/01/21
-     */
-    private LambdaQueryWrapper<Proof> createWrapper(ProofRequest proofRequest) {
-        LambdaQueryWrapper<Proof> queryWrapper = new LambdaQueryWrapper<Proof>();
-        String courtNumber = proofRequest.getCourtNumber();
-        String name = proofRequest.getName();
-        queryWrapper.eq(ObjectUtil.isNotNull(courtNumber), Proof::getCourtNumber, courtNumber);
-        queryWrapper.eq(ObjectUtil.isNotNull(name), Proof::getName, name);
-        return queryWrapper;
+    @Override
+    public void saveDefendantEvidence(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
+        JSONObject courtInvestigateObject = recordJsonObject.getJSONObject("courtInvestigate");
+        //被告举证
+        JSONArray defendantEvidenceArray = courtInvestigateObject.getJSONArray("defendant_evidence");
+        String defendantEvidenceFactReason = courtInvestigateObject.get("defendant_evidence_fact_reason").toString();
+
+        for (int i = 0; i < defendantEvidenceArray.size(); i++) {
+            JSONObject defendantEvidenceObject = defendantEvidenceArray.getJSONObject(i);
+            String evidence = defendantEvidenceObject.get("evidence").toString();
+            String content = defendantEvidenceObject.get("content").toString();
+
+            Proof proof = new Proof();
+            proof.setName("");
+            proof.setType("被告");
+            proof.setEvidence(evidence);
+            proof.setContent(content);
+            proof.setFactReason(defendantEvidenceFactReason);
+            proof.setIsCounterClaim(counterClaim);
+            proof.setCourtNumber(courtNumber);
+            this.save(proof);
+        }
+    }
+
+    @Override
+    public void saveCounterClaimAccuserEvidence(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
+        JSONObject courtInvestigateObject = recordJsonObject.getJSONObject("courtInvestigate");
+        //反诉原告举证
+        JSONArray counterClaimAccuserEvidenceArray = courtInvestigateObject.getJSONArray("counterclaim_accuser_evidence");
+        String counterClaimAccuserEvidenceFactReason = courtInvestigateObject.get("counterclaim_accuser_evidence_fact_reason").toString();
+
+        for (int i = 0; i < counterClaimAccuserEvidenceArray.size(); i++) {
+            JSONObject counterClaimAccuserEvidenceObject = counterClaimAccuserEvidenceArray.getJSONObject(i);
+            String evidence = counterClaimAccuserEvidenceObject.get("evidence").toString();
+            String content = counterClaimAccuserEvidenceObject.get("content").toString();
+
+            Proof proof = new Proof();
+            proof.setName("反诉原告");
+            proof.setType("反诉原告");
+            proof.setEvidence(evidence);
+            proof.setContent(content);
+            proof.setFactReason(counterClaimAccuserEvidenceFactReason);
+            proof.setIsCounterClaim(counterClaim);
+            proof.setCourtNumber(courtNumber);
+            this.save(proof);
+        }
+    }
+
+
+    @Override
+    public void saveCounterClaimDefendantEvidence(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
+        JSONObject courtInvestigateObject = recordJsonObject.getJSONObject("courtInvestigate");
+        //反诉被告举证
+        JSONArray counterClaimDefendantEvidenceArray = courtInvestigateObject.getJSONArray("counterclaim_defendant_evidence");
+        String counterClaimDefendantEvidenceFactReason = courtInvestigateObject.get("counterclaim_defendant_evidence_fact_reason").toString();
+
+        for (int i = 0; i < counterClaimDefendantEvidenceArray.size(); i++) {
+            JSONObject counterClaimDefendantEvidenceObject = counterClaimDefendantEvidenceArray.getJSONObject(i);
+            String evidence = counterClaimDefendantEvidenceObject.get("evidence").toString();
+            String content = counterClaimDefendantEvidenceObject.get("content").toString();
+
+            Proof proof = new Proof();
+            proof.setName("");
+            proof.setType("反诉被告");
+            proof.setEvidence(evidence);
+            proof.setContent(content);
+            proof.setFactReason(counterClaimDefendantEvidenceFactReason);
+            proof.setIsCounterClaim(counterClaim);
+            proof.setCourtNumber(courtNumber);
+            this.save(proof);
+        }
     }
 }

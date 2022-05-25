@@ -31,6 +31,12 @@ public class Allege implements Serializable {
     private String name;
 
     /**
+     * 诉讼人的类型（原告、反诉原告）
+     */
+    @TableField("type")
+    private String type;
+
+    /**
      * 诉讼请求项
      */
     @TableField("claim_item")
@@ -46,7 +52,7 @@ public class Allege implements Serializable {
      * 是否反诉
      */
     @TableField("is_counter_claim")
-    private Boolean isCounterClaim;
+    private String isCounterClaim;
 
     /**
      * 案号
@@ -111,11 +117,11 @@ public class Allege implements Serializable {
         this.factReason = factReason;
     }
 
-    public Boolean getCounterClaim() {
+    public String getIsCounterClaim() {
         return isCounterClaim;
     }
 
-    public void setCounterClaim(Boolean isCounterClaim) {
+    public void setIsCounterClaim(String isCounterClaim) {
         this.isCounterClaim = isCounterClaim;
     }
 
@@ -157,6 +163,14 @@ public class Allege implements Serializable {
 
     public void setUpdateUser(Long updateUser) {
         this.updateUser = updateUser;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override

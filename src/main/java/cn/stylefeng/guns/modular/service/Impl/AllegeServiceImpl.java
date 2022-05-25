@@ -1,19 +1,12 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.util.ObjectUtil;
 import cn.stylefeng.guns.modular.entity.Allege;
 import cn.stylefeng.guns.modular.mapper.AllegeMapper;
-import cn.stylefeng.guns.modular.model.request.AllegeRequest;
 import cn.stylefeng.guns.modular.service.AllegeService;
-import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
-import cn.stylefeng.roses.kernel.system.api.exception.SystemModularException;
-import cn.stylefeng.roses.kernel.system.api.exception.enums.organization.PositionExceptionEnum;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * <p>
@@ -28,63 +21,56 @@ public class AllegeServiceImpl extends ServiceImpl<AllegeMapper, Allege> impleme
 
 
     @Override
-    public void add(AllegeRequest allegeRequest) {
+    public void saveAccuserClaimItem(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
+        JSONObject courtInvestigateObject = recordJsonObject.getJSONObject("courtInvestigate");
+        JSONArray accuserInfoArray = recordJsonObject.getJSONArray("accuserInfo");
+
+        //拼接所有原告的姓名
+        StringBuffer accuserName = new StringBuffer();
+        for (int i = 0; i < accuserInfoArray.size(); i++) {
+            JSONObject accuserInfoObject = accuserInfoArray.getJSONObject(i);
+            String accuserShort = accuserInfoObject.get("accuser_short").toString();
+            accuserName.append(accuserShort);
+        }
+        //原告的诉讼请求项
+        String accuserClaimItem = courtInvestigateObject.get("accuser_claim_item").toString();
+        //原告的事实和理由
+        String accuserClaimFactReason = courtInvestigateObject.get("accuser_claim_fact_reason").toString();
+
         Allege allege = new Allege();
-        BeanUtil.copyProperties(allegeRequest, allege);
+        allege.setName(accuserName.toString());
+        allege.setType("原告");
+        allege.setClaimItem(accuserClaimItem);
+        allege.setFactReason(accuserClaimFactReason);
+        allege.setIsCounterClaim(counterClaim);
+        allege.setCourtNumber(courtNumber);
         this.save(allege);
     }
 
     @Override
-    public void delete(AllegeRequest allegeRequest) {
+    public void saveCounterClaimAccuserItem(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
+        JSONObject courtInvestigateObject = recordJsonObject.getJSONObject("courtInvestigate");
+        JSONArray defendantInfoArray = recordJsonObject.getJSONArray("defendantInfo");
 
-    }
-
-    @Override
-    public void updateById(AllegeRequest allegeRequest) {
-        Allege allege = this.queryAllegeById(allegeRequest);
-        BeanUtil.copyProperties(allegeRequest, allege);
-        this.updateById(allege);
-    }
-
-    @Override
-    public Allege detail(AllegeRequest allegeRequest) {
-        return this.queryAllegeById(allegeRequest);
-    }
-
-    @Override
-    public List<Allege> findList(AllegeRequest allegeRequest) {
-        return null;
-    }
-
-    @Override
-    public PageResult<Allege> findPage(AllegeRequest allegeRequest) {
-        return null;
-    }
-
-    /**
-     * 根据主键id获取对象信息
-     *
-     * @return 实体对象
-     * @author 金波
-     * @date 2022/01/14 15:07
-     */
-    private Allege queryAllegeById(AllegeRequest allegeRequest) {
-        Allege allege = this.getById(allegeRequest.getAllegeId());
-        if (ObjectUtil.isEmpty(allege)) {
-            throw new SystemModularException(PositionExceptionEnum.CANT_FIND_POSITION, allege.getAllegeId());
+        //拼接所有被告的姓名
+        StringBuffer defendantName = new StringBuffer();
+        for (int i = 0; i < defendantInfoArray.size(); i++) {
+            JSONObject defendantInfoObject = defendantInfoArray.getJSONObject(i);
+            String defendantShort = defendantInfoObject.get("defendant_short").toString();
+            defendantName.append(defendantShort);
         }
-        return allege;
-    }
+        //反诉原告的诉讼请求项
+        String counterClaimAccuserItem = courtInvestigateObject.get("counterclaim_accuser_claim_item").toString();
+        //反诉原告的事实和理由
+        String counterClaimAccuserFactReason = courtInvestigateObject.get("counterclaim_accuser_claim_fact_reason").toString();
 
-    /**
-     * 实体构建 QueryWrapper
-     *
-     * @author 金波
-     * @date 2022/01/14 15:07
-     */
-    private LambdaQueryWrapper<Allege> createWrapper(AllegeRequest allegeRequest) {
-        LambdaQueryWrapper<Allege> queryWrapper = new LambdaQueryWrapper<Allege>();
-
-        return queryWrapper;
+        Allege allege = new Allege();
+        allege.setName(defendantName.toString());
+        allege.setType("反诉原告");
+        allege.setClaimItem(counterClaimAccuserItem);
+        allege.setFactReason(counterClaimAccuserFactReason);
+        allege.setIsCounterClaim(counterClaim);
+        allege.setCourtNumber(courtNumber);
+        this.save(allege);
     }
 }

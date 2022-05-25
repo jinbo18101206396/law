@@ -25,10 +25,16 @@ public class Proof implements Serializable {
     private Long proofId;
 
     /**
-     * 原告/被告/反诉原告/反诉被告简称
+     * 举证人的简称
      */
     @TableField("name")
     private String name;
+
+    /**
+     * 举证人的类型（原告/被告/反诉原告/反诉被告）
+     */
+    @TableField("type")
+    private String type;
 
     /**
      * 证据名称
@@ -43,16 +49,16 @@ public class Proof implements Serializable {
     private String content;
 
     /**
+     * 事实理由
+     */
+    @TableField("fact_reason")
+    private String factReason;
+
+    /**
      * 是否反诉
      */
     @TableField("is_counter_claim")
-    private Boolean isCounterClaim;
-
-    /**
-     * 举证类型：1-原告，2-被告
-     */
-    @TableField("proof_type")
-    private Integer proofType;
+    private String isCounterClaim;
 
     /**
      * 案号
@@ -117,20 +123,29 @@ public class Proof implements Serializable {
         this.content = content;
     }
 
-    public Boolean getCounterClaim() {
+
+    public String getFactReason() {
+        return factReason;
+    }
+
+    public void setFactReason(String factReason) {
+        this.factReason = factReason;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getIsCounterClaim() {
         return isCounterClaim;
     }
 
-    public void setCounterClaim(Boolean isCounterClaim) {
+    public void setIsCounterClaim(String isCounterClaim) {
         this.isCounterClaim = isCounterClaim;
-    }
-
-    public Integer getProofType() {
-        return proofType;
-    }
-
-    public void setProofType(Integer proofType) {
-        this.proofType = proofType;
     }
 
     public String getCourtNumber() {
@@ -177,16 +192,16 @@ public class Proof implements Serializable {
     public String toString() {
         return "Proof{" +
                 "proofId=" + proofId +
-                ", name=" + name +
-                ", evidence=" + evidence +
-                ", content=" + content +
-                ", isCounterClaim=" + isCounterClaim +
-                ", proofType=" + proofType +
-                ", courtNumber=" + courtNumber +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", evidence='" + evidence + '\'' +
+                ", content='" + content + '\'' +
+                ", isCounterClaim='" + isCounterClaim + '\'' +
+                ", courtNumber='" + courtNumber + '\'' +
                 ", createTime=" + createTime +
                 ", createUser=" + createUser +
                 ", updateTime=" + updateTime +
                 ", updateUser=" + updateUser +
-                "}";
+                '}';
     }
 }

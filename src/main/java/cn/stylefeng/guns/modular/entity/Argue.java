@@ -25,34 +25,28 @@ public class Argue implements Serializable {
     private Long argueId;
 
     /**
-     * 原告简称
+     * 辩论人的姓名
      */
-    @TableField("accuser")
-    private String accuser;
+    @TableField("name")
+    private String name;
 
     /**
-     * 原告辩论
+     * 辩论人的类型（原告，被告，反诉原告，反诉被告）
      */
-    @TableField("accuser_argue")
-    private String accuserArgue;
+    @TableField("type")
+    private String type;
 
     /**
-     * 被告简称
+     * 辩论意见
      */
-    @TableField("defendant")
-    private String defendant;
+    @TableField("argue_content")
+    private String argueContent;
 
     /**
-     * 被告辩论
-     */
-    @TableField("defendant_argue")
-    private String defendantArgue;
-
-    /**
-     * 是否反诉
+     * 是否反诉(1-反诉，2-不反诉)
      */
     @TableField("is_counter_claim")
-    private Boolean isCounterClaim;
+    private String isCounterClaim;
 
     /**
      * 案号
@@ -84,7 +78,6 @@ public class Argue implements Serializable {
     @TableField(value = "update_user", fill = FieldFill.UPDATE)
     private Long updateUser;
 
-
     public Long getArgueId() {
         return argueId;
     }
@@ -93,43 +86,35 @@ public class Argue implements Serializable {
         this.argueId = argueId;
     }
 
-    public String getAccuser() {
-        return accuser;
+    public String getName() {
+        return name;
     }
 
-    public void setAccuser(String accuser) {
-        this.accuser = accuser;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getAccuserArgue() {
-        return accuserArgue;
+    public String getType() {
+        return type;
     }
 
-    public void setAccuserArgue(String accuserArgue) {
-        this.accuserArgue = accuserArgue;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getDefendant() {
-        return defendant;
+    public String getArgueContent() {
+        return argueContent;
     }
 
-    public void setDefendant(String defendant) {
-        this.defendant = defendant;
+    public void setArgueContent(String argueContent) {
+        this.argueContent = argueContent;
     }
 
-    public String getDefendantArgue() {
-        return defendantArgue;
-    }
-
-    public void setDefendantArgue(String defendantArgue) {
-        this.defendantArgue = defendantArgue;
-    }
-
-    public Boolean getCounterClaim() {
+    public String getIsCounterClaim() {
         return isCounterClaim;
     }
 
-    public void setCounterClaim(Boolean isCounterClaim) {
+    public void setIsCounterClaim(String isCounterClaim) {
         this.isCounterClaim = isCounterClaim;
     }
 
@@ -177,16 +162,15 @@ public class Argue implements Serializable {
     public String toString() {
         return "Argue{" +
                 "argueId=" + argueId +
-                ", accuser=" + accuser +
-                ", accuserArgue=" + accuserArgue +
-                ", defendant=" + defendant +
-                ", defendantArgue=" + defendantArgue +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", argueContent='" + argueContent + '\'' +
                 ", isCounterClaim=" + isCounterClaim +
-                ", courtNumber=" + courtNumber +
+                ", courtNumber='" + courtNumber + '\'' +
                 ", createTime=" + createTime +
                 ", createUser=" + createUser +
                 ", updateTime=" + updateTime +
                 ", updateUser=" + updateUser +
-                "}";
+                '}';
     }
 }

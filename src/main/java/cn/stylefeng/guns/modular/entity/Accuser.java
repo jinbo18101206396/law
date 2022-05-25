@@ -40,7 +40,7 @@ public class Accuser implements Serializable {
      * 原告类型：1-单位，2-个人
      */
     @TableField("accuser_type")
-    private Integer accuserType;
+    private String accuserType;
 
     /**
      * 原告地址
@@ -82,62 +82,68 @@ public class Accuser implements Serializable {
      * 是否能够调解
      */
     @TableField("is_mediate")
-    private Boolean isMediate;
-
+    private String isMediate;
     /**
      * 调解方案
      */
     @TableField("mediate_plan")
     private String mediatePlan;
-
     /**
      * 庭外和解时限
      */
     @TableField("time_limit")
     private String timeLimit;
-
     /**
      * 是否同意电子裁判文书送达
      */
     @TableField("is_delivery")
-    private Boolean isDelivery;
-
+    private String isDelivery;
     /**
      * 电子邮件地址
      */
     @TableField("email")
     private String email;
-
     /**
      * 最后陈述意见
      */
     @TableField("final_statement")
     private String finalStatement;
-
     /**
      * 创建时间
      */
     @TableField(value = "create_time", fill = FieldFill.INSERT)
     private Date createTime;
-
     /**
      * 创建人
      */
     @TableField(value = "create_user", fill = FieldFill.INSERT)
     private Long createUser;
-
     /**
      * 更新时间
      */
     @TableField(value = "update_time", fill = FieldFill.UPDATE)
     private Date updateTime;
-
     /**
      * 更新人
      */
     @TableField(value = "update_user", fill = FieldFill.UPDATE)
     private Long updateUser;
 
+    public String getIsMediate() {
+        return isMediate;
+    }
+
+    public void setIsMediate(String isMediate) {
+        this.isMediate = isMediate;
+    }
+
+    public String getIsDelivery() {
+        return isDelivery;
+    }
+
+    public void setIsDelivery(String isDelivery) {
+        this.isDelivery = isDelivery;
+    }
 
     public Long getAccuserId() {
         return accuserId;
@@ -163,11 +169,11 @@ public class Accuser implements Serializable {
         this.accuserShort = accuserShort;
     }
 
-    public Integer getAccuserType() {
+    public String getAccuserType() {
         return accuserType;
     }
 
-    public void setAccuserType(Integer accuserType) {
+    public void setAccuserType(String accuserType) {
         this.accuserType = accuserType;
     }
 
@@ -219,13 +225,6 @@ public class Accuser implements Serializable {
         this.accuserAvoid = accuserAvoid;
     }
 
-    public Boolean getMediate() {
-        return isMediate;
-    }
-
-    public void setMediate(Boolean isMediate) {
-        this.isMediate = isMediate;
-    }
 
     public String getMediatePlan() {
         return mediatePlan;
@@ -243,13 +242,6 @@ public class Accuser implements Serializable {
         this.timeLimit = timeLimit;
     }
 
-    public Boolean getDelivery() {
-        return isDelivery;
-    }
-
-    public void setDelivery(Boolean isDelivery) {
-        this.isDelivery = isDelivery;
-    }
 
     public String getEmail() {
         return email;

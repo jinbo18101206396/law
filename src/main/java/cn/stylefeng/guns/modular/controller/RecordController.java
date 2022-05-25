@@ -25,12 +25,14 @@
 package cn.stylefeng.guns.modular.controller;
 
 import cn.stylefeng.guns.modular.model.request.BasicInfoRequest;
-import cn.stylefeng.guns.modular.service.BasicInfoService;
+import cn.stylefeng.guns.modular.service.*;
 import cn.stylefeng.roses.kernel.rule.pojo.response.ResponseData;
 import cn.stylefeng.roses.kernel.rule.pojo.response.SuccessResponseData;
 import cn.stylefeng.roses.kernel.scanner.api.annotation.ApiResource;
 import cn.stylefeng.roses.kernel.scanner.api.annotation.GetResource;
 import cn.stylefeng.roses.kernel.scanner.api.annotation.PostResource;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +40,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * 笔录基本信息控制器
@@ -53,28 +54,35 @@ public class RecordController {
     @Resource
     private BasicInfoService basicInfoService;
 
-    /**
-     * 保存笔录基本信息
-     *
-     * @author 金波
-     * @date 2021/05/12
-     */
-    @PostResource(name = "保存笔录基本信息", path = "/basic/add")
-    public ResponseData add(@RequestBody @Validated(BasicInfoRequest.add.class) BasicInfoRequest basicInfoRequest) {
-        basicInfoService.add(basicInfoRequest);
-        return new SuccessResponseData();
-    }
+    @Resource
+    private AccuserService accuserService;
 
-    /**
-     *@author liaoweiming
-     *@date 2022-05-21 21:54
-     */
-    @PostResource(name = "提交数据", path = "/record/wholemsg")
-    public ResponseData wholemsg(HttpServletRequest request) {
-        String wholemsg=request.getParameter("wholemsg");
-        System.out.println(wholemsg);
-        return new SuccessResponseData();
-    }
+    @Resource
+    private DefendantService defendantService;
+
+    @Resource
+    private StateService stateService;
+
+    @Resource
+    private AgentService agentService;
+
+    @Resource
+    private ArgueService argueService;
+
+    @Resource
+    private InquiryService inquiryService;
+
+    @Resource
+    private AllegeService allegeService;
+
+    @Resource
+    private ReplyService replyService;
+
+    @Resource
+    private ProofService proofService;
+
+    @Resource
+    private QueryService queryService;
 
 
     /**
@@ -85,7 +93,7 @@ public class RecordController {
      */
     @PostResource(name = "编辑笔录基本信息", path = "/basic/edit")
     public ResponseData edit(@RequestBody @Validated(BasicInfoRequest.edit.class) BasicInfoRequest basicInfoRequest) {
-        basicInfoService.update(basicInfoRequest);
+
         return new SuccessResponseData();
     }
 
@@ -97,19 +105,8 @@ public class RecordController {
      */
     @PostResource(name = "删除笔录基本信息", path = "/basic/delete")
     public ResponseData delete(@RequestBody @Validated(BasicInfoRequest.delete.class) BasicInfoRequest basicInfoRequest) {
-        basicInfoService.del(basicInfoRequest);
-        return new SuccessResponseData();
-    }
 
-    /**
-     * 查看笔录基本信息详情
-     *
-     * @author 金波
-     * @date 2022/01/14
-     */
-    @GetResource(name = "查看笔录基本信息详情", path = "/basic/detail")
-    public ResponseData detail(@Validated(BasicInfoRequest.detail.class) BasicInfoRequest basicInfoRequest) {
-        return new SuccessResponseData(basicInfoService.detail(basicInfoRequest));
+        return new SuccessResponseData();
     }
 
     /**
@@ -125,14 +122,129 @@ public class RecordController {
     }
 
     /**
-     * 查询全部笔录基本信息
+     * 保存笔录信息
      *
      * @author 金波
-     * @date 2022/01/14
+     * @date 2022/05/22
      */
-    @GetResource(name = "查询全部笔录", path = "/basic/list")
-    public ResponseData list(BasicInfoRequest basicInfoRequest) {
-        return new SuccessResponseData(basicInfoService.findList(basicInfoRequest));
+    @PostResource(name = "保存笔录信息", path = "/record/add")
+    public ResponseData add(@RequestBody String recordJson) {
+        JSONObject recordJsonObject = JSONObject.parseObject(recordJson);
+        JSONObject basicInfoObject = JSONObject.parseObject(recordJsonObject.getString("basicInfo"));
+        JSONObject courtInvestigateObject = JSONObject.parseObject(recordJsonObject.getString("courtInvestigate"));
+        //案号
+        String courtNumber = basicInfoObject.get("court_number").toString();
+        //是否反诉
+        String counterClaim = courtInvestigateObject.get("is_counterclaim").toString();
+
+        //TODO 被告今日不答辩，流程结束
+
+        //基本信息
+        basicInfoService.saveBasicInfo(courtNumber, recordJsonObject);
+        //原告信息
+        accuserService.saveAccuserInfo(courtNumber, recordJsonObject);
+        //被告信息
+        defendantService.saveDefendantInfo(courtNumber, recordJsonObject);
+        //委托诉讼代理人
+        agentService.saveAgentInfo(courtNumber, recordJsonObject);
+        //基本信息陈述
+        stateService.saveStateInfo(courtNumber, recordJsonObject);
+
+        //法庭辩论信息
+        argueService.saveArgueInfo(courtNumber, counterClaim, recordJsonObject);
+        //法庭询问信息
+        inquiryService.saveInquiryInfo(courtNumber, counterClaim, recordJsonObject);
+
+        //原告诉称信息
+        allegeService.saveAccuserClaimItem(courtNumber, "2", recordJsonObject);
+        //反诉原告诉称信息
+        allegeService.saveCounterClaimAccuserItem(courtNumber, "1", recordJsonObject);
+
+        //被告答辩
+        replyService.saveDefendantReply(courtNumber, "2", recordJsonObject);
+        //反诉被告答辩
+        replyService.saveCounterClaimDefendantReply(courtNumber, "1", recordJsonObject);
+
+        //原告举证
+        proofService.saveAccuserEvidence(courtNumber, "2", recordJsonObject);
+        //被告举证
+        proofService.saveDefendantEvidence(courtNumber, "2", recordJsonObject);
+        //反诉原告举证
+        proofService.saveCounterClaimAccuserEvidence(courtNumber, "1", recordJsonObject);
+        //反诉被告举证
+        proofService.saveCounterClaimDefendantEvidence(courtNumber, "1", recordJsonObject);
+
+        //被告质证
+        queryService.saveDefendantQuery(courtNumber, "2", recordJsonObject);
+        //原告质证
+        queryService.saveAccuserQuery(courtNumber, "2", recordJsonObject);
+        //其他被告质证
+        queryService.saveOtherDefendantQuery(courtNumber, "2", recordJsonObject);
+        //反诉被告质证
+        queryService.saveCounterClaimDefendantQuery(courtNumber, "1", recordJsonObject);
+        //反诉原告质证
+        queryService.saveCounterClaimAccuserQuery(courtNumber, "1", recordJsonObject);
+        //其他反诉被告质证
+        queryService.saveOtherCounterClaimDefendantQuery(courtNumber, "1", recordJsonObject);
+
+        return new SuccessResponseData();
     }
 
+
+    /**
+     * 查看笔录详情
+     *
+     * @author 金波
+     * @date 2022/05/25
+     */
+    @GetResource(name = "查看笔录详情", path = "/record/detail")
+    public ResponseData recordDetail(String courtNumber) {
+        JSONObject recordJson = new JSONObject();
+
+        //基本信息
+        JSONObject basicInfoObject = basicInfoService.getBasicInfoObject(courtNumber);
+        recordJson.put("basicInfo", basicInfoObject);
+
+        //原告信息
+        JSONArray accuserInfoArray = accuserService.getAccuserInfoArray(courtNumber);
+        recordJson.put("accuserInfo", accuserInfoArray);
+
+        //被告信息
+        JSONArray defendantInfoArray = defendantService.getDefendantInfoArray(courtNumber);
+        recordJson.put("defendantInfo", defendantInfoArray);
+
+        //基本信息陈述
+        JSONObject stateInfoObject = stateService.getStateInfoObject(courtNumber);
+        recordJson.put("stateInfo", stateInfoObject);
+
+        //权利告知
+        JSONObject rightInfoObject = basicInfoService.getRightInfoObject(courtNumber);
+        recordJson.put("rightInfo", rightInfoObject);
+
+        //法庭调查
+        //JSONObject courtInvestigateObject = new JSONObject();
+        //recordJson.put("courtInvestigate", courtInvestigateObject);
+
+        //法庭询问
+        JSONArray inquiryInfoArray = inquiryService.getInquiryInfoArray(courtNumber);
+        recordJson.put("inquiryInfo", inquiryInfoArray);
+
+        //法庭辩论
+        //JSONObject argueInfoObject = argueService.getArgueInfoObject(courtNumber);
+        //recordJson.put("argueInfo", argueInfoObject);
+
+        //最后陈述意见
+        //JSONArray finalStatementInfoArray = new JSONArray();
+        //recordJson.put("finalStatementInfo", finalStatementInfoArray);
+
+        //是否能够调解
+        //JSONObject mediateInfoObject = new JSONObject();
+        //recordJson.put("mediateInfo", mediateInfoObject);
+
+        //电子裁判文书送达
+        //JSONArray deliveryInfoArray = new JSONArray();
+        //recordJson.put("deliveryInfo", deliveryInfoArray);
+
+        return new SuccessResponseData(recordJson.toString());
+    }
 }

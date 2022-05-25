@@ -40,7 +40,15 @@ public class Defendant implements Serializable {
      * 被告类型：1-单位，2-个人
      */
     @TableField("defendant_type")
-    private Integer defendantType;
+    private String defendantType;
+
+    public String getDefendantType() {
+        return defendantType;
+    }
+
+    public void setDefendantType(String defendantType) {
+        this.defendantType = defendantType;
+    }
 
     /**
      * 被告地址
@@ -82,7 +90,7 @@ public class Defendant implements Serializable {
      * 是否能够调解
      */
     @TableField("is_mediate")
-    private Boolean isMediate;
+    private String isMediate;
 
     /**
      * 调解方案
@@ -100,7 +108,7 @@ public class Defendant implements Serializable {
      * 是否同意电子裁判文书送达
      */
     @TableField("is_delivery")
-    private Boolean isDelivery;
+    private String isDelivery;
 
     /**
      * 电子邮件地址
@@ -163,14 +171,6 @@ public class Defendant implements Serializable {
         this.defendantShort = defendantShort;
     }
 
-    public Integer getDefendantType() {
-        return defendantType;
-    }
-
-    public void setDefendantType(Integer defendantType) {
-        this.defendantType = defendantType;
-    }
-
     public String getDefendantAddress() {
         return defendantAddress;
     }
@@ -219,14 +219,6 @@ public class Defendant implements Serializable {
         this.defendantAvoid = defendantAvoid;
     }
 
-    public Boolean getMediate() {
-        return isMediate;
-    }
-
-    public void setMediate(Boolean isMediate) {
-        this.isMediate = isMediate;
-    }
-
     public String getMediatePlan() {
         return mediatePlan;
     }
@@ -241,14 +233,6 @@ public class Defendant implements Serializable {
 
     public void setTimeLimit(String timeLimit) {
         this.timeLimit = timeLimit;
-    }
-
-    public Boolean getDelivery() {
-        return isDelivery;
-    }
-
-    public void setDelivery(Boolean isDelivery) {
-        this.isDelivery = isDelivery;
     }
 
     public String getEmail() {
@@ -297,6 +281,22 @@ public class Defendant implements Serializable {
 
     public void setUpdateUser(Long updateUser) {
         this.updateUser = updateUser;
+    }
+
+    public String getIsMediate() {
+        return isMediate;
+    }
+
+    public void setIsMediate(String isMediate) {
+        this.isMediate = isMediate;
+    }
+
+    public String getIsDelivery() {
+        return isDelivery;
+    }
+
+    public void setIsDelivery(String isDelivery) {
+        this.isDelivery = isDelivery;
     }
 
     @Override

@@ -3,7 +3,7 @@
     <div class="layui-logo">
         <!--<img src="${ctxPath}/assets/common/images/logo.png"/>-->
         <i class="layui-icon layui-icon-component"></i>
-        <cite>&nbsp;${constants.getSystemName()}&emsp;</cite>
+        <cite>买卖合同类民事判决辅助系统</cite>
     </div>
     <ul class="layui-nav layui-layout-left">
         <li class="layui-nav-item" lay-unselect>
@@ -15,8 +15,8 @@
 
         @if(objectUtil.isNotEmpty(layuiAppIndexMenus)){
         @for(item in layuiAppIndexMenus) {
-        <li class="layui-nav-item layui-hide-xs" lay-unselect><a nav-bind="${item.appCode}"><i
-                class="layui-icon ${item.appIcon}"></i>${item.appName}</a></li>
+        <!--<li class="layui-nav-item layui-hide-xs" lay-unselect><a nav-bind="${item.appCode}"><i
+                class="layui-icon ${item.appIcon}"></i>刷新当前页面</a></li>-->
         @}
         @}
         <!-- 小屏幕下变为下拉形式 -->

@@ -64,7 +64,7 @@ public class Query implements Serializable {
      * 是否反诉
      */
     @TableField("is_counter_claim")
-    private Boolean isCounterClaim;
+    private String isCounterClaim;
 
     /**
      * 质证类型：1-被告质证，2-原告及其他被告质证
@@ -159,11 +159,11 @@ public class Query implements Serializable {
         this.reason = reason;
     }
 
-    public Boolean getCounterClaim() {
+    public String getIsCounterClaim() {
         return isCounterClaim;
     }
 
-    public void setCounterClaim(Boolean isCounterClaim) {
+    public void setIsCounterClaim(String isCounterClaim) {
         this.isCounterClaim = isCounterClaim;
     }
 

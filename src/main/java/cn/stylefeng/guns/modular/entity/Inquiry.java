@@ -31,34 +31,28 @@ public class Inquiry implements Serializable {
     private String question;
 
     /**
-     * 原告简称
+     * 回答人的姓名
      */
-    @TableField("accuser")
-    private String accuser;
+    @TableField("name")
+    private String name;
 
     /**
-     * 原告回答
+     * 回答人的类型（原告、被告、反诉原告、反诉被告）
      */
-    @TableField("accuser_answer")
-    private String accuserAnswer;
+    @TableField("type")
+    private String type;
 
     /**
-     * 被告简称
+     * 答案
      */
-    @TableField("defendant")
-    private String defendant;
-
-    /**
-     * 被告回答
-     */
-    @TableField("defendant_answer")
-    private String defendantAnswer;
+    @TableField("answer")
+    private String answer;
 
     /**
      * 是否反诉
      */
     @TableField("is_counter_claim")
-    private Boolean isCounterClaim;
+    private String isCounterClaim;
 
     /**
      * 案号
@@ -91,6 +85,10 @@ public class Inquiry implements Serializable {
     private Long updateUser;
 
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
     public Long getInquiryId() {
         return inquiryId;
     }
@@ -107,43 +105,35 @@ public class Inquiry implements Serializable {
         this.question = question;
     }
 
-    public String getAccuser() {
-        return accuser;
+    public String getName() {
+        return name;
     }
 
-    public void setAccuser(String accuser) {
-        this.accuser = accuser;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getAccuserAnswer() {
-        return accuserAnswer;
+    public String getType() {
+        return type;
     }
 
-    public void setAccuserAnswer(String accuserAnswer) {
-        this.accuserAnswer = accuserAnswer;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getDefendant() {
-        return defendant;
+    public String getAnswer() {
+        return answer;
     }
 
-    public void setDefendant(String defendant) {
-        this.defendant = defendant;
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 
-    public String getDefendantAnswer() {
-        return defendantAnswer;
-    }
-
-    public void setDefendantAnswer(String defendantAnswer) {
-        this.defendantAnswer = defendantAnswer;
-    }
-
-    public Boolean getCounterClaim() {
+    public String getIsCounterClaim() {
         return isCounterClaim;
     }
 
-    public void setCounterClaim(Boolean isCounterClaim) {
+    public void setIsCounterClaim(String isCounterClaim) {
         this.isCounterClaim = isCounterClaim;
     }
 
@@ -191,17 +181,16 @@ public class Inquiry implements Serializable {
     public String toString() {
         return "Inquiry{" +
                 "inquiryId=" + inquiryId +
-                ", question=" + question +
-                ", accuser=" + accuser +
-                ", accuserAnswer=" + accuserAnswer +
-                ", defendant=" + defendant +
-                ", defendantAnswer=" + defendantAnswer +
+                ", question='" + question + '\'' +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", answer='" + answer + '\'' +
                 ", isCounterClaim=" + isCounterClaim +
-                ", courtNumber=" + courtNumber +
+                ", courtNumber='" + courtNumber + '\'' +
                 ", createTime=" + createTime +
                 ", createUser=" + createUser +
                 ", updateTime=" + updateTime +
                 ", updateUser=" + updateUser +
-                "}";
+                '}';
     }
 }

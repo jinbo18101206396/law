@@ -34,13 +34,13 @@ public class BasicInfo implements Serializable {
      * 立案时间
      */
     @TableField("filing_time")
-    private Date filingTime;
+    private String filingTime;
 
     /**
      * 开庭时间
      */
     @TableField("court_time")
-    private Date courtTime;
+    private String courtTime;
 
     /**
      * 开庭地点
@@ -143,19 +143,19 @@ public class BasicInfo implements Serializable {
         this.userId = userId;
     }
 
-    public Date getFilingTime() {
+    public String getFilingTime() {
         return filingTime;
     }
 
-    public void setFilingTime(Date filingTime) {
+    public void setFilingTime(String filingTime) {
         this.filingTime = filingTime;
     }
 
-    public Date getCourtTime() {
+    public String getCourtTime() {
         return courtTime;
     }
 
-    public void setCourtTime(Date courtTime) {
+    public void setCourtTime(String courtTime) {
         this.courtTime = courtTime;
     }
 

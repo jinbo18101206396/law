@@ -1,19 +1,12 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.util.ObjectUtil;
 import cn.stylefeng.guns.modular.entity.Argue;
 import cn.stylefeng.guns.modular.mapper.ArgueMapper;
-import cn.stylefeng.guns.modular.model.request.ArgueRequest;
 import cn.stylefeng.guns.modular.service.ArgueService;
-import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
-import cn.stylefeng.roses.kernel.system.api.exception.SystemModularException;
-import cn.stylefeng.roses.kernel.system.api.exception.enums.organization.PositionExceptionEnum;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * <p>
@@ -26,65 +19,61 @@ import java.util.List;
 @Service
 public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements ArgueService {
 
-
     @Override
-    public void add(ArgueRequest argueRequest) {
-        Argue argue = new Argue();
-        BeanUtil.copyProperties(argueRequest, argue);
-        this.save(argue);
-    }
-
-    @Override
-    public void delete(ArgueRequest argueRequest) {
-
-    }
-
-    @Override
-    public void updateById(ArgueRequest argueRequest) {
-        Argue argue = this.queryArgueById(argueRequest);
-        BeanUtil.copyProperties(argueRequest, argue);
-        this.updateById(argue);
-    }
-
-    @Override
-    public Argue detail(ArgueRequest argueRequest) {
-        return this.queryArgueById(argueRequest);
-    }
-
-    @Override
-    public List<Argue> findList(ArgueRequest argueRequest) {
-        return null;
-    }
-
-    @Override
-    public PageResult<Argue> findPage(ArgueRequest argueRequest) {
-        return null;
-    }
-
-    /**
-     * 根据主键id获取对象信息
-     *
-     * @return 实体对象
-     * @author 金波
-     * @date 2022/01/14 15:07
-     */
-    private Argue queryArgueById(ArgueRequest argueRequest) {
-        Argue argue = this.getById(argueRequest.getArgueId());
-        if (ObjectUtil.isEmpty(argue)) {
-            throw new SystemModularException(PositionExceptionEnum.CANT_FIND_POSITION, argue.getArgueId());
+    public void saveArgueInfo(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
+        //法庭辩论
+        JSONObject argueInfoObject = JSONObject.parseObject(recordJsonObject.getString("argueInfo"));
+        //正诉
+        JSONArray argueArray = argueInfoObject.getJSONArray("argue");
+        if (argueArray.size() > 0 && counterClaim.equals("2")) {
+            saveArgue(argueArray, counterClaim);
         }
-        return argue;
+        //反诉
+        JSONArray counterClaimArgueArray = argueInfoObject.getJSONArray("counterclaim_argue");
+        if (counterClaimArgueArray.size() > 0 && counterClaim.equals("1")) {
+            saveCounterClaimArgue(counterClaimArgueArray, counterClaim);
+        }
     }
 
-    /**
-     * 实体构建 QueryWrapper
-     *
-     * @author 金波
-     * @date 2022/01/14 15:07
-     */
-    private LambdaQueryWrapper<Argue> createWrapper(ArgueRequest argueRequest) {
-        LambdaQueryWrapper<Argue> queryWrapper = new LambdaQueryWrapper<Argue>();
+    public void saveArgue(JSONArray argueArray, String counterClaim) {
+        for (int i = 0; i < argueArray.size(); i++) {
+            JSONObject argueObject = argueArray.getJSONObject(i);
+            //姓名格式，例如：张三（原告）
+            String argueName = argueObject.get("name").toString();
+            String name = argueName.split("（")[0];
+            String type = argueName.split("（")[1];
+            String argueContent = argueObject.get("argue").toString();
 
-        return queryWrapper;
+            Argue argue = new Argue();
+            argue.setName(name);
+            //辩论人的类型（原告，被告）
+            argue.setType(type.substring(0, type.length() - 1));
+            argue.setArgueContent(argueContent);
+            argue.setIsCounterClaim(counterClaim);
+        }
+    }
+
+    public void saveCounterClaimArgue(JSONArray counterClaimArgueArray, String counterClaim) {
+        for (int i = 0; i < counterClaimArgueArray.size(); i++) {
+            JSONObject cointerClaimArgueObject = counterClaimArgueArray.getJSONObject(i);
+            //姓名格式，例如：张三（反诉被告）
+            String argueName = cointerClaimArgueObject.get("name").toString();
+            String name = argueName.split("（")[0];
+            String type = argueName.split("（")[1];
+            String argueContent = cointerClaimArgueObject.get("argue").toString();
+
+            Argue argue = new Argue();
+            argue.setName(name);
+            //辩论人的类型（反诉原告，反诉被告）
+            argue.setType(type.substring(0, type.length() - 1));
+            argue.setArgueContent(argueContent);
+            argue.setIsCounterClaim(counterClaim);
+        }
+    }
+
+    public JSONObject getArgueInfoObject(String courtNumber){
+        //法庭辩论
+
+        return null;
     }
 }

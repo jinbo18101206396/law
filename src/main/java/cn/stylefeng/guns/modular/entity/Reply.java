@@ -31,6 +31,12 @@ public class Reply implements Serializable {
     private String name;
 
     /**
+     * 答辩人的类型（被告、反诉被告）
+     */
+    @TableField("type")
+    private String type;
+
+    /**
      * 答辩内容
      */
     @TableField("content")
@@ -40,7 +46,7 @@ public class Reply implements Serializable {
      * 是否反诉
      */
     @TableField("is_counter_claim")
-    private Boolean isCounterClaim;
+    private String isCounterClaim;
 
     /**
      * 案号
@@ -97,11 +103,19 @@ public class Reply implements Serializable {
         this.content = content;
     }
 
-    public Boolean getCounterClaim() {
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getIsCounterClaim() {
         return isCounterClaim;
     }
 
-    public void setCounterClaim(Boolean isCounterClaim) {
+    public void setIsCounterClaim(String isCounterClaim) {
         this.isCounterClaim = isCounterClaim;
     }
 

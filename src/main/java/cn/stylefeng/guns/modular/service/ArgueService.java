@@ -1,11 +1,8 @@
 package cn.stylefeng.guns.modular.service;
 
 import cn.stylefeng.guns.modular.entity.Argue;
-import cn.stylefeng.guns.modular.model.request.ArgueRequest;
-import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
-
-import java.util.List;
 
 /**
  * <p>
@@ -17,58 +14,21 @@ import java.util.List;
  */
 public interface ArgueService extends IService<Argue> {
 
+
     /**
-     * 新增
+     * 保存法庭辩论信息
      *
      * @author jinbo
-     * @Date 2022-01-19
+     * @Date 2022-05-23
      */
-    void add(ArgueRequest argueRequest);
+    void saveArgueInfo(String courtNumber, String counterClaim, JSONObject recordJsonObject);
 
     /**
-     * 删除
+     * 获取法庭辩论信息
      *
      * @author jinbo
-     * @Date 2022-01-19
+     * @Date 2022-05-25
      */
-    void delete(ArgueRequest argueRequest);
+    JSONObject getArgueInfoObject(String courtNumber);
 
-    /**
-     * 更新
-     *
-     * @author jinbo
-     * @Date 2022-01-19
-     */
-    void updateById(ArgueRequest argueRequest);
-
-
-    /**
-     * 查看详情
-     *
-     * @param argueRequest 查看参数
-     * @return 详情结果
-     * @author 金波
-     * @date 2021/5/12 18:28
-     */
-    Argue detail(ArgueRequest argueRequest);
-
-    /**
-     * 查询列表
-     *
-     * @param argueRequest 请求参数
-     * @return 列表
-     * @author 金波
-     * @date 2022/01/14 15:07
-     */
-    List<Argue> findList(ArgueRequest argueRequest);
-
-    /**
-     * 分页查询列表
-     *
-     * @param argueRequest 查看参数
-     * @return 结果
-     * @author 金波
-     * @date 2022/01/14 15:07
-     */
-    PageResult<Argue> findPage(ArgueRequest argueRequest);
 }

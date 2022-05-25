@@ -45,60 +45,32 @@ public class RecordViewController {
      * @date 2022/01/14
      */
     @GetResource(name = "笔录基本信息视图", path = "/view/record", requiredPermission = false)
-    public String indexView() {
+    public String recordView() {
         return "/modular/business/record/record.html";
     }
 
-    /**
-     * @author liaoweiming
-     * @date 2022-01-16 14:41
-     */
-    @GetResource(name = "基本信息表单", path = "/view/basicstate", requiredPermission = false)
-    public String baseImfView() {
-        return "/modular/business/record/basicImfState.html";
-    }
 
     /**
-     * @author liaoweiming
-     * @date 2022-01-17 17:32
+     * 新增笔录视图
+     *
+     * @author 金波
+     * @date 2022-05-25
      */
-    @GetResource(name = "原告信息表单", path = "/view/plaintiff", requiredPermission = false)
-    public String plaintiffImfView() {
-        return "/modular/business/record/plaintiffImf.html";
+    @GetResource(name = "新增笔录视图", path = "/view/record/add", requiredPermission = false)
+    public String addRecordView() {
+        return "/modular/business/record/record_add.html";
     }
 
     /**
-     * @author liaoweiming
-     * @date 2022-01-17 17:32
+     * 查看笔录详情视图
+     *
+     * @author 金波
+     * @date 2022-05-25
      */
-    @GetResource(name = "被告信息表单", path = "/view/defendant", requiredPermission = false)
-    public String defendantImfView() {
-        return "/modular/business/record/defendantImf.html";
-    }
+    @GetResource(name = "查看笔录详情视图", path = "/view/record/detail", requiredPermission = false)
+    public String recordDetailView() {
 
-    @GetResource(name = "法庭调查1", path = "/view/courtinves", requiredPermission = false)
-    public String courtInvesView() {
-        return "/modular/business/record/courtInves.html";
-    }
-
-
-    /**
-     * @author wangjiaran
-     * @date 2022-01-17 15：00
-     */
-    @GetResource(name = "基本信息表单", path = "/view/Basic_info", requiredPermission = false)
-    public String basic_infoView() {
-        return "/modular/business/record/Basic_Info.html";
-    }
-
-    @GetResource(name = "笔录信息", path = "/view/Total_form", requiredPermission = false)
-    public String Total_formView() {
-        return "/modular/business/record/Total_form.html";
-    }
-
-    @GetResource(name = "主页", path = "/view/index", requiredPermission = false)
-    public String MyIndex_View() {
-        return "/modular/business/record/index.html";
+        return "/modular/business/record/record_add.html";
     }
 }
 

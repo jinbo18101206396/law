@@ -1,11 +1,8 @@
 package cn.stylefeng.guns.modular.service;
 
 import cn.stylefeng.guns.modular.entity.Reply;
-import cn.stylefeng.guns.modular.model.request.ReplyRequest;
-import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
-
-import java.util.List;
 
 /**
  * <p>
@@ -18,57 +15,23 @@ import java.util.List;
 public interface ReplyService extends IService<Reply> {
 
     /**
-     * 新增
+     * 保存被告答辩信息
      *
-     * @author jinbo
-     * @Date 2022-01-19
-     */
-    void add(ReplyRequest replyRequest);
-
-    /**
-     * 删除
-     *
-     * @author jinbo
-     * @Date 2022-01-19
-     */
-    void delete(ReplyRequest replyRequest);
-
-    /**
-     * 更新
-     *
-     * @author jinbo
-     * @Date 2022-01-19
-     */
-    void updateById(ReplyRequest replyRequest);
-
-    /**
-     * 查看详情
-     *
-     * @param replyRequest 查看参数
-     * @return 详情结果
+     * @param recordJsonObject 请求参数
+     * @return
      * @author 金波
-     * @date 2021/5/12 18:28
+     * @Date 2022-05-24
      */
-    Reply detail(ReplyRequest replyRequest);
+    void saveDefendantReply(String courtNumber, String counterClaim, JSONObject recordJsonObject);
 
     /**
-     * 查询列表
+     * 保存反诉被告答辩信息
      *
-     * @param replyRequest 请求参数
-     * @return 列表
+     * @param recordJsonObject 请求参数
+     * @return
      * @author 金波
-     * @date 2022/01/14 15:07
+     * @Date 2022-05-24
      */
-    List<Reply> findList(ReplyRequest replyRequest);
-
-    /**
-     * 分页查询列表
-     *
-     * @param replyRequest 查看参数
-     * @return 结果
-     * @author 金波
-     * @date 2022/01/14 15:07
-     */
-    PageResult<Reply> findPage(ReplyRequest replyRequest);
+    void saveCounterClaimDefendantReply(String courtNumber, String counterClaim, JSONObject recordJsonObject);
 
 }

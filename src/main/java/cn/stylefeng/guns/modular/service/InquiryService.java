@@ -3,6 +3,8 @@ package cn.stylefeng.guns.modular.service;
 import cn.stylefeng.guns.modular.entity.Inquiry;
 import cn.stylefeng.guns.modular.model.request.InquiryRequest;
 import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -13,78 +15,28 @@ import java.util.List;
  * </p>
  *
  * @author jinbo
- * @since 2022-01-19
+ * @since 2022-05-24
  */
 public interface InquiryService extends IService<Inquiry> {
 
     /**
-     * 新增
+     * 保存法庭询问信息
      *
-     * @param inquiryRequest 请求参数
+     * @param recordJsonObject 请求参数
      * @return
      * @author 金波
-     * @Date 2022-01-19
+     * @Date 2022-05-24
      */
-    void add(InquiryRequest inquiryRequest);
+    void saveInquiryInfo(String courtNumber, String counterClaim, JSONObject recordJsonObject);
 
     /**
-     * 删除
+     * 获取法庭询问信息
      *
-     * @param inquiryRequest 请求参数
+     * @param courtNumber 请求参数
      * @return
      * @author 金波
-     * @Date 2022-01-19
+     * @Date 2022-05-25
      */
-    void delete(InquiryRequest inquiryRequest);
-
-    /**
-     * 通过ID更新法庭询问信息
-     *
-     * @param inquiryRequest 请求参数
-     * @return
-     * @author 金波
-     * @Date 2022-01-19
-     */
-    void updateById(InquiryRequest inquiryRequest);
-
-    /**
-     * 通过案号更新法庭询问信息
-     *
-     * @param inquiryRequest 请求参数
-     * @return
-     * @author 金波
-     * @Date 2022-01-19
-     */
-    void updateByCourtNumber(InquiryRequest inquiryRequest);
-
-    /**
-     * 查看详情
-     *
-     * @param inquiryRequest 请求参数
-     * @return 详情结果
-     * @author 金波
-     * @Date 2022-01-19
-     */
-    Inquiry detail(InquiryRequest inquiryRequest);
-
-    /**
-     * 查询列表
-     *
-     * @param inquiryRequest 请求参数
-     * @return 列表
-     * @author 金波
-     * @date 2022/01/14 15:07
-     */
-    List<Inquiry> findList(InquiryRequest inquiryRequest);
-
-    /**
-     * 分页查询列表
-     *
-     * @param inquiryRequest 查看参数
-     * @return 结果
-     * @author 金波
-     * @date 2022/01/14 15:07
-     */
-    PageResult<Inquiry> findPage(InquiryRequest inquiryRequest);
+    JSONArray getInquiryInfoArray(String courtNumber);
 
 }

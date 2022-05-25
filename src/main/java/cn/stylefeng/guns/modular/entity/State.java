@@ -28,7 +28,7 @@ public class State implements Serializable {
      * 陈述类型：简易程序、普通程序独任制、普通程序合议制
      */
     @TableField("state_type")
-    private Integer stateType;
+    private String stateType;
 
     /**
      * 陈述内容
@@ -75,11 +75,11 @@ public class State implements Serializable {
         this.stateId = stateId;
     }
 
-    public Integer getStateType() {
+    public String getStateType() {
         return stateType;
     }
 
-    public void setStateType(Integer stateType) {
+    public void setStateType(String stateType) {
         this.stateType = stateType;
     }
 
@@ -143,5 +143,8 @@ public class State implements Serializable {
                 ", updateTime=" + updateTime +
                 ", updateUser=" + updateUser +
                 "}";
+    }
+
+    public void setStateContent() {
     }
 }
