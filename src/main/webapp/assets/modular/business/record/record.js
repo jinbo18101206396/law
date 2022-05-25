@@ -95,7 +95,7 @@ layui.use(['table', 'HttpRequest', 'func', 'form','laydate'], function () {
 
     // 新建按钮点击事件
     $('#btnAdd').click(function () {
-        $(location).attr('href', '/view/index');
+        $(location).attr('href', '/view/record/add');
         // window.open("/view/index");
         // Feng.newCrontab("/view/index","笔录信息")
         // Feng.ceo
