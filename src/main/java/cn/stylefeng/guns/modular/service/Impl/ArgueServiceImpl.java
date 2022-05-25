@@ -1,12 +1,16 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
+import cn.stylefeng.guns.modular.entity.Accuser;
 import cn.stylefeng.guns.modular.entity.Argue;
 import cn.stylefeng.guns.modular.mapper.ArgueMapper;
 import cn.stylefeng.guns.modular.service.ArgueService;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -18,6 +22,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements ArgueService {
+
+    private ArgueMapper argueMapper;
 
     @Override
     public void saveArgueInfo(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
@@ -35,6 +41,7 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
         }
     }
 
+    @Override
     public void saveArgue(JSONArray argueArray, String counterClaim) {
         for (int i = 0; i < argueArray.size(); i++) {
             JSONObject argueObject = argueArray.getJSONObject(i);
@@ -71,9 +78,36 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
         }
     }
 
-    public JSONObject getArgueInfoObject(String courtNumber){
+    @Override
+    public JSONObject getArgueInfoObject(String courtNumber) {
         //法庭辩论
+        LambdaQueryWrapper<Argue> argueQueryWrapper = new LambdaQueryWrapper<>();
+        argueQueryWrapper.eq(Accuser::getCourtNumber, courtNumber);
+        List<Argue> argues = argueMapper.selectList(argueQueryWrapper);
 
-        return null;
+        JSONArray argueArray = new JSONArray();
+        JSONArray counterClaimArgueArray = new JSONArray();
+        for (int i = 0; i < argues.size(); i++) {
+            Argue argue = argues.get(i);
+            String name = argue.getName();
+            String argueContent = argue.getArgueContent();
+            String type = argue.getType();
+            String isCounterClaim = argue.getIsCounterClaim();
+
+            JSONObject argueObject = new JSONObject();
+            argueObject.put("name", name + "（" + type + "）");
+            argueObject.put("argue", argueContent);
+
+            if ("1".equals(isCounterClaim)) {
+                counterClaimArgueArray.add(argueObject)
+            } else {
+                argueArray.add(argueObject)
+            }
+        }
+        JSONObject argueInfoObject = new JSONObject();
+        argueInfoObject.put("argue", argueArray);
+        argueInfoObject.put("counterclaim_argue", counterClaimArgueArray);
+
+        return argueInfoObject;
     }
 }

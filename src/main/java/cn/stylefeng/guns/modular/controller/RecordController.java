@@ -222,28 +222,28 @@ public class RecordController {
         recordJson.put("rightInfo", rightInfoObject);
 
         //法庭调查
-        //JSONObject courtInvestigateObject = new JSONObject();
-        //recordJson.put("courtInvestigate", courtInvestigateObject);
+        JSONObject courtInvestigateObject = basicInfoService.getCourtInvestigateObject(courtNumber);
+        recordJson.put("courtInvestigate", courtInvestigateObject);
 
         //法庭询问
         JSONArray inquiryInfoArray = inquiryService.getInquiryInfoArray(courtNumber);
         recordJson.put("inquiryInfo", inquiryInfoArray);
 
         //法庭辩论
-        //JSONObject argueInfoObject = argueService.getArgueInfoObject(courtNumber);
-        //recordJson.put("argueInfo", argueInfoObject);
+        JSONObject argueInfoObject = argueService.getArgueInfoObject(courtNumber);
+        recordJson.put("argueInfo", argueInfoObject);
 
         //最后陈述意见
-        //JSONArray finalStatementInfoArray = new JSONArray();
-        //recordJson.put("finalStatementInfo", finalStatementInfoArray);
+        JSONArray finalStatementInfoArray = basicInfoService.getFinalStatementInfoArray(courtNumber);
+        recordJson.put("finalStatementInfo", finalStatementInfoArray);
 
         //是否能够调解
-        //JSONObject mediateInfoObject = new JSONObject();
-        //recordJson.put("mediateInfo", mediateInfoObject);
+        JSONObject mediateInfoObject = basicInfoService.getMediateInfoObject(courtNumber);
+        recordJson.put("mediateInfo", mediateInfoObject);
 
         //电子裁判文书送达
-        //JSONArray deliveryInfoArray = new JSONArray();
-        //recordJson.put("deliveryInfo", deliveryInfoArray);
+        JSONArray deliveryInfoArray = basicInfoService.getDiliveryInfoArray(courtNumber);
+        recordJson.put("deliveryInfo", deliveryInfoArray);
 
         return new SuccessResponseData(recordJson.toString());
     }

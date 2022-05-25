@@ -3,6 +3,7 @@ package cn.stylefeng.guns.modular.service;
 import cn.stylefeng.guns.modular.entity.BasicInfo;
 import cn.stylefeng.guns.modular.model.request.BasicInfoRequest;
 import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -41,6 +42,50 @@ public interface BasicInfoService extends IService<BasicInfo> {
      * @date 2022/05/25
      */
     JSONObject getRightInfoObject(String courtNumber);
+
+
+    /**
+     * 获取电子裁判文书送达信息
+     *
+     * @param courtNumber 查看参数
+     * @return 详情结果
+     * @author 金波
+     * @date 2022/05/25
+     */
+    JSONArray getDiliveryInfoArray(String courtNumber);
+
+
+    /**
+     * 获取调解信息
+     *
+     * @param courtNumber 查看参数
+     * @return 详情结果
+     * @author 金波
+     * @date 2022/05/25
+     */
+    JSONObject getMediateInfoObject(String courtNumber);
+
+
+    /**
+     * 获取最后陈述意见
+     *
+     * @param courtNumber 查看参数
+     * @return 详情结果
+     * @author 金波
+     * @date 2022/05/25
+     */
+    JSONArray getFinalStatementInfoArray(String courtNumber);
+
+
+    /**
+     * 获取法庭调查信息
+     *
+     * @param courtNumber 查看参数
+     * @return 详情结果
+     * @author 金波
+     * @date 2022/05/25
+     */
+    JSONObject getCourtInvestigateObject(String courtNumber);
 
 
     /**
