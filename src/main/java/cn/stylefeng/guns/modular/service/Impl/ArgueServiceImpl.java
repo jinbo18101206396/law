@@ -41,7 +41,6 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
         }
     }
 
-    @Override
     public void saveArgue(JSONArray argueArray, String counterClaim) {
         for (int i = 0; i < argueArray.size(); i++) {
             JSONObject argueObject = argueArray.getJSONObject(i);
@@ -82,7 +81,7 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
     public JSONObject getArgueInfoObject(String courtNumber) {
         //法庭辩论
         LambdaQueryWrapper<Argue> argueQueryWrapper = new LambdaQueryWrapper<>();
-        argueQueryWrapper.eq(Accuser::getCourtNumber, courtNumber);
+        argueQueryWrapper.eq(Argue::getCourtNumber, courtNumber);
         List<Argue> argues = argueMapper.selectList(argueQueryWrapper);
 
         JSONArray argueArray = new JSONArray();
@@ -99,9 +98,9 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
             argueObject.put("argue", argueContent);
 
             if ("1".equals(isCounterClaim)) {
-                counterClaimArgueArray.add(argueObject)
+                counterClaimArgueArray.add(argueObject);
             } else {
-                argueArray.add(argueObject)
+                argueArray.add(argueObject);
             }
         }
         JSONObject argueInfoObject = new JSONObject();
