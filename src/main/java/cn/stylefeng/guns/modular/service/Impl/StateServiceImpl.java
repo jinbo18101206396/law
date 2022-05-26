@@ -7,6 +7,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 /**
  * <p>
@@ -25,7 +26,7 @@ public class StateServiceImpl extends ServiceImpl<StateMapper, State> implements
     public void saveStateInfo(String courtNumber, JSONObject recordJsonObject) {
         //基本信息陈述
         String stateInfo = recordJsonObject.getString("stateInfo");
-        if(stateInfo != "" && stateInfo != null){
+        if(!ObjectUtils.isEmpty(stateInfo)){
             JSONObject stateInfoObject = JSONObject.parseObject(stateInfo);
             String stateType = stateInfoObject.get("state_type").toString();
             String stateContent = stateInfoObject.get("state_content").toString();

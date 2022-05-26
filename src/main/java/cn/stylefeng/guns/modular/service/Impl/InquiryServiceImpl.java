@@ -1,6 +1,5 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
-import cn.stylefeng.guns.modular.entity.Defendant;
 import cn.stylefeng.guns.modular.entity.Inquiry;
 import cn.stylefeng.guns.modular.mapper.InquiryMapper;
 import cn.stylefeng.guns.modular.service.InquiryService;
@@ -22,7 +21,6 @@ import java.util.List;
  */
 @Service
 public class InquiryServiceImpl extends ServiceImpl<InquiryMapper, Inquiry> implements InquiryService {
-
 
     private InquiryMapper inquiryMapper;
 
@@ -67,37 +65,37 @@ public class InquiryServiceImpl extends ServiceImpl<InquiryMapper, Inquiry> impl
         String lastInquiryQuestion = "";
         JSONArray inquiryAnswerArray = null;
         JSONObject inquiryInfoObject = null;
-        for(int i=0;i<inquiries.size();i++){
+        for (int i = 0; i < inquiries.size(); i++) {
             Inquiry inquiry = inquiries.get(i);
             String question = inquiry.getQuestion();
             String answer = inquiry.getAnswer();
             String name = inquiry.getName();
             String type = inquiry.getType();
-            String nameAndType = name+"（"+type+"）";
+            String nameAndType = name + "（" + type + "）";
 
             JSONObject inquiryAnswerObject = new JSONObject();
-            if(!lastInquiryQuestion.equals(question)){
+            if (!lastInquiryQuestion.equals(question)) {
 
-                if(inquiryAnswerArray.size() > 0){
-                    inquiryInfoObject.put("inquiry_answer",inquiryAnswerArray);
+                if (inquiryAnswerArray.size() > 0) {
+                    inquiryInfoObject.put("inquiry_answer", inquiryAnswerArray);
                     inquiryInfoArray.add(inquiryInfoObject);
                 }
                 inquiryInfoObject = new JSONObject();
                 lastInquiryQuestion = question;
-                inquiryInfoObject.put("inquiry_question",question);
+                inquiryInfoObject.put("inquiry_question", question);
 
                 inquiryAnswerArray = new JSONArray();
                 inquiryAnswerObject.put("name", nameAndType);
-                inquiryAnswerObject.put("answer",answer);
+                inquiryAnswerObject.put("answer", answer);
                 inquiryAnswerArray.add(inquiryAnswerObject);
-            }else{
+            } else {
                 inquiryAnswerObject.put("name", nameAndType);
-                inquiryAnswerObject.put("answer",answer);
+                inquiryAnswerObject.put("answer", answer);
                 inquiryAnswerArray.add(inquiryAnswerObject);
             }
         }
-        if(inquiryAnswerArray.size() > 0){
-            inquiryInfoObject.put("inquiry_answer",inquiryAnswerArray);
+        if (inquiryAnswerArray.size() > 0) {
+            inquiryInfoObject.put("inquiry_answer", inquiryAnswerArray);
             inquiryInfoArray.add(inquiryInfoObject);
         }
         return inquiryInfoArray;

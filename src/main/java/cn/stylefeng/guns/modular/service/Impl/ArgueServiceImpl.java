@@ -8,6 +8,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
     public void saveArgueInfo(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
         //法庭辩论
         String argueInfo = recordJsonObject.getString("argueInfo");
-        if (argueInfo != "" && argueInfo != null) {
+        if (!ObjectUtils.isEmpty(argueInfo)) {
             JSONObject argueInfoObject = JSONObject.parseObject(argueInfo);
             if (counterClaim.equals("2")) {
                 //正诉

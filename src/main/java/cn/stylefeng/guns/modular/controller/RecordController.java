@@ -33,7 +33,7 @@ import cn.stylefeng.roses.kernel.scanner.api.annotation.GetResource;
 import cn.stylefeng.roses.kernel.scanner.api.annotation.PostResource;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -86,30 +86,6 @@ public class RecordController {
 
 
     /**
-     * 编辑笔录基本信息
-     *
-     * @author 金波
-     * @date 2022/01/14
-     */
-    @PostResource(name = "编辑笔录基本信息", path = "/basic/edit")
-    public ResponseData edit(@RequestBody @Validated(BasicInfoRequest.edit.class) BasicInfoRequest basicInfoRequest) {
-
-        return new SuccessResponseData();
-    }
-
-    /**
-     * 删除笔录
-     *
-     * @author 金波
-     * @date 2022/01/14
-     */
-    @PostResource(name = "删除笔录基本信息", path = "/basic/delete")
-    public ResponseData delete(@RequestBody @Validated(BasicInfoRequest.delete.class) BasicInfoRequest basicInfoRequest) {
-
-        return new SuccessResponseData();
-    }
-
-    /**
      * 分页查询笔录基本信息(系统首页)
      *
      * @author 金波
@@ -134,6 +110,9 @@ public class RecordController {
         JSONObject courtInvestigateObject = JSONObject.parseObject(recordJsonObject.getString("courtInvestigate"));
         //案号
         String courtNumber = basicInfoObject.get("court_number").toString();
+        if(ObjectUtils.isEmpty(courtNumber)){
+            return new SuccessResponseData("案号不能为空");
+        }
         //是否反诉
         String counterClaim = courtInvestigateObject.get("is_counterclaim").toString();
 
@@ -157,7 +136,7 @@ public class RecordController {
         allegeService.saveAccuserClaimItem(courtNumber, "2", recordJsonObject);
         //被告答辩
         replyService.saveDefendantReply(courtNumber, "2", recordJsonObject);
-        if(counterClaim.equals("1")){
+        if ("1".equals(counterClaim)) {
             //反诉原告诉讼请求项和事实与理由
             allegeService.saveCounterClaimAccuserItem(courtNumber, "1", recordJsonObject);
             //反诉被告答辩
@@ -174,7 +153,7 @@ public class RecordController {
         queryService.saveAccuserQuery(courtNumber, "2", recordJsonObject);
         //其他被告质证
         queryService.saveOtherDefendantQuery(courtNumber, "2", recordJsonObject);
-        if(counterClaim.equals("1")){
+        if ("1".equals(counterClaim)) {
             //反诉原告举证
             proofService.saveCounterClaimAccuserEvidence(courtNumber, "1", recordJsonObject);
             //反诉被告质证
