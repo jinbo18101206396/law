@@ -58,6 +58,7 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
             argue.setType(type.substring(0, type.length() - 1));
             argue.setArgueContent(argueContent);
             argue.setIsCounterClaim(counterClaim);
+            this.save(argue);
         }
     }
 
@@ -76,6 +77,7 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
             argue.setType(type.substring(0, type.length() - 1));
             argue.setArgueContent(argueContent);
             argue.setIsCounterClaim(counterClaim);
+            this.save(argue);
         }
     }
 
