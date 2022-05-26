@@ -76,7 +76,6 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
                     if (mediateDefendantName.equals(defendantShortName)) {
                         defendant.setIsMediate(mediateDefendantObject.get("is_mediate").toString());
                         defendant.setMediatePlan(mediateDefendantObject.get("mediate_plan").toString());
-                        defendant.setTimeLimit(mediateDefendantObject.get("time_limit").toString());
                     }
                 }
             }
