@@ -204,8 +204,8 @@ public class RecordController {
         recordJson.put("rightInfo", rightInfoObject);
 
         //法庭调查
-        //JSONObject courtInvestigateObject = basicInfoService.getCourtInvestigateObject(courtNumber);
-        //recordJson.put("courtInvestigate", courtInvestigateObject);
+        JSONObject courtInvestigateObject = basicInfoService.getCourtInvestigateObject(courtNumber);
+        recordJson.put("courtInvestigate", courtInvestigateObject);
 
         //法庭询问
         JSONArray inquiryInfoArray = inquiryService.getInquiryInfoArray(courtNumber);

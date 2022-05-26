@@ -3,7 +3,6 @@ package cn.stylefeng.guns.modular.service.Impl;
 import cn.stylefeng.guns.modular.entity.Accuser;
 import cn.stylefeng.guns.modular.entity.Agent;
 import cn.stylefeng.guns.modular.mapper.AccuserMapper;
-import cn.stylefeng.guns.modular.mapper.AgentMapper;
 import cn.stylefeng.guns.modular.service.AccuserService;
 import cn.stylefeng.guns.modular.service.AgentService;
 import com.alibaba.fastjson.JSONArray;
@@ -12,7 +11,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -58,13 +56,13 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
             accuser.setAccuserShort(accuserShortName);
             accuser.setAccuserAddress(accuserInfoObject.get("accuser_address").toString());
             //原告-机构
-            if("1".equals(accuserType)){
+            if ("1".equals(accuserType)) {
                 accuser.setAccuserRepresent(accuserInfoObject.get("accuser_represent").toString());
                 accuser.setAccuserDuty(accuserInfoObject.get("accuser_duty").toString());
             }
             accuser.setCourtNumber(courtNumber);
 
-            if(rightInfoObject != null){
+            if (rightInfoObject != null) {
                 //是否听清诉讼权利和义务（1-听清，2-没听清）、是否申请回避(1-回避，2-不回避)
                 JSONArray accuserRightDutyArray = rightInfoObject.getJSONArray("accuser_right_duty");
                 for (int j = 0; j < accuserRightDutyArray.size(); j++) {
@@ -77,7 +75,7 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
                 }
             }
 
-            if(mediateInfoObject != null){
+            if (mediateInfoObject != null) {
                 //是否能够调解（1-能，2-不能）、调解方案、庭外和解时限
                 JSONArray mediateAccuserArray = mediateInfoObject.getJSONArray("mediate_accuser");
                 for (int k = 0; k < mediateAccuserArray.size(); k++) {
@@ -130,9 +128,8 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
         //委托诉讼代理人
         LambdaQueryWrapper<Agent> agentQueryWrapper = new LambdaQueryWrapper<>();
         agentQueryWrapper.eq(Agent::getCourtNumber, courtNumber);
-        agentQueryWrapper.eq(Agent::getAgentType,"1");
+        agentQueryWrapper.eq(Agent::getAgentType, "1");
         List<Agent> agents = agentService.list(agentQueryWrapper);
-
 
         for (int i = 0; i < accusers.size(); i++) {
             JSONObject accuserInfoObject = new JSONObject();

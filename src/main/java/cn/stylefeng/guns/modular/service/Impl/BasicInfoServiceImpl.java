@@ -2,7 +2,7 @@ package cn.stylefeng.guns.modular.service.Impl;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.stylefeng.guns.modular.entity.*;
-import cn.stylefeng.guns.modular.mapper.*;
+import cn.stylefeng.guns.modular.mapper.BasicInfoMapper;
 import cn.stylefeng.guns.modular.model.request.BasicInfoRequest;
 import cn.stylefeng.guns.modular.service.*;
 import cn.stylefeng.roses.kernel.db.api.factory.PageFactory;
@@ -343,25 +343,25 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         LambdaQueryWrapper<Allege> allegeQueryWrapper = new LambdaQueryWrapper<>();
         allegeQueryWrapper.eq(Allege::getCourtNumber, courtNumber);
         List<Allege> alleges = allegeService.list(allegeQueryWrapper);
-        for(int i=0;i<alleges.size();i++){
+        for (int i = 0; i < alleges.size(); i++) {
             Allege allege = alleges.get(i);
             String name = allege.getName();
             String type = allege.getType();
             String claimItem = allege.getClaimItem();
             String factReason = allege.getFactReason();
             String isCounterClaim = allege.getIsCounterClaim();
-            if(type !="" && "原告".equals(type)){
+            if (type != "" && "原告".equals(type)) {
                 //原告的诉讼请求项
-                courtInvestigateObject.put("accuser_claim_item",claimItem);
+                courtInvestigateObject.put("accuser_claim_item", claimItem);
                 //原告的事实和理由
-                courtInvestigateObject.put("accuser_claim_fact_reason",factReason);
-            }else if(type !="" && "反诉原告".equals(type)) {
+                courtInvestigateObject.put("accuser_claim_fact_reason", factReason);
+            } else if (type != "" && "反诉原告".equals(type)) {
                 //反诉原告的诉讼请求项
                 courtInvestigateObject.put("counterclaim_accuser_claim_item", factReason);
                 //反诉原告的事实和理由
                 courtInvestigateObject.put("counterclaim_accuser_fact_reason", factReason);
                 //是否反诉
-                courtInvestigateObject.put("is_counterClaim",isCounterClaim);
+                courtInvestigateObject.put("is_counterClaim", isCounterClaim);
             }
         }
 
@@ -371,25 +371,25 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         List<Reply> replies = replyService.list(replyQueryWrapper);
         JSONArray defendantReplyArray = new JSONArray();
         JSONArray counterClaimDefendantReplyArray = new JSONArray();
-        for(int i=0;i<replies.size();i++){
+        for (int i = 0; i < replies.size(); i++) {
             Reply reply = replies.get(i);
             String name = reply.getName();
             String type = reply.getType();
             String content = reply.getContent();
 
             JSONObject replyObject = new JSONObject();
-            replyObject.put("name",name);
-            replyObject.put("content",content);
+            replyObject.put("name", name);
+            replyObject.put("content", content);
 
-            if("被告".equals(type)){
+            if ("被告".equals(type)) {
                 defendantReplyArray.add(replyObject);
-            }else if("反诉被告".equals(type)){
+            } else if ("反诉被告".equals(type)) {
                 counterClaimDefendantReplyArray.add(replyObject);
-                courtInvestigateObject.put("counterclaim_defendant_today_is_reply","1");
+                courtInvestigateObject.put("counterclaim_defendant_today_is_reply", "1");
             }
         }
-        courtInvestigateObject.put("defendant_reply",defendantReplyArray);
-        courtInvestigateObject.put("counterclaim_defendant_reply",counterClaimDefendantReplyArray);
+        courtInvestigateObject.put("defendant_reply", defendantReplyArray);
+        courtInvestigateObject.put("counterclaim_defendant_reply", counterClaimDefendantReplyArray);
 
         //举证内容
         LambdaQueryWrapper<Proof> proofQueryWrapper = new LambdaQueryWrapper<>();
@@ -399,7 +399,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         JSONArray defendantEvidenceArray = new JSONArray();
         JSONArray counterClaimAccuserEvidenceArray = new JSONArray();
         JSONArray counterClaimDefendantEvidenceArray = new JSONArray();
-        for(int i=0;i<proofs.size();i++){
+        for (int i = 0; i < proofs.size(); i++) {
             Proof proof = proofs.get(i);
             String name = proof.getName();
             String type = proof.getType();
@@ -408,29 +408,29 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
             String factReason = proof.getFactReason();
 
             JSONObject evidenceObject = new JSONObject();
-            evidenceObject.put("evidence",evidence);
-            evidenceObject.put("content",content);
+            evidenceObject.put("evidence", evidence);
+            evidenceObject.put("content", content);
 
-            if("原告".equals(type)){
+            if ("原告".equals(type)) {
                 accuserEvidenceArray.add(evidenceObject);
-                if(ObjectUtils.isEmpty(courtInvestigateObject.get("accuser_evidence_fact_reason"))){
-                    courtInvestigateObject.put("accuser_evidence_fact_reason",factReason);
+                if (ObjectUtils.isEmpty(courtInvestigateObject.get("accuser_evidence_fact_reason"))) {
+                    courtInvestigateObject.put("accuser_evidence_fact_reason", factReason);
                 }
-            }else if("被告".equals(type)){
+            } else if ("被告".equals(type)) {
                 defendantEvidenceArray.add(evidenceObject);
-                if(ObjectUtils.isEmpty(courtInvestigateObject.get("defendant_evidence_fact_reason"))){
-                    courtInvestigateObject.put("defendant_evidence_fact_reason",factReason);
+                if (ObjectUtils.isEmpty(courtInvestigateObject.get("defendant_evidence_fact_reason"))) {
+                    courtInvestigateObject.put("defendant_evidence_fact_reason", factReason);
                 }
-            }else if("反诉原告".equals(type)){
+            } else if ("反诉原告".equals(type)) {
                 counterClaimAccuserEvidenceArray.add(evidenceObject);
 
-                if(ObjectUtils.isEmpty(courtInvestigateObject.get("counterclaim_accuser_evidence_fact_reason"))){
-                    courtInvestigateObject.put("counterclaim_accuser_evidence_fact_reason",factReason);
+                if (ObjectUtils.isEmpty(courtInvestigateObject.get("counterclaim_accuser_evidence_fact_reason"))) {
+                    courtInvestigateObject.put("counterclaim_accuser_evidence_fact_reason", factReason);
                 }
-            }else if("反诉被告".equals(type)){
+            } else if ("反诉被告".equals(type)) {
                 counterClaimDefendantEvidenceArray.add(evidenceObject);
-                if(ObjectUtils.isEmpty(courtInvestigateObject.get("counterclaim_defendant_evidence_fact_reason"))){
-                    courtInvestigateObject.put("counterclaim_defendant_evidence_fact_reason",factReason);
+                if (ObjectUtils.isEmpty(courtInvestigateObject.get("counterclaim_defendant_evidence_fact_reason"))) {
+                    courtInvestigateObject.put("counterclaim_defendant_evidence_fact_reason", factReason);
                 }
             }
         }
@@ -447,7 +447,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         JSONArray counterClaimDefendantQueryArray = new JSONArray();
         JSONArray otherCounterClaimDefendantQueryArray = new JSONArray();
 
-        for(int i=0;i<queries.size();i++){
+        for (int i = 0; i < queries.size(); i++) {
             Query query = queries.get(i);
             String name = query.getName();
             String evidence = query.getEvidence();
@@ -458,31 +458,31 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
             String queryType = query.getQueryType().toString();
 
             JSONObject queryObject = new JSONObject();
-            queryObject.put("evidence",evidence);
-            queryObject.put("facticity",facticity);
-            queryObject.put("legality",legality);
-            queryObject.put("relevance",relevance);
+            queryObject.put("evidence", evidence);
+            queryObject.put("facticity", facticity);
+            queryObject.put("legality", legality);
+            queryObject.put("relevance", relevance);
 
-            if("1".equals(queryType)){
+            if ("1".equals(queryType)) {
                 //被告质证
-                queryObject.put("defendant",name);
-                queryObject.put("defendant_query_fact_reason",reason);
+                queryObject.put("defendant", name);
+                queryObject.put("defendant_query_fact_reason", reason);
                 defendantQueryArray.add(queryObject);
-            }else if("2".equals(queryType)){
+            } else if ("2".equals(queryType)) {
                 //原告质证
-                queryObject.put("accuser",name);
-                queryObject.put("accuser_query_fact_reason",reason);
+                queryObject.put("accuser", name);
+                queryObject.put("accuser_query_fact_reason", reason);
                 accuserQueryArray.add(queryObject);
                 //TODO 其他被告质证
-            }else if("3".equals(queryType)){
+            } else if ("3".equals(queryType)) {
                 //反诉被告质证
-                queryObject.put("counterclaim_defendant",name);
-                queryObject.put("counterclaim_defendant_query_fact_reason",reason);
+                queryObject.put("counterclaim_defendant", name);
+                queryObject.put("counterclaim_defendant_query_fact_reason", reason);
                 counterClaimDefendantQueryArray.add(queryObject);
-            }else if("4".equals(queryType)){
+            } else if ("4".equals(queryType)) {
                 //反诉原告质证
-                queryObject.put("counterclaim_accuser",name);
-                queryObject.put("counterclaim_accuser_query_fact_reason",reason);
+                queryObject.put("counterclaim_accuser", name);
+                queryObject.put("counterclaim_accuser_query_fact_reason", reason);
                 counterClaimAccuserQueryArray.add(queryObject);
                 //TODO 其他反诉被告质证
             }

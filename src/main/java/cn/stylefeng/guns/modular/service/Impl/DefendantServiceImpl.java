@@ -2,7 +2,6 @@ package cn.stylefeng.guns.modular.service.Impl;
 
 import cn.stylefeng.guns.modular.entity.Agent;
 import cn.stylefeng.guns.modular.entity.Defendant;
-import cn.stylefeng.guns.modular.mapper.AgentMapper;
 import cn.stylefeng.guns.modular.mapper.DefendantMapper;
 import cn.stylefeng.guns.modular.service.AgentService;
 import cn.stylefeng.guns.modular.service.DefendantService;
@@ -50,18 +49,18 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
             Defendant defendant = new Defendant();
             JSONObject defendantInfoObject = defendantInfoArray.getJSONObject(i);
             defendant.setDefendant(defendantInfoObject.get("defendant").toString());
-            String defendantShortName=defendantInfoObject.get("defendant_short").toString();
+            String defendantShortName = defendantInfoObject.get("defendant_short").toString();
             defendant.setDefendantShort(defendantShortName);
             String defendantType = defendantInfoObject.get("defendant_type").toString();
             defendant.setDefendantType(defendantType);
             defendant.setDefendantAddress(defendantInfoObject.get("defendant_address").toString());
-            if("1".equals(defendantType)){
+            if ("1".equals(defendantType)) {
                 defendant.setDefendantRepresent(defendantInfoObject.get("defendant_represent").toString());
                 defendant.setDefendantDuty(defendantInfoObject.get("defendant_duty").toString());
             }
             defendant.setCourtNumber(court_number);
 
-            if(rightInfoObject != null){
+            if (rightInfoObject != null) {
                 //是否听清诉讼权利和义务（1-听清，2-没听清）、是否申请回避(1-回避，2-不回避)
                 JSONArray defendantRightDutyArray = rightInfoObject.getJSONArray("defendant_right_duty");
                 for (int j = 0; j < defendantRightDutyArray.size(); j++) {
@@ -74,7 +73,7 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
                 }
             }
 
-            if(mediateInfoObject != null){
+            if (mediateInfoObject != null) {
                 //是否能够调解（1-能，2-不能）、调解方案、庭外和解时限
                 JSONArray mediateDefendantArray = mediateInfoObject.getJSONArray("mediate_defendant");
                 for (int k = 0; k < mediateDefendantArray.size(); k++) {
