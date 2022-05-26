@@ -48,10 +48,13 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
             defendant.setDefendant(defendantInfoObject.get("defendant").toString());
             String defendantShortName=defendantInfoObject.get("defendant_short").toString();
             defendant.setDefendantShort(defendantShortName);
-            defendant.setDefendantType(defendantInfoObject.get("defendant_type").toString());
+            String defendantType = defendantInfoObject.get("defendant_type").toString();
+            defendant.setDefendantType(defendantType);
             defendant.setDefendantAddress(defendantInfoObject.get("defendant_address").toString());
-            defendant.setDefendantRepresent(defendantInfoObject.get("defendant_represent").toString());
-            defendant.setDefendantDuty(defendantInfoObject.get("defendant_duty").toString());
+            if("1".equals(defendantType)){
+                defendant.setDefendantRepresent(defendantInfoObject.get("defendant_represent").toString());
+                defendant.setDefendantDuty(defendantInfoObject.get("defendant_duty").toString());
+            }
             defendant.setCourtNumber(court_number);
 
             if(rightInfoObject != null){

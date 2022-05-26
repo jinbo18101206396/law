@@ -31,13 +31,10 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
         String argueInfo = recordJsonObject.getString("argueInfo");
         if (!ObjectUtils.isEmpty(argueInfo)) {
             JSONObject argueInfoObject = JSONObject.parseObject(argueInfo);
-            if (counterClaim.equals("2")) {
-                //正诉
-                JSONArray argueArray = argueInfoObject.getJSONArray("argue");
-                saveArgue(argueArray, counterClaim);
-            }
-            if (counterClaim.equals("1")) {
-                //反诉
+            JSONArray argueArray = argueInfoObject.getJSONArray("argue");
+            saveArgue(argueArray, counterClaim);
+
+            if ("1".equals(counterClaim)) {
                 JSONArray counterClaimArgueArray = argueInfoObject.getJSONArray("counterclaim_argue");
                 saveCounterClaimArgue(counterClaimArgueArray, counterClaim);
             }

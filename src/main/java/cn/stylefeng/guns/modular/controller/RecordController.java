@@ -24,6 +24,7 @@
  */
 package cn.stylefeng.guns.modular.controller;
 
+import cn.stylefeng.guns.modular.entity.BasicInfo;
 import cn.stylefeng.guns.modular.model.request.BasicInfoRequest;
 import cn.stylefeng.guns.modular.service.*;
 import cn.stylefeng.roses.kernel.rule.pojo.response.ResponseData;
@@ -40,6 +41,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 笔录基本信息控制器
@@ -84,7 +86,6 @@ public class RecordController {
     @Resource
     private QueryService queryService;
 
-
     /**
      * 分页查询笔录基本信息(系统首页)
      *
@@ -108,11 +109,17 @@ public class RecordController {
         JSONObject recordJsonObject = JSONObject.parseObject(recordJson);
         JSONObject basicInfoObject = JSONObject.parseObject(recordJsonObject.getString("basicInfo"));
         JSONObject courtInvestigateObject = JSONObject.parseObject(recordJsonObject.getString("courtInvestigate"));
-        //案号
+
         String courtNumber = basicInfoObject.get("court_number").toString();
-        if(ObjectUtils.isEmpty(courtNumber)){
+        if (ObjectUtils.isEmpty(courtNumber)) {
             return new SuccessResponseData("案号不能为空");
         }
+        //案号唯一
+        List<BasicInfo> basicInfoList = basicInfoService.getBasicInfoList(courtNumber);
+        if(basicInfoList.size() > 0){
+            return new SuccessResponseData("案号已存在，不能重复");
+        }
+
         //是否反诉
         String counterClaim = courtInvestigateObject.get("is_counterclaim").toString();
 
@@ -126,12 +133,10 @@ public class RecordController {
         agentService.saveAgentInfo(courtNumber, recordJsonObject);
         //基本信息陈述
         stateService.saveStateInfo(courtNumber, recordJsonObject);
-
         //法庭辩论信息
         argueService.saveArgueInfo(courtNumber, counterClaim, recordJsonObject);
         //法庭询问信息
         inquiryService.saveInquiryInfo(courtNumber, counterClaim, recordJsonObject);
-
         //原告诉讼请求项和事实与理由
         allegeService.saveAccuserClaimItem(courtNumber, "2", recordJsonObject);
         //被告答辩
@@ -142,7 +147,6 @@ public class RecordController {
             //反诉被告答辩
             replyService.saveCounterClaimDefendantReply(courtNumber, "1", recordJsonObject);
         }
-
         //原告举证
         proofService.saveAccuserEvidence(courtNumber, "2", recordJsonObject);
         //被告质证

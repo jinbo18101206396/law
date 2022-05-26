@@ -7,6 +7,8 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * 基本信息service
  *
@@ -32,6 +34,16 @@ public interface BasicInfoService extends IService<BasicInfo> {
      * @date 2022/05/25
      */
     JSONObject getBasicInfoObject(String courtNumber);
+
+    /**
+     * 获取笔录基本信息列表
+     *
+     * @param courtNumber 查看参数
+     * @return 详情结果
+     * @author 金波
+     * @date 2022/05/26
+     */
+    List<BasicInfo> getBasicInfoList(String courtNumber);
 
     /**
      * 获取权利告知信息

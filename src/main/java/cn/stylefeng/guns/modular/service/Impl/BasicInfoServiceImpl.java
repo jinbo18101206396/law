@@ -150,6 +150,14 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         return basicInfoObject;
     }
 
+    @Override
+    public List<BasicInfo> getBasicInfoList(String courtNumber) {
+        LambdaQueryWrapper<BasicInfo> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(BasicInfo::getCourtNumber, courtNumber);
+        List<BasicInfo> basicInfos = basicInfoMapper.selectList(queryWrapper);
+        return basicInfos;
+    }
+
     //权利告知
     @Override
     public JSONObject getRightInfoObject(String courtNumber) {

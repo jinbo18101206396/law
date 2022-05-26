@@ -48,11 +48,16 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
             JSONObject accuserInfoObject = accuserInfoArray.getJSONObject(i);
             accuser.setAccuser(accuserInfoObject.get("accuser").toString());
             String accuserShortName = accuserInfoObject.get("accuser_short").toString();
+            //原告类型（1-机构，2-个人）
+            String accuserType = accuserInfoObject.get("accuser_type").toString();
+            accuser.setAccuserType(accuserType);
             accuser.setAccuserShort(accuserShortName);
-            accuser.setAccuserType(accuserInfoObject.get("accuser_type").toString());
             accuser.setAccuserAddress(accuserInfoObject.get("accuser_address").toString());
-            accuser.setAccuserRepresent(accuserInfoObject.get("accuser_represent").toString());
-            accuser.setAccuserDuty(accuserInfoObject.get("accuser_duty").toString());
+            //原告-机构
+            if("1".equals(accuserType)){
+                accuser.setAccuserRepresent(accuserInfoObject.get("accuser_represent").toString());
+                accuser.setAccuserDuty(accuserInfoObject.get("accuser_duty").toString());
+            }
             accuser.setCourtNumber(courtNumber);
 
             if(rightInfoObject != null){
