@@ -45,9 +45,9 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
         for (int i = 0; i < defendantInfoArray.size(); i++) {
             Defendant defendant = new Defendant();
             JSONObject defendantInfoObject = defendantInfoArray.getJSONObject(i);
-            String defendantName = defendantInfoObject.get("defendant").toString();
-            defendant.setDefendant(defendantName);
-            defendant.setDefendantShort(defendantInfoObject.get("defendant_short").toString());
+            defendant.setDefendant(defendantInfoObject.get("defendant").toString());
+            String defendantShortName=defendantInfoObject.get("defendant_short").toString();
+            defendant.setDefendantShort(defendantShortName);
             defendant.setDefendantType(defendantInfoObject.get("defendant_type").toString());
             defendant.setDefendantAddress(defendantInfoObject.get("defendant_address").toString());
             defendant.setDefendantRepresent(defendantInfoObject.get("defendant_represent").toString());
@@ -60,7 +60,7 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
                 for (int j = 0; j < defendantRightDutyArray.size(); j++) {
                     JSONObject defendantRightDutyObject = defendantRightDutyArray.getJSONObject(j);
                     String rightDutyDefendantName = defendantRightDutyObject.get("defendant").toString();
-                    if (rightDutyDefendantName.equals(defendantName)) {
+                    if (rightDutyDefendantName.equals(defendantShortName)) {
                         defendant.setDefendantRightDuty(defendantRightDutyObject.get("right_duty").toString());
                         defendant.setDefendantAvoid(defendantRightDutyObject.get("avoid").toString());
                     }
@@ -73,7 +73,7 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
                 for (int k = 0; k < mediateDefendantArray.size(); k++) {
                     JSONObject mediateDefendantObject = mediateDefendantArray.getJSONObject(k);
                     String mediateDefendantName = mediateDefendantObject.get("defendant").toString();
-                    if (mediateDefendantName.equals(defendantName)) {
+                    if (mediateDefendantName.equals(defendantShortName)) {
                         defendant.setIsMediate(mediateDefendantObject.get("is_mediate").toString());
                         defendant.setMediatePlan(mediateDefendantObject.get("mediate_plan").toString());
                         defendant.setTimeLimit(mediateDefendantObject.get("time_limit").toString());
@@ -88,7 +88,7 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
                 String deliveryDefendantName = deliveryObject.get("name").toString();
                 String name = deliveryDefendantName.split("（")[0];
                 String type = deliveryDefendantName.split("（")[1];
-                if (name.equals(defendantName) && type.startsWith("被告")) {
+                if (name.equals(defendantShortName) && type.startsWith("被告")) {
                     defendant.setIsDelivery(deliveryObject.get("is_delivery").toString());
                     defendant.setEmail(deliveryObject.get("email").toString());
                 }
@@ -101,7 +101,7 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
                 String finalStatementDefendantName = finalStatementObject.get("name").toString();
                 String name = finalStatementDefendantName.split("（")[0];
                 String type = finalStatementDefendantName.split("（")[1];
-                if (name.equals(defendantName) && type.startsWith("被告")) {
+                if (name.equals(defendantShortName) && type.startsWith("被告")) {
                     defendant.setFinalStatement(finalStatementObject.get("final_statement").toString());
                 }
             }

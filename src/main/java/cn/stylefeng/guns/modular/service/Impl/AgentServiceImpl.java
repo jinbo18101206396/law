@@ -36,7 +36,7 @@ public class AgentServiceImpl extends ServiceImpl<AgentMapper, Agent> implements
     public void saveAccuserAgent(String courtNumber, JSONArray accuserInfoArray) {
         for (int i = 0; i < accuserInfoArray.size(); i++) {
             JSONObject accuserInfoObject = accuserInfoArray.getJSONObject(i);
-            String accuserName = accuserInfoObject.get("accuser").toString();
+            String accuserShortName = accuserInfoObject.get("accuser_short").toString();
             JSONArray accuserAgentArray = accuserInfoObject.getJSONArray("accuser_agent");
             //原告代理
             for (int j = 0; j < accuserAgentArray.size(); j++) {
@@ -46,7 +46,7 @@ public class AgentServiceImpl extends ServiceImpl<AgentMapper, Agent> implements
                 String agentAddress = accuserAgentObject.get("agent_address").toString();
                 accuserAgent.setAgent(agentName);
                 accuserAgent.setAgentAddress(agentAddress);
-                accuserAgent.setAgentName(accuserName);
+                accuserAgent.setAgentName(accuserShortName);
                 //代理类型（1-原告代理，2-被告代理）
                 accuserAgent.setAgentType("1");
                 accuserAgent.setCourtNumber(courtNumber);
@@ -58,7 +58,7 @@ public class AgentServiceImpl extends ServiceImpl<AgentMapper, Agent> implements
     public void saveDefendantAgent(String courtNumber, JSONArray defendantInfoArray) {
         for (int m = 0; m < defendantInfoArray.size(); m++) {
             JSONObject defendantInfoObject = defendantInfoArray.getJSONObject(m);
-            String defendantName = defendantInfoObject.get("defendant").toString();
+            String defendantShortName = defendantInfoObject.get("defendant_short").toString();
             JSONArray defendantAgentArray = defendantInfoObject.getJSONArray("defendant_agent");
             //被告代理
             for (int n = 0; n < defendantAgentArray.size(); n++) {
@@ -68,7 +68,7 @@ public class AgentServiceImpl extends ServiceImpl<AgentMapper, Agent> implements
                 String agentAddress = defendantAgentObject.get("agent_address").toString();
                 defendantAgent.setAgent(agentName);
                 defendantAgent.setAgentAddress(agentAddress);
-                defendantAgent.setAgentName(defendantName);
+                defendantAgent.setAgentName(defendantShortName);
                 //代理类型（1-原告代理，2-被告代理）
                 defendantAgent.setAgentType("2");
                 defendantAgent.setCourtNumber(courtNumber);

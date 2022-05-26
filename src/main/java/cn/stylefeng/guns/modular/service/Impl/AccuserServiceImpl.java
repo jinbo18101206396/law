@@ -46,9 +46,9 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
         for (int i = 0; i < accuserInfoArray.size(); i++) {
             Accuser accuser = new Accuser();
             JSONObject accuserInfoObject = accuserInfoArray.getJSONObject(i);
-            String accuserName = accuserInfoObject.get("accuser").toString();
-            accuser.setAccuser(accuserName);
-            accuser.setAccuserShort(accuserInfoObject.get("accuser_short").toString());
+            accuser.setAccuser(accuserInfoObject.get("accuser").toString());
+            String accuserShortName = accuserInfoObject.get("accuser_short").toString();
+            accuser.setAccuserShort(accuserShortName);
             accuser.setAccuserType(accuserInfoObject.get("accuser_type").toString());
             accuser.setAccuserAddress(accuserInfoObject.get("accuser_address").toString());
             accuser.setAccuserRepresent(accuserInfoObject.get("accuser_represent").toString());
@@ -61,7 +61,7 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
                 for (int j = 0; j < accuserRightDutyArray.size(); j++) {
                     JSONObject accuserRightDutyObject = accuserRightDutyArray.getJSONObject(j);
                     String rightDutyAccuserName = accuserRightDutyObject.get("accuser").toString();
-                    if (!"".equals(rightDutyAccuserName) && rightDutyAccuserName.equals(accuserName)) {
+                    if (!"".equals(rightDutyAccuserName) && rightDutyAccuserName.equals(accuserShortName)) {
                         accuser.setAccuserRightDuty(accuserRightDutyObject.get("right_duty").toString());
                         accuser.setAccuserAvoid(accuserRightDutyObject.get("avoid").toString());
                     }
@@ -74,7 +74,7 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
                 for (int k = 0; k < mediateAccuserArray.size(); k++) {
                     JSONObject mediateAccuserObject = mediateAccuserArray.getJSONObject(k);
                     String mediateAccuserName = mediateAccuserObject.get("accuser").toString();
-                    if (!"".equals(mediateAccuserName) && mediateAccuserName.equals(accuserName)) {
+                    if (!"".equals(mediateAccuserName) && mediateAccuserName.equals(accuserShortName)) {
                         accuser.setIsMediate(mediateAccuserObject.get("is_mediate").toString());
                         accuser.setMediatePlan(mediateAccuserObject.get("mediate_plan").toString());
                         accuser.setTimeLimit(mediateAccuserObject.get("time_limit").toString());
@@ -89,7 +89,7 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
                 String deliveryAccuserName = deliveryObject.get("name").toString();
                 String name = deliveryAccuserName.split("（")[0];
                 String type = deliveryAccuserName.split("（")[1];
-                if (name.equals(accuserName) && type.startsWith("原告")) {
+                if (name.equals(accuserShortName) && type.startsWith("原告")) {
                     accuser.setIsDelivery(deliveryObject.get("is_delivery").toString());
                     accuser.setEmail(deliveryObject.get("email").toString());
                 }
@@ -102,7 +102,7 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
                 String finalStatementAccuserName = finalStatementObject.get("name").toString();
                 String name = finalStatementAccuserName.split("（")[0];
                 String type = finalStatementAccuserName.split("（")[1];
-                if (name.equals(accuserName) && type.startsWith("原告")) {
+                if (name.equals(accuserShortName) && type.startsWith("原告")) {
                     accuser.setFinalStatement(finalStatementObject.get("final_statement").toString());
                 }
             }
