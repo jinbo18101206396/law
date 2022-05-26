@@ -137,8 +137,6 @@ public class RecordController {
         //是否反诉
         String counterClaim = courtInvestigateObject.get("is_counterclaim").toString();
 
-        //TODO 被告今日不答辩，流程结束
-
         //基本信息
         basicInfoService.saveBasicInfo(courtNumber, recordJsonObject);
         //原告信息
@@ -155,38 +153,39 @@ public class RecordController {
         //法庭询问信息
         inquiryService.saveInquiryInfo(courtNumber, counterClaim, recordJsonObject);
 
-        //原告诉称信息
+        //原告诉讼请求项和事实与理由
         allegeService.saveAccuserClaimItem(courtNumber, "2", recordJsonObject);
-        //反诉原告诉称信息
-        allegeService.saveCounterClaimAccuserItem(courtNumber, "1", recordJsonObject);
-
         //被告答辩
         replyService.saveDefendantReply(courtNumber, "2", recordJsonObject);
-        //反诉被告答辩
-        replyService.saveCounterClaimDefendantReply(courtNumber, "1", recordJsonObject);
+        if(counterClaim.equals("1")){
+            //反诉原告诉讼请求项和事实与理由
+            allegeService.saveCounterClaimAccuserItem(courtNumber, "1", recordJsonObject);
+            //反诉被告答辩
+            replyService.saveCounterClaimDefendantReply(courtNumber, "1", recordJsonObject);
+        }
 
         //原告举证
         proofService.saveAccuserEvidence(courtNumber, "2", recordJsonObject);
-        //被告举证
-        proofService.saveDefendantEvidence(courtNumber, "2", recordJsonObject);
-        //反诉原告举证
-        proofService.saveCounterClaimAccuserEvidence(courtNumber, "1", recordJsonObject);
-        //反诉被告举证
-        proofService.saveCounterClaimDefendantEvidence(courtNumber, "1", recordJsonObject);
-
         //被告质证
         queryService.saveDefendantQuery(courtNumber, "2", recordJsonObject);
+        //被告举证
+        proofService.saveDefendantEvidence(courtNumber, "2", recordJsonObject);
         //原告质证
         queryService.saveAccuserQuery(courtNumber, "2", recordJsonObject);
         //其他被告质证
         queryService.saveOtherDefendantQuery(courtNumber, "2", recordJsonObject);
-        //反诉被告质证
-        queryService.saveCounterClaimDefendantQuery(courtNumber, "1", recordJsonObject);
-        //反诉原告质证
-        queryService.saveCounterClaimAccuserQuery(courtNumber, "1", recordJsonObject);
-        //其他反诉被告质证
-        queryService.saveOtherCounterClaimDefendantQuery(courtNumber, "1", recordJsonObject);
-
+        if(counterClaim.equals("1")){
+            //反诉原告举证
+            proofService.saveCounterClaimAccuserEvidence(courtNumber, "1", recordJsonObject);
+            //反诉被告质证
+            queryService.saveCounterClaimDefendantQuery(courtNumber, "1", recordJsonObject);
+            //反诉被告举证
+            proofService.saveCounterClaimDefendantEvidence(courtNumber, "1", recordJsonObject);
+            //反诉原告质证
+            queryService.saveCounterClaimAccuserQuery(courtNumber, "1", recordJsonObject);
+            //其他反诉被告质证
+            queryService.saveOtherCounterClaimDefendantQuery(courtNumber, "1", recordJsonObject);
+        }
         return new SuccessResponseData();
     }
 
