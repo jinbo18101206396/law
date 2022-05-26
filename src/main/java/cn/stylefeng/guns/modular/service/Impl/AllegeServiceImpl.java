@@ -62,7 +62,7 @@ public class AllegeServiceImpl extends ServiceImpl<AllegeMapper, Allege> impleme
         //反诉原告的诉讼请求项
         String counterClaimAccuserItem = courtInvestigateObject.get("counterclaim_accuser_claim_item").toString();
         //反诉原告的事实和理由
-        String counterClaimAccuserFactReason = courtInvestigateObject.get("counterclaim_accuser_claim_fact_reason").toString();
+        String counterClaimAccuserFactReason = courtInvestigateObject.get("counterclaim_accuser_fact_reason").toString();
 
         Allege allege = new Allege();
         allege.setName(defendantName.toString());
