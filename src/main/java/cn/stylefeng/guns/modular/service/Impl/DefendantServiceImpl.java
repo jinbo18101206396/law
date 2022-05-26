@@ -54,26 +54,30 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
             defendant.setDefendantDuty(defendantInfoObject.get("defendant_duty").toString());
             defendant.setCourtNumber(court_number);
 
-            //是否听清诉讼权利和义务（1-听清，2-没听清）、是否申请回避(1-回避，2-不回避)
-            JSONArray defendantRightDutyArray = rightInfoObject.getJSONArray("defendant_right_duty");
-            for (int j = 0; j < defendantRightDutyArray.size(); j++) {
-                JSONObject defendantRightDutyObject = defendantRightDutyArray.getJSONObject(j);
-                String rightDutyDefendantName = defendantRightDutyObject.get("defendant").toString();
-                if (rightDutyDefendantName.equals(defendantName)) {
-                    defendant.setDefendantRightDuty(defendantRightDutyObject.get("right_duty").toString());
-                    defendant.setDefendantAvoid(defendantRightDutyObject.get("avoid").toString());
+            if(rightInfoObject != null){
+                //是否听清诉讼权利和义务（1-听清，2-没听清）、是否申请回避(1-回避，2-不回避)
+                JSONArray defendantRightDutyArray = rightInfoObject.getJSONArray("defendant_right_duty");
+                for (int j = 0; j < defendantRightDutyArray.size(); j++) {
+                    JSONObject defendantRightDutyObject = defendantRightDutyArray.getJSONObject(j);
+                    String rightDutyDefendantName = defendantRightDutyObject.get("defendant").toString();
+                    if (rightDutyDefendantName.equals(defendantName)) {
+                        defendant.setDefendantRightDuty(defendantRightDutyObject.get("right_duty").toString());
+                        defendant.setDefendantAvoid(defendantRightDutyObject.get("avoid").toString());
+                    }
                 }
             }
 
-            //是否能够调解（1-能，2-不能）、调解方案、庭外和解时限
-            JSONArray mediateDefendantArray = mediateInfoObject.getJSONArray("mediate_defendant");
-            for (int k = 0; k < mediateDefendantArray.size(); k++) {
-                JSONObject mediateDefendantObject = mediateDefendantArray.getJSONObject(k);
-                String mediateDefendantName = mediateDefendantObject.get("defendant").toString();
-                if (mediateDefendantName.equals(defendantName)) {
-                    defendant.setIsMediate(mediateDefendantObject.get("is_mediate").toString());
-                    defendant.setMediatePlan(mediateDefendantObject.get("mediate_plan").toString());
-                    defendant.setTimeLimit(mediateDefendantObject.get("time_limit").toString());
+            if(mediateInfoObject != null){
+                //是否能够调解（1-能，2-不能）、调解方案、庭外和解时限
+                JSONArray mediateDefendantArray = mediateInfoObject.getJSONArray("mediate_defendant");
+                for (int k = 0; k < mediateDefendantArray.size(); k++) {
+                    JSONObject mediateDefendantObject = mediateDefendantArray.getJSONObject(k);
+                    String mediateDefendantName = mediateDefendantObject.get("defendant").toString();
+                    if (mediateDefendantName.equals(defendantName)) {
+                        defendant.setIsMediate(mediateDefendantObject.get("is_mediate").toString());
+                        defendant.setMediatePlan(mediateDefendantObject.get("mediate_plan").toString());
+                        defendant.setTimeLimit(mediateDefendantObject.get("time_limit").toString());
+                    }
                 }
             }
 
