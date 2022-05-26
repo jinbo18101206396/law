@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -22,7 +23,8 @@ import java.util.List;
 @Service
 public class InquiryServiceImpl extends ServiceImpl<InquiryMapper, Inquiry> implements InquiryService {
 
-    private InquiryMapper inquiryMapper;
+    @Resource
+    private InquiryService inquiryService;
 
     @Override
     public void saveInquiryInfo(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
@@ -60,7 +62,7 @@ public class InquiryServiceImpl extends ServiceImpl<InquiryMapper, Inquiry> impl
         JSONArray inquiryInfoArray = new JSONArray();
         LambdaQueryWrapper<Inquiry> inquiryQueryWrapper = new LambdaQueryWrapper<>();
         inquiryQueryWrapper.eq(Inquiry::getCourtNumber, courtNumber);
-        List<Inquiry> inquiries = inquiryMapper.selectList(inquiryQueryWrapper);
+        List<Inquiry> inquiries = inquiryService.list(inquiryQueryWrapper);
 
         String lastInquiryQuestion = "";
         JSONArray inquiryAnswerArray = null;
@@ -76,7 +78,7 @@ public class InquiryServiceImpl extends ServiceImpl<InquiryMapper, Inquiry> impl
             JSONObject inquiryAnswerObject = new JSONObject();
             if (!lastInquiryQuestion.equals(question)) {
 
-                if (inquiryAnswerArray.size() > 0) {
+                if (inquiryAnswerArray != null && inquiryAnswerArray.size() > 0) {
                     inquiryInfoObject.put("inquiry_answer", inquiryAnswerArray);
                     inquiryInfoArray.add(inquiryInfoObject);
                 }

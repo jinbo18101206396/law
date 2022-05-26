@@ -9,6 +9,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import javax.annotation.Resource;
+
 /**
  * <p>
  * 基本信息陈述表 服务实现类
@@ -20,7 +22,8 @@ import org.springframework.util.ObjectUtils;
 @Service
 public class StateServiceImpl extends ServiceImpl<StateMapper, State> implements StateService {
 
-    private StateMapper stateMapper;
+    @Resource
+    private StateService stateService;
 
     @Override
     public void saveStateInfo(String courtNumber, JSONObject recordJsonObject) {
@@ -43,7 +46,7 @@ public class StateServiceImpl extends ServiceImpl<StateMapper, State> implements
         //基本信息陈述
         LambdaQueryWrapper<State> stateQueryWrapper = new LambdaQueryWrapper<>();
         stateQueryWrapper.eq(State::getCourtNumber, courtNumber);
-        State state = stateMapper.selectOne(stateQueryWrapper);
+        State state = stateService.getOne(stateQueryWrapper);
         String stateType = state.getStateType();
         String stateContent = state.getStateContent();
         JSONObject stateObject = new JSONObject();

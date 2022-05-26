@@ -116,7 +116,7 @@ public class RecordController {
         }
         //案号唯一
         List<BasicInfo> basicInfoList = basicInfoService.getBasicInfoList(courtNumber);
-        if(basicInfoList.size() > 0){
+        if (basicInfoList.size() > 0) {
             return new SuccessResponseData("案号已存在，不能重复");
         }
 
@@ -141,12 +141,6 @@ public class RecordController {
         allegeService.saveAccuserClaimItem(courtNumber, "2", recordJsonObject);
         //被告答辩
         replyService.saveDefendantReply(courtNumber, "2", recordJsonObject);
-        if ("1".equals(counterClaim)) {
-            //反诉原告诉讼请求项和事实与理由
-            allegeService.saveCounterClaimAccuserItem(courtNumber, "1", recordJsonObject);
-            //反诉被告答辩
-            replyService.saveCounterClaimDefendantReply(courtNumber, "1", recordJsonObject);
-        }
         //原告举证
         proofService.saveAccuserEvidence(courtNumber, "2", recordJsonObject);
         //被告质证
@@ -157,7 +151,13 @@ public class RecordController {
         queryService.saveAccuserQuery(courtNumber, "2", recordJsonObject);
         //其他被告质证
         queryService.saveOtherDefendantQuery(courtNumber, "2", recordJsonObject);
+
         if ("1".equals(counterClaim)) {
+            //反诉原告诉讼请求项和事实与理由
+            allegeService.saveCounterClaimAccuserItem(courtNumber, "1", recordJsonObject);
+            //反诉被告答辩
+            replyService.saveCounterClaimDefendantReply(courtNumber, "1", recordJsonObject);
+
             //反诉原告举证
             proofService.saveCounterClaimAccuserEvidence(courtNumber, "1", recordJsonObject);
             //反诉被告质证
@@ -204,8 +204,8 @@ public class RecordController {
         recordJson.put("rightInfo", rightInfoObject);
 
         //法庭调查
-        JSONObject courtInvestigateObject = basicInfoService.getCourtInvestigateObject(courtNumber);
-        recordJson.put("courtInvestigate", courtInvestigateObject);
+        //JSONObject courtInvestigateObject = basicInfoService.getCourtInvestigateObject(courtNumber);
+        //recordJson.put("courtInvestigate", courtInvestigateObject);
 
         //法庭询问
         JSONArray inquiryInfoArray = inquiryService.getInquiryInfoArray(courtNumber);

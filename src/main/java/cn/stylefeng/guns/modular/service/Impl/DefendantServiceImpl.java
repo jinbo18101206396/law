@@ -4,6 +4,7 @@ import cn.stylefeng.guns.modular.entity.Agent;
 import cn.stylefeng.guns.modular.entity.Defendant;
 import cn.stylefeng.guns.modular.mapper.AgentMapper;
 import cn.stylefeng.guns.modular.mapper.DefendantMapper;
+import cn.stylefeng.guns.modular.service.AgentService;
 import cn.stylefeng.guns.modular.service.DefendantService;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -12,6 +13,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -25,8 +27,10 @@ import java.util.List;
 @Service
 public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant> implements DefendantService {
 
-    private DefendantMapper defendantMapper;
-    private AgentMapper agentMapper;
+    @Resource
+    private DefendantService defendantService;
+    @Resource
+    private AgentService agentService;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -117,13 +121,13 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
         JSONArray defendantInfoArray = new JSONArray();
         LambdaQueryWrapper<Defendant> defendantQueryWrapper = new LambdaQueryWrapper<>();
         defendantQueryWrapper.eq(Defendant::getCourtNumber, courtNumber);
-        List<Defendant> defendants = defendantMapper.selectList(defendantQueryWrapper);
+        List<Defendant> defendants = defendantService.list(defendantQueryWrapper);
 
         //委托诉讼代理人
         LambdaQueryWrapper<Agent> agentQueryWrapper = new LambdaQueryWrapper<>();
         agentQueryWrapper.eq(Agent::getCourtNumber, courtNumber);
         agentQueryWrapper.eq(Agent::getAgentType, "2");
-        List<Agent> agents = agentMapper.selectList(agentQueryWrapper);
+        List<Agent> agents = agentService.list(agentQueryWrapper);
 
         for (int i = 0; i < defendants.size(); i++) {
             Defendant defendant = defendants.get(i);

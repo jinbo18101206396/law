@@ -5,6 +5,7 @@ import cn.stylefeng.guns.modular.entity.Agent;
 import cn.stylefeng.guns.modular.mapper.AccuserMapper;
 import cn.stylefeng.guns.modular.mapper.AgentMapper;
 import cn.stylefeng.guns.modular.service.AccuserService;
+import cn.stylefeng.guns.modular.service.AgentService;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -26,8 +28,10 @@ import java.util.List;
 @Service
 public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> implements AccuserService {
 
-    private AccuserMapper accuserMapper;
-    private AgentMapper agentMapper;
+    @Resource
+    private AccuserService accuserService;
+    @Resource
+    private AgentService agentService;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -121,13 +125,14 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
         JSONArray accuserInfoArray = new JSONArray();
         LambdaQueryWrapper<Accuser> accuserQueryWrapper = new LambdaQueryWrapper<>();
         accuserQueryWrapper.eq(Accuser::getCourtNumber, courtNumber);
-        List<Accuser> accusers = accuserMapper.selectList(accuserQueryWrapper);
+        List<Accuser> accusers = accuserService.list(accuserQueryWrapper);
 
         //委托诉讼代理人
         LambdaQueryWrapper<Agent> agentQueryWrapper = new LambdaQueryWrapper<>();
         agentQueryWrapper.eq(Agent::getCourtNumber, courtNumber);
         agentQueryWrapper.eq(Agent::getAgentType,"1");
-        List<Agent> agents = agentMapper.selectList(agentQueryWrapper);
+        List<Agent> agents = agentService.list(agentQueryWrapper);
+
 
         for (int i = 0; i < accusers.size(); i++) {
             JSONObject accuserInfoObject = new JSONObject();

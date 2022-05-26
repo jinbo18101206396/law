@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -23,7 +24,8 @@ import java.util.List;
 @Service
 public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements ArgueService {
 
-    private ArgueMapper argueMapper;
+    @Resource
+    private ArgueService argueService;
 
     @Override
     public void saveArgueInfo(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
@@ -82,7 +84,7 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
         //法庭辩论
         LambdaQueryWrapper<Argue> argueQueryWrapper = new LambdaQueryWrapper<>();
         argueQueryWrapper.eq(Argue::getCourtNumber, courtNumber);
-        List<Argue> argues = argueMapper.selectList(argueQueryWrapper);
+        List<Argue> argues = argueService.list(argueQueryWrapper);
 
         JSONArray argueArray = new JSONArray();
         JSONArray counterClaimArgueArray = new JSONArray();

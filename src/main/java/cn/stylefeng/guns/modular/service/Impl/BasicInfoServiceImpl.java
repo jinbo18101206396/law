@@ -4,7 +4,7 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.stylefeng.guns.modular.entity.*;
 import cn.stylefeng.guns.modular.mapper.*;
 import cn.stylefeng.guns.modular.model.request.BasicInfoRequest;
-import cn.stylefeng.guns.modular.service.BasicInfoService;
+import cn.stylefeng.guns.modular.service.*;
 import cn.stylefeng.roses.kernel.db.api.factory.PageFactory;
 import cn.stylefeng.roses.kernel.db.api.factory.PageResultFactory;
 import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -32,13 +33,20 @@ import java.util.List;
 @Service
 public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo> implements BasicInfoService {
 
-    private BasicInfoMapper basicInfoMapper;
-    private AccuserMapper accuserMapper;
-    private DefendantMapper defendantMapper;
-    private ProofMapper proofMapper;
-    private QueryMapper queryMapper;
-    private ReplyMapper replyMapper;
-    private AllegeMapper allegeMapper;
+    @Resource
+    private BasicInfoService basicInfoService;
+    @Resource
+    private AccuserService accuserService;
+    @Resource
+    private DefendantService defendantService;
+    @Resource
+    private ProofService proofService;
+    @Resource
+    private QueryService queryService;
+    @Resource
+    private ReplyService replyService;
+    @Resource
+    private AllegeService allegeService;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -95,7 +103,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         //笔录基本信息
         LambdaQueryWrapper<BasicInfo> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(BasicInfo::getCourtNumber, courtNumber);
-        BasicInfo basicInfo = basicInfoMapper.selectOne(queryWrapper);
+        BasicInfo basicInfo = this.getOne(queryWrapper);
 
         JSONObject basicInfoObject = new JSONObject();
         basicInfoObject.put("filing_time", basicInfo.getFilingTime());
@@ -154,7 +162,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
     public List<BasicInfo> getBasicInfoList(String courtNumber) {
         LambdaQueryWrapper<BasicInfo> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(BasicInfo::getCourtNumber, courtNumber);
-        List<BasicInfo> basicInfos = basicInfoMapper.selectList(queryWrapper);
+        List<BasicInfo> basicInfos = basicInfoService.list(queryWrapper);
         return basicInfos;
     }
 
@@ -169,7 +177,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         JSONArray accuserRightDutyArray = new JSONArray();
         LambdaQueryWrapper<Accuser> accuserQueryWrapper = new LambdaQueryWrapper<>();
         accuserQueryWrapper.eq(Accuser::getCourtNumber, courtNumber);
-        List<Accuser> accusers = accuserMapper.selectList(accuserQueryWrapper);
+        List<Accuser> accusers = accuserService.list(accuserQueryWrapper);
         for (int i = 0; i < accusers.size(); i++) {
             Accuser accuser = accusers.get(i);
             String accuserName = accuser.getAccuser();
@@ -187,7 +195,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         JSONArray defendantRightDutyArray = new JSONArray();
         LambdaQueryWrapper<Defendant> defendentQueryWrapper = new LambdaQueryWrapper<>();
         defendentQueryWrapper.eq(Defendant::getCourtNumber, courtNumber);
-        List<Defendant> defendants = defendantMapper.selectList(defendentQueryWrapper);
+        List<Defendant> defendants = defendantService.list(defendentQueryWrapper);
         for (int i = 0; i < defendants.size(); i++) {
             Defendant defendant = defendants.get(i);
             String defendantName = defendant.getDefendant();
@@ -211,7 +219,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         //原告
         LambdaQueryWrapper<Accuser> accuserQueryWrapper = new LambdaQueryWrapper<>();
         accuserQueryWrapper.eq(Accuser::getCourtNumber, courtNumber);
-        List<Accuser> accusers = accuserMapper.selectList(accuserQueryWrapper);
+        List<Accuser> accusers = accuserService.list(accuserQueryWrapper);
         for (int i = 0; i < accusers.size(); i++) {
             Accuser accuser = accusers.get(i);
             String accuserShortName = accuser.getAccuserShort();
@@ -227,7 +235,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         //被告
         LambdaQueryWrapper<Defendant> defendantQueryWrapper = new LambdaQueryWrapper<>();
         defendantQueryWrapper.eq(Defendant::getCourtNumber, courtNumber);
-        List<Defendant> defendants = defendantMapper.selectList(defendantQueryWrapper);
+        List<Defendant> defendants = defendantService.list(defendantQueryWrapper);
         for (int i = 0; i < defendants.size(); i++) {
             Defendant defendant = defendants.get(i);
             String defendantShortName = defendant.getDefendantShort();
@@ -250,7 +258,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         //原告
         LambdaQueryWrapper<Accuser> accuserQueryWrapper = new LambdaQueryWrapper<>();
         accuserQueryWrapper.eq(Accuser::getCourtNumber, courtNumber);
-        List<Accuser> accusers = accuserMapper.selectList(accuserQueryWrapper);
+        List<Accuser> accusers = accuserService.list(accuserQueryWrapper);
         JSONArray mediateAccuserArray = new JSONArray();
         for (int i = 0; i < accusers.size(); i++) {
             Accuser accuser = accusers.get(i);
@@ -271,7 +279,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         //被告
         LambdaQueryWrapper<Defendant> defendantQueryWrapper = new LambdaQueryWrapper<>();
         defendantQueryWrapper.eq(Defendant::getCourtNumber, courtNumber);
-        List<Defendant> defendants = defendantMapper.selectList(defendantQueryWrapper);
+        List<Defendant> defendants = defendantService.list(defendantQueryWrapper);
         JSONArray mediateDefendantArray = new JSONArray();
         for (int i = 0; i < defendants.size(); i++) {
             Defendant defendant = defendants.get(i);
@@ -297,7 +305,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         //原告
         LambdaQueryWrapper<Accuser> accuserQueryWrapper = new LambdaQueryWrapper<>();
         accuserQueryWrapper.eq(Accuser::getCourtNumber, courtNumber);
-        List<Accuser> accusers = accuserMapper.selectList(accuserQueryWrapper);
+        List<Accuser> accusers = accuserService.list(accuserQueryWrapper);
         for (int i = 0; i < accusers.size(); i++) {
             Accuser accuser = accusers.get(i);
             String accuserShortName = accuser.getAccuserShort();
@@ -312,7 +320,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         //原告
         LambdaQueryWrapper<Defendant> defendantQueryWrapper = new LambdaQueryWrapper<>();
         defendantQueryWrapper.eq(Defendant::getCourtNumber, courtNumber);
-        List<Defendant> defendants = defendantMapper.selectList(defendantQueryWrapper);
+        List<Defendant> defendants = defendantService.list(defendantQueryWrapper);
         for (int i = 0; i < defendants.size(); i++) {
             Defendant defendant = defendants.get(i);
             String defendantShortName = defendant.getDefendantShort();
@@ -334,7 +342,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         //诉称内容
         LambdaQueryWrapper<Allege> allegeQueryWrapper = new LambdaQueryWrapper<>();
         allegeQueryWrapper.eq(Allege::getCourtNumber, courtNumber);
-        List<Allege> alleges = allegeMapper.selectList(allegeQueryWrapper);
+        List<Allege> alleges = allegeService.list(allegeQueryWrapper);
         for(int i=0;i<alleges.size();i++){
             Allege allege = alleges.get(i);
             String name = allege.getName();
@@ -360,7 +368,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         //答辩内容
         LambdaQueryWrapper<Reply> replyQueryWrapper = new LambdaQueryWrapper<>();
         replyQueryWrapper.eq(Reply::getCourtNumber, courtNumber);
-        List<Reply> replies = replyMapper.selectList(replyQueryWrapper);
+        List<Reply> replies = replyService.list(replyQueryWrapper);
         JSONArray defendantReplyArray = new JSONArray();
         JSONArray counterClaimDefendantReplyArray = new JSONArray();
         for(int i=0;i<replies.size();i++){
@@ -386,7 +394,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         //举证内容
         LambdaQueryWrapper<Proof> proofQueryWrapper = new LambdaQueryWrapper<>();
         proofQueryWrapper.eq(Proof::getCourtNumber, courtNumber);
-        List<Proof> proofs = proofMapper.selectList(proofQueryWrapper);
+        List<Proof> proofs = proofService.list(proofQueryWrapper);
         JSONArray accuserEvidenceArray = new JSONArray();
         JSONArray defendantEvidenceArray = new JSONArray();
         JSONArray counterClaimAccuserEvidenceArray = new JSONArray();
@@ -430,7 +438,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         //质证内容
         LambdaQueryWrapper<Query> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Query::getCourtNumber, courtNumber);
-        List<Query> queries = queryMapper.selectList(queryWrapper);
+        List<Query> queries = queryService.list(queryWrapper);
 
         JSONArray accuserQueryArray = new JSONArray();
         JSONArray defendantQueryArray = new JSONArray();
