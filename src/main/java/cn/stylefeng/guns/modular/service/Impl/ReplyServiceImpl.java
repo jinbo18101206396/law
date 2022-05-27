@@ -22,40 +22,42 @@ public class ReplyServiceImpl extends ServiceImpl<ReplyMapper, Reply> implements
     @Override
     public void saveDefendantReply(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
         JSONObject courtInvestigateObject = recordJsonObject.getJSONObject("courtInvestigate");
-        JSONArray defendantReplyArray = courtInvestigateObject.getJSONArray("defendant_reply");
+        if(courtInvestigateObject.containsKey("defendant_reply")){
+            JSONArray defendantReplyArray = courtInvestigateObject.getJSONArray("defendant_reply");
+            for (int i = 0; i < defendantReplyArray.size(); i++) {
+                JSONObject defendantReplyObject = defendantReplyArray.getJSONObject(i);
+                String name = defendantReplyObject.get("name").toString();
+                String content = defendantReplyObject.get("content").toString();
 
-        for (int i = 0; i < defendantReplyArray.size(); i++) {
-            JSONObject defendantReplyObject = defendantReplyArray.getJSONObject(i);
-            String name = defendantReplyObject.get("name").toString();
-            String content = defendantReplyObject.get("content").toString();
-
-            Reply reply = new Reply();
-            reply.setName(name);
-            reply.setType("被告");
-            reply.setContent(content);
-            reply.setIsCounterClaim(counterClaim);
-            reply.setCourtNumber(courtNumber);
-            this.save(reply);
+                Reply reply = new Reply();
+                reply.setName(name);
+                reply.setType("被告");
+                reply.setContent(content);
+                reply.setIsCounterClaim(counterClaim);
+                reply.setCourtNumber(courtNumber);
+                this.save(reply);
+            }
         }
     }
 
     @Override
     public void saveCounterClaimDefendantReply(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
         JSONObject courtInvestigateObject = recordJsonObject.getJSONObject("courtInvestigate");
-        JSONArray counterClaimDefendantReplyArray = courtInvestigateObject.getJSONArray("counterclaim_defendant_reply");
+        if (courtInvestigateObject.containsKey("counterclaim_defendant_reply")) {
+            JSONArray counterClaimDefendantReplyArray = courtInvestigateObject.getJSONArray("counterclaim_defendant_reply");
+            for (int i = 0; i < counterClaimDefendantReplyArray.size(); i++) {
+                JSONObject counterClaimDefendantReplyObject = counterClaimDefendantReplyArray.getJSONObject(i);
+                String name = counterClaimDefendantReplyObject.get("name").toString();
+                String content = counterClaimDefendantReplyObject.get("content").toString();
 
-        for (int i = 0; i < counterClaimDefendantReplyArray.size(); i++) {
-            JSONObject counterClaimDefendantReplyObject = counterClaimDefendantReplyArray.getJSONObject(i);
-            String name = counterClaimDefendantReplyObject.get("name").toString();
-            String content = counterClaimDefendantReplyObject.get("content").toString();
-
-            Reply reply = new Reply();
-            reply.setName(name);
-            reply.setType("反诉被告");
-            reply.setContent(content);
-            reply.setIsCounterClaim(counterClaim);
-            reply.setCourtNumber(courtNumber);
-            this.save(reply);
+                Reply reply = new Reply();
+                reply.setName(name);
+                reply.setType("反诉被告");
+                reply.setContent(content);
+                reply.setIsCounterClaim(counterClaim);
+                reply.setCourtNumber(courtNumber);
+                this.save(reply);
+            }
         }
     }
 }

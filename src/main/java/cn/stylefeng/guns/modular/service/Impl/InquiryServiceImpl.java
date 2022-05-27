@@ -29,29 +29,32 @@ public class InquiryServiceImpl extends ServiceImpl<InquiryMapper, Inquiry> impl
     @Override
     public void saveInquiryInfo(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
         //法庭询问
-        JSONArray inquiryInfoArray = recordJsonObject.getJSONArray("inquiryInfo");
 
-        for (int i = 0; i < inquiryInfoArray.size(); i++) {
-            JSONObject inquiryInfoObject = inquiryInfoArray.getJSONObject(i);
-            String question = inquiryInfoObject.get("inquiry_question").toString();
+        if (recordJsonObject.containsKey("inquiryInfo")) {
+            JSONArray inquiryInfoArray = recordJsonObject.getJSONArray("inquiryInfo");
 
-            JSONArray inquiryAnswerArray = inquiryInfoObject.getJSONArray("inquiry_answer");
-            for (int j = 0; j < inquiryAnswerArray.size(); j++) {
-                JSONObject inquiryAnswerObject = inquiryAnswerArray.getJSONObject(j);
-                String answerName = inquiryAnswerObject.get("name").toString();
-                String name = answerName.split("（")[0];
-                //原告、被告、反诉原告、反诉被告
-                String type = answerName.split("（")[1];
-                String answer = inquiryAnswerObject.get("answer").toString();
+            for (int i = 0; i < inquiryInfoArray.size(); i++) {
+                JSONObject inquiryInfoObject = inquiryInfoArray.getJSONObject(i);
+                String question = inquiryInfoObject.get("inquiry_question").toString();
 
-                Inquiry inquiry = new Inquiry();
-                inquiry.setQuestion(question);
-                inquiry.setName(name);
-                inquiry.setType(type.substring(0, type.length() - 1));
-                inquiry.setAnswer(answer);
-                inquiry.setIsCounterClaim(counterClaim);
-                inquiry.setCourtNumber(courtNumber);
-                this.save(inquiry);
+                JSONArray inquiryAnswerArray = inquiryInfoObject.getJSONArray("inquiry_answer");
+                for (int j = 0; j < inquiryAnswerArray.size(); j++) {
+                    JSONObject inquiryAnswerObject = inquiryAnswerArray.getJSONObject(j);
+                    String answerName = inquiryAnswerObject.get("name").toString();
+                    String name = answerName.split("（")[0];
+                    //原告、被告、反诉原告、反诉被告
+                    String type = answerName.split("（")[1];
+                    String answer = inquiryAnswerObject.get("answer").toString();
+
+                    Inquiry inquiry = new Inquiry();
+                    inquiry.setQuestion(question);
+                    inquiry.setName(name);
+                    inquiry.setType(type.substring(0, type.length() - 1));
+                    inquiry.setAnswer(answer);
+                    inquiry.setIsCounterClaim(counterClaim);
+                    inquiry.setCourtNumber(courtNumber);
+                    this.save(inquiry);
+                }
             }
         }
     }

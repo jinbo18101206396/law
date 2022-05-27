@@ -30,13 +30,13 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
     @Override
     public void saveArgueInfo(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
         //法庭辩论
-        String argueInfo = recordJsonObject.getString("argueInfo");
-        if (!ObjectUtils.isEmpty(argueInfo)) {
+        if(recordJsonObject.containsKey("argueInfo")){
+            String argueInfo = recordJsonObject.getString("argueInfo");
             JSONObject argueInfoObject = JSONObject.parseObject(argueInfo);
             JSONArray argueArray = argueInfoObject.getJSONArray("argue");
             saveArgue(argueArray, counterClaim);
 
-            if ("1".equals(counterClaim)) {
+            if (!"".equals(counterClaim) && "1".equals(counterClaim)) {
                 JSONArray counterClaimArgueArray = argueInfoObject.getJSONArray("counterclaim_argue");
                 saveCounterClaimArgue(counterClaimArgueArray, counterClaim);
             }

@@ -33,53 +33,52 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void saveDefendantInfo(String court_number, JSONObject recordJsonObject) {
+    public void saveDefendantInfo(String courtNumber, JSONObject recordJsonObject) {
         //被告信息
         JSONArray defendantInfoArray = recordJsonObject.getJSONArray("defendantInfo");
-        //权利告知
-        JSONObject rightInfoObject = JSONObject.parseObject(recordJsonObject.getString("rightInfo"));
-        //是否能够调解
-        JSONObject mediateInfoObject = JSONObject.parseObject(recordJsonObject.getString("mediateInfo"));
-        //电子判决文书送达
-        JSONArray deliveryInfoArray = recordJsonObject.getJSONArray("deliveryInfo");
-        //最后陈述意见
-        JSONArray finalStatementInfoArray = recordJsonObject.getJSONArray("finalStatementInfo");
 
         for (int i = 0; i < defendantInfoArray.size(); i++) {
             Defendant defendant = new Defendant();
             JSONObject defendantInfoObject = defendantInfoArray.getJSONObject(i);
             defendant.setDefendant(defendantInfoObject.get("defendant").toString());
             String defendantShortName = defendantInfoObject.get("defendant_short").toString();
-            defendant.setDefendantShort(defendantShortName);
+            //被告类型（1-机构，2-个人）
             String defendantType = defendantInfoObject.get("defendant_type").toString();
             defendant.setDefendantType(defendantType);
+            defendant.setDefendantShort(defendantShortName);
             defendant.setDefendantAddress(defendantInfoObject.get("defendant_address").toString());
+            //被告（机构）
             if ("1".equals(defendantType)) {
                 defendant.setDefendantRepresent(defendantInfoObject.get("defendant_represent").toString());
                 defendant.setDefendantDuty(defendantInfoObject.get("defendant_duty").toString());
             }
-            defendant.setCourtNumber(court_number);
+            defendant.setCourtNumber(courtNumber);
 
-            if (rightInfoObject != null) {
+            if (recordJsonObject.containsKey("rightInfo")) {
                 //是否听清诉讼权利和义务（1-听清，2-没听清）、是否申请回避(1-回避，2-不回避)
+                String rightInfo = recordJsonObject.getString("rightInfo");
+                JSONObject rightInfoObject = JSONObject.parseObject(rightInfo);
                 JSONArray defendantRightDutyArray = rightInfoObject.getJSONArray("defendant_right_duty");
                 for (int j = 0; j < defendantRightDutyArray.size(); j++) {
                     JSONObject defendantRightDutyObject = defendantRightDutyArray.getJSONObject(j);
                     String rightDutyDefendantName = defendantRightDutyObject.get("defendant").toString();
-                    if (rightDutyDefendantName.equals(defendantShortName)) {
+                    if (!"".equals(rightDutyDefendantName) && rightDutyDefendantName.equals(defendantShortName)) {
                         defendant.setDefendantRightDuty(defendantRightDutyObject.get("right_duty").toString());
                         defendant.setDefendantAvoid(defendantRightDutyObject.get("avoid").toString());
                     }
                 }
             }
 
-            if (mediateInfoObject != null) {
+            //是否能够调解
+            if (recordJsonObject.containsKey("mediateInfo")) {
+                String mediateInfo = recordJsonObject.getString("mediateInfo");
+                JSONObject mediateInfoObject = JSONObject.parseObject(mediateInfo);
                 //是否能够调解（1-能，2-不能）、调解方案、庭外和解时限
                 JSONArray mediateDefendantArray = mediateInfoObject.getJSONArray("mediate_defendant");
                 for (int k = 0; k < mediateDefendantArray.size(); k++) {
                     JSONObject mediateDefendantObject = mediateDefendantArray.getJSONObject(k);
                     String mediateDefendantName = mediateDefendantObject.get("defendant").toString();
-                    if (mediateDefendantName.equals(defendantShortName)) {
+                    if (!"".equals(mediateDefendantName) && mediateDefendantName.equals(defendantShortName)) {
                         defendant.setIsMediate(mediateDefendantObject.get("is_mediate").toString());
                         defendant.setMediatePlan(mediateDefendantObject.get("mediate_plan").toString());
                     }
@@ -87,27 +86,33 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
             }
 
             //是否同意电子裁判文书送达（1-同意，2-不同意）、邮件地址
-            for (int m = 0; m < deliveryInfoArray.size(); m++) {
-                JSONObject deliveryObject = deliveryInfoArray.getJSONObject(m);
-                //格式：姓名（类型），例如：张三（被告）
-                String deliveryDefendantName = deliveryObject.get("name").toString();
-                String name = deliveryDefendantName.split("（")[0];
-                String type = deliveryDefendantName.split("（")[1];
-                if (name.equals(defendantShortName) && type.startsWith("被告")) {
-                    defendant.setIsDelivery(deliveryObject.get("is_delivery").toString());
-                    defendant.setEmail(deliveryObject.get("email").toString());
+            if (recordJsonObject.containsKey("deliveryInfo")) {
+                JSONArray deliveryInfoArray = recordJsonObject.getJSONArray("deliveryInfo");
+                for (int m = 0; m < deliveryInfoArray.size(); m++) {
+                    JSONObject deliveryObject = deliveryInfoArray.getJSONObject(m);
+                    //格式：姓名（类型），例如：张三（被告）
+                    String deliveryDefendantName = deliveryObject.get("name").toString();
+                    String name = deliveryDefendantName.split("（")[0];
+                    String type = deliveryDefendantName.split("（")[1];
+                    if (name.equals(defendantShortName) && type.startsWith("被告")) {
+                        defendant.setIsDelivery(deliveryObject.get("is_delivery").toString());
+                        defendant.setEmail(deliveryObject.get("email").toString());
+                    }
                 }
             }
 
             //最后陈述意见
-            for (int m = 0; m < finalStatementInfoArray.size(); m++) {
-                JSONObject finalStatementObject = finalStatementInfoArray.getJSONObject(m);
-                //格式：姓名（类型），例如：张三（被告）
-                String finalStatementDefendantName = finalStatementObject.get("name").toString();
-                String name = finalStatementDefendantName.split("（")[0];
-                String type = finalStatementDefendantName.split("（")[1];
-                if (name.equals(defendantShortName) && type.startsWith("被告")) {
-                    defendant.setFinalStatement(finalStatementObject.get("final_statement").toString());
+            if (recordJsonObject.containsKey("finalStatementInfo")) {
+                JSONArray finalStatementInfoArray = recordJsonObject.getJSONArray("finalStatementInfo");
+                for (int m = 0; m < finalStatementInfoArray.size(); m++) {
+                    JSONObject finalStatementObject = finalStatementInfoArray.getJSONObject(m);
+                    //格式：姓名（类型），例如：张三（被告）
+                    String finalStatementDefendantName = finalStatementObject.get("name").toString();
+                    String name = finalStatementDefendantName.split("（")[0];
+                    String type = finalStatementDefendantName.split("（")[1];
+                    if (name.equals(defendantShortName) && type.startsWith("被告")) {
+                        defendant.setFinalStatement(finalStatementObject.get("final_statement").toString());
+                    }
                 }
             }
             this.save(defendant);

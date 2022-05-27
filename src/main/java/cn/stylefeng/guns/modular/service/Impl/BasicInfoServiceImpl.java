@@ -52,48 +52,64 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
     @Transactional(rollbackFor = Exception.class)
     public void saveBasicInfo(String courtNumber, JSONObject recordJsonObject) {
         BasicInfo basicInfo = new BasicInfo();
+        //基本信息
         JSONObject basicInfoObject = JSONObject.parseObject(recordJsonObject.getString("basicInfo"));
-        basicInfo.setFilingTime(basicInfoObject.get("filing_time").toString());
-        basicInfo.setCourtTime(basicInfoObject.get("court_time").toString());
-        basicInfo.setCourtPlace(basicInfoObject.get("court_place").toString());
+        //立案时间
+        if(basicInfoObject.containsKey("filing_time")){
+            basicInfo.setFilingTime(basicInfoObject.get("filing_time").toString());
+        }
+        //开庭时间
+        if(basicInfoObject.containsKey("court_time")){
+            basicInfo.setCourtTime(basicInfoObject.get("court_time").toString());
+        }
+        //开庭地点
+        if(basicInfoObject.containsKey("court_place")){
+            basicInfo.setCourtPlace(basicInfoObject.get("court_place").toString());
+        }
         //审判长（可多位，用逗号分隔）
-        String chiefJudge = "";
-        JSONArray chiefJudgeArray = basicInfoObject.getJSONArray("chief_judge");
-        if (chiefJudgeArray.size() > 0) {
+        if(basicInfoObject.containsKey("chief_judge")){
+            String chiefJudge = "";
+            JSONArray chiefJudgeArray = basicInfoObject.getJSONArray("chief_judge");
             for (int i = 0; i < chiefJudgeArray.size(); i++) {
                 chiefJudge += chiefJudgeArray.getJSONObject(i).getString("name") + ",";
             }
             basicInfo.setChiefJudge(chiefJudge.substring(0, chiefJudge.length() - 1));
         }
         //审判员（可多位，用逗号分隔）
-        String judge = "";
-        JSONArray judgeArray = basicInfoObject.getJSONArray("judge");
-        if (judgeArray.size() > 0) {
+        if(basicInfoObject.containsKey("judge")){
+            String judge = "";
+            JSONArray judgeArray = basicInfoObject.getJSONArray("judge");
             for (int i = 0; i < judgeArray.size(); i++) {
                 judge += judgeArray.getJSONObject(i).getString("name") + ",";
             }
             basicInfo.setJudge(judge.substring(0, judge.length() - 1));
         }
         //陪审员（可多位，用逗号分隔）
-        String juror = "";
-        JSONArray jurorArray = basicInfoObject.getJSONArray("juror");
-        if (jurorArray.size() > 0) {
+        if(basicInfoObject.containsKey("juror")){
+            String juror = "";
+            JSONArray jurorArray = basicInfoObject.getJSONArray("juror");
             for (int i = 0; i < jurorArray.size(); i++) {
                 juror += jurorArray.getJSONObject(i).getString("name") + ",";
             }
             basicInfo.setJuror(juror.substring(0, juror.length() - 1));
         }
         //人民陪审员（可多位，用逗号分隔）
-        String peopleJuror = "";
-        JSONArray peopleJurorArray = basicInfoObject.getJSONArray("people_juror");
-        if (peopleJurorArray.size() > 0) {
+        if(basicInfoObject.containsKey("people_juror")){
+            String peopleJuror = "";
+            JSONArray peopleJurorArray = basicInfoObject.getJSONArray("people_juror");
             for (int i = 0; i < peopleJurorArray.size(); i++) {
                 peopleJuror += peopleJurorArray.getJSONObject(i).getString("name") + ",";
             }
             basicInfo.setPeopleJuror(peopleJuror.substring(0, peopleJuror.length() - 1));
         }
-        basicInfo.setCourtClerk(basicInfoObject.get("court_clerk").toString());
-        basicInfo.setCourtCause(basicInfoObject.get("court_cause").toString());
+        //书记员
+        if(basicInfoObject.containsKey("court_clerk")){
+            basicInfo.setCourtClerk(basicInfoObject.get("court_clerk").toString());
+        }
+        //案由
+        if(basicInfoObject.containsKey("court_cause")){
+            basicInfo.setCourtCause(basicInfoObject.get("court_cause").toString());
+        }
         basicInfo.setCourtNumber(courtNumber);
         this.save(basicInfo);
     }

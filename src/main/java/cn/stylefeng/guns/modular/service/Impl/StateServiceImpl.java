@@ -28,8 +28,8 @@ public class StateServiceImpl extends ServiceImpl<StateMapper, State> implements
     @Override
     public void saveStateInfo(String courtNumber, JSONObject recordJsonObject) {
         //基本信息陈述
-        String stateInfo = recordJsonObject.getString("stateInfo");
-        if(!ObjectUtils.isEmpty(stateInfo)){
+        if(recordJsonObject.containsKey("stateInfo")){
+            String stateInfo = recordJsonObject.getString("stateInfo");
             JSONObject stateInfoObject = JSONObject.parseObject(stateInfo);
             String stateType = stateInfoObject.get("state_type").toString();
             String stateContent = stateInfoObject.get("state_content").toString();
