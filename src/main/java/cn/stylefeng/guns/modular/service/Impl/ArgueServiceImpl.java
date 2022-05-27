@@ -34,16 +34,16 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
             String argueInfo = recordJsonObject.getString("argueInfo");
             JSONObject argueInfoObject = JSONObject.parseObject(argueInfo);
             JSONArray argueArray = argueInfoObject.getJSONArray("argue");
-            saveArgue(argueArray, counterClaim);
+            saveArgue(argueArray, counterClaim,courtNumber);
 
             if (!"".equals(counterClaim) && "1".equals(counterClaim)) {
                 JSONArray counterClaimArgueArray = argueInfoObject.getJSONArray("counterclaim_argue");
-                saveCounterClaimArgue(counterClaimArgueArray, counterClaim);
+                saveCounterClaimArgue(counterClaimArgueArray, counterClaim,courtNumber);
             }
         }
     }
 
-    public void saveArgue(JSONArray argueArray, String counterClaim) {
+    public void saveArgue(JSONArray argueArray, String counterClaim,String courtNumber) {
         for (int i = 0; i < argueArray.size(); i++) {
             JSONObject argueObject = argueArray.getJSONObject(i);
             //姓名格式，例如：张三（原告）
@@ -58,11 +58,12 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
             argue.setType(type.substring(0, type.length() - 1));
             argue.setArgueContent(argueContent);
             argue.setIsCounterClaim(counterClaim);
+            argue.setCourtNumber(courtNumber);
             this.save(argue);
         }
     }
 
-    public void saveCounterClaimArgue(JSONArray counterClaimArgueArray, String counterClaim) {
+    public void saveCounterClaimArgue(JSONArray counterClaimArgueArray, String counterClaim,String courtNumber) {
         for (int i = 0; i < counterClaimArgueArray.size(); i++) {
             JSONObject cointerClaimArgueObject = counterClaimArgueArray.getJSONObject(i);
             //姓名格式，例如：张三（反诉被告）
@@ -77,6 +78,7 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
             argue.setType(type.substring(0, type.length() - 1));
             argue.setArgueContent(argueContent);
             argue.setIsCounterClaim(counterClaim);
+            argue.setCourtNumber(courtNumber);
             this.save(argue);
         }
     }

@@ -117,7 +117,7 @@ public class RecordController {
         //案号唯一
         List<BasicInfo> basicInfoList = basicInfoService.getBasicInfoList(courtNumber);
         if (basicInfoList.size() > 0) {
-            return new SuccessResponseData("案号已存在，不能重复");
+            return new SuccessResponseData("案号已存在，不能重复提交");
         }
         //是否反诉
         String counterClaim = "";
