@@ -335,11 +335,11 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
 
             JSONObject accuserFinalStatementInfoObject = new JSONObject();
             accuserFinalStatementInfoObject.put("name", accuserShortName + "（原告）");
-            accuserFinalStatementInfoObject.put("argue", finalStatement);
+            accuserFinalStatementInfoObject.put("final_statement", finalStatement);
             finalStatementInfoArray.add(accuserFinalStatementInfoObject);
         }
 
-        //原告
+        //被告
         LambdaQueryWrapper<Defendant> defendantQueryWrapper = new LambdaQueryWrapper<>();
         defendantQueryWrapper.eq(Defendant::getCourtNumber, courtNumber);
         List<Defendant> defendants = defendantService.list(defendantQueryWrapper);
@@ -350,7 +350,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
 
             JSONObject defendantFinalStatementInfoObject = new JSONObject();
             defendantFinalStatementInfoObject.put("name", defendantShortName + "（被告）");
-            defendantFinalStatementInfoObject.put("argue", finalStatement);
+            defendantFinalStatementInfoObject.put("final_statement", finalStatement);
             finalStatementInfoArray.add(defendantFinalStatementInfoObject);
         }
         return finalStatementInfoArray;
@@ -376,13 +376,12 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         LambdaQueryWrapper<Allege> allegeQueryWrapper = new LambdaQueryWrapper<>();
         allegeQueryWrapper.eq(Allege::getCourtNumber, courtNumber);
         List<Allege> alleges = allegeService.list(allegeQueryWrapper);
+
         for (int i = 0; i < alleges.size(); i++) {
             Allege allege = alleges.get(i);
-            String name = allege.getName();
             String type = allege.getType();
             String claimItem = allege.getClaimItem();
             String factReason = allege.getFactReason();
-            String isCounterClaim = allege.getIsCounterClaim();
             if (type != "" && "原告".equals(type)) {
                 //原告的诉讼请求项
                 courtInvestigateObject.put("accuser_claim_item", claimItem);
@@ -393,9 +392,9 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 courtInvestigateObject.put("counterclaim_accuser_claim_item", factReason);
                 //反诉原告的事实和理由
                 courtInvestigateObject.put("counterclaim_accuser_fact_reason", factReason);
-                //是否反诉
-                courtInvestigateObject.put("is_counterClaim", isCounterClaim);
             }
+            //是否反诉
+            courtInvestigateObject.put("is_counterClaim", allege.getIsCounterClaim());
         }
     }
 
@@ -567,7 +566,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         courtInvestigateObject.put("defendant_query", defendantQueryArray);
         courtInvestigateObject.put("other_defendant_query", otherDefendantQueryArray);
         courtInvestigateObject.put("counterclaim_accuser_query", counterClaimAccuserQueryArray);
-        courtInvestigateObject.put("counter_defendant_query", counterClaimDefendantQueryArray);
+        courtInvestigateObject.put("counterclaim_defendant_query", counterClaimDefendantQueryArray);
         courtInvestigateObject.put("other_counterclaim_defendant_query", otherCounterClaimDefendantQueryArray);
     }
 

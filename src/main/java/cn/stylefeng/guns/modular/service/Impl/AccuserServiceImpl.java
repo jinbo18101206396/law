@@ -138,7 +138,7 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
             JSONObject accuserInfoObject = new JSONObject();
             Accuser accuser = accusers.get(i);
             String accuserType = accuser.getAccuserType();
-            String accUserName = accuser.getAccuser();
+            String accuserName = accuser.getAccuser();
             String accuserShort = accuser.getAccuserShort();
             String accuserAddress = accuser.getAccuserAddress();
             String accuserRepresent = accuser.getAccuserRepresent();
@@ -153,14 +153,14 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
                 String name = agent.getAgent();
                 String agentAddress = agent.getAgentAddress();
                 JSONObject accuserAgentObject = new JSONObject();
-                if (agentName.equals(accuserShort) || agentName.equals(accUserName)) {
+                if (agentName.equals(accuserShort) || agentName.equals(accuserName)) {
                     accuserAgentObject.put("agent", name);
                     accuserAgentObject.put("agent_address", agentAddress);
                     accuserAgentArray.add(accuserAgentObject);
                 }
             }
             accuserInfoObject.put("accuser_type", accuserType);
-            accuserInfoObject.put("accuser", accUserName);
+            accuserInfoObject.put("accuser", accuserName);
             accuserInfoObject.put("accuser_short", accuserShort);
             accuserInfoObject.put("accuser_address", accuserAddress);
             accuserInfoObject.put("accuser_represent", accuserRepresent);
