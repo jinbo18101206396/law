@@ -5,6 +5,7 @@ import cn.stylefeng.guns.modular.entity.*;
 import cn.stylefeng.guns.modular.mapper.BasicInfoMapper;
 import cn.stylefeng.guns.modular.model.request.BasicInfoRequest;
 import cn.stylefeng.guns.modular.service.*;
+import cn.stylefeng.roses.kernel.auth.api.context.LoginContext;
 import cn.stylefeng.roses.kernel.db.api.factory.PageFactory;
 import cn.stylefeng.roses.kernel.db.api.factory.PageResultFactory;
 import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
@@ -52,6 +53,11 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
     @Transactional(rollbackFor = Exception.class)
     public void saveBasicInfo(String courtNumber, JSONObject recordJsonObject) {
         BasicInfo basicInfo = new BasicInfo();
+
+        //当前用户
+        Long userId = LoginContext.me().getLoginUser().getUserId();
+        basicInfo.setUserId(userId);
+
         //基本信息
         JSONObject basicInfoObject = JSONObject.parseObject(recordJsonObject.getString("basicInfo"));
         //立案时间
@@ -365,9 +371,8 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         return courtInvestigateObject;
     }
 
-
+    //法庭调查-诉称内容
     public void courtInvesAllege(String courtNumber, JSONObject courtInvestigateObject) {
-        //法庭调查-诉称内容
         LambdaQueryWrapper<Allege> allegeQueryWrapper = new LambdaQueryWrapper<>();
         allegeQueryWrapper.eq(Allege::getCourtNumber, courtNumber);
         List<Allege> alleges = allegeService.list(allegeQueryWrapper);
@@ -394,8 +399,8 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         }
     }
 
+    //法庭调查-答辩内容
     public void courtInvesReply(String courtNumber, JSONObject courtInvestigateObject) {
-        //法庭调查-答辩内容
         LambdaQueryWrapper<Reply> replyQueryWrapper = new LambdaQueryWrapper<>();
         replyQueryWrapper.eq(Reply::getCourtNumber, courtNumber);
         List<Reply> replies = replyService.list(replyQueryWrapper);
@@ -422,9 +427,8 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         courtInvestigateObject.put("counterclaim_defendant_reply", counterClaimDefendantReplyArray);
     }
 
-
+    //法庭调查-举证内容
     public void courtInvesProof(String courtNumber, JSONObject courtInvestigateObject) {
-        //法庭调查-举证内容
         LambdaQueryWrapper<Proof> proofQueryWrapper = new LambdaQueryWrapper<>();
         proofQueryWrapper.eq(Proof::getCourtNumber, courtNumber);
         List<Proof> proofs = proofService.list(proofQueryWrapper);
@@ -472,8 +476,8 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
     }
 
 
+    //法庭调查-质证内容
     public void courtInvesQuery(String courtNumber, JSONObject courtInvestigateObject) {
-        //法庭调查-质证内容
         LambdaQueryWrapper<Query> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Query::getCourtNumber, courtNumber);
         List<Query> queries = queryService.list(queryWrapper);
@@ -575,7 +579,6 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         return PageResultFactory.createPageResult(page);
     }
 
-
     /**
      * 实体构建 QueryWrapper
      *
@@ -584,11 +587,17 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
      */
     private LambdaQueryWrapper<BasicInfo> createWrapper(BasicInfoRequest basicInfoRequest) {
         LambdaQueryWrapper<BasicInfo> queryWrapper = new LambdaQueryWrapper<>();
+
+        boolean superAdminFlag = LoginContext.me().getSuperAdminFlag();
+        if(!superAdminFlag){
+            //非超级管理员只能看到自己的笔录
+            Long userId = LoginContext.me().getLoginUser().getUserId();
+            queryWrapper.eq(ObjectUtil.isNotEmpty(userId), BasicInfo::getUserId, userId);
+        }
         Long basicId = basicInfoRequest.getBasicId();
         String judge = basicInfoRequest.getJudge();
         String courtNumber = basicInfoRequest.getCourtNumber();
         String courtCause = basicInfoRequest.getCourtCause();
-        int status = basicInfoRequest.getStatus();
 
         queryWrapper.eq(ObjectUtil.isNotEmpty(basicId), BasicInfo::getBasicId, basicId);
         queryWrapper.like(ObjectUtil.isNotEmpty(judge), BasicInfo::getJudge, judge);
