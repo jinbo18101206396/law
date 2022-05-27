@@ -93,13 +93,16 @@ layui.use(['table', 'HttpRequest', 'func', 'form','laydate'], function () {
         $.get(
             "/record/detail",
             {courtNumber: data.courtNumber},
-            function(data) {
-                let wholeItem = JSON.parse(data.data)
+            (result) =>{
+                let wholeItem = JSON.parse(result.data)
                 let myLocalStorage={}
                 if (wholeItem != null) {
                     //组织数据
-                    if ("basicInfo" in wholeItem)
+                    if ("basicInfo" in wholeItem){
                         myLocalStorage["BasicInfo"] = wholeItem.basicInfo
+                        myLocalStorage["BasicInfo"]["court_number"]=data.courtNumber
+                    }
+
                     //基本信息陈述
                     if ("stateInfo" in wholeItem)
                         myLocalStorage["BasicState"] = wholeItem.stateInfo
@@ -217,7 +220,7 @@ layui.use(['table', 'HttpRequest', 'func', 'form','laydate'], function () {
 
                     localStorage.setItem( wholeItem.basicInfo.court_number,JSON.stringify(myLocalStorage))
                     //获取笔录信息，传到前台
-                    $(location).attr('href', '/view/record/detail'+"/?CourtNum="+wholeItem.basicInfo.court_number);
+                    $(location).attr('href', '/view/record/detail'+"/?CourtNum="+data.courtNumber);
                 }
             },
             "json"
