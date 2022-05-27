@@ -188,7 +188,9 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         return basicInfos;
     }
 
-    //权利告知
+    /**
+     * 权利告知
+     */
     @Override
     public JSONObject getRightInfoObject(String courtNumber) {
         JSONObject rightInfoObject = new JSONObject();
@@ -233,8 +235,9 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         return rightInfoObject;
     }
 
-
-    //电子判决文书送达
+    /**
+     * 电子判决文书送达
+     */
     @Override
     public JSONArray getDiliveryInfoArray(String courtNumber) {
         JSONArray diliveryInfoArray = new JSONArray();
@@ -273,7 +276,9 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         return diliveryInfoArray;
     }
 
-    //是否能够调解
+    /**
+     * 是否能够调解
+     */
     @Override
     public JSONObject getMediateInfoObject(String courtNumber) {
         JSONObject mediateInfoObject = new JSONObject();
@@ -297,7 +302,6 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
             mediateAccuserArray.add(mediateAccuserObject);
         }
         mediateInfoObject.put("mediate_accuser", mediateAccuserArray);
-
         //被告
         LambdaQueryWrapper<Defendant> defendantQueryWrapper = new LambdaQueryWrapper<>();
         defendantQueryWrapper.eq(Defendant::getCourtNumber, courtNumber);
@@ -320,10 +324,12 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         return mediateInfoObject;
     }
 
+    /**
+     * 最后陈述意见
+     */
     @Override
     public JSONArray getFinalStatementInfoArray(String courtNumber) {
         JSONArray finalStatementInfoArray = new JSONArray();
-
         //原告
         LambdaQueryWrapper<Accuser> accuserQueryWrapper = new LambdaQueryWrapper<>();
         accuserQueryWrapper.eq(Accuser::getCourtNumber, courtNumber);
@@ -338,7 +344,6 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
             accuserFinalStatementInfoObject.put("final_statement", finalStatement);
             finalStatementInfoArray.add(accuserFinalStatementInfoObject);
         }
-
         //被告
         LambdaQueryWrapper<Defendant> defendantQueryWrapper = new LambdaQueryWrapper<>();
         defendantQueryWrapper.eq(Defendant::getCourtNumber, courtNumber);
@@ -356,7 +361,9 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         return finalStatementInfoArray;
     }
 
-    //法庭调查
+    /**
+     * 法庭调查
+     */
     @Override
     public JSONObject getCourtInvestigateObject(String courtNumber) {
         JSONObject courtInvestigateObject = new JSONObject();
