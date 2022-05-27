@@ -150,7 +150,7 @@ public class RecordController {
         }
 
         //反诉被告今日不答辩，则提前结束
-        if (!"".equals(counterClaimDefendantTodayIsReply) && "2".equals(counterClaimDefendantTodayIsReply)) {
+        if ("1".equals(counterClaim) && "2".equals(counterClaimDefendantTodayIsReply)) {
             return new SuccessResponseData("反诉被告今日不答辩，提前结束！");
         }
 
