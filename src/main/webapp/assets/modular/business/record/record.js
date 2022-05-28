@@ -96,7 +96,6 @@ layui.use(['table', 'HttpRequest', 'func', 'form','laydate'], function () {
             (result) =>{
                 let wholeItem = JSON.parse(result.data)
                 let myLocalStorage={}
-                console.log(result.data)
                 if (wholeItem != null) {
                     //组织数据
                     if ("basicInfo" in wholeItem){
@@ -211,8 +210,15 @@ layui.use(['table', 'HttpRequest', 'func', 'form','laydate'], function () {
                     //电子文书送达表
                     if ("deliveryInfo" in wholeItem) {
                         let deliveryInfoItem = wholeItem.deliveryInfo
+                        let delivery_info=[]
+                        for (let i=0;i<deliveryInfoItem.length;i++){
+                            let delivery=deliveryInfoItem[i]
+                            if(JSON.stringify(delivery) != '{}'){
+                                delivery_info.push(delivery)
+                            }
+                        }
                         myLocalStorage["deliveryInfo"]={}
-                        myLocalStorage["deliveryInfo"]["delivery_info"] = deliveryInfoItem
+                        myLocalStorage["deliveryInfo"]["delivery_info"] = delivery_info
                     }
 
                     localStorage.setItem( wholeItem.basicInfo.court_number,JSON.stringify(myLocalStorage))
