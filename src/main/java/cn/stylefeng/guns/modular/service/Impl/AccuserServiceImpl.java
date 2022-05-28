@@ -150,12 +150,11 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
                 //原告姓名
                 String agentName = agent.getAgentName();
                 //委托诉讼代理人
-                String name = agent.getAgent();
-                String agentAddress = agent.getAgentAddress();
+                String agentType = agent.getAgentType();
                 JSONObject accuserAgentObject = new JSONObject();
-                if (agentName.equals(accuserShort) || agentName.equals(accuserName)) {
-                    accuserAgentObject.put("agent", name);
-                    accuserAgentObject.put("agent_address", agentAddress);
+                if (agentName.equals(accuserShort) && agentType.equals("1")) {
+                    accuserAgentObject.put("agent", agent.getAgent());
+                    accuserAgentObject.put("agent_address", agent.getAgentAddress());
                     accuserAgentArray.add(accuserAgentObject);
                 }
             }

@@ -148,12 +148,11 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
                 //被告姓名
                 String agentName = agent.getAgentName();
                 //委托诉讼代理人
-                String name = agent.getAgent();
-                String agentAddress = agent.getAgentAddress();
+                String agentType = agent.getAgentType();
                 JSONObject defendantAgentObject = new JSONObject();
-                if (agentName.equals(defendantShort) || agentName.equals(defendantName)) {
-                    defendantAgentObject.put("agent", name);
-                    defendantAgentObject.put("agent_address", agentAddress);
+                if (agentName.equals(defendantShort) && agentType.equals("2")) {
+                    defendantAgentObject.put("agent", agent.getAgent());
+                    defendantAgentObject.put("agent_address", agent.getAgentAddress());
                     defendantAgentArray.add(defendantAgentObject);
                 }
             }
