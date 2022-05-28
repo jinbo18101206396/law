@@ -413,7 +413,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 courtInvestigateObject.put("counterclaim_accuser_fact_reason", factReason);
             }
             //是否反诉
-            courtInvestigateObject.put("is_counterClaim", allege.getIsCounterClaim());
+            courtInvestigateObject.put("is_counterclaim", allege.getIsCounterClaim());
         }
     }
 

@@ -137,7 +137,7 @@ layui.use(['table', 'HttpRequest', 'func', 'form','laydate'], function () {
                         let courtInves={
                             accuser_claim_item: courtTemp.accuser_claim_item,// 原告诉讼请求
                             accuser_claim_fact_reason:courtTemp.accuser_claim_fact_reason ,// 原告诉讼请求的事实及理由
-                            is_counterclaim: courtTemp.is_counterClaim,
+                            is_counterclaim: courtTemp.is_counterclaim,
                             defendant_reply: courtTemp.defendant_reply,
                             counterclaim_accuser_claim_item: courtTemp.counterclaim_accuser_claim_item,
                             counterclaim_accuser_fact_reason: courtTemp.counterclaim_accuser_fact_reason,
@@ -174,7 +174,7 @@ layui.use(['table', 'HttpRequest', 'func', 'form','laydate'], function () {
                             //反诉后第三个生成部分 反诉原告 (原告) 进行举证
                             counterclaim_accuser_evidence:courtTemp.counterclaim_accuser_evidence,
                             //反诉后第四个生成部分 反诉被告 (原告) 进行质证
-                            counterclaim_defendant_query: courtTemp.counter_defendant_query,
+                            counterclaim_defendant_query: courtTemp.counterclaim_defendant_query,
                         }
                         myLocalStorage["defendantShowInfo"] = defendantShowInfo
                     }
