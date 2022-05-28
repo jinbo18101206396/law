@@ -50,10 +50,13 @@ public class QueryServiceImpl extends ServiceImpl<QueryMapper, Query> implements
         }
     }
 
+
+    /**
+     * 原告质证
+     */
     @Override
     public void saveAccuserQuery(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
         JSONObject courtInvestigateObject = recordJsonObject.getJSONObject("courtInvestigate");
-        //原告质证
         if (courtInvestigateObject.containsKey("accuser_query")) {
             JSONArray accuserQueryArray = courtInvestigateObject.getJSONArray("accuser_query");
             for (int i = 0; i < accuserQueryArray.size(); i++) {
@@ -80,10 +83,12 @@ public class QueryServiceImpl extends ServiceImpl<QueryMapper, Query> implements
         }
     }
 
+    /**
+     * 其他被告质证
+     */
     @Override
     public void saveOtherDefendantQuery(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
         JSONObject courtInvestigateObject = recordJsonObject.getJSONObject("courtInvestigate");
-        //其他被告质证
         if (recordJsonObject.containsKey("other_defendant_query")) {
             JSONArray otherDefendantQueryArray = courtInvestigateObject.getJSONArray("other_defendant_query");
             for (int i = 0; i < otherDefendantQueryArray.size(); i++) {
@@ -110,10 +115,12 @@ public class QueryServiceImpl extends ServiceImpl<QueryMapper, Query> implements
         }
     }
 
+    /**
+     * 反诉被告质证
+     */
     @Override
     public void saveCounterClaimDefendantQuery(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
         JSONObject courtInvestigateObject = recordJsonObject.getJSONObject("courtInvestigate");
-        //反诉被告质证
         if(courtInvestigateObject.containsKey("counterclaim_defendant_query")){
             JSONArray counterClaimDefendantQueryArray = courtInvestigateObject.getJSONArray("counterclaim_defendant_query");
             for (int i = 0; i < counterClaimDefendantQueryArray.size(); i++) {
@@ -140,10 +147,12 @@ public class QueryServiceImpl extends ServiceImpl<QueryMapper, Query> implements
         }
     }
 
+    /**
+     * 反诉原告质证
+     */
     @Override
     public void saveCounterClaimAccuserQuery(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
         JSONObject courtInvestigateObject = recordJsonObject.getJSONObject("courtInvestigate");
-        //反诉原告质证
         if(courtInvestigateObject.containsKey("counterclaim_accuser_query")){
             JSONArray counterClaimAccuserQueryArray = courtInvestigateObject.getJSONArray("counterclaim_accuser_query");
             for (int i = 0; i < counterClaimAccuserQueryArray.size(); i++) {
@@ -170,10 +179,12 @@ public class QueryServiceImpl extends ServiceImpl<QueryMapper, Query> implements
         }
     }
 
+    /**
+     * 其他反诉被告质证
+     */
     @Override
     public void saveOtherCounterClaimDefendantQuery(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
         JSONObject courtInvestigateObject = recordJsonObject.getJSONObject("courtInvestigate");
-        //其他反诉被告质证
         if(courtInvestigateObject.containsKey("other_counterclaim_defendant_query")){
             JSONArray otherCounterClaimDefendantQueryArray = courtInvestigateObject.getJSONArray("other_counterclaim_defendant_query");
             for (int i = 0; i < otherCounterClaimDefendantQueryArray.size(); i++) {

@@ -103,9 +103,9 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
             argueObject.put("name", name + "（" + type + "）");
             argueObject.put("argue", argueContent);
 
-            if ("1".equals(isCounterClaim)) {
+            if ("1".equals(isCounterClaim) && type.startsWith("反诉")) {
                 counterClaimArgueArray.add(argueObject);
-            } else {
+            }else{
                 argueArray.add(argueObject);
             }
         }

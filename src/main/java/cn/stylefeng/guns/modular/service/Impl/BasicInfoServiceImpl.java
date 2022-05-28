@@ -18,6 +18,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -61,19 +62,19 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         //基本信息
         JSONObject basicInfoObject = JSONObject.parseObject(recordJsonObject.getString("basicInfo"));
         //立案时间
-        if(basicInfoObject.containsKey("filing_time")){
+        if (basicInfoObject.containsKey("filing_time")) {
             basicInfo.setFilingTime(basicInfoObject.get("filing_time").toString());
         }
         //开庭时间
-        if(basicInfoObject.containsKey("court_time")){
+        if (basicInfoObject.containsKey("court_time")) {
             basicInfo.setCourtTime(basicInfoObject.get("court_time").toString());
         }
         //开庭地点
-        if(basicInfoObject.containsKey("court_place")){
+        if (basicInfoObject.containsKey("court_place")) {
             basicInfo.setCourtPlace(basicInfoObject.get("court_place").toString());
         }
         //审判长（可多位，用逗号分隔）
-        if(basicInfoObject.containsKey("chief_judge")){
+        if (basicInfoObject.containsKey("chief_judge")) {
             String chiefJudge = "";
             JSONArray chiefJudgeArray = basicInfoObject.getJSONArray("chief_judge");
             for (int i = 0; i < chiefJudgeArray.size(); i++) {
@@ -82,7 +83,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
             basicInfo.setChiefJudge(chiefJudge.substring(0, chiefJudge.length() - 1));
         }
         //审判员（可多位，用逗号分隔）
-        if(basicInfoObject.containsKey("judge")){
+        if (basicInfoObject.containsKey("judge")) {
             String judge = "";
             JSONArray judgeArray = basicInfoObject.getJSONArray("judge");
             for (int i = 0; i < judgeArray.size(); i++) {
@@ -91,7 +92,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
             basicInfo.setJudge(judge.substring(0, judge.length() - 1));
         }
         //陪审员（可多位，用逗号分隔）
-        if(basicInfoObject.containsKey("juror")){
+        if (basicInfoObject.containsKey("juror")) {
             String juror = "";
             JSONArray jurorArray = basicInfoObject.getJSONArray("juror");
             for (int i = 0; i < jurorArray.size(); i++) {
@@ -100,7 +101,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
             basicInfo.setJuror(juror.substring(0, juror.length() - 1));
         }
         //人民陪审员（可多位，用逗号分隔）
-        if(basicInfoObject.containsKey("people_juror")){
+        if (basicInfoObject.containsKey("people_juror")) {
             String peopleJuror = "";
             JSONArray peopleJurorArray = basicInfoObject.getJSONArray("people_juror");
             for (int i = 0; i < peopleJurorArray.size(); i++) {
@@ -109,17 +110,21 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
             basicInfo.setPeopleJuror(peopleJuror.substring(0, peopleJuror.length() - 1));
         }
         //书记员
-        if(basicInfoObject.containsKey("court_clerk")){
+        if (basicInfoObject.containsKey("court_clerk")) {
             basicInfo.setCourtClerk(basicInfoObject.get("court_clerk").toString());
         }
         //案由
-        if(basicInfoObject.containsKey("court_cause")){
+        if (basicInfoObject.containsKey("court_cause")) {
             basicInfo.setCourtCause(basicInfoObject.get("court_cause").toString());
         }
         basicInfo.setCourtNumber(courtNumber);
         this.save(basicInfo);
     }
 
+
+    /**
+     * 获取笔录基本信息
+     */
     @Override
     public JSONObject getBasicInfoObject(String courtNumber) {
         //笔录基本信息
@@ -339,24 +344,29 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
             String accuserShortName = accuser.getAccuserShort();
             String finalStatement = accuser.getFinalStatement();
 
-            JSONObject accuserFinalStatementInfoObject = new JSONObject();
-            accuserFinalStatementInfoObject.put("name", accuserShortName + "（原告）");
-            accuserFinalStatementInfoObject.put("final_statement", finalStatement);
-            finalStatementInfoArray.add(accuserFinalStatementInfoObject);
+            if (!ObjectUtils.isEmpty(accuserShortName) && !ObjectUtils.isEmpty(finalStatement)) {
+                JSONObject accuserFinalStatementInfoObject = new JSONObject();
+                accuserFinalStatementInfoObject.put("name", accuserShortName + "（原告）");
+                accuserFinalStatementInfoObject.put("final_statement", finalStatement);
+                finalStatementInfoArray.add(accuserFinalStatementInfoObject);
+            }
         }
+
         //被告
         LambdaQueryWrapper<Defendant> defendantQueryWrapper = new LambdaQueryWrapper<>();
         defendantQueryWrapper.eq(Defendant::getCourtNumber, courtNumber);
         List<Defendant> defendants = defendantService.list(defendantQueryWrapper);
-        for (int i = 0; i < defendants.size(); i++) {
-            Defendant defendant = defendants.get(i);
+        for (int j = 0; j < defendants.size(); j++) {
+            Defendant defendant = defendants.get(j);
             String defendantShortName = defendant.getDefendantShort();
             String finalStatement = defendant.getFinalStatement();
 
-            JSONObject defendantFinalStatementInfoObject = new JSONObject();
-            defendantFinalStatementInfoObject.put("name", defendantShortName + "（被告）");
-            defendantFinalStatementInfoObject.put("final_statement", finalStatement);
-            finalStatementInfoArray.add(defendantFinalStatementInfoObject);
+            if (!ObjectUtils.isEmpty(defendantShortName) && !ObjectUtils.isEmpty(finalStatement)) {
+                JSONObject defendantFinalStatementInfoObject = new JSONObject();
+                defendantFinalStatementInfoObject.put("name", defendantShortName + "（被告）");
+                defendantFinalStatementInfoObject.put("final_statement", finalStatement);
+                finalStatementInfoArray.add(defendantFinalStatementInfoObject);
+            }
         }
         return finalStatementInfoArray;
     }
@@ -378,7 +388,9 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         return courtInvestigateObject;
     }
 
-    //法庭调查-诉称内容
+    /**
+     * 法庭调查-诉称内容
+     */
     public void courtInvesAllege(String courtNumber, JSONObject courtInvestigateObject) {
         LambdaQueryWrapper<Allege> allegeQueryWrapper = new LambdaQueryWrapper<>();
         allegeQueryWrapper.eq(Allege::getCourtNumber, courtNumber);
@@ -405,7 +417,9 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         }
     }
 
-    //法庭调查-答辩内容
+    /**
+     * 法庭调查-答辩内容
+     */
     public void courtInvesReply(String courtNumber, JSONObject courtInvestigateObject) {
         LambdaQueryWrapper<Reply> replyQueryWrapper = new LambdaQueryWrapper<>();
         replyQueryWrapper.eq(Reply::getCourtNumber, courtNumber);
@@ -433,7 +447,9 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         courtInvestigateObject.put("counterclaim_defendant_reply", counterClaimDefendantReplyArray);
     }
 
-    //法庭调查-举证内容
+    /**
+     * 法庭调查-举证内容
+     */
     public void courtInvesProof(String courtNumber, JSONObject courtInvestigateObject) {
         LambdaQueryWrapper<Proof> proofQueryWrapper = new LambdaQueryWrapper<>();
         proofQueryWrapper.eq(Proof::getCourtNumber, courtNumber);
@@ -481,8 +497,9 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         courtInvestigateObject.put("counterclaim_defendant_evidence", counterClaimDefendantEvidenceArray);
     }
 
-
-    //法庭调查-质证内容
+    /**
+     * 法庭调查-质证内容
+     */
     public void courtInvesQuery(String courtNumber, JSONObject courtInvestigateObject) {
         LambdaQueryWrapper<Query> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Query::getCourtNumber, courtNumber);
@@ -544,8 +561,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                     queryObject.put("accuser", name);
                     queryObject.put("accuser_query_fact_reason", reason);
                     accuserQueryArray.add(queryObject);
-                }
-                if (defendantShortNames.contains(name)) {
+                } else {
                     queryObject.put("defendant", name);
                     queryObject.put("other_defendant_query_fact_reason", reason);
                     otherDefendantQueryArray.add(queryObject);
@@ -561,8 +577,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                     queryObject.put("counterclaim_accuser", name);
                     queryObject.put("counterclaim_accuser_query_fact_reason", reason);
                     counterClaimAccuserQueryArray.add(queryObject);
-                }
-                if (accuserShortNames.contains(name)) {
+                } else {
                     queryObject.put("other_counterclaim_defendant", name);
                     queryObject.put("other_counterclaim_defendant_query_fact_reason", reason);
                     otherCounterClaimDefendantQueryArray.add(queryObject);
@@ -595,7 +610,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         LambdaQueryWrapper<BasicInfo> queryWrapper = new LambdaQueryWrapper<>();
 
         boolean superAdminFlag = LoginContext.me().getSuperAdminFlag();
-        if(!superAdminFlag){
+        if (!superAdminFlag) {
             //非超级管理员只能看到自己的笔录
             Long userId = LoginContext.me().getLoginUser().getUserId();
             queryWrapper.eq(ObjectUtil.isNotEmpty(userId), BasicInfo::getUserId, userId);
