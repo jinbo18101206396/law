@@ -76,7 +76,7 @@ public class QueryServiceImpl extends ServiceImpl<QueryMapper, Query> implements
     @Override
     public void saveOtherDefendantQuery(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
         JSONObject courtInvestigateObject = recordJsonObject.getJSONObject("courtInvestigate");
-        if (recordJsonObject.containsKey("other_defendant_query")) {
+        if (courtInvestigateObject.containsKey("other_defendant_query")) {
             JSONArray otherDefendantQueryArray = courtInvestigateObject.getJSONArray("other_defendant_query");
             for (int i = 0; i < otherDefendantQueryArray.size(); i++) {
                 JSONObject otherDefendantQueryObject = otherDefendantQueryArray.getJSONObject(i);
