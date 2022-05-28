@@ -210,10 +210,16 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         for (int i = 0; i < accusers.size(); i++) {
             Accuser accuser = accusers.get(i);
             JSONObject accuserRightDutyObject = new JSONObject();
-            accuserRightDutyObject.put("accuser", accuser.getAccuser());
-            accuserRightDutyObject.put("right_duty", accuser.getAccuserRightDuty());
-            accuserRightDutyObject.put("avoid", accuser.getAccuserAvoid());
-            accuserRightDutyArray.add(accuserRightDutyObject);
+            String accuserShortName = accuser.getAccuserShort();
+            String accuserRightDuty = accuser.getAccuserRightDuty();
+            String accuserAvoid = accuser.getAccuserAvoid();
+
+            if (!ObjectUtils.isEmpty(accuserShortName) && !ObjectUtils.isEmpty(accuserRightDuty) && !ObjectUtils.isEmpty(accuserAvoid)) {
+                accuserRightDutyObject.put("accuser", accuserShortName);
+                accuserRightDutyObject.put("right_duty", accuserRightDuty);
+                accuserRightDutyObject.put("avoid", accuserAvoid);
+                accuserRightDutyArray.add(accuserRightDutyObject);
+            }
         }
         rightInfoObject.put("accuser_right_duty", accuserRightDutyArray);
 
@@ -225,10 +231,16 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         for (int i = 0; i < defendants.size(); i++) {
             Defendant defendant = defendants.get(i);
             JSONObject defendantRightDutyObject = new JSONObject();
-            defendantRightDutyObject.put("defendant", defendant.getDefendant());
-            defendantRightDutyObject.put("right_duty", defendant.getDefendantRightDuty());
-            defendantRightDutyObject.put("avoid", defendant.getDefendantAvoid());
-            defendantRightDutyArray.add(defendantRightDutyObject);
+            String defendantShortName = defendant.getDefendantShort();
+            String defendantRightDuty = defendant.getDefendantRightDuty();
+            String defendantAvoid = defendant.getDefendantAvoid();
+
+            if (!ObjectUtils.isEmpty(defendantShortName) && !ObjectUtils.isEmpty(defendantRightDuty) && !ObjectUtils.isEmpty(defendantAvoid)) {
+                defendantRightDutyObject.put("defendant", defendantShortName);
+                defendantRightDutyObject.put("right_duty", defendantRightDuty);
+                defendantRightDutyObject.put("avoid", defendantAvoid);
+                defendantRightDutyArray.add(defendantRightDutyObject);
+            }
         }
         rightInfoObject.put("defendant_right_duty", defendantRightDutyArray);
         return rightInfoObject;
@@ -247,10 +259,14 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         for (int i = 0; i < accusers.size(); i++) {
             Accuser accuser = accusers.get(i);
             String accuserShortName = accuser.getAccuserShort();
+            String isDelivery = accuser.getIsDelivery();
             JSONObject accuserDeliveryObject = new JSONObject();
-            accuserDeliveryObject.put("name", accuserShortName + "（原告）");
-            accuserDeliveryObject.put("is_delivery", accuser.getIsDelivery());
-            accuserDeliveryObject.put("email", accuser.getEmail());
+
+            if (!ObjectUtils.isEmpty(accuserShortName) && !ObjectUtils.isEmpty(isDelivery)) {
+                accuserDeliveryObject.put("name", accuserShortName + "（原告）");
+                accuserDeliveryObject.put("is_delivery", isDelivery);
+                accuserDeliveryObject.put("email", accuser.getEmail());
+            }
             diliveryInfoArray.add(accuserDeliveryObject);
         }
         //被告
@@ -260,10 +276,14 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         for (int i = 0; i < defendants.size(); i++) {
             Defendant defendant = defendants.get(i);
             String defendantShortName = defendant.getDefendantShort();
+            String isDelivery = defendant.getIsDelivery();
             JSONObject defendantDeliveryObject = new JSONObject();
-            defendantDeliveryObject.put("name", defendantShortName + "（被告）");
-            defendantDeliveryObject.put("is_delivery", defendant.getIsDelivery());
-            defendantDeliveryObject.put("email", defendant.getEmail());
+
+            if (!ObjectUtils.isEmpty(defendantShortName) && !ObjectUtils.isEmpty(isDelivery)) {
+                defendantDeliveryObject.put("name", defendantShortName + "（被告）");
+                defendantDeliveryObject.put("is_delivery", isDelivery);
+                defendantDeliveryObject.put("email", defendant.getEmail());
+            }
             diliveryInfoArray.add(defendantDeliveryObject);
         }
         return diliveryInfoArray;
@@ -283,11 +303,16 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         for (int i = 0; i < accusers.size(); i++) {
             Accuser accuser = accusers.get(i);
             JSONObject mediateAccuserObject = new JSONObject();
-            mediateAccuserObject.put("accuser", accuser.getAccuserShort());
-            mediateAccuserObject.put("is_mediate", accuser.getIsMediate());
-            mediateAccuserObject.put("mediate_plan", accuser.getMediatePlan());
-            mediateAccuserObject.put("time_limit", accuser.getTimeLimit());
-            mediateAccuserArray.add(mediateAccuserObject);
+            String accuserShort = accuser.getAccuserShort();
+            String isMediate = accuser.getIsMediate();
+
+            if (!ObjectUtils.isEmpty(accuserShort) && !ObjectUtils.isEmpty(isMediate)) {
+                mediateAccuserObject.put("accuser", accuserShort);
+                mediateAccuserObject.put("is_mediate", isMediate);
+                mediateAccuserObject.put("mediate_plan", accuser.getMediatePlan());
+                mediateAccuserObject.put("time_limit", accuser.getTimeLimit());
+                mediateAccuserArray.add(mediateAccuserObject);
+            }
         }
         mediateInfoObject.put("mediate_accuser", mediateAccuserArray);
         //被告
@@ -298,13 +323,18 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         for (int i = 0; i < defendants.size(); i++) {
             Defendant defendant = defendants.get(i);
             JSONObject mediateDefendantObject = new JSONObject();
-            mediateDefendantObject.put("defendant", defendant.getDefendantShort());
-            mediateDefendantObject.put("is_mediate", defendant.getIsMediate());
-            mediateDefendantObject.put("mediate_plan", defendant.getMediatePlan());
-            mediateDefendantArray.add(mediateDefendantObject);
+            String defendantShort = defendant.getDefendantShort();
+            String isMediate = defendant.getIsMediate();
+            String mediatePlan = defendant.getMediatePlan();
+
+            if (!ObjectUtils.isEmpty(defendantShort) && !ObjectUtils.isEmpty(isMediate)) {
+                mediateDefendantObject.put("defendant", defendantShort);
+                mediateDefendantObject.put("is_mediate", isMediate);
+                mediateDefendantObject.put("mediate_plan", mediatePlan);
+                mediateDefendantArray.add(mediateDefendantObject);
+            }
         }
         mediateInfoObject.put("mediate_defendant", mediateDefendantArray);
-
         return mediateInfoObject;
     }
 
@@ -519,11 +549,12 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 defendantQueryArray.add(queryObject);
             } else if ("2".equals(queryType)) {
                 //原告质证及其他被告质证
-                if (accuserShortNames.contains(name)) {
+                if (accuserShortNames.size() > 0 && accuserShortNames.contains(name)) {
                     queryObject.put("accuser", name);
                     queryObject.put("accuser_query_fact_reason", reason);
                     accuserQueryArray.add(queryObject);
-                } else {
+                }
+                if (defendantShortNames.size() > 0 && defendantShortNames.contains(name)) {
                     queryObject.put("defendant", name);
                     queryObject.put("other_defendant_query_fact_reason", reason);
                     otherDefendantQueryArray.add(queryObject);
@@ -535,11 +566,12 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 counterClaimDefendantQueryArray.add(queryObject);
             } else if ("4".equals(queryType)) {
                 //反诉原告及其他反诉被告质证
-                if (defendantShortNames.contains(name)) {
+                if (defendantShortNames.size() > 0 && defendantShortNames.contains(name)) {
                     queryObject.put("counterclaim_accuser", name);
                     queryObject.put("counterclaim_accuser_query_fact_reason", reason);
                     counterClaimAccuserQueryArray.add(queryObject);
-                } else {
+                }
+                if (accuserShortNames.size() > 0 && accuserShortNames.contains(name)) {
                     queryObject.put("other_counterclaim_defendant", name);
                     queryObject.put("other_counterclaim_defendant_query_fact_reason", reason);
                     otherCounterClaimDefendantQueryArray.add(queryObject);

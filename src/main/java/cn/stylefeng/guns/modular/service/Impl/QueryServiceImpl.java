@@ -45,7 +45,6 @@ public class QueryServiceImpl extends ServiceImpl<QueryMapper, Query> implements
         }
     }
 
-
     /**
      * 原告质证
      */

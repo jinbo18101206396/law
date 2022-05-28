@@ -19,20 +19,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class ReplyServiceImpl extends ServiceImpl<ReplyMapper, Reply> implements ReplyService {
 
+    /**
+     * 被告答辩
+     */
     @Override
     public void saveDefendantReply(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
         JSONObject courtInvestigateObject = recordJsonObject.getJSONObject("courtInvestigate");
-        if(courtInvestigateObject.containsKey("defendant_reply")){
+        if (courtInvestigateObject.containsKey("defendant_reply")) {
             JSONArray defendantReplyArray = courtInvestigateObject.getJSONArray("defendant_reply");
             for (int i = 0; i < defendantReplyArray.size(); i++) {
                 JSONObject defendantReplyObject = defendantReplyArray.getJSONObject(i);
-                String name = defendantReplyObject.get("name").toString();
-                String content = defendantReplyObject.get("content").toString();
-
                 Reply reply = new Reply();
-                reply.setName(name);
+                reply.setName(defendantReplyObject.get("name").toString());
                 reply.setType("被告");
-                reply.setContent(content);
+                reply.setContent(defendantReplyObject.get("content").toString());
                 reply.setIsCounterClaim(counterClaim);
                 reply.setCourtNumber(courtNumber);
                 this.save(reply);
@@ -40,6 +40,9 @@ public class ReplyServiceImpl extends ServiceImpl<ReplyMapper, Reply> implements
         }
     }
 
+    /**
+     * 反诉被告答辩
+     */
     @Override
     public void saveCounterClaimDefendantReply(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
         JSONObject courtInvestigateObject = recordJsonObject.getJSONObject("courtInvestigate");
@@ -47,13 +50,10 @@ public class ReplyServiceImpl extends ServiceImpl<ReplyMapper, Reply> implements
             JSONArray counterClaimDefendantReplyArray = courtInvestigateObject.getJSONArray("counterclaim_defendant_reply");
             for (int i = 0; i < counterClaimDefendantReplyArray.size(); i++) {
                 JSONObject counterClaimDefendantReplyObject = counterClaimDefendantReplyArray.getJSONObject(i);
-                String name = counterClaimDefendantReplyObject.get("name").toString();
-                String content = counterClaimDefendantReplyObject.get("content").toString();
-
                 Reply reply = new Reply();
-                reply.setName(name);
+                reply.setName(counterClaimDefendantReplyObject.get("name").toString());
                 reply.setType("反诉被告");
-                reply.setContent(content);
+                reply.setContent(counterClaimDefendantReplyObject.get("content").toString());
                 reply.setIsCounterClaim(counterClaim);
                 reply.setCourtNumber(courtNumber);
                 this.save(reply);

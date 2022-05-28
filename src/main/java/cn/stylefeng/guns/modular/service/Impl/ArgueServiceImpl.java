@@ -78,9 +78,11 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
         }
     }
 
+    /**
+     * 获取法庭辩论信息
+     */
     @Override
     public JSONObject getArgueInfoObject(String courtNumber) {
-        //法庭辩论
         LambdaQueryWrapper<Argue> argueQueryWrapper = new LambdaQueryWrapper<>();
         argueQueryWrapper.eq(Argue::getCourtNumber, courtNumber);
         List<Argue> argues = argueService.list(argueQueryWrapper);

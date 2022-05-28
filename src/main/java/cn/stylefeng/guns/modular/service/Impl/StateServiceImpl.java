@@ -7,7 +7,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
 
@@ -25,33 +24,33 @@ public class StateServiceImpl extends ServiceImpl<StateMapper, State> implements
     @Resource
     private StateService stateService;
 
+    /**
+     * 保存基本信息陈述
+     */
     @Override
     public void saveStateInfo(String courtNumber, JSONObject recordJsonObject) {
-        //基本信息陈述
-        if(recordJsonObject.containsKey("stateInfo")){
+        if (recordJsonObject.containsKey("stateInfo")) {
             String stateInfo = recordJsonObject.getString("stateInfo");
             JSONObject stateInfoObject = JSONObject.parseObject(stateInfo);
-            String stateType = stateInfoObject.get("state_type").toString();
-            String stateContent = stateInfoObject.get("state_content").toString();
             State state = new State();
-            state.setStateType(stateType);
-            state.setStateContent(stateContent);
+            state.setStateType(stateInfoObject.get("state_type").toString());
+            state.setStateContent(stateInfoObject.get("state_content").toString());
             state.setCourtNumber(courtNumber);
             this.save(state);
         }
     }
 
+    /**
+     * 获取基本信息陈述
+     */
     @Override
     public JSONObject getStateInfoObject(String courtNumber) {
-        //基本信息陈述
         LambdaQueryWrapper<State> stateQueryWrapper = new LambdaQueryWrapper<>();
         stateQueryWrapper.eq(State::getCourtNumber, courtNumber);
         State state = stateService.getOne(stateQueryWrapper);
-        String stateType = state.getStateType();
-        String stateContent = state.getStateContent();
         JSONObject stateObject = new JSONObject();
-        stateObject.put("state_type", stateType);
-        stateObject.put("state_content", stateContent);
+        stateObject.put("state_type", state.getStateType());
+        stateObject.put("state_content", state.getStateContent());
         return stateObject;
     }
 }
