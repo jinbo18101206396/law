@@ -121,7 +121,6 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         this.save(basicInfo);
     }
 
-
     /**
      * 获取笔录基本信息
      */
@@ -359,7 +358,6 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 finalStatementInfoArray.add(accuserFinalStatementInfoObject);
             }
         }
-
         //被告
         LambdaQueryWrapper<Defendant> defendantQueryWrapper = new LambdaQueryWrapper<>();
         defendantQueryWrapper.eq(Defendant::getCourtNumber, courtNumber);

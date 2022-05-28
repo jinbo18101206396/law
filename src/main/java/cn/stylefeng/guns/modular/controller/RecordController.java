@@ -106,6 +106,9 @@ public class RecordController {
      */
     @PostResource(name = "保存笔录信息", path = "/record/add")
     public ResponseData add(@RequestBody String recordJson) {
+
+        System.out.println("提交数据： " + recordJson);
+
         JSONObject recordJsonObject = JSONObject.parseObject(recordJson);
         JSONObject basicInfoObject = JSONObject.parseObject(recordJsonObject.getString("basicInfo"));
         JSONObject courtInvestigateObject = JSONObject.parseObject(recordJsonObject.getString("courtInvestigate"));
@@ -240,6 +243,8 @@ public class RecordController {
         //电子裁判文书送达
         JSONArray deliveryInfoArray = basicInfoService.getDiliveryInfoArray(courtNumber);
         recordJson.put("deliveryInfo", deliveryInfoArray);
+
+        System.out.println("回显数据： " + recordJson.toString());
 
         return new SuccessResponseData(recordJson.toString());
     }
