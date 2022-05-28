@@ -40,19 +40,19 @@ public class Query implements Serializable {
      * 真实性
      */
     @TableField("facticity")
-    private Boolean facticity;
+    private String facticity;
 
     /**
      * 合法性
      */
     @TableField("legality")
-    private Boolean legality;
+    private String legality;
 
     /**
      * 关联性
      */
     @TableField("relevance")
-    private Boolean relevance;
+    private String relevance;
 
     /**
      * 理由
@@ -127,27 +127,27 @@ public class Query implements Serializable {
         this.evidence = evidence;
     }
 
-    public Boolean getFacticity() {
+    public String getFacticity() {
         return facticity;
     }
 
-    public void setFacticity(Boolean facticity) {
+    public void setFacticity(String facticity) {
         this.facticity = facticity;
     }
 
-    public Boolean getLegality() {
+    public String getLegality() {
         return legality;
     }
 
-    public void setLegality(Boolean legality) {
+    public void setLegality(String legality) {
         this.legality = legality;
     }
 
-    public Boolean getRelevance() {
+    public String getRelevance() {
         return relevance;
     }
 
-    public void setRelevance(Boolean relevance) {
+    public void setRelevance(String relevance) {
         this.relevance = relevance;
     }
 
@@ -215,23 +215,24 @@ public class Query implements Serializable {
         this.updateUser = updateUser;
     }
 
+
     @Override
     public String toString() {
         return "Query{" +
                 "queryId=" + queryId +
-                ", name=" + name +
-                ", evidence=" + evidence +
-                ", facticity=" + facticity +
-                ", legality=" + legality +
-                ", relevance=" + relevance +
-                ", reason=" + reason +
-                ", isCounterClaim=" + isCounterClaim +
+                ", name='" + name + '\'' +
+                ", evidence='" + evidence + '\'' +
+                ", facticity='" + facticity + '\'' +
+                ", legality='" + legality + '\'' +
+                ", relevance='" + relevance + '\'' +
+                ", reason='" + reason + '\'' +
+                ", isCounterClaim='" + isCounterClaim + '\'' +
                 ", queryType=" + queryType +
-                ", courtNumber=" + courtNumber +
+                ", courtNumber='" + courtNumber + '\'' +
                 ", createTime=" + createTime +
                 ", createUser=" + createUser +
                 ", updateTime=" + updateTime +
                 ", updateUser=" + updateUser +
-                "}";
+                '}';
     }
 }

@@ -137,12 +137,7 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
         for (int i = 0; i < accusers.size(); i++) {
             JSONObject accuserInfoObject = new JSONObject();
             Accuser accuser = accusers.get(i);
-            String accuserType = accuser.getAccuserType();
-            String accuserName = accuser.getAccuser();
             String accuserShort = accuser.getAccuserShort();
-            String accuserAddress = accuser.getAccuserAddress();
-            String accuserRepresent = accuser.getAccuserRepresent();
-            String accuserDuty = accuser.getAccuserDuty();
 
             JSONArray accuserAgentArray = new JSONArray();
             for (int j = 0; j < agents.size(); j++) {
@@ -158,12 +153,12 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
                     accuserAgentArray.add(accuserAgentObject);
                 }
             }
-            accuserInfoObject.put("accuser_type", accuserType);
-            accuserInfoObject.put("accuser", accuserName);
+            accuserInfoObject.put("accuser_type", accuser.getAccuserType());
+            accuserInfoObject.put("accuser", accuser.getAccuser());
             accuserInfoObject.put("accuser_short", accuserShort);
-            accuserInfoObject.put("accuser_address", accuserAddress);
-            accuserInfoObject.put("accuser_represent", accuserRepresent);
-            accuserInfoObject.put("accuser_duty", accuserDuty);
+            accuserInfoObject.put("accuser_address", accuser.getAccuserAddress());
+            accuserInfoObject.put("accuser_represent", accuser.getAccuserRepresent());
+            accuserInfoObject.put("accuser_duty", accuser.getAccuserDuty());
             accuserInfoObject.put("accuser_agent", accuserAgentArray);
             accuserInfoArray.add(accuserInfoObject);
         }

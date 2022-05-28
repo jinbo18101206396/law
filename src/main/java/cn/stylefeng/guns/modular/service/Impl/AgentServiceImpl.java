@@ -64,10 +64,8 @@ public class AgentServiceImpl extends ServiceImpl<AgentMapper, Agent> implements
             for (int n = 0; n < defendantAgentArray.size(); n++) {
                 Agent defendantAgent = new Agent();
                 JSONObject defendantAgentObject = defendantAgentArray.getJSONObject(n);
-                String agentName = defendantAgentObject.get("agent").toString();
-                String agentAddress = defendantAgentObject.get("agent_address").toString();
-                defendantAgent.setAgent(agentName);
-                defendantAgent.setAgentAddress(agentAddress);
+                defendantAgent.setAgent(defendantAgentObject.get("agent").toString());
+                defendantAgent.setAgentAddress(defendantAgentObject.get("agent_address").toString());
                 defendantAgent.setAgentName(defendantShortName);
                 //代理类型（1-原告代理，2-被告代理）
                 defendantAgent.setAgentType("2");
