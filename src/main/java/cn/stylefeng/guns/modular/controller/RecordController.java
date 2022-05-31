@@ -86,6 +86,16 @@ public class RecordController {
     @Resource
     private QueryService queryService;
 
+    @Resource
+    private CourtCauseService courtCauseService;
+
+    @Resource
+    private QuestionService questionService;
+
+    @Resource
+    private ClerkRelationService clerkRelationService;
+
+
     /**
      * 分页查询笔录基本信息(系统首页)
      *
@@ -247,5 +257,42 @@ public class RecordController {
         System.out.println("回显数据： " + recordJson.toString());
 
         return new SuccessResponseData(recordJson.toString());
+    }
+
+
+    /**
+     * 获取案由列表
+     *
+     * @author 金波
+     * @date 2022/05/31
+     */
+    @GetResource(name = "案由列表", path = "/record/court/cause")
+    public ResponseData getCourtCauseList() {
+        List<String> courtCauseList = courtCauseService.getCourtCauseList();
+        return new SuccessResponseData(courtCauseList);
+    }
+
+    /**
+     * 获取法庭询问的问题列表
+     *
+     * @author 金波
+     * @date 2022/05/31
+     */
+    @GetResource(name = "问题列表", path = "/record/question")
+    public ResponseData getQuestionList() {
+        List<String> questionList = questionService.getQuestionList();
+        return new SuccessResponseData(questionList);
+    }
+
+    /**
+     * 获取书记员、审判员、开庭地点对应关系
+     *
+     * @author 金波
+     * @date 2022/05/31
+     */
+    @GetResource(name = "书记员、审判员、开庭地点对应关系", path = "/record/clerk/relation")
+    public ResponseData getClerkJudgePlaceRelation() {
+        JSONObject clerkJudgePlaceRelation = clerkRelationService.getClerkJudgePlaceRelation();
+        return new SuccessResponseData(clerkJudgePlaceRelation);
     }
 }
