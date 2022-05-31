@@ -14,6 +14,8 @@ spring:
     multipart:
       max-request-size: 8GB
       max-file-size: 8GB
+    session:
+      timeout: PT24H
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
