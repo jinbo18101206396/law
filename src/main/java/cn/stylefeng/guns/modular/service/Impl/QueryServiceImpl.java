@@ -1,12 +1,16 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
+import cn.stylefeng.guns.modular.entity.Accuser;
 import cn.stylefeng.guns.modular.entity.Query;
 import cn.stylefeng.guns.modular.mapper.QueryMapper;
 import cn.stylefeng.guns.modular.service.QueryService;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * <p>
@@ -18,6 +22,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class QueryServiceImpl extends ServiceImpl<QueryMapper, Query> implements QueryService {
+
+    @Resource
+    private QueryService queryService;
 
     /**
      * 被告质证
@@ -168,5 +175,12 @@ public class QueryServiceImpl extends ServiceImpl<QueryMapper, Query> implements
                 this.save(query);
             }
         }
+    }
+
+    @Override
+    public Boolean deleteQueryInfo(String courtNumber) {
+        LambdaQueryWrapper<Query> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Query::getCourtNumber, courtNumber);
+        return queryService.remove(queryWrapper);
     }
 }

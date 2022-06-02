@@ -1,12 +1,16 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
+import cn.stylefeng.guns.modular.entity.Accuser;
 import cn.stylefeng.guns.modular.entity.Allege;
 import cn.stylefeng.guns.modular.mapper.AllegeMapper;
 import cn.stylefeng.guns.modular.service.AllegeService;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * <p>
@@ -19,6 +23,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class AllegeServiceImpl extends ServiceImpl<AllegeMapper, Allege> implements AllegeService {
 
+    @Resource
+    private AllegeService allegeService;
 
     @Override
     public void saveAccuserClaimItem(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
@@ -71,5 +77,12 @@ public class AllegeServiceImpl extends ServiceImpl<AllegeMapper, Allege> impleme
             allege.setCourtNumber(courtNumber);
             this.save(allege);
         }
+    }
+
+    @Override
+    public Boolean deleteAllegeInfo(String courtNumber) {
+        LambdaQueryWrapper<Allege> allegeQueryWrapper = new LambdaQueryWrapper<>();
+        allegeQueryWrapper.eq(Allege::getCourtNumber, courtNumber);
+        return allegeService.remove(allegeQueryWrapper);
     }
 }

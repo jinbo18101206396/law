@@ -1,12 +1,16 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
+import cn.stylefeng.guns.modular.entity.Accuser;
 import cn.stylefeng.guns.modular.entity.Agent;
 import cn.stylefeng.guns.modular.mapper.AgentMapper;
 import cn.stylefeng.guns.modular.service.AgentService;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * <p>
@@ -18,6 +22,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class AgentServiceImpl extends ServiceImpl<AgentMapper, Agent> implements AgentService {
+
+    @Resource
+    private AgentService agentService;
 
     @Override
     public void saveAgentInfo(String courtNumber, JSONObject recordJsonObject) {
@@ -31,6 +38,13 @@ public class AgentServiceImpl extends ServiceImpl<AgentMapper, Agent> implements
         if (defendantInfoArray.size() > 0) {
             saveDefendantAgent(courtNumber, defendantInfoArray);
         }
+    }
+
+    @Override
+    public Boolean deleteAgentInfo(String courtNumber) {
+        LambdaQueryWrapper<Agent> agentQueryWrapper = new LambdaQueryWrapper<>();
+        agentQueryWrapper.eq(Agent::getCourtNumber, courtNumber);
+        return agentService.remove(agentQueryWrapper);
     }
 
     public void saveAccuserAgent(String courtNumber, JSONArray accuserInfoArray) {

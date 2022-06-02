@@ -1,5 +1,6 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
+import cn.stylefeng.guns.modular.entity.Accuser;
 import cn.stylefeng.guns.modular.entity.State;
 import cn.stylefeng.guns.modular.mapper.StateMapper;
 import cn.stylefeng.guns.modular.service.StateService;
@@ -52,5 +53,12 @@ public class StateServiceImpl extends ServiceImpl<StateMapper, State> implements
         stateObject.put("state_type", state.getStateType());
         stateObject.put("state_content", state.getStateContent());
         return stateObject;
+    }
+
+    @Override
+    public Boolean deleteStateInfo(String courtNumber) {
+        LambdaQueryWrapper<State> stateQueryWrapper = new LambdaQueryWrapper<>();
+        stateQueryWrapper.eq(State::getCourtNumber, courtNumber);
+        return stateService.remove(stateQueryWrapper);
     }
 }

@@ -14,6 +14,8 @@
         <result column="court_clerk" property="courtClerk"/>
         <result column="court_number" property="courtNumber"/>
         <result column="court_cause" property="courtCause"/>
+        <result column="final_mediate_plan" property="finalMediatePlan"/>
+        <result column="summarize" property="summarize"/>
         <result column="status" property="status"/>
         <result column="del_flag" property="delFlag"/>
         <result column="create_user" property="createUser"/>
@@ -21,98 +23,5 @@
         <result column="update_user" property="updateUser"/>
         <result column="update_time" property="updateTime"/>
     </resultMap>
-
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        basic_id
-        AS "basicId",filing_time As "filingTime",court_time As "courtTime",court_place AS "courtPlace",chief_judge AS "chiefJudge",judge AS "judge",juror AS "juror",court_clerk AS "courtClerk",court_number AS "courtNumber",court_cause AS "courtCause",status AS "status",del_flag AS "delFlag",create_user AS "createUser",create_time AS "createTime",update_user AS "updateUser",update_time AS "updateTime"
-    </sql>
-
-    <!--获取项目列表-->
-    <select id="findList" resultType="cn.stylefeng.guns.modular.model.result.BasicInfoResult"
-            parameterType="cn.stylefeng.guns.modular.model.request.BasicInfoRequest">
-        select
-        <include refid="Base_Column_List"/>
-        from basic_info where 1 = 1
-        <if test="paramCondition.basicId != null and paramCondition.basicId != ''">
-            and basic_id like CONCAT('%',#{paramCondition.basicId},'%')
-        </if>
-        <if test="paramCondition.filingTime != null and paramCondition.filingTime != ''">
-            and filing_time like CONCAT('%',#{paramCondition.filingTime},'%')
-        </if>
-        <if test="paramCondition.courtTime != null and paramCondition.courtTime != ''">
-            and court_time like CONCAT('%',#{paramCondition.courtTime},'%')
-        </if>
-        <if test="paramCondition.courtPlace != null and paramCondition.courtPlace != ''">
-            and court_place like CONCAT('%',#{paramCondition.courtPlace},'%')
-        </if>
-        <if test="paramCondition.chiefJudge != null and paramCondition.chiefJudge != ''">
-            and chief_judge like CONCAT('%',#{paramCondition.chiefJudge},'%')
-        </if>
-        <if test="paramCondition.judge != null and paramCondition.judge != ''">
-            and judge like CONCAT('%',#{paramCondition.judge},'%')
-        </if>
-        <if test="paramCondition.juror != null and paramCondition.juror != ''">
-            and juror like CONCAT('%',#{paramCondition.juror},'%')
-        </if>
-        <if test="paramCondition.courtClerk != null and paramCondition.courtClerk != ''">
-            and court_clerk like CONCAT('%',#{paramCondition.courtClerk},'%')
-        </if>
-        <if test="paramCondition.courtNumber != null and paramCondition.courtNumber != ''">
-            and court_number like CONCAT('%',#{paramCondition.courtNumber},'%')
-        </if>
-        <if test="paramCondition.courtCause != null and paramCondition.courtCause != ''">
-            and court_cause like CONCAT('%',#{paramCondition.courtCause},'%')
-        </if>
-        <if test="paramCondition.status != null and paramCondition.status != ''">
-            and status like CONCAT('%',#{paramCondition.status},'%')
-        </if>
-        <if test="paramCondition.delFlag != null and paramCondition.delFlag != ''">
-            and del_flag like CONCAT('%',#{paramCondition.delFlag},'%')
-        </if>
-    </select>
-
-    <select id="findPage" resultType="cn.stylefeng.guns.modular.model.result.BasicInfoResult"
-            parameterType="cn.stylefeng.guns.modular.model.request.BasicInfoRequest">
-        select
-        <include refid="Base_Column_List"/>
-        from project where 1 = 1
-        <if test="paramCondition.basicId != null and paramCondition.basicId != ''">
-            and basic_id like CONCAT('%',#{paramCondition.basicId},'%')
-        </if>
-        <if test="paramCondition.filingTime != null and paramCondition.filingTime != ''">
-            and filing_time like CONCAT('%',#{paramCondition.filingTime},'%')
-        </if>
-        <if test="paramCondition.courtTime != null and paramCondition.courtTime != ''">
-            and court_time like CONCAT('%',#{paramCondition.courtTime},'%')
-        </if>
-        <if test="paramCondition.courtPlace != null and paramCondition.courtPlace != ''">
-            and court_place like CONCAT('%',#{paramCondition.courtPlace},'%')
-        </if>
-        <if test="paramCondition.chiefJudge != null and paramCondition.chiefJudge != ''">
-            and chief_judge like CONCAT('%',#{paramCondition.chiefJudge},'%')
-        </if>
-        <if test="paramCondition.judge != null and paramCondition.judge != ''">
-            and judge like CONCAT('%',#{paramCondition.judge},'%')
-        </if>
-        <if test="paramCondition.juror != null and paramCondition.juror != ''">
-            and juror like CONCAT('%',#{paramCondition.juror},'%')
-        </if>
-        <if test="paramCondition.courtClerk != null and paramCondition.courtClerk != ''">
-            and court_clerk like CONCAT('%',#{paramCondition.courtClerk},'%')
-        </if>
-        <if test="paramCondition.courtNumber != null and paramCondition.courtNumber != ''">
-            and court_number like CONCAT('%',#{paramCondition.courtNumber},'%')
-        </if>
-        <if test="paramCondition.courtCause != null and paramCondition.courtCause != ''">
-            and court_cause like CONCAT('%',#{paramCondition.courtCause},'%')
-        </if>
-        <if test="paramCondition.status != null and paramCondition.status != ''">
-            and status like CONCAT('%',#{paramCondition.status},'%')
-        </if>
-        <if test="paramCondition.delFlag != null and paramCondition.delFlag != ''">
-            and del_flag like CONCAT('%',#{paramCondition.delFlag},'%')
-        </if>
-    </select>
 
 </mapper>

@@ -91,6 +91,18 @@ public class BasicInfo implements Serializable {
     private String courtCause;
 
     /**
+     * 原被告都同意且法院最终确认的调解方案
+     */
+    @TableField("final_mediate_plan")
+    private String finalMediatePlan;
+
+    /**
+     * 审判员最终总结
+     */
+    @TableField("summarize")
+    private String summarize;
+
+    /**
      * 状态：1-在审，2-已结案
      */
     @TableField("status")
@@ -125,7 +137,6 @@ public class BasicInfo implements Serializable {
      */
     @TableField(value = "update_user", fill = FieldFill.UPDATE)
     private Long updateUser;
-
 
     public Long getBasicId() {
         return basicId;
@@ -223,6 +234,22 @@ public class BasicInfo implements Serializable {
         this.courtCause = courtCause;
     }
 
+    public String getFinalMediatePlan() {
+        return finalMediatePlan;
+    }
+
+    public void setFinalMediatePlan(String finalMediatePlan) {
+        this.finalMediatePlan = finalMediatePlan;
+    }
+
+    public String getSummarize() {
+        return summarize;
+    }
+
+    public void setSummarize(String summarize) {
+        this.summarize = summarize;
+    }
+
     public Integer getStatus() {
         return status;
     }
@@ -276,21 +303,24 @@ public class BasicInfo implements Serializable {
         return "BasicInfo{" +
                 "basicId=" + basicId +
                 ", userId=" + userId +
-                ", filingTime=" + filingTime +
-                ", courtTime=" + courtTime +
-                ", courtPlace=" + courtPlace +
-                ", chiefJudge=" + chiefJudge +
-                ", judge=" + judge +
-                ", juror=" + juror +
-                ", courtClerk=" + courtClerk +
-                ", courtNumber=" + courtNumber +
-                ", courtCause=" + courtCause +
+                ", filingTime='" + filingTime + '\'' +
+                ", courtTime='" + courtTime + '\'' +
+                ", courtPlace='" + courtPlace + '\'' +
+                ", chiefJudge='" + chiefJudge + '\'' +
+                ", judge='" + judge + '\'' +
+                ", juror='" + juror + '\'' +
+                ", peopleJuror='" + peopleJuror + '\'' +
+                ", courtClerk='" + courtClerk + '\'' +
+                ", courtNumber='" + courtNumber + '\'' +
+                ", courtCause='" + courtCause + '\'' +
+                ", finalMediatePlan='" + finalMediatePlan + '\'' +
+                ", summarize='" + summarize + '\'' +
                 ", status=" + status +
-                ", delFlag=" + delFlag +
+                ", delFlag='" + delFlag + '\'' +
                 ", createTime=" + createTime +
                 ", createUser=" + createUser +
                 ", updateTime=" + updateTime +
                 ", updateUser=" + updateUser +
-                "}";
+                '}';
     }
 }

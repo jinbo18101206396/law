@@ -60,7 +60,8 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         basicInfo.setUserId(userId);
 
         //基本信息
-        JSONObject basicInfoObject = JSONObject.parseObject(recordJsonObject.getString("basicInfo"));
+        String basicInfoJsonStr = recordJsonObject.getString("basicInfo");
+        JSONObject basicInfoObject = JSONObject.parseObject(basicInfoJsonStr);
         //立案时间
         if (basicInfoObject.containsKey("filing_time")) {
             basicInfo.setFilingTime(basicInfoObject.get("filing_time").toString());
@@ -116,6 +117,17 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         //案由
         if (basicInfoObject.containsKey("court_cause")) {
             basicInfo.setCourtCause(basicInfoObject.get("court_cause").toString());
+        }
+        //原被告都统一且法院最终确认的调解方案
+        if(recordJsonObject.containsKey("mediateInfo")){
+            JSONObject mediateInfoObject = recordJsonObject.getJSONObject("mediateInfo");
+            String finalMediatePlan = mediateInfoObject.get("final_mediate_plan").toString();
+            basicInfo.setFinalMediatePlan(finalMediatePlan);
+        }
+        //审判员最终总结
+        if(recordJsonObject.containsKey("summarize")){
+            String summarize = recordJsonObject.getString("summarize");
+            basicInfo.setSummarize(summarize);
         }
         basicInfo.setCourtNumber(courtNumber);
         this.save(basicInfo);
@@ -182,6 +194,13 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         basicInfoObject.put("court_clerk", basicInfo.getCourtClerk());
         basicInfoObject.put("court_cause", basicInfo.getCourtCause());
         return basicInfoObject;
+    }
+
+    @Override
+    public Boolean deleteBasicInfo(String courtNumber) {
+        LambdaQueryWrapper<BasicInfo> basicQueryWrapper = new LambdaQueryWrapper<>();
+        basicQueryWrapper.eq(BasicInfo::getCourtNumber, courtNumber);
+        return basicInfoService.remove(basicQueryWrapper);
     }
 
     @Override
@@ -294,6 +313,12 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
     @Override
     public JSONObject getMediateInfoObject(String courtNumber) {
         JSONObject mediateInfoObject = new JSONObject();
+        //最终调解方案
+        LambdaQueryWrapper<BasicInfo> basicInfoQueryWrapper = new LambdaQueryWrapper<>();
+        basicInfoQueryWrapper.eq(BasicInfo::getCourtNumber, courtNumber);
+        BasicInfo basicInfo = basicInfoService.getOne(basicInfoQueryWrapper);
+        String finalMediatePlan = basicInfo.getFinalMediatePlan();
+        mediateInfoObject.put("final_mediate_plan", finalMediatePlan);
         //原告
         LambdaQueryWrapper<Accuser> accuserQueryWrapper = new LambdaQueryWrapper<>();
         accuserQueryWrapper.eq(Accuser::getCourtNumber, courtNumber);
@@ -374,6 +399,17 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
             }
         }
         return finalStatementInfoArray;
+    }
+
+    /**
+     * 审判员最终总结
+     */
+    @Override
+    public String getSummarize(String courtNumber) {
+        LambdaQueryWrapper<BasicInfo> basicInfoQueryWrapper = new LambdaQueryWrapper<>();
+        basicInfoQueryWrapper.eq(BasicInfo::getCourtNumber, courtNumber);
+        BasicInfo basicInfo = basicInfoService.getOne(basicInfoQueryWrapper);
+        return basicInfo.getSummarize();
     }
 
     /**
@@ -462,30 +498,19 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         for (int i = 0; i < proofs.size(); i++) {
             Proof proof = proofs.get(i);
             JSONObject evidenceObject = new JSONObject();
+            evidenceObject.put("serial",proof.getSerial());
             evidenceObject.put("evidence", proof.getEvidence());
+            evidenceObject.put("evidence_type",proof.getEvidenceType());
             evidenceObject.put("content", proof.getContent());
-            String factReason = proof.getFactReason();
             String type = proof.getType();
             if ("原告".equals(type)) {
                 accuserEvidenceArray.add(evidenceObject);
-                if (!courtInvestigateObject.containsKey("accuser_evidence_fact_reason")) {
-                    courtInvestigateObject.put("accuser_evidence_fact_reason", factReason);
-                }
             } else if ("被告".equals(type)) {
                 defendantEvidenceArray.add(evidenceObject);
-                if (!courtInvestigateObject.containsKey("defendant_evidence_fact_reason")) {
-                    courtInvestigateObject.put("defendant_evidence_fact_reason", factReason);
-                }
             } else if ("反诉原告".equals(type)) {
                 counterClaimAccuserEvidenceArray.add(evidenceObject);
-                if (!courtInvestigateObject.containsKey("counterclaim_accuser_evidence_fact_reason")) {
-                    courtInvestigateObject.put("counterclaim_accuser_evidence_fact_reason", factReason);
-                }
             } else if ("反诉被告".equals(type)) {
                 counterClaimDefendantEvidenceArray.add(evidenceObject);
-                if (!courtInvestigateObject.containsKey("counterclaim_defendant_evidence_fact_reason")) {
-                    courtInvestigateObject.put("counterclaim_defendant_evidence_fact_reason", factReason);
-                }
             }
         }
         courtInvestigateObject.put("accuser_evidence", accuserEvidenceArray);

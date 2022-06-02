@@ -37,10 +37,22 @@ public class Proof implements Serializable {
     private String type;
 
     /**
+     * 证据编号
+     */
+    @TableField("serial")
+    private String serial;
+
+    /**
      * 证据名称
      */
     @TableField("evidence")
     private String evidence;
+
+    /**
+     * 证据类型
+     */
+    @TableField("evidence_type")
+    private String evidenceType;
 
     /**
      * 证明事项
@@ -90,6 +102,9 @@ public class Proof implements Serializable {
     @TableField(value = "update_user", fill = FieldFill.UPDATE)
     private Long updateUser;
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
     public Long getProofId() {
         return proofId;
@@ -107,12 +122,36 @@ public class Proof implements Serializable {
         this.name = name;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getSerial() {
+        return serial;
+    }
+
+    public void setSerial(String serial) {
+        this.serial = serial;
+    }
+
     public String getEvidence() {
         return evidence;
     }
 
     public void setEvidence(String evidence) {
         this.evidence = evidence;
+    }
+
+    public String getEvidenceType() {
+        return evidenceType;
+    }
+
+    public void setEvidenceType(String evidenceType) {
+        this.evidenceType = evidenceType;
     }
 
     public String getContent() {
@@ -123,21 +162,12 @@ public class Proof implements Serializable {
         this.content = content;
     }
 
-
     public String getFactReason() {
         return factReason;
     }
 
     public void setFactReason(String factReason) {
         this.factReason = factReason;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getIsCounterClaim() {
@@ -190,12 +220,15 @@ public class Proof implements Serializable {
 
     @Override
     public String toString() {
-        return "Proof{" +
+        return "PProof{" +
                 "proofId=" + proofId +
                 ", name='" + name + '\'' +
                 ", type='" + type + '\'' +
+                ", serial='" + serial + '\'' +
                 ", evidence='" + evidence + '\'' +
+                ", evidenceType='" + evidenceType + '\'' +
                 ", content='" + content + '\'' +
+                ", factReason='" + factReason + '\'' +
                 ", isCounterClaim='" + isCounterClaim + '\'' +
                 ", courtNumber='" + courtNumber + '\'' +
                 ", createTime=" + createTime +

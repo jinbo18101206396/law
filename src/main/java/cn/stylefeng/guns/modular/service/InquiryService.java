@@ -39,4 +39,15 @@ public interface InquiryService extends IService<Inquiry> {
      */
     JSONArray getInquiryInfoArray(String courtNumber);
 
+
+    /**
+     * 删除法庭询问信息
+     *
+     * @param courtNumber 请求参数
+     * @return
+     * @author 金波
+     * @Date 2022-06-02
+     */
+    Boolean deleteInquiryInfo(String courtNumber);
+
 }

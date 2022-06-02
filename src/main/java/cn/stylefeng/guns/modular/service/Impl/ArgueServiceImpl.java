@@ -1,5 +1,6 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
+import cn.stylefeng.guns.modular.entity.Accuser;
 import cn.stylefeng.guns.modular.entity.Argue;
 import cn.stylefeng.guns.modular.mapper.ArgueMapper;
 import cn.stylefeng.guns.modular.service.ArgueService;
@@ -110,5 +111,12 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
         argueInfoObject.put("counterclaim_argue", counterClaimArgueArray);
 
         return argueInfoObject;
+    }
+
+    @Override
+    public Boolean deleteArgueInfo(String courtNumber) {
+        LambdaQueryWrapper<Argue> argueQueryWrapper = new LambdaQueryWrapper<>();
+        argueQueryWrapper.eq(Argue::getCourtNumber, courtNumber);
+        return argueService.remove(argueQueryWrapper);
     }
 }

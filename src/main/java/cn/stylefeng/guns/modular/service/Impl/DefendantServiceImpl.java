@@ -1,5 +1,6 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
+import cn.stylefeng.guns.modular.entity.Accuser;
 import cn.stylefeng.guns.modular.entity.Agent;
 import cn.stylefeng.guns.modular.entity.Defendant;
 import cn.stylefeng.guns.modular.mapper.DefendantMapper;
@@ -167,5 +168,12 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
             defendantInfoArray.add(defendantInfoObject);
         }
         return defendantInfoArray;
+    }
+
+    @Override
+    public Boolean deleteDefendantInfo(String courtNumber) {
+        LambdaQueryWrapper<Defendant> defendantQueryWrapper = new LambdaQueryWrapper<>();
+        defendantQueryWrapper.eq(Defendant::getCourtNumber, courtNumber);
+        return defendantService.remove(defendantQueryWrapper);
     }
 }

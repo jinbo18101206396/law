@@ -35,4 +35,14 @@ public interface DefendantService extends IService<Defendant> {
      */
     JSONArray getDefendantInfoArray(String courtNumber);
 
+    /**
+     * 删除被告信息
+     *
+     * @param courtNumber 查看参数
+     * @return
+     * @author 金波
+     * @date 2022/06/02
+     */
+    Boolean deleteDefendantInfo(String courtNumber);
+
 }

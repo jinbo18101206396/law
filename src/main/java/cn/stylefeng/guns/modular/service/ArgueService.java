@@ -31,4 +31,13 @@ public interface ArgueService extends IService<Argue> {
      */
     JSONObject getArgueInfoObject(String courtNumber);
 
+
+    /**
+     * 删除法庭辩论信息
+     *
+     * @author jinbo
+     * @Date 2022-05-25
+     */
+    Boolean deleteArgueInfo(String courtNumber);
+
 }

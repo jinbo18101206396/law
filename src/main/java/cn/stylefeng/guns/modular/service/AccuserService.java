@@ -36,4 +36,15 @@ public interface AccuserService extends IService<Accuser> {
      */
     JSONArray getAccuserInfoArray(String courtNumber);
 
+
+    /**
+     * 删除原告信息
+     *
+     * @param courtNumber 查看参数
+     * @return
+     * @author 金波
+     * @date 2022/06/02
+     */
+    Boolean deleteAccuserInfo(String courtNumber);
+
 }

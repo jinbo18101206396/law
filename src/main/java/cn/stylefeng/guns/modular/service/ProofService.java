@@ -54,4 +54,15 @@ public interface ProofService extends IService<Proof> {
      */
     void saveCounterClaimDefendantEvidence(String courtNumber, String counterClaim, JSONObject recordJsonObject);
 
+
+    /**
+     * 删除举证信息
+     *
+     * @param courtNumber 请求参数
+     * @return
+     * @author 金波
+     * @Date 2022-06-02
+     */
+    Boolean deleteProofInfo(String courtNumber);
+
 }

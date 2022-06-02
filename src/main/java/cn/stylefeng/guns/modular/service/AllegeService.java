@@ -39,4 +39,15 @@ public interface AllegeService extends IService<Allege> {
      */
     void saveCounterClaimAccuserItem(String courtNumber, String counterClaim, JSONObject recordJsonObject);
 
+
+    /**
+     * 删除诉讼请求项信息
+     *
+     * @param courtNumber 请求参数
+     * @return
+     * @author 金波
+     * @Date 2022-06-02
+     */
+    Boolean deleteAllegeInfo(String courtNumber);
+
 }

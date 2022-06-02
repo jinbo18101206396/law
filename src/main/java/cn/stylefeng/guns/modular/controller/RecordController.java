@@ -24,6 +24,7 @@
  */
 package cn.stylefeng.guns.modular.controller;
 
+import cn.stylefeng.guns.modular.FileUtils;
 import cn.stylefeng.guns.modular.entity.BasicInfo;
 import cn.stylefeng.guns.modular.model.request.BasicInfoRequest;
 import cn.stylefeng.guns.modular.service.*;
@@ -41,6 +42,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -115,32 +120,35 @@ public class RecordController {
      * @date 2022/05/22
      */
     @PostResource(name = "保存笔录信息", path = "/record/add")
-    public ResponseData add(@RequestBody String recordJson) {
-
-        System.out.println("提交数据： " + recordJson);
+    public ResponseData add(@RequestBody String recordJson) throws IOException {
+        //每次提交的recordJson保存一份在本地
+        FileUtils.writerFile(recordJson,"src/main/backup");
 
         JSONObject recordJsonObject = JSONObject.parseObject(recordJson);
-        JSONObject basicInfoObject = JSONObject.parseObject(recordJsonObject.getString("basicInfo"));
-        JSONObject courtInvestigateObject = JSONObject.parseObject(recordJsonObject.getString("courtInvestigate"));
-
-        String courtNumber = basicInfoObject.get("court_number").toString();
+        String courtNumber = "";
+        if(recordJsonObject.containsKey("basicInfo")){
+            String basicInfo = recordJsonObject.getString("basicInfo");
+            JSONObject basicInfoObject = JSONObject.parseObject(basicInfo);
+            courtNumber = basicInfoObject.get("court_number").toString();
+        }
         if (ObjectUtils.isEmpty(courtNumber)) {
             return new SuccessResponseData("案号不能为空");
         }
-        //案号唯一
+
+        //若案号已存在，则清空库中当前案号的信息，重新插入最新数据
         List<BasicInfo> basicInfoList = basicInfoService.getBasicInfoList(courtNumber);
-        if (basicInfoList.size() > 0) {
-            return new SuccessResponseData("案号已存在，不能重复提交");
-        }
-        //是否反诉
-        String counterClaim = "";
-        if (courtInvestigateObject.containsKey("is_counterclaim")) {
-            counterClaim = courtInvestigateObject.get("is_counterclaim").toString();
-        }
-        //反诉被告今日是否答辩
-        String counterClaimDefendantTodayIsReply = "";
-        if (courtInvestigateObject.containsKey("counterclaim_defendant_today_is_reply")) {
-            counterClaimDefendantTodayIsReply = courtInvestigateObject.get("counterclaim_defendant_today_is_reply").toString();
+        if (basicInfoList != null && basicInfoList.size() > 0) {
+            basicInfoService.deleteBasicInfo(courtNumber);
+            accuserService.deleteAccuserInfo(courtNumber);
+            defendantService.deleteDefendantInfo(courtNumber);
+            agentService.deleteAgentInfo(courtNumber);
+            stateService.deleteStateInfo(courtNumber);
+            argueService.deleteArgueInfo(courtNumber);
+            inquiryService.deleteInquiryInfo(courtNumber);
+            queryService.deleteQueryInfo(courtNumber);
+            proofService.deleteProofInfo(courtNumber);
+            replyService.deleteReplyInfo(courtNumber);
+            allegeService.deleteAllegeInfo(courtNumber);
         }
 
         //基本信息
@@ -157,13 +165,30 @@ public class RecordController {
         allegeService.saveAccuserClaimItem(courtNumber, "2", recordJsonObject);
         //被告答辩
         replyService.saveDefendantReply(courtNumber, "2", recordJsonObject);
-        //反诉原告诉讼请求项和事实与理由
+
+        JSONObject courtInvestigateObject = null;
+        if(recordJsonObject.containsKey("courtInvestigate")){
+            String courtInvestigate = recordJsonObject.getString("courtInvestigate");
+            courtInvestigateObject = JSONObject.parseObject(courtInvestigate);
+        }
+
+        //是否反诉
+        String counterClaim = "";
+        if (courtInvestigateObject != null && courtInvestigateObject.containsKey("is_counterclaim")) {
+            counterClaim = courtInvestigateObject.get("is_counterclaim").toString();
+        }
+        //反诉原告诉讼请求项
         if (!"".equals(counterClaim) && "1".equals(counterClaim)) {
             allegeService.saveCounterClaimAccuserItem(courtNumber, "1", recordJsonObject);
         }
 
+        //反诉被告今日是否答辩
+        String counterClaimDefendantTodayIsReply = "";
+        if (courtInvestigateObject != null && courtInvestigateObject.containsKey("counterclaim_defendant_today_is_reply")) {
+            counterClaimDefendantTodayIsReply = courtInvestigateObject.get("counterclaim_defendant_today_is_reply").toString();
+        }
         //反诉被告今日不答辩，则提前结束
-        if ("1".equals(counterClaim) && "2".equals(counterClaimDefendantTodayIsReply)) {
+        if (!"".equals(counterClaim) && !"".equals(counterClaimDefendantTodayIsReply) && "1".equals(counterClaim) && "2".equals(counterClaimDefendantTodayIsReply)) {
             return new SuccessResponseData("反诉被告今日不答辩，提前结束！");
         }
 
@@ -254,6 +279,10 @@ public class RecordController {
         JSONArray deliveryInfoArray = basicInfoService.getDiliveryInfoArray(courtNumber);
         recordJson.put("deliveryInfo", deliveryInfoArray);
 
+        //审判员最终总结
+        String summarize = basicInfoService.getSummarize(courtNumber);
+        recordJson.put("summarize",summarize);
+
         System.out.println("回显数据： " + recordJson.toString());
 
         return new SuccessResponseData(recordJson.toString());
@@ -295,4 +324,7 @@ public class RecordController {
         JSONObject clerkJudgePlaceRelation = clerkRelationService.getClerkJudgePlaceRelation();
         return new SuccessResponseData(clerkJudgePlaceRelation);
     }
+
+
+
 }

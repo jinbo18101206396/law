@@ -36,6 +36,16 @@ public interface BasicInfoService extends IService<BasicInfo> {
     JSONObject getBasicInfoObject(String courtNumber);
 
     /**
+     * 删除笔录基本信息
+     *
+     * @param courtNumber 查看参数
+     * @return 详情结果
+     * @author 金波
+     * @date 2022/06/02
+     */
+    Boolean deleteBasicInfo(String courtNumber);
+
+    /**
      * 获取笔录基本信息列表
      *
      * @param courtNumber 查看参数
@@ -87,6 +97,16 @@ public interface BasicInfoService extends IService<BasicInfo> {
      * @date 2022/05/25
      */
     JSONArray getFinalStatementInfoArray(String courtNumber);
+
+    /**
+     * 获取审判员最终总结
+     *
+     * @param courtNumber 查看参数
+     * @return 详情结果
+     * @author 金波
+     * @date 2022/06/02
+     */
+    String getSummarize(String courtNumber);
 
 
     /**

@@ -1,12 +1,16 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
+import cn.stylefeng.guns.modular.entity.Accuser;
 import cn.stylefeng.guns.modular.entity.Reply;
 import cn.stylefeng.guns.modular.mapper.ReplyMapper;
 import cn.stylefeng.guns.modular.service.ReplyService;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * <p>
@@ -18,6 +22,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ReplyServiceImpl extends ServiceImpl<ReplyMapper, Reply> implements ReplyService {
+
+    @Resource
+    private ReplyService replyService;
 
     /**
      * 被告答辩
@@ -59,5 +66,12 @@ public class ReplyServiceImpl extends ServiceImpl<ReplyMapper, Reply> implements
                 this.save(reply);
             }
         }
+    }
+
+    @Override
+    public Boolean deleteReplyInfo(String courtNumber) {
+        LambdaQueryWrapper<Reply> replyQueryWrapper = new LambdaQueryWrapper<>();
+        replyQueryWrapper.eq(Reply::getCourtNumber, courtNumber);
+        return replyService.remove(replyQueryWrapper);
     }
 }

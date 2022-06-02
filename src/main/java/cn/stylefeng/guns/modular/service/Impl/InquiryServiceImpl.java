@@ -1,5 +1,6 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
+import cn.stylefeng.guns.modular.entity.Accuser;
 import cn.stylefeng.guns.modular.entity.Inquiry;
 import cn.stylefeng.guns.modular.mapper.InquiryMapper;
 import cn.stylefeng.guns.modular.service.InquiryService;
@@ -104,5 +105,12 @@ public class InquiryServiceImpl extends ServiceImpl<InquiryMapper, Inquiry> impl
             inquiryInfoArray.add(inquiryInfoObject);
         }
         return inquiryInfoArray;
+    }
+
+    @Override
+    public Boolean deleteInquiryInfo(String courtNumber) {
+        LambdaQueryWrapper<Inquiry> inquiryQueryWrapper = new LambdaQueryWrapper<>();
+        inquiryQueryWrapper.eq(Inquiry::getCourtNumber, courtNumber);
+        return inquiryService.remove(inquiryQueryWrapper);
     }
 }
