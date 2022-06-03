@@ -280,8 +280,6 @@ public class RecordController {
         String summarize = basicInfoService.getSummarize(courtNumber);
         recordJson.put("summarize", summarize);
 
-        System.out.println("回显数据： " + recordJson.toString());
-
         return new SuccessResponseData(recordJson.toString());
     }
 

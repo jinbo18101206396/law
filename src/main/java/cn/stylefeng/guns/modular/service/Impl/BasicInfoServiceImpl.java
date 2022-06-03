@@ -139,60 +139,57 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
     @Override
     public JSONObject getBasicInfoObject(String courtNumber) {
         //笔录基本信息
+        JSONObject basicInfoObject = new JSONObject();
         LambdaQueryWrapper<BasicInfo> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(BasicInfo::getCourtNumber, courtNumber);
         BasicInfo basicInfo = this.getOne(queryWrapper);
-
-        JSONObject basicInfoObject = new JSONObject();
-        basicInfoObject.put("filing_time", basicInfo.getFilingTime());
-        basicInfoObject.put("court_time", basicInfo.getCourtTime());
-        basicInfoObject.put("court_place", basicInfo.getCourtPlace());
-
-        //审判长
-        JSONArray chiefJudgeArray = new JSONArray();
-        String chiefJudge = basicInfo.getChiefJudge();
-        String[] chiefJudges = chiefJudge.split(",");
-        for (int i = 0; i < chiefJudges.length; i++) {
-            JSONObject chiefJudgeObject = new JSONObject();
-            chiefJudgeObject.put("name", chiefJudges[i]);
-            chiefJudgeArray.add(chiefJudgeObject);
+        if(!ObjectUtils.isEmpty(basicInfo)){
+            basicInfoObject.put("filing_time", basicInfo.getFilingTime());
+            basicInfoObject.put("court_time", basicInfo.getCourtTime());
+            basicInfoObject.put("court_place", basicInfo.getCourtPlace());
+            //审判长
+            JSONArray chiefJudgeArray = new JSONArray();
+            String chiefJudge = basicInfo.getChiefJudge();
+            String[] chiefJudges = chiefJudge.split(",");
+            for (int i = 0; i < chiefJudges.length; i++) {
+                JSONObject chiefJudgeObject = new JSONObject();
+                chiefJudgeObject.put("name", chiefJudges[i]);
+                chiefJudgeArray.add(chiefJudgeObject);
+            }
+            basicInfoObject.put("chief_judge", chiefJudgeArray);
+            //审判员
+            JSONArray judgeArray = new JSONArray();
+            String judge = basicInfo.getJudge();
+            String[] judges = judge.split(",");
+            for (int i = 0; i < judges.length; i++) {
+                JSONObject judgeObject = new JSONObject();
+                judgeObject.put("name", judges[i]);
+                judgeArray.add(judgeObject);
+            }
+            basicInfoObject.put("judge", judgeArray);
+            //陪审员
+            JSONArray jurorArray = new JSONArray();
+            String juror = basicInfo.getJuror();
+            String[] jurors = juror.split(",");
+            for (int i = 0; i < jurors.length; i++) {
+                JSONObject jurorObject = new JSONObject();
+                jurorObject.put("name", jurors[i]);
+                jurorArray.add(jurorObject);
+            }
+            basicInfoObject.put("juror", jurorArray);
+            //人民陪审员
+            JSONArray peopleJurorArray = new JSONArray();
+            String peopleJuror = basicInfo.getPeopleJuror();
+            String[] peopleJurors = peopleJuror.split(",");
+            for (int i = 0; i < peopleJurors.length; i++) {
+                JSONObject peopleJurorObject = new JSONObject();
+                peopleJurorObject.put("name", peopleJurors[i]);
+                peopleJurorArray.add(peopleJurorObject);
+            }
+            basicInfoObject.put("people_juror", peopleJurorArray);
+            basicInfoObject.put("court_clerk", basicInfo.getCourtClerk());
+            basicInfoObject.put("court_cause", basicInfo.getCourtCause());
         }
-        basicInfoObject.put("chief_judge", chiefJudgeArray);
-
-        //审判员
-        JSONArray judgeArray = new JSONArray();
-        String judge = basicInfo.getJudge();
-        String[] judges = judge.split(",");
-        for (int i = 0; i < judges.length; i++) {
-            JSONObject judgeObject = new JSONObject();
-            judgeObject.put("name", judges[i]);
-            judgeArray.add(judgeObject);
-        }
-        basicInfoObject.put("judge", judgeArray);
-
-        //陪审员
-        JSONArray jurorArray = new JSONArray();
-        String juror = basicInfo.getJuror();
-        String[] jurors = juror.split(",");
-        for (int i = 0; i < jurors.length; i++) {
-            JSONObject jurorObject = new JSONObject();
-            jurorObject.put("name", jurors[i]);
-            jurorArray.add(jurorObject);
-        }
-        basicInfoObject.put("juror", jurorArray);
-
-        //人民陪审员
-        JSONArray peopleJurorArray = new JSONArray();
-        String peopleJuror = basicInfo.getPeopleJuror();
-        String[] peopleJurors = peopleJuror.split(",");
-        for (int i = 0; i < peopleJurors.length; i++) {
-            JSONObject peopleJurorObject = new JSONObject();
-            peopleJurorObject.put("name", peopleJurors[i]);
-            peopleJurorArray.add(peopleJurorObject);
-        }
-        basicInfoObject.put("people_juror", peopleJurorArray);
-        basicInfoObject.put("court_clerk", basicInfo.getCourtClerk());
-        basicInfoObject.put("court_cause", basicInfo.getCourtCause());
         return basicInfoObject;
     }
 
@@ -317,8 +314,11 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         LambdaQueryWrapper<BasicInfo> basicInfoQueryWrapper = new LambdaQueryWrapper<>();
         basicInfoQueryWrapper.eq(BasicInfo::getCourtNumber, courtNumber);
         BasicInfo basicInfo = basicInfoService.getOne(basicInfoQueryWrapper);
-        String finalMediatePlan = basicInfo.getFinalMediatePlan();
-        mediateInfoObject.put("final_mediate_plan", finalMediatePlan);
+        if(!ObjectUtils.isEmpty(basicInfo)){
+            String finalMediatePlan = basicInfo.getFinalMediatePlan();
+            mediateInfoObject.put("final_mediate_plan", finalMediatePlan);
+        }
+
         //原告
         LambdaQueryWrapper<Accuser> accuserQueryWrapper = new LambdaQueryWrapper<>();
         accuserQueryWrapper.eq(Accuser::getCourtNumber, courtNumber);
@@ -409,7 +409,11 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         LambdaQueryWrapper<BasicInfo> basicInfoQueryWrapper = new LambdaQueryWrapper<>();
         basicInfoQueryWrapper.eq(BasicInfo::getCourtNumber, courtNumber);
         BasicInfo basicInfo = basicInfoService.getOne(basicInfoQueryWrapper);
-        return basicInfo.getSummarize();
+        String summarize = "";
+        if(!ObjectUtils.isEmpty(basicInfo)){
+            summarize = basicInfo.getSummarize();
+        }
+        return summarize;
     }
 
     /**
@@ -536,7 +540,6 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
             Accuser accuser = accusers.get(i);
             accuserShortNames.add(accuser.getAccuserShort());
         }
-
         //所有被告
         LambdaQueryWrapper<Defendant> defendantQueryWrapper = new LambdaQueryWrapper<>();
         defendantQueryWrapper.eq(Defendant::getCourtNumber, courtNumber);
