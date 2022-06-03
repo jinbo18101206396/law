@@ -143,7 +143,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         LambdaQueryWrapper<BasicInfo> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(BasicInfo::getCourtNumber, courtNumber);
         BasicInfo basicInfo = this.getOne(queryWrapper);
-        if(!ObjectUtils.isEmpty(basicInfo)){
+        if (!ObjectUtils.isEmpty(basicInfo)) {
             basicInfoObject.put("filing_time", basicInfo.getFilingTime());
             basicInfoObject.put("court_time", basicInfo.getCourtTime());
             basicInfoObject.put("court_place", basicInfo.getCourtPlace());
@@ -222,18 +222,26 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         LambdaQueryWrapper<Accuser> accuserQueryWrapper = new LambdaQueryWrapper<>();
         accuserQueryWrapper.eq(Accuser::getCourtNumber, courtNumber);
         List<Accuser> accusers = accuserService.list(accuserQueryWrapper);
-        for (int i = 0; i < accusers.size(); i++) {
-            Accuser accuser = accusers.get(i);
+        if (null == accusers || accusers.size() == 0) {
             JSONObject accuserRightDutyObject = new JSONObject();
-            String accuserShortName = accuser.getAccuserShort();
-            String accuserRightDuty = accuser.getAccuserRightDuty();
-            String accuserAvoid = accuser.getAccuserAvoid();
+            accuserRightDutyObject.put("accuser", "");
+            accuserRightDutyObject.put("right_duty", "");
+            accuserRightDutyObject.put("avoid", "");
+            accuserRightDutyArray.add(accuserRightDutyObject);
+        } else {
+            for (int i = 0; i < accusers.size(); i++) {
+                Accuser accuser = accusers.get(i);
+                JSONObject accuserRightDutyObject = new JSONObject();
+                String accuserShortName = accuser.getAccuserShort();
+                String accuserRightDuty = accuser.getAccuserRightDuty();
+                String accuserAvoid = accuser.getAccuserAvoid();
 
-            if (!ObjectUtils.isEmpty(accuserShortName) && !ObjectUtils.isEmpty(accuserRightDuty) && !ObjectUtils.isEmpty(accuserAvoid)) {
-                accuserRightDutyObject.put("accuser", accuserShortName);
-                accuserRightDutyObject.put("right_duty", accuserRightDuty);
-                accuserRightDutyObject.put("avoid", accuserAvoid);
-                accuserRightDutyArray.add(accuserRightDutyObject);
+                if (!ObjectUtils.isEmpty(accuserShortName) && !ObjectUtils.isEmpty(accuserRightDuty) && !ObjectUtils.isEmpty(accuserAvoid)) {
+                    accuserRightDutyObject.put("accuser", accuserShortName);
+                    accuserRightDutyObject.put("right_duty", accuserRightDuty);
+                    accuserRightDutyObject.put("avoid", accuserAvoid);
+                    accuserRightDutyArray.add(accuserRightDutyObject);
+                }
             }
         }
         rightInfoObject.put("accuser_right_duty", accuserRightDutyArray);
@@ -243,18 +251,25 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         LambdaQueryWrapper<Defendant> defendentQueryWrapper = new LambdaQueryWrapper<>();
         defendentQueryWrapper.eq(Defendant::getCourtNumber, courtNumber);
         List<Defendant> defendants = defendantService.list(defendentQueryWrapper);
-        for (int i = 0; i < defendants.size(); i++) {
-            Defendant defendant = defendants.get(i);
+        if (null == defendants || defendants.size() == 0) {
             JSONObject defendantRightDutyObject = new JSONObject();
-            String defendantShortName = defendant.getDefendantShort();
-            String defendantRightDuty = defendant.getDefendantRightDuty();
-            String defendantAvoid = defendant.getDefendantAvoid();
-
-            if (!ObjectUtils.isEmpty(defendantShortName) && !ObjectUtils.isEmpty(defendantRightDuty) && !ObjectUtils.isEmpty(defendantAvoid)) {
-                defendantRightDutyObject.put("defendant", defendantShortName);
-                defendantRightDutyObject.put("right_duty", defendantRightDuty);
-                defendantRightDutyObject.put("avoid", defendantAvoid);
-                defendantRightDutyArray.add(defendantRightDutyObject);
+            defendantRightDutyObject.put("defendant", "");
+            defendantRightDutyObject.put("right_duty", "");
+            defendantRightDutyObject.put("avoid", "");
+            defendantRightDutyArray.add(defendantRightDutyObject);
+        } else {
+            for (int i = 0; i < defendants.size(); i++) {
+                Defendant defendant = defendants.get(i);
+                JSONObject defendantRightDutyObject = new JSONObject();
+                String defendantShortName = defendant.getDefendantShort();
+                String defendantRightDuty = defendant.getDefendantRightDuty();
+                String defendantAvoid = defendant.getDefendantAvoid();
+                if (!ObjectUtils.isEmpty(defendantShortName) && !ObjectUtils.isEmpty(defendantRightDuty) && !ObjectUtils.isEmpty(defendantAvoid)) {
+                    defendantRightDutyObject.put("defendant", defendantShortName);
+                    defendantRightDutyObject.put("right_duty", defendantRightDuty);
+                    defendantRightDutyObject.put("avoid", defendantAvoid);
+                    defendantRightDutyArray.add(defendantRightDutyObject);
+                }
             }
         }
         rightInfoObject.put("defendant_right_duty", defendantRightDutyArray);
@@ -271,35 +286,56 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         LambdaQueryWrapper<Accuser> accuserQueryWrapper = new LambdaQueryWrapper<>();
         accuserQueryWrapper.eq(Accuser::getCourtNumber, courtNumber);
         List<Accuser> accusers = accuserService.list(accuserQueryWrapper);
-        for (int i = 0; i < accusers.size(); i++) {
-            Accuser accuser = accusers.get(i);
-            String accuserShortName = accuser.getAccuserShort();
-            String isDelivery = accuser.getIsDelivery();
-            JSONObject accuserDeliveryObject = new JSONObject();
 
-            if (!ObjectUtils.isEmpty(accuserShortName) && !ObjectUtils.isEmpty(isDelivery)) {
-                accuserDeliveryObject.put("name", accuserShortName + "（原告）");
-                accuserDeliveryObject.put("is_delivery", isDelivery);
-                accuserDeliveryObject.put("email", accuser.getEmail());
-            }
+        //若原告为空
+        if (null == accusers || accusers.size() == 0) {
+            JSONObject accuserDeliveryObject = new JSONObject();
+            accuserDeliveryObject.put("name", "");
+            accuserDeliveryObject.put("is_delivery", "");
+            accuserDeliveryObject.put("email", "");
             diliveryInfoArray.add(accuserDeliveryObject);
+        } else {
+            for (int i = 0; i < accusers.size(); i++) {
+                Accuser accuser = accusers.get(i);
+                String accuserShortName = accuser.getAccuserShort();
+                String isDelivery = accuser.getIsDelivery();
+                JSONObject accuserDeliveryObject = new JSONObject();
+
+                if (!ObjectUtils.isEmpty(accuserShortName) && !ObjectUtils.isEmpty(isDelivery)) {
+                    accuserDeliveryObject.put("name", accuserShortName + "（原告）");
+                    accuserDeliveryObject.put("is_delivery", isDelivery);
+                    accuserDeliveryObject.put("email", accuser.getEmail());
+                }
+                diliveryInfoArray.add(accuserDeliveryObject);
+            }
         }
+
         //被告
         LambdaQueryWrapper<Defendant> defendantQueryWrapper = new LambdaQueryWrapper<>();
         defendantQueryWrapper.eq(Defendant::getCourtNumber, courtNumber);
         List<Defendant> defendants = defendantService.list(defendantQueryWrapper);
-        for (int i = 0; i < defendants.size(); i++) {
-            Defendant defendant = defendants.get(i);
-            String defendantShortName = defendant.getDefendantShort();
-            String isDelivery = defendant.getIsDelivery();
-            JSONObject defendantDeliveryObject = new JSONObject();
 
-            if (!ObjectUtils.isEmpty(defendantShortName) && !ObjectUtils.isEmpty(isDelivery)) {
-                defendantDeliveryObject.put("name", defendantShortName + "（被告）");
-                defendantDeliveryObject.put("is_delivery", isDelivery);
-                defendantDeliveryObject.put("email", defendant.getEmail());
-            }
+        //若被告为空
+        if (null == defendants || defendants.size() == 0) {
+            JSONObject defendantDeliveryObject = new JSONObject();
+            defendantDeliveryObject.put("name", "");
+            defendantDeliveryObject.put("is_delivery", "");
+            defendantDeliveryObject.put("email", "");
             diliveryInfoArray.add(defendantDeliveryObject);
+        } else {
+            for (int i = 0; i < defendants.size(); i++) {
+                Defendant defendant = defendants.get(i);
+                String defendantShortName = defendant.getDefendantShort();
+                String isDelivery = defendant.getIsDelivery();
+                JSONObject defendantDeliveryObject = new JSONObject();
+
+                if (!ObjectUtils.isEmpty(defendantShortName) && !ObjectUtils.isEmpty(isDelivery)) {
+                    defendantDeliveryObject.put("name", defendantShortName + "（被告）");
+                    defendantDeliveryObject.put("is_delivery", isDelivery);
+                    defendantDeliveryObject.put("email", defendant.getEmail());
+                }
+                diliveryInfoArray.add(defendantDeliveryObject);
+            }
         }
         return diliveryInfoArray;
     }
@@ -314,48 +350,68 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         LambdaQueryWrapper<BasicInfo> basicInfoQueryWrapper = new LambdaQueryWrapper<>();
         basicInfoQueryWrapper.eq(BasicInfo::getCourtNumber, courtNumber);
         BasicInfo basicInfo = basicInfoService.getOne(basicInfoQueryWrapper);
-        if(!ObjectUtils.isEmpty(basicInfo)){
-            String finalMediatePlan = basicInfo.getFinalMediatePlan();
-            mediateInfoObject.put("final_mediate_plan", finalMediatePlan);
+
+        String finalMediatePlan = "";
+        if (!ObjectUtils.isEmpty(basicInfo)) {
+            finalMediatePlan = basicInfo.getFinalMediatePlan();
         }
+        mediateInfoObject.put("final_mediate_plan", finalMediatePlan);
 
         //原告
         LambdaQueryWrapper<Accuser> accuserQueryWrapper = new LambdaQueryWrapper<>();
         accuserQueryWrapper.eq(Accuser::getCourtNumber, courtNumber);
         List<Accuser> accusers = accuserService.list(accuserQueryWrapper);
         JSONArray mediateAccuserArray = new JSONArray();
-        for (int i = 0; i < accusers.size(); i++) {
-            Accuser accuser = accusers.get(i);
+        //若原告为空
+        if (null == accusers || accusers.size() == 0) {
             JSONObject mediateAccuserObject = new JSONObject();
-            String accuserShort = accuser.getAccuserShort();
-            String isMediate = accuser.getIsMediate();
-
-            if (!ObjectUtils.isEmpty(accuserShort) && !ObjectUtils.isEmpty(isMediate)) {
-                mediateAccuserObject.put("accuser", accuserShort);
-                mediateAccuserObject.put("is_mediate", isMediate);
-                mediateAccuserObject.put("mediate_plan", accuser.getMediatePlan());
-                mediateAccuserObject.put("time_limit", accuser.getTimeLimit());
-                mediateAccuserArray.add(mediateAccuserObject);
+            mediateAccuserObject.put("accuser", "");
+            mediateAccuserObject.put("is_mediate", "");
+            mediateAccuserObject.put("mediate_plan", "");
+            mediateAccuserObject.put("time_limit", "");
+            mediateAccuserArray.add(mediateAccuserObject);
+        } else {
+            for (int i = 0; i < accusers.size(); i++) {
+                Accuser accuser = accusers.get(i);
+                JSONObject mediateAccuserObject = new JSONObject();
+                String accuserShort = accuser.getAccuserShort();
+                String isMediate = accuser.getIsMediate();
+                if (!ObjectUtils.isEmpty(accuserShort) && !ObjectUtils.isEmpty(isMediate)) {
+                    mediateAccuserObject.put("accuser", accuserShort);
+                    mediateAccuserObject.put("is_mediate", isMediate);
+                    mediateAccuserObject.put("mediate_plan", accuser.getMediatePlan());
+                    mediateAccuserObject.put("time_limit", accuser.getTimeLimit());
+                    mediateAccuserArray.add(mediateAccuserObject);
+                }
             }
         }
         mediateInfoObject.put("mediate_accuser", mediateAccuserArray);
+
         //被告
         LambdaQueryWrapper<Defendant> defendantQueryWrapper = new LambdaQueryWrapper<>();
         defendantQueryWrapper.eq(Defendant::getCourtNumber, courtNumber);
         List<Defendant> defendants = defendantService.list(defendantQueryWrapper);
         JSONArray mediateDefendantArray = new JSONArray();
-        for (int i = 0; i < defendants.size(); i++) {
-            Defendant defendant = defendants.get(i);
+        //若被告为空
+        if (null == defendants || defendants.size() == 0) {
             JSONObject mediateDefendantObject = new JSONObject();
-            String defendantShort = defendant.getDefendantShort();
-            String isMediate = defendant.getIsMediate();
-            String mediatePlan = defendant.getMediatePlan();
-
-            if (!ObjectUtils.isEmpty(defendantShort) && !ObjectUtils.isEmpty(isMediate)) {
-                mediateDefendantObject.put("defendant", defendantShort);
-                mediateDefendantObject.put("is_mediate", isMediate);
-                mediateDefendantObject.put("mediate_plan", mediatePlan);
-                mediateDefendantArray.add(mediateDefendantObject);
+            mediateDefendantObject.put("defendant", "");
+            mediateDefendantObject.put("is_mediate", "");
+            mediateDefendantObject.put("mediate_plan", "");
+            mediateDefendantArray.add(mediateDefendantObject);
+        } else {
+            for (int i = 0; i < defendants.size(); i++) {
+                Defendant defendant = defendants.get(i);
+                JSONObject mediateDefendantObject = new JSONObject();
+                String defendantShort = defendant.getDefendantShort();
+                String isMediate = defendant.getIsMediate();
+                String mediatePlan = defendant.getMediatePlan();
+                if (!ObjectUtils.isEmpty(defendantShort) && !ObjectUtils.isEmpty(isMediate)) {
+                    mediateDefendantObject.put("defendant", defendantShort);
+                    mediateDefendantObject.put("is_mediate", isMediate);
+                    mediateDefendantObject.put("mediate_plan", mediatePlan);
+                    mediateDefendantArray.add(mediateDefendantObject);
+                }
             }
         }
         mediateInfoObject.put("mediate_defendant", mediateDefendantArray);
@@ -372,30 +428,46 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         LambdaQueryWrapper<Accuser> accuserQueryWrapper = new LambdaQueryWrapper<>();
         accuserQueryWrapper.eq(Accuser::getCourtNumber, courtNumber);
         List<Accuser> accusers = accuserService.list(accuserQueryWrapper);
-        for (int i = 0; i < accusers.size(); i++) {
-            Accuser accuser = accusers.get(i);
-            String accuserShortName = accuser.getAccuserShort();
-            String finalStatement = accuser.getFinalStatement();
-            if (!ObjectUtils.isEmpty(accuserShortName) && !ObjectUtils.isEmpty(finalStatement)) {
-                JSONObject accuserFinalStatementInfoObject = new JSONObject();
-                accuserFinalStatementInfoObject.put("name", accuserShortName + "（原告）");
-                accuserFinalStatementInfoObject.put("final_statement", finalStatement);
-                finalStatementInfoArray.add(accuserFinalStatementInfoObject);
+        //若原告为空
+        if (null == accusers || accusers.size() == 0) {
+            JSONObject accuserFinalStatementInfoObject = new JSONObject();
+            accuserFinalStatementInfoObject.put("name", "");
+            accuserFinalStatementInfoObject.put("final_statement", "");
+            finalStatementInfoArray.add(accuserFinalStatementInfoObject);
+        } else {
+            for (int i = 0; i < accusers.size(); i++) {
+                Accuser accuser = accusers.get(i);
+                String accuserShortName = accuser.getAccuserShort();
+                String finalStatement = accuser.getFinalStatement();
+                if (!ObjectUtils.isEmpty(accuserShortName) && !ObjectUtils.isEmpty(finalStatement)) {
+                    JSONObject accuserFinalStatementInfoObject = new JSONObject();
+                    accuserFinalStatementInfoObject.put("name", accuserShortName + "（原告）");
+                    accuserFinalStatementInfoObject.put("final_statement", finalStatement);
+                    finalStatementInfoArray.add(accuserFinalStatementInfoObject);
+                }
             }
         }
+
         //被告
         LambdaQueryWrapper<Defendant> defendantQueryWrapper = new LambdaQueryWrapper<>();
         defendantQueryWrapper.eq(Defendant::getCourtNumber, courtNumber);
         List<Defendant> defendants = defendantService.list(defendantQueryWrapper);
-        for (int j = 0; j < defendants.size(); j++) {
-            Defendant defendant = defendants.get(j);
-            String defendantShortName = defendant.getDefendantShort();
-            String finalStatement = defendant.getFinalStatement();
-            if (!ObjectUtils.isEmpty(defendantShortName) && !ObjectUtils.isEmpty(finalStatement)) {
-                JSONObject defendantFinalStatementInfoObject = new JSONObject();
-                defendantFinalStatementInfoObject.put("name", defendantShortName + "（被告）");
-                defendantFinalStatementInfoObject.put("final_statement", finalStatement);
-                finalStatementInfoArray.add(defendantFinalStatementInfoObject);
+        if (null == defendants || defendants.size() == 0) {
+            JSONObject defendantFinalStatementInfoObject = new JSONObject();
+            defendantFinalStatementInfoObject.put("name", "");
+            defendantFinalStatementInfoObject.put("final_statement", "");
+            finalStatementInfoArray.add(defendantFinalStatementInfoObject);
+        } else {
+            for (int j = 0; j < defendants.size(); j++) {
+                Defendant defendant = defendants.get(j);
+                String defendantShortName = defendant.getDefendantShort();
+                String finalStatement = defendant.getFinalStatement();
+                if (!ObjectUtils.isEmpty(defendantShortName) && !ObjectUtils.isEmpty(finalStatement)) {
+                    JSONObject defendantFinalStatementInfoObject = new JSONObject();
+                    defendantFinalStatementInfoObject.put("name", defendantShortName + "（被告）");
+                    defendantFinalStatementInfoObject.put("final_statement", finalStatement);
+                    finalStatementInfoArray.add(defendantFinalStatementInfoObject);
+                }
             }
         }
         return finalStatementInfoArray;
@@ -410,7 +482,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         basicInfoQueryWrapper.eq(BasicInfo::getCourtNumber, courtNumber);
         BasicInfo basicInfo = basicInfoService.getOne(basicInfoQueryWrapper);
         String summarize = "";
-        if(!ObjectUtils.isEmpty(basicInfo)){
+        if (!ObjectUtils.isEmpty(basicInfo)) {
             summarize = basicInfo.getSummarize();
         }
         return summarize;
@@ -440,25 +512,33 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         LambdaQueryWrapper<Allege> allegeQueryWrapper = new LambdaQueryWrapper<>();
         allegeQueryWrapper.eq(Allege::getCourtNumber, courtNumber);
         List<Allege> alleges = allegeService.list(allegeQueryWrapper);
-
-        for (int i = 0; i < alleges.size(); i++) {
-            Allege allege = alleges.get(i);
-            String type = allege.getType();
-            String claimItem = allege.getClaimItem();
-            String factReason = allege.getFactReason();
-            if (type != "" && "原告".equals(type)) {
-                //原告的诉讼请求项
-                courtInvestigateObject.put("accuser_claim_item", claimItem);
-                //原告的事实和理由
-                courtInvestigateObject.put("accuser_claim_fact_reason", factReason);
-            } else if (type != "" && "反诉原告".equals(type)) {
-                //反诉原告的诉讼请求项
-                courtInvestigateObject.put("counterclaim_accuser_claim_item", claimItem);
-                //反诉原告的事实和理由
-                courtInvestigateObject.put("counterclaim_accuser_fact_reason", factReason);
+        //若诉称内容为空
+        if (null == alleges || alleges.size() == 0) {
+            courtInvestigateObject.put("accuser_claim_item", "");
+            courtInvestigateObject.put("accuser_claim_fact_reason", "");
+            courtInvestigateObject.put("counterclaim_accuser_claim_item", "");
+            courtInvestigateObject.put("counterclaim_accuser_fact_reason", "");
+            courtInvestigateObject.put("is_counterclaim", "1");
+        } else {
+            for (int i = 0; i < alleges.size(); i++) {
+                Allege allege = alleges.get(i);
+                String type = allege.getType();
+                String claimItem = allege.getClaimItem();
+                String factReason = allege.getFactReason();
+                if (type != "" && "原告".equals(type)) {
+                    //原告的诉讼请求项
+                    courtInvestigateObject.put("accuser_claim_item", claimItem);
+                    //原告的事实和理由
+                    courtInvestigateObject.put("accuser_claim_fact_reason", factReason);
+                } else if (type != "" && "反诉原告".equals(type)) {
+                    //反诉原告的诉讼请求项
+                    courtInvestigateObject.put("counterclaim_accuser_claim_item", claimItem);
+                    //反诉原告的事实和理由
+                    courtInvestigateObject.put("counterclaim_accuser_fact_reason", factReason);
+                }
+                //是否反诉
+                courtInvestigateObject.put("is_counterclaim", allege.getIsCounterClaim());
             }
-            //是否反诉
-            courtInvestigateObject.put("is_counterclaim", allege.getIsCounterClaim());
         }
     }
 
@@ -471,17 +551,28 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         List<Reply> replies = replyService.list(replyQueryWrapper);
         JSONArray defendantReplyArray = new JSONArray();
         JSONArray counterClaimDefendantReplyArray = new JSONArray();
-        for (int i = 0; i < replies.size(); i++) {
-            Reply reply = replies.get(i);
+
+        //若答辩内容为空
+        if (null == replies || replies.size() == 0) {
             JSONObject replyObject = new JSONObject();
-            replyObject.put("name", reply.getName());
-            replyObject.put("content", reply.getContent());
-            String type = reply.getType();
-            if ("被告".equals(type)) {
-                defendantReplyArray.add(replyObject);
-            } else if ("反诉被告".equals(type)) {
-                counterClaimDefendantReplyArray.add(replyObject);
-                courtInvestigateObject.put("counterclaim_defendant_today_is_reply", "1");
+            replyObject.put("name", "");
+            replyObject.put("content", "");
+            defendantReplyArray.add(replyObject);
+            counterClaimDefendantReplyArray.add(replyObject);
+            courtInvestigateObject.put("counterclaim_defendant_today_is_reply", "1");
+        } else {
+            for (int i = 0; i < replies.size(); i++) {
+                Reply reply = replies.get(i);
+                JSONObject replyObject = new JSONObject();
+                replyObject.put("name", reply.getName());
+                replyObject.put("content", reply.getContent());
+                String type = reply.getType();
+                if ("被告".equals(type)) {
+                    defendantReplyArray.add(replyObject);
+                } else if ("反诉被告".equals(type)) {
+                    counterClaimDefendantReplyArray.add(replyObject);
+                    courtInvestigateObject.put("counterclaim_defendant_today_is_reply", "1");
+                }
             }
         }
         courtInvestigateObject.put("defendant_reply", defendantReplyArray);
@@ -499,22 +590,36 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         JSONArray defendantEvidenceArray = new JSONArray();
         JSONArray counterClaimAccuserEvidenceArray = new JSONArray();
         JSONArray counterClaimDefendantEvidenceArray = new JSONArray();
-        for (int i = 0; i < proofs.size(); i++) {
-            Proof proof = proofs.get(i);
+
+        //若举证内容为空
+        if (null == proofs || proofs.size() == 0) {
             JSONObject evidenceObject = new JSONObject();
-            evidenceObject.put("serial", proof.getSerial());
-            evidenceObject.put("evidence", proof.getEvidence());
-            evidenceObject.put("evidence_type", proof.getEvidenceType());
-            evidenceObject.put("content", proof.getContent());
-            String type = proof.getType();
-            if ("原告".equals(type)) {
-                accuserEvidenceArray.add(evidenceObject);
-            } else if ("被告".equals(type)) {
-                defendantEvidenceArray.add(evidenceObject);
-            } else if ("反诉原告".equals(type)) {
-                counterClaimAccuserEvidenceArray.add(evidenceObject);
-            } else if ("反诉被告".equals(type)) {
-                counterClaimDefendantEvidenceArray.add(evidenceObject);
+            evidenceObject.put("serial", "");
+            evidenceObject.put("evidence", "");
+            evidenceObject.put("evidence_type", "");
+            evidenceObject.put("content", "");
+            accuserEvidenceArray.add(evidenceObject);
+            defendantEvidenceArray.add(evidenceObject);
+            counterClaimAccuserEvidenceArray.add(evidenceObject);
+            counterClaimDefendantEvidenceArray.add(evidenceObject);
+        } else {
+            for (int i = 0; i < proofs.size(); i++) {
+                Proof proof = proofs.get(i);
+                JSONObject evidenceObject = new JSONObject();
+                evidenceObject.put("serial", proof.getSerial());
+                evidenceObject.put("evidence", proof.getEvidence());
+                evidenceObject.put("evidence_type", proof.getEvidenceType());
+                evidenceObject.put("content", proof.getContent());
+                String type = proof.getType();
+                if ("原告".equals(type)) {
+                    accuserEvidenceArray.add(evidenceObject);
+                } else if ("被告".equals(type)) {
+                    defendantEvidenceArray.add(evidenceObject);
+                } else if ("反诉原告".equals(type)) {
+                    counterClaimAccuserEvidenceArray.add(evidenceObject);
+                } else if ("反诉被告".equals(type)) {
+                    counterClaimDefendantEvidenceArray.add(evidenceObject);
+                }
             }
         }
         courtInvestigateObject.put("accuser_evidence", accuserEvidenceArray);
@@ -549,7 +654,6 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
             Defendant defendant = defendants.get(i);
             defendantShortNames.add(defendant.getDefendantShort());
         }
-
         JSONArray accuserQueryArray = new JSONArray();
         JSONArray defendantQueryArray = new JSONArray();
         JSONArray otherDefendantQueryArray = new JSONArray();
@@ -557,50 +661,106 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         JSONArray counterClaimDefendantQueryArray = new JSONArray();
         JSONArray otherCounterClaimDefendantQueryArray = new JSONArray();
 
-        for (int i = 0; i < queries.size(); i++) {
-            Query query = queries.get(i);
+        if (null == queries || queries.size() == 0) {
             JSONObject queryObject = new JSONObject();
-            queryObject.put("evidence", query.getEvidence());
-            queryObject.put("facticity", query.getFacticity());
-            queryObject.put("legality", query.getLegality());
-            queryObject.put("relevance", query.getRelevance());
+            queryObject.put("evidence", "");
+            queryObject.put("facticity", "");
+            queryObject.put("legality", "");
+            queryObject.put("relevance", "");
+            queryObject.put("defendant", "");
+            queryObject.put("defendant_query_fact_reason", "");
+            defendantQueryArray.add(queryObject);
 
-            String name = query.getName();
-            String reason = query.getReason();
-            String queryType = query.getQueryType().toString();
-            if ("1".equals(queryType)) {
-                //被告质证
-                queryObject.put("defendant", name);
-                queryObject.put("defendant_query_fact_reason", reason);
-                defendantQueryArray.add(queryObject);
-            } else if ("2".equals(queryType)) {
-                //原告质证及其他被告质证
-                if (accuserShortNames.size() > 0 && accuserShortNames.contains(name)) {
-                    queryObject.put("accuser", name);
-                    queryObject.put("accuser_query_fact_reason", reason);
-                    accuserQueryArray.add(queryObject);
-                }
-                if (defendantShortNames.size() > 0 && defendantShortNames.contains(name)) {
+            JSONObject accuserQueryObject = new JSONObject();
+            accuserQueryObject.put("evidence", "");
+            accuserQueryObject.put("facticity", "");
+            accuserQueryObject.put("legality", "");
+            accuserQueryObject.put("relevance", "");
+            accuserQueryObject.put("accuser", "");
+            accuserQueryObject.put("accuser_query_fact_reason", "");
+            accuserQueryArray.add(accuserQueryObject);
+
+            JSONObject otherDefendantQueryObject = new JSONObject();
+            otherDefendantQueryObject.put("evidence", "");
+            otherDefendantQueryObject.put("facticity", "");
+            otherDefendantQueryObject.put("legality", "");
+            otherDefendantQueryObject.put("relevance", "");
+            otherDefendantQueryObject.put("defendant", "");
+            otherDefendantQueryObject.put("other_defendant_query_fact_reason", "");
+            otherDefendantQueryArray.add(otherDefendantQueryObject);
+
+            JSONObject counterClaimDefendantQueryObject = new JSONObject();
+            counterClaimDefendantQueryObject.put("evidence", "");
+            counterClaimDefendantQueryObject.put("facticity", "");
+            counterClaimDefendantQueryObject.put("legality", "");
+            counterClaimDefendantQueryObject.put("relevance", "");
+            counterClaimDefendantQueryObject.put("counterclaim_defendant", "");
+            counterClaimDefendantQueryObject.put("counterclaim_defendant_query_fact_reason", "");
+            counterClaimDefendantQueryArray.add(counterClaimDefendantQueryObject);
+
+            JSONObject counterClaimAccuserQueryObject = new JSONObject();
+            counterClaimAccuserQueryObject.put("evidence", "");
+            counterClaimAccuserQueryObject.put("facticity", "");
+            counterClaimAccuserQueryObject.put("legality", "");
+            counterClaimAccuserQueryObject.put("relevance", "");
+            counterClaimAccuserQueryObject.put("counterclaim_accuser", "");
+            counterClaimAccuserQueryObject.put("counterclaim_accuser_query_fact_reason", "");
+            counterClaimAccuserQueryArray.add(counterClaimAccuserQueryObject);
+
+            JSONObject otherCounterClaimDefendantQueryObject = new JSONObject();
+            otherCounterClaimDefendantQueryObject.put("evidence", "");
+            otherCounterClaimDefendantQueryObject.put("facticity", "");
+            otherCounterClaimDefendantQueryObject.put("legality", "");
+            otherCounterClaimDefendantQueryObject.put("relevance", "");
+            queryObject.put("other_counterclaim_defendant", "");
+            queryObject.put("other_counterclaim_defendant_query_fact_reason", "");
+            otherCounterClaimDefendantQueryArray.add(otherCounterClaimDefendantQueryObject);
+        } else {
+            for (int i = 0; i < queries.size(); i++) {
+                Query query = queries.get(i);
+                JSONObject queryObject = new JSONObject();
+                queryObject.put("evidence", query.getEvidence());
+                queryObject.put("facticity", query.getFacticity());
+                queryObject.put("legality", query.getLegality());
+                queryObject.put("relevance", query.getRelevance());
+
+                String name = query.getName();
+                String reason = query.getReason();
+                String queryType = query.getQueryType().toString();
+                if ("1".equals(queryType)) {
+                    //被告质证
                     queryObject.put("defendant", name);
-                    queryObject.put("other_defendant_query_fact_reason", reason);
-                    otherDefendantQueryArray.add(queryObject);
-                }
-            } else if ("3".equals(queryType)) {
-                //反诉被告质证
-                queryObject.put("counterclaim_defendant", name);
-                queryObject.put("counterclaim_defendant_query_fact_reason", reason);
-                counterClaimDefendantQueryArray.add(queryObject);
-            } else if ("4".equals(queryType)) {
-                //反诉原告及其他反诉被告质证
-                if (defendantShortNames.size() > 0 && defendantShortNames.contains(name)) {
-                    queryObject.put("counterclaim_accuser", name);
-                    queryObject.put("counterclaim_accuser_query_fact_reason", reason);
-                    counterClaimAccuserQueryArray.add(queryObject);
-                }
-                if (accuserShortNames.size() > 0 && accuserShortNames.contains(name)) {
-                    queryObject.put("other_counterclaim_defendant", name);
-                    queryObject.put("other_counterclaim_defendant_query_fact_reason", reason);
-                    otherCounterClaimDefendantQueryArray.add(queryObject);
+                    queryObject.put("defendant_query_fact_reason", reason);
+                    defendantQueryArray.add(queryObject);
+                } else if ("2".equals(queryType)) {
+                    //原告质证及其他被告质证
+                    if (accuserShortNames.size() > 0 && accuserShortNames.contains(name)) {
+                        queryObject.put("accuser", name);
+                        queryObject.put("accuser_query_fact_reason", reason);
+                        accuserQueryArray.add(queryObject);
+                    }
+                    if (defendantShortNames.size() > 0 && defendantShortNames.contains(name)) {
+                        queryObject.put("defendant", name);
+                        queryObject.put("other_defendant_query_fact_reason", reason);
+                        otherDefendantQueryArray.add(queryObject);
+                    }
+                } else if ("3".equals(queryType)) {
+                    //反诉被告质证
+                    queryObject.put("counterclaim_defendant", name);
+                    queryObject.put("counterclaim_defendant_query_fact_reason", reason);
+                    counterClaimDefendantQueryArray.add(queryObject);
+                } else if ("4".equals(queryType)) {
+                    //反诉原告及其他反诉被告质证
+                    if (defendantShortNames.size() > 0 && defendantShortNames.contains(name)) {
+                        queryObject.put("counterclaim_accuser", name);
+                        queryObject.put("counterclaim_accuser_query_fact_reason", reason);
+                        counterClaimAccuserQueryArray.add(queryObject);
+                    }
+                    if (accuserShortNames.size() > 0 && accuserShortNames.contains(name)) {
+                        queryObject.put("other_counterclaim_defendant", name);
+                        queryObject.put("other_counterclaim_defendant_query_fact_reason", reason);
+                        otherCounterClaimDefendantQueryArray.add(queryObject);
+                    }
                 }
             }
         }

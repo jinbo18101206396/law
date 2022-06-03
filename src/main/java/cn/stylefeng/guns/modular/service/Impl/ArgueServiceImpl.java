@@ -1,6 +1,5 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
-import cn.stylefeng.guns.modular.entity.Accuser;
 import cn.stylefeng.guns.modular.entity.Argue;
 import cn.stylefeng.guns.modular.mapper.ArgueMapper;
 import cn.stylefeng.guns.modular.service.ArgueService;
@@ -87,29 +86,36 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
         LambdaQueryWrapper<Argue> argueQueryWrapper = new LambdaQueryWrapper<>();
         argueQueryWrapper.eq(Argue::getCourtNumber, courtNumber);
         List<Argue> argues = argueService.list(argueQueryWrapper);
-
         JSONArray argueArray = new JSONArray();
         JSONArray counterClaimArgueArray = new JSONArray();
-        for (int i = 0; i < argues.size(); i++) {
-            Argue argue = argues.get(i);
-            String name = argue.getName();
-            String type = argue.getType();
-            String isCounterClaim = argue.getIsCounterClaim();
-
+        //若辩论为空
+        if (null == argues || argues.size() == 0) {
             JSONObject argueObject = new JSONObject();
-            argueObject.put("name", name + "（" + type + "）");
-            argueObject.put("argue", argue.getArgueContent());
+            argueObject.put("name", "");
+            argueObject.put("argue", "");
+            argueArray.add(argueObject);
+            counterClaimArgueArray.add(argueObject);
+        } else {
+            for (int i = 0; i < argues.size(); i++) {
+                Argue argue = argues.get(i);
+                String name = argue.getName();
+                String type = argue.getType();
+                String isCounterClaim = argue.getIsCounterClaim();
 
-            if ("1".equals(isCounterClaim) && type.startsWith("反诉")) {
-                counterClaimArgueArray.add(argueObject);
-            } else {
-                argueArray.add(argueObject);
+                JSONObject argueObject = new JSONObject();
+                argueObject.put("name", name + "（" + type + "）");
+                argueObject.put("argue", argue.getArgueContent());
+
+                if ("1".equals(isCounterClaim) && type.startsWith("反诉")) {
+                    counterClaimArgueArray.add(argueObject);
+                } else {
+                    argueArray.add(argueObject);
+                }
             }
         }
         JSONObject argueInfoObject = new JSONObject();
         argueInfoObject.put("argue", argueArray);
         argueInfoObject.put("counterclaim_argue", counterClaimArgueArray);
-
         return argueInfoObject;
     }
 

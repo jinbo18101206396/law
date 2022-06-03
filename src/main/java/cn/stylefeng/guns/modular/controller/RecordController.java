@@ -121,6 +121,8 @@ public class RecordController {
         //每次提交的recordJson保存一份在本地
         FileUtils.writerFile(recordJson, "src/main/backup");
 
+        System.out.println("提交的数据："+recordJson);
+
         JSONObject recordJsonObject = JSONObject.parseObject(recordJson);
         String courtNumber = "";
         if (recordJsonObject.containsKey("basicInfo")) {
@@ -279,6 +281,8 @@ public class RecordController {
         //审判员最终总结
         String summarize = basicInfoService.getSummarize(courtNumber);
         recordJson.put("summarize", summarize);
+
+        System.out.println("回显的数据："+recordJson.toString());
 
         return new SuccessResponseData(recordJson.toString());
     }
