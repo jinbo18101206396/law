@@ -296,16 +296,18 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
             diliveryInfoArray.add(accuserDeliveryObject);
         } else {
             for (int i = 0; i < accusers.size(); i++) {
+                JSONObject accuserDeliveryObject = new JSONObject();
                 Accuser accuser = accusers.get(i);
                 String accuserShortName = accuser.getAccuserShort();
                 String isDelivery = accuser.getIsDelivery();
-                JSONObject accuserDeliveryObject = new JSONObject();
-                accuserDeliveryObject.put("name", accuserShortName + "（原告）");
                 if(ObjectUtils.isEmpty(isDelivery)){
                     isDelivery = "1";
                 }
+                String email = accuser.getEmail();
+
+                accuserDeliveryObject.put("name", accuserShortName + "（原告）");
                 accuserDeliveryObject.put("is_delivery", isDelivery);
-                accuserDeliveryObject.put("email", accuser.getEmail());
+                accuserDeliveryObject.put("email", email);
                 diliveryInfoArray.add(accuserDeliveryObject);
             }
         }
@@ -323,19 +325,16 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
             diliveryInfoArray.add(defendantDeliveryObject);
         } else {
             for (int i = 0; i < defendants.size(); i++) {
+                JSONObject defendantDeliveryObject = new JSONObject();
                 Defendant defendant = defendants.get(i);
                 String defendantShortName = defendant.getDefendantShort();
                 String isDelivery = defendant.getIsDelivery();
-                JSONObject defendantDeliveryObject = new JSONObject();
-
-                if (!ObjectUtils.isEmpty(defendantShortName) && !ObjectUtils.isEmpty(isDelivery)) {
-                    defendantDeliveryObject.put("name", defendantShortName + "（被告）");
-                    if(!ObjectUtils.isEmpty(isDelivery)){
-                        isDelivery = "1";
-                    }
-                    defendantDeliveryObject.put("is_delivery", isDelivery);
-                    defendantDeliveryObject.put("email", defendant.getEmail());
+                if(ObjectUtils.isEmpty(isDelivery)){
+                    isDelivery = "1";
                 }
+                defendantDeliveryObject.put("name", defendantShortName + "（被告）");
+                defendantDeliveryObject.put("is_delivery", isDelivery);
+                defendantDeliveryObject.put("email", defendant.getEmail());
                 diliveryInfoArray.add(defendantDeliveryObject);
             }
         }
@@ -738,54 +737,83 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
             otherCounterClaimDefendantQueryObject.put("facticity", "1");
             otherCounterClaimDefendantQueryObject.put("legality", "1");
             otherCounterClaimDefendantQueryObject.put("relevance", "1");
-            queryObject.put("other_counterclaim_defendant", "");
-            queryObject.put("other_counterclaim_defendant_query_fact_reason", "");
+            otherCounterClaimDefendantQueryObject.put("other_counterclaim_defendant", "");
+            otherCounterClaimDefendantQueryObject.put("other_counterclaim_defendant_query_fact_reason", "");
             otherCounterClaimDefendantQueryArray.add(otherCounterClaimDefendantQueryObject);
         } else {
             for (int i = 0; i < queries.size(); i++) {
                 Query query = queries.get(i);
-                JSONObject queryObject = new JSONObject();
-                queryObject.put("evidence", query.getEvidence());
-                queryObject.put("facticity", query.getFacticity());
-                queryObject.put("legality", query.getLegality());
-                queryObject.put("relevance", query.getRelevance());
-
                 String name = query.getName();
                 String reason = query.getReason();
                 String queryType = query.getQueryType().toString();
+                String evidence = query.getEvidence();
+                String facticity = query.getFacticity();
+                String legality = query.getLegality();
+                String relevance = query.getRelevance();
+
                 if ("1".equals(queryType)) {
                     //被告质证
+                    JSONObject queryObject = new JSONObject();
+                    queryObject.put("evidence", evidence);
+                    queryObject.put("facticity", facticity);
+                    queryObject.put("legality", legality);
+                    queryObject.put("relevance", relevance);
                     queryObject.put("defendant", name);
                     queryObject.put("defendant_query_fact_reason", reason);
                     defendantQueryArray.add(queryObject);
                 } else if ("2".equals(queryType)) {
                     //原告质证及其他被告质证
                     if (accuserShortNames.size() > 0 && accuserShortNames.contains(name)) {
-                        queryObject.put("accuser", name);
-                        queryObject.put("accuser_query_fact_reason", reason);
-                        accuserQueryArray.add(queryObject);
+                        JSONObject accuserQueryObject = new JSONObject();
+                        accuserQueryObject.put("evidence", evidence);
+                        accuserQueryObject.put("facticity", facticity);
+                        accuserQueryObject.put("legality", legality);
+                        accuserQueryObject.put("relevance", relevance);
+                        accuserQueryObject.put("accuser", name);
+                        accuserQueryObject.put("accuser_query_fact_reason", reason);
+                        accuserQueryArray.add(accuserQueryObject);
                     }
                     if (defendantShortNames.size() > 0 && defendantShortNames.contains(name)) {
-                        queryObject.put("defendant", name);
-                        queryObject.put("other_defendant_query_fact_reason", reason);
-                        otherDefendantQueryArray.add(queryObject);
+                        JSONObject otherDefendantQueryObject = new JSONObject();
+                        otherDefendantQueryObject.put("evidence", evidence);
+                        otherDefendantQueryObject.put("facticity", facticity);
+                        otherDefendantQueryObject.put("legality", legality);
+                        otherDefendantQueryObject.put("relevance", relevance);
+                        otherDefendantQueryObject.put("defendant", name);
+                        otherDefendantQueryObject.put("other_defendant_query_fact_reason", reason);
+                        otherDefendantQueryArray.add(otherDefendantQueryObject);
                     }
                 } else if ("3".equals(queryType)) {
                     //反诉被告质证
-                    queryObject.put("counterclaim_defendant", name);
-                    queryObject.put("counterclaim_defendant_query_fact_reason", reason);
-                    counterClaimDefendantQueryArray.add(queryObject);
+                    JSONObject counterClaimDefendantQueryObject = new JSONObject();
+                    counterClaimDefendantQueryObject.put("evidence", evidence);
+                    counterClaimDefendantQueryObject.put("facticity", facticity);
+                    counterClaimDefendantQueryObject.put("legality", legality);
+                    counterClaimDefendantQueryObject.put("relevance", relevance);
+                    counterClaimDefendantQueryObject.put("counterclaim_defendant", name);
+                    counterClaimDefendantQueryObject.put("counterclaim_defendant_query_fact_reason", reason);
+                    counterClaimDefendantQueryArray.add(counterClaimDefendantQueryObject);
                 } else if ("4".equals(queryType)) {
                     //反诉原告及其他反诉被告质证
                     if (defendantShortNames.size() > 0 && defendantShortNames.contains(name)) {
-                        queryObject.put("counterclaim_accuser", name);
-                        queryObject.put("counterclaim_accuser_query_fact_reason", reason);
-                        counterClaimAccuserQueryArray.add(queryObject);
+                        JSONObject counterClaimAccuserQueryObject = new JSONObject();
+                        counterClaimAccuserQueryObject.put("evidence", evidence);
+                        counterClaimAccuserQueryObject.put("facticity", facticity);
+                        counterClaimAccuserQueryObject.put("legality", legality);
+                        counterClaimAccuserQueryObject.put("relevance", relevance);
+                        counterClaimAccuserQueryObject.put("counterclaim_accuser", name);
+                        counterClaimAccuserQueryObject.put("counterclaim_accuser_query_fact_reason", reason);
+                        counterClaimAccuserQueryArray.add(counterClaimAccuserQueryObject);
                     }
                     if (accuserShortNames.size() > 0 && accuserShortNames.contains(name)) {
-                        queryObject.put("other_counterclaim_defendant", name);
-                        queryObject.put("other_counterclaim_defendant_query_fact_reason", reason);
-                        otherCounterClaimDefendantQueryArray.add(queryObject);
+                        JSONObject otherCounterClaimDefendantQueryObject = new JSONObject();
+                        otherCounterClaimDefendantQueryObject.put("evidence", evidence);
+                        otherCounterClaimDefendantQueryObject.put("facticity", facticity);
+                        otherCounterClaimDefendantQueryObject.put("legality", legality);
+                        otherCounterClaimDefendantQueryObject.put("relevance", relevance);
+                        otherCounterClaimDefendantQueryObject.put("other_counterclaim_defendant", name);
+                        otherCounterClaimDefendantQueryObject.put("other_counterclaim_defendant_query_fact_reason", reason);
+                        otherCounterClaimDefendantQueryArray.add(otherCounterClaimDefendantQueryObject);
                     }
                 }
             }
