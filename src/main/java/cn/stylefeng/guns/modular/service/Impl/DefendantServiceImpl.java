@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -92,11 +93,13 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
                     JSONObject deliveryObject = deliveryInfoArray.getJSONObject(m);
                     //格式：姓名（类型），例如：张三（被告）
                     String deliveryDefendantName = deliveryObject.get("name").toString();
-                    String name = deliveryDefendantName.split("（")[0];
-                    String type = deliveryDefendantName.split("（")[1];
-                    if (name.equals(defendantShortName) && type.startsWith("被告")) {
-                        defendant.setIsDelivery(deliveryObject.get("is_delivery").toString());
-                        defendant.setEmail(deliveryObject.get("email").toString());
+                    if(!ObjectUtils.isEmpty(deliveryDefendantName) && deliveryDefendantName.contains("（")){
+                        String name = deliveryDefendantName.split("（")[0];
+                        String type = deliveryDefendantName.split("（")[1];
+                        if (name.equals(defendantShortName) && type.startsWith("被告")) {
+                            defendant.setIsDelivery(deliveryObject.get("is_delivery").toString());
+                            defendant.setEmail(deliveryObject.get("email").toString());
+                        }
                     }
                 }
             }
@@ -108,10 +111,12 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
                     JSONObject finalStatementObject = finalStatementInfoArray.getJSONObject(m);
                     //格式：姓名（类型），例如：张三（被告）
                     String finalStatementDefendantName = finalStatementObject.get("name").toString();
-                    String name = finalStatementDefendantName.split("（")[0];
-                    String type = finalStatementDefendantName.split("（")[1];
-                    if (name.equals(defendantShortName) && type.startsWith("被告")) {
-                        defendant.setFinalStatement(finalStatementObject.get("final_statement").toString());
+                    if(!ObjectUtils.isEmpty(finalStatementDefendantName) && finalStatementDefendantName.contains("（")){
+                        String name = finalStatementDefendantName.split("（")[0];
+                        String type = finalStatementDefendantName.split("（")[1];
+                        if (name.equals(defendantShortName) && type.startsWith("被告")) {
+                            defendant.setFinalStatement(finalStatementObject.get("final_statement").toString());
+                        }
                     }
                 }
             }

@@ -42,7 +42,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -117,11 +116,11 @@ public class RecordController {
      * @date 2022/05/22
      */
     @PostResource(name = "保存笔录信息", path = "/record/add")
-    public ResponseData add(@RequestBody String recordJson){
+    public ResponseData add(@RequestBody String recordJson) {
         //每次提交的recordJson保存一份在本地
         FileUtils.writerFile(recordJson, "src/main/backup");
 
-        System.out.println("提交的数据："+recordJson);
+        System.out.println("提交的数据：" + recordJson);
 
         JSONObject recordJsonObject = JSONObject.parseObject(recordJson);
         String courtNumber = "";
@@ -282,7 +281,7 @@ public class RecordController {
         String summarize = basicInfoService.getSummarize(courtNumber);
         recordJson.put("summarize", summarize);
 
-        System.out.println("回显的数据："+recordJson.toString());
+        System.out.println("回显的数据：" + recordJson.toString());
 
         return new SuccessResponseData(recordJson.toString());
     }

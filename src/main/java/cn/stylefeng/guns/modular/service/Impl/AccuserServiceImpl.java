@@ -94,11 +94,13 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
                     JSONObject deliveryObject = deliveryInfoArray.getJSONObject(m);
                     //格式：姓名（类型），例如：张三（原告）
                     String deliveryAccuserName = deliveryObject.get("name").toString();
-                    String name = deliveryAccuserName.split("（")[0];
-                    String type = deliveryAccuserName.split("（")[1];
-                    if (name.equals(accuserShortName) && type.startsWith("原告")) {
-                        accuser.setIsDelivery(deliveryObject.get("is_delivery").toString());
-                        accuser.setEmail(deliveryObject.get("email").toString());
+                    if(ObjectUtils.isEmpty(deliveryAccuserName) && deliveryAccuserName.contains("（")){
+                        String name = deliveryAccuserName.split("（")[0];
+                        String type = deliveryAccuserName.split("（")[1];
+                        if (name.equals(accuserShortName) && type.startsWith("原告")) {
+                            accuser.setIsDelivery(deliveryObject.get("is_delivery").toString());
+                            accuser.setEmail(deliveryObject.get("email").toString());
+                        }
                     }
                 }
             }
