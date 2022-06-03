@@ -140,7 +140,7 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
         //若被告为空
         if (null == defendants || defendants.size() == 0) {
             JSONObject defendantInfoObject = new JSONObject();
-            defendantInfoObject.put("defendant_type", "");
+            defendantInfoObject.put("defendant_type", "1");
             defendantInfoObject.put("defendant", "");
             defendantInfoObject.put("defendant_short", "");
             defendantInfoObject.put("defendant_address", "");
@@ -162,19 +162,25 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
                 String defendantAddress = defendant.getDefendantAddress();
                 String defendantRepresent = defendant.getDefendantRepresent();
                 String defendantDuty = defendant.getDefendantDuty();
-
                 JSONArray defendantAgentArray = new JSONArray();
-                for (int j = 0; j < agents.size(); j++) {
-                    Agent agent = agents.get(j);
-                    //被告姓名
-                    String agentName = agent.getAgentName();
-                    //委托诉讼代理人
-                    String agentType = agent.getAgentType();
+                if(null == agents || agents.size() == 0){
                     JSONObject defendantAgentObject = new JSONObject();
-                    if (agentName.equals(defendantShort) && agentType.equals("2")) {
-                        defendantAgentObject.put("agent", agent.getAgent());
-                        defendantAgentObject.put("agent_address", agent.getAgentAddress());
-                        defendantAgentArray.add(defendantAgentObject);
+                    defendantAgentObject.put("agent", "");
+                    defendantAgentObject.put("agent_address", "");
+                    defendantAgentArray.add(defendantAgentObject);
+                }else{
+                    for (int j = 0; j < agents.size(); j++) {
+                        Agent agent = agents.get(j);
+                        //被告姓名
+                        String agentName = agent.getAgentName();
+                        //委托诉讼代理人
+                        String agentType = agent.getAgentType();
+                        JSONObject defendantAgentObject = new JSONObject();
+                        if (agentName.equals(defendantShort) && agentType.equals("2")) {
+                            defendantAgentObject.put("agent", agent.getAgent());
+                            defendantAgentObject.put("agent_address", agent.getAgentAddress());
+                            defendantAgentArray.add(defendantAgentObject);
+                        }
                     }
                 }
                 JSONObject defendantInfoObject = new JSONObject();

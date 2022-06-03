@@ -142,7 +142,7 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
         //若原告为空
         if (null == accusers || accusers.size() == 0) {
             JSONObject accuserInfoObject = new JSONObject();
-            accuserInfoObject.put("accuser_type", "");
+            accuserInfoObject.put("accuser_type", "1");
             accuserInfoObject.put("accuser", "");
             accuserInfoObject.put("accuser_short", "");
             accuserInfoObject.put("accuser_address", "");
@@ -162,17 +162,25 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
                 String accuserShort = accuser.getAccuserShort();
 
                 JSONArray accuserAgentArray = new JSONArray();
-                for (int j = 0; j < agents.size(); j++) {
-                    Agent agent = agents.get(j);
-                    //原告姓名
-                    String agentName = agent.getAgentName();
-                    //委托诉讼代理人
-                    String agentType = agent.getAgentType();
+
+                if(null == agents || agents.size() == 0){
                     JSONObject accuserAgentObject = new JSONObject();
-                    if (agentName.equals(accuserShort) && agentType.equals("1")) {
-                        accuserAgentObject.put("agent", agent.getAgent());
-                        accuserAgentObject.put("agent_address", agent.getAgentAddress());
-                        accuserAgentArray.add(accuserAgentObject);
+                    accuserAgentObject.put("agent", "");
+                    accuserAgentObject.put("agent_address", "");
+                    accuserAgentArray.add(accuserAgentObject);
+                }else{
+                    for (int j = 0; j < agents.size(); j++) {
+                        Agent agent = agents.get(j);
+                        //原告姓名
+                        String agentName = agent.getAgentName();
+                        //委托诉讼代理人
+                        String agentType = agent.getAgentType();
+                        JSONObject accuserAgentObject = new JSONObject();
+                        if (agentName.equals(accuserShort) && agentType.equals("1")) {
+                            accuserAgentObject.put("agent", agent.getAgent());
+                            accuserAgentObject.put("agent_address", agent.getAgentAddress());
+                            accuserAgentArray.add(accuserAgentObject);
+                        }
                     }
                 }
                 accuserInfoObject.put("accuser_type", accuser.getAccuserType());

@@ -50,7 +50,7 @@ public class StateServiceImpl extends ServiceImpl<StateMapper, State> implements
         LambdaQueryWrapper<State> stateQueryWrapper = new LambdaQueryWrapper<>();
         stateQueryWrapper.eq(State::getCourtNumber, courtNumber);
         State state = stateService.getOne(stateQueryWrapper);
-        String stateType = "";
+        String stateType = "1";
         String stateContent = "";
         if(!ObjectUtils.isEmpty(state)){
             stateType = state.getStateType();

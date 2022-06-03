@@ -94,7 +94,11 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
             argueObject.put("name", "");
             argueObject.put("argue", "");
             argueArray.add(argueObject);
-            counterClaimArgueArray.add(argueObject);
+
+            JSONObject counterClaimArgueObject = new JSONObject();
+            counterClaimArgueObject.put("name", "");
+            counterClaimArgueObject.put("argue", "");
+            counterClaimArgueArray.add(counterClaimArgueObject);
         } else {
             for (int i = 0; i < argues.size(); i++) {
                 Argue argue = argues.get(i);
