@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -109,10 +110,12 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
                     JSONObject finalStatementObject = finalStatementInfoArray.getJSONObject(m);
                     //格式：姓名（类型），例如：张三（原告）
                     String finalStatementAccuserName = finalStatementObject.get("name").toString();
-                    String name = finalStatementAccuserName.split("（")[0];
-                    String type = finalStatementAccuserName.split("（")[1];
-                    if (name.equals(accuserShortName) && type.startsWith("原告")) {
-                        accuser.setFinalStatement(finalStatementObject.get("final_statement").toString());
+                    if(!ObjectUtils.isEmpty(finalStatementAccuserName) && finalStatementAccuserName.contains("（")){
+                        String name = finalStatementAccuserName.split("（")[0];
+                        String type = finalStatementAccuserName.split("（")[1];
+                        if (name.equals(accuserShortName) && type.startsWith("原告")) {
+                            accuser.setFinalStatement(finalStatementObject.get("final_statement").toString());
+                        }
                     }
                 }
             }

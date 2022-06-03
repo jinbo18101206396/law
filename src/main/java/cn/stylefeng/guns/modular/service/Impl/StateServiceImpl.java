@@ -8,6 +8,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
 
@@ -49,9 +50,15 @@ public class StateServiceImpl extends ServiceImpl<StateMapper, State> implements
         LambdaQueryWrapper<State> stateQueryWrapper = new LambdaQueryWrapper<>();
         stateQueryWrapper.eq(State::getCourtNumber, courtNumber);
         State state = stateService.getOne(stateQueryWrapper);
+        String stateType = "";
+        String stateContent = "";
+        if(!ObjectUtils.isEmpty(state)){
+            stateType = state.getStateType();
+            stateContent = state.getStateContent();
+        }
         JSONObject stateObject = new JSONObject();
-        stateObject.put("state_type", state.getStateType());
-        stateObject.put("state_content", state.getStateContent());
+        stateObject.put("state_type", stateType);
+        stateObject.put("state_content", stateContent);
         return stateObject;
     }
 

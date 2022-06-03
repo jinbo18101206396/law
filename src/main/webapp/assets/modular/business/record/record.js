@@ -52,38 +52,6 @@ layui.use(['table', 'HttpRequest', 'func', 'form','laydate'], function () {
     };
 
     /**
-     * 编辑笔录对话框
-     *
-     * @param data 点击按钮时候的行数据
-     */
-    Record.openEditDlg = function (data) {
-        func.open({
-            title: '修改应用',
-            content: Feng.ctxPath + '/view/record/editView?recordId=' + data.basicId,
-            tableId: Record.tableId
-        });
-    };
-
-    /**
-     * 点击删除
-     *
-     * @param data 点击按钮时候的行数据
-     */
-    Record.onDeleteItem = function (data) {
-        var operation = function () {
-            var request = new HttpRequest(Feng.ctxPath + "/record/delete", 'post', function (data) {
-                Feng.success("删除成功!");
-                table.reload(Record.tableId);
-            }, function (data) {
-                Feng.error("删除失败!" + data.message + "!");
-            });
-            request.set("recordId", data.basicId);
-            request.start(true);
-        };
-        Feng.confirm("是否删除?", operation);
-    };
-
-    /**
      * 点击详情
      *
      * @param data 点击按钮时候的行数据
@@ -255,9 +223,6 @@ layui.use(['table', 'HttpRequest', 'func', 'form','laydate'], function () {
     // 新建笔录按钮点击事件
     $('#btnAdd').click(function () {
         $(location).attr('href', '/view/record/add');
-        // window.open("/view/index");
-        // Feng.newCrontab("/view/index","笔录信息")
-        // Feng.ceo
     });
 
     // 工具条点击事件
@@ -265,12 +230,7 @@ layui.use(['table', 'HttpRequest', 'func', 'form','laydate'], function () {
         var data = obj.data;
         var layEvent = obj.event;
 
-        if (layEvent === 'edit') {
-            Record.openEditDlg(data);
-        } else if (layEvent === 'delete') {
-            Record.onDeleteItem(data);
-        }else if (layEvent == 'detail'){
-            // console.log(data.courtNumber)
+        if (layEvent == 'detail'){
             Record.onDetailItem(data);
         }
     });
