@@ -2,7 +2,6 @@ package cn.stylefeng.guns.modular.service.Impl;
 
 import cn.stylefeng.guns.modular.entity.Accuser;
 import cn.stylefeng.guns.modular.entity.Agent;
-import cn.stylefeng.guns.modular.entity.BasicInfo;
 import cn.stylefeng.guns.modular.mapper.AccuserMapper;
 import cn.stylefeng.guns.modular.service.AccuserService;
 import cn.stylefeng.guns.modular.service.AgentService;
@@ -34,7 +33,7 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void saveAccuserInfo(String courtNumber,JSONObject recordJsonObject) {
+    public void saveAccuserInfo(String courtNumber, JSONObject recordJsonObject) {
         //原告信息
         JSONArray accuserInfoArray = recordJsonObject.getJSONArray("accuserInfo");
 
@@ -71,7 +70,7 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
             }
 
             //是否能够调解
-            if(recordJsonObject.containsKey("mediateInfo")){
+            if (recordJsonObject.containsKey("mediateInfo")) {
                 String mediateInfo = recordJsonObject.getString("mediateInfo");
                 JSONObject mediateInfoObject = JSONObject.parseObject(mediateInfo);
                 //是否能够调解（1-能，2-不能）、调解方案、庭外和解时限
@@ -88,7 +87,7 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
             }
 
             //是否同意电子裁判文书送达（1-同意，2-不同意）、邮件地址
-            if(recordJsonObject.containsKey("deliveryInfo")){
+            if (recordJsonObject.containsKey("deliveryInfo")) {
                 JSONArray deliveryInfoArray = recordJsonObject.getJSONArray("deliveryInfo");
                 for (int m = 0; m < deliveryInfoArray.size(); m++) {
                     JSONObject deliveryObject = deliveryInfoArray.getJSONObject(m);
@@ -104,7 +103,7 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
             }
 
             //最后陈述意见
-            if(recordJsonObject.containsKey("finalStatementInfo")){
+            if (recordJsonObject.containsKey("finalStatementInfo")) {
                 JSONArray finalStatementInfoArray = recordJsonObject.getJSONArray("finalStatementInfo");
                 for (int m = 0; m < finalStatementInfoArray.size(); m++) {
                     JSONObject finalStatementObject = finalStatementInfoArray.getJSONObject(m);

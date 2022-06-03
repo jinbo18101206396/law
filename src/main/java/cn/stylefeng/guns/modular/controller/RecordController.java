@@ -42,10 +42,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -120,13 +117,13 @@ public class RecordController {
      * @date 2022/05/22
      */
     @PostResource(name = "保存笔录信息", path = "/record/add")
-    public ResponseData add(@RequestBody String recordJson) throws IOException {
+    public ResponseData add(@RequestBody String recordJson){
         //每次提交的recordJson保存一份在本地
-        FileUtils.writerFile(recordJson,"src/main/backup");
+        FileUtils.writerFile(recordJson, "src/main/backup");
 
         JSONObject recordJsonObject = JSONObject.parseObject(recordJson);
         String courtNumber = "";
-        if(recordJsonObject.containsKey("basicInfo")){
+        if (recordJsonObject.containsKey("basicInfo")) {
             String basicInfo = recordJsonObject.getString("basicInfo");
             JSONObject basicInfoObject = JSONObject.parseObject(basicInfo);
             courtNumber = basicInfoObject.get("court_number").toString();
@@ -167,7 +164,7 @@ public class RecordController {
         replyService.saveDefendantReply(courtNumber, "2", recordJsonObject);
 
         JSONObject courtInvestigateObject = null;
-        if(recordJsonObject.containsKey("courtInvestigate")){
+        if (recordJsonObject.containsKey("courtInvestigate")) {
             String courtInvestigate = recordJsonObject.getString("courtInvestigate");
             courtInvestigateObject = JSONObject.parseObject(courtInvestigate);
         }
@@ -281,13 +278,12 @@ public class RecordController {
 
         //审判员最终总结
         String summarize = basicInfoService.getSummarize(courtNumber);
-        recordJson.put("summarize",summarize);
+        recordJson.put("summarize", summarize);
 
         System.out.println("回显数据： " + recordJson.toString());
 
         return new SuccessResponseData(recordJson.toString());
     }
-
 
     /**
      * 获取案由列表
@@ -324,7 +320,5 @@ public class RecordController {
         JSONObject clerkJudgePlaceRelation = clerkRelationService.getClerkJudgePlaceRelation();
         return new SuccessResponseData(clerkJudgePlaceRelation);
     }
-
-
 
 }

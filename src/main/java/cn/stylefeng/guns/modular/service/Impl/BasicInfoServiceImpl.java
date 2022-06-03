@@ -119,13 +119,13 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
             basicInfo.setCourtCause(basicInfoObject.get("court_cause").toString());
         }
         //原被告都统一且法院最终确认的调解方案
-        if(recordJsonObject.containsKey("mediateInfo")){
+        if (recordJsonObject.containsKey("mediateInfo")) {
             JSONObject mediateInfoObject = recordJsonObject.getJSONObject("mediateInfo");
             String finalMediatePlan = mediateInfoObject.get("final_mediate_plan").toString();
             basicInfo.setFinalMediatePlan(finalMediatePlan);
         }
         //审判员最终总结
-        if(recordJsonObject.containsKey("summarize")){
+        if (recordJsonObject.containsKey("summarize")) {
             String summarize = recordJsonObject.getString("summarize");
             basicInfo.setSummarize(summarize);
         }
@@ -498,9 +498,9 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         for (int i = 0; i < proofs.size(); i++) {
             Proof proof = proofs.get(i);
             JSONObject evidenceObject = new JSONObject();
-            evidenceObject.put("serial",proof.getSerial());
+            evidenceObject.put("serial", proof.getSerial());
             evidenceObject.put("evidence", proof.getEvidence());
-            evidenceObject.put("evidence_type",proof.getEvidenceType());
+            evidenceObject.put("evidence_type", proof.getEvidenceType());
             evidenceObject.put("content", proof.getContent());
             String type = proof.getType();
             if ("原告".equals(type)) {
