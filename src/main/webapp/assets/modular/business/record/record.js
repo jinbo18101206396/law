@@ -123,6 +123,8 @@ layui.use(['table', 'HttpRequest', 'func', 'form','laydate'], function () {
 
                         let defendantShowInfo={
                             //第一个动态生成的json defendant_evidence 包含以下3个信息
+                            is_defendant_give_evidence: "1",//被告是否提供证据
+                            is_counterclaim_give_defendant_evidence: "1",//反诉被告是否提供证据
                             defendant_evidence: courtTemp.defendant_evidence,
                             defendant_evidence_fact_reason: courtTemp.defendant_evidence_fact_reason,   //事实和理由(被告举证)
                             //第二个动态生成的json accuser_query 包含以下6个信息
