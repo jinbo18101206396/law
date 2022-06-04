@@ -36,6 +36,7 @@ import cn.stylefeng.roses.kernel.scanner.api.annotation.PostResource;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.util.ObjectUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -56,46 +57,32 @@ public class RecordController {
 
     @Resource
     private BasicInfoService basicInfoService;
-
     @Resource
     private AccuserService accuserService;
-
     @Resource
     private DefendantService defendantService;
-
     @Resource
     private StateService stateService;
-
     @Resource
     private AgentService agentService;
-
     @Resource
     private ArgueService argueService;
-
     @Resource
     private InquiryService inquiryService;
-
     @Resource
     private AllegeService allegeService;
-
     @Resource
     private ReplyService replyService;
-
     @Resource
     private ProofService proofService;
-
     @Resource
     private QueryService queryService;
-
     @Resource
     private CourtCauseService courtCauseService;
-
     @Resource
     private QuestionService questionService;
-
     @Resource
     private ClerkRelationService clerkRelationService;
-
 
     /**
      * 分页查询笔录基本信息(系统首页)
@@ -111,19 +98,18 @@ public class RecordController {
 
     /**
      * 保存笔录信息
+     * <p>
+     * requestType: 1-新建笔录，2-继续开庭
      *
      * @author 金波
      * @date 2022/05/22
      */
     @PostResource(name = "保存笔录信息", path = "/record/add")
-    public ResponseData add(@RequestBody String recordJson) {
+    public ResponseData add(@RequestBody String recordJson,@RequestBody String requestType) {
+        System.out.println("提交的数据：" + recordJson);
         //每次提交的recordJson保存一份在本地
         FileUtils.writerFile(recordJson, "src/main/backup");
 
-        //TODO 需要区分 "新建笔录" 和 "继续开庭"，若是新建笔录，则提示案号不能重复
-
-
-        System.out.println("提交的数据：" + recordJson);
         JSONObject recordJsonObject = JSONObject.parseObject(recordJson);
         String courtNumber = "";
         if (recordJsonObject.containsKey("basicInfo")) {
@@ -134,10 +120,12 @@ public class RecordController {
         if (ObjectUtils.isEmpty(courtNumber)) {
             return new SuccessResponseData("案号不能为空");
         }
-
-        //若案号已存在，则清空库中当前案号的信息，重新插入最新数据
         List<BasicInfo> basicInfoList = basicInfoService.getBasicInfoList(courtNumber);
         if (basicInfoList != null && basicInfoList.size() > 0) {
+            if ("1".equals(requestType)) {
+                return new SuccessResponseData("案号不能重复");
+            }
+            //编辑笔录，若案号已存在，则清空库中当前案号的信息，重新插入最新数据
             basicInfoService.deleteBasicInfo(courtNumber);
             accuserService.deleteAccuserInfo(courtNumber);
             defendantService.deleteDefendantInfo(courtNumber);
@@ -224,7 +212,6 @@ public class RecordController {
         return new SuccessResponseData();
     }
 
-
     /**
      * 查看笔录详情
      *
@@ -284,7 +271,6 @@ public class RecordController {
         recordJson.put("summarize", summarize);
 
         System.out.println("回显的数据：" + recordJson.toString());
-
         return new SuccessResponseData(recordJson.toString());
     }
 
@@ -324,4 +310,27 @@ public class RecordController {
         return new SuccessResponseData(clerkJudgePlaceRelation);
     }
 
+    /**
+     * 修改案件状态
+     *
+     * @author 金波
+     * @date 2022/06/04
+     */
+    @PostResource(name = "修改案件状态", path = "/record/changeStatus")
+    public ResponseData changeStatus(@RequestBody @Validated(BasicInfoRequest.changeStatus.class) BasicInfoRequest basicInfoRequest) {
+        basicInfoService.editStatus(basicInfoRequest);
+        return new SuccessResponseData();
+    }
+
+    /**
+     * 删除笔录
+     *
+     * @author 金波
+     * @date 2022/06/04
+     */
+    @PostResource(name = "删除笔录", path = "/record/delete")
+    public ResponseData delete(@RequestBody @Validated(BasicInfoRequest.delete.class) BasicInfoRequest basicInfoRequest) {
+        basicInfoService.delete(basicInfoRequest);
+        return new SuccessResponseData();
+    }
 }

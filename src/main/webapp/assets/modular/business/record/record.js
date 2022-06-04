@@ -3,6 +3,7 @@ layui.use(['table', 'HttpRequest', 'func', 'form','laydate'], function () {
     var table = layui.table;
     var HttpRequest = layui.HttpRequest;
     var func = layui.func;
+    var form = layui.form;
 
     /**
      * 初始化参数
@@ -18,22 +19,14 @@ layui.use(['table', 'HttpRequest', 'func', 'form','laydate'], function () {
         return [[
             {type: 'checkbox'},
             {field: 'basicId', hide: true, title: '主键'},
-            {field: 'courtNumber',align: "center", sort: true, title: '案号'},
-            {field: 'filingTime',align: "center", sort: true, title: '立案时间'},
-            {field: 'courtTime',align: "center", sort: true, title: '开庭时间'},
-            {field: 'judge',align: "center",sort: true, title: '审判员'},
-            {field: 'courtClerk',align: "center", sort: true, title: '书记员'},
-            {field: 'courtCause',align: "center", sort: true, title: '案由'},
-            {
-                field: 'status', align: "center", sort: true, title: '案件状态', templet: function (data) {
-                    if (data.status === 1) {
-                        return '<span class="layui-badge layui-badge-green">在审</span>';
-                    } else {
-                        return '<span class="layui-badge layui-badge-red">已结案</span>';
-                    }
-                }
-            },
-            {align: 'center', toolbar: '#tableBar', title: '操作',minWidth: 250}
+            {field: 'courtNumber', align: "center", sort: true, title: '案号'},
+          /*  {field: 'filingTime', align: "center", sort: true, title: '立案时间'},
+            {field: 'courtTime', align: "center", sort: true, title: '开庭时间'},*/
+            {field: 'judge', align: "center", sort: true, title: '审判员'},
+            {field: 'courtClerk', align: "center", sort: true, title: '书记员'},
+            {field: 'courtCause', align: "center", sort: true, title: '案由'},
+            {field: 'status', align: "center", sort: true, templet: '#statusTpl', title: '案件状态'},
+            {align: 'center', toolbar: '#tableBar', title: '操作', minWidth: 250}
         ]];
     };
 
@@ -214,10 +207,6 @@ layui.use(['table', 'HttpRequest', 'func', 'form','laydate'], function () {
             },
             "json"
         );
-
-
-        //获取笔录信息，传到前台
-        // $(location).attr('href', '/view/record/detail');
     };
 
     // 渲染表格
@@ -243,6 +232,21 @@ layui.use(['table', 'HttpRequest', 'func', 'form','laydate'], function () {
         $(location).attr('href', '/view/record/add');
     });
 
+    /* 点击删除 */
+    Record.onDeleteItem = function (data) {
+        var operation = function () {
+            var httpRequest = new HttpRequest(Feng.ctxPath + "/record/delete", 'post', function (data) {
+                Feng.success("删除成功!");
+                table.reload(Record.tableId);
+            }, function (data) {
+                Feng.error("删除失败!" + data.message + "!");
+            });
+            httpRequest.set(data);
+            httpRequest.start(true);
+        };
+        Feng.confirm("是否删除案号为（" + data.courtNumber + "）的笔录?", operation);
+    };
+
     // 工具条点击事件
     table.on('tool(' + Record.tableId + ')', function (obj) {
         var data = obj.data;
@@ -250,7 +254,27 @@ layui.use(['table', 'HttpRequest', 'func', 'form','laydate'], function () {
 
         if (layEvent == 'detail'){
             Record.onDetailItem(data);
+        }else if(layEvent == 'delete'){
+            Record.onDeleteItem(data);
         }
+    });
+
+    /* 修改案件状态 */
+    Record.changeCourtStatus = function (basicId, checked) {
+        new HttpRequest(Feng.ctxPath + "/record/changeStatus", 'post', function (data) {
+            table.reload(Record.basicId);
+            Feng.success("修改成功!");
+        }, function (data) {
+            table.reload(Record.basicId);
+            Feng.error("修改失败!" + data.message);
+        }).set({"basicId": basicId, "status": checked}).start(true);
+    };
+
+    // 修改案件状态
+    form.on('switch(status)', function (obj) {
+        var basicId = obj.elem.value;
+        var checked = obj.elem.checked ? 1 : 2;
+        Record.changeCourtStatus(basicId, checked);
     });
 
 });

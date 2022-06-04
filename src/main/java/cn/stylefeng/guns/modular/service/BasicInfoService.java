@@ -3,6 +3,7 @@ package cn.stylefeng.guns.modular.service;
 import cn.stylefeng.guns.modular.entity.BasicInfo;
 import cn.stylefeng.guns.modular.model.request.BasicInfoRequest;
 import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
+import cn.stylefeng.roses.kernel.system.api.pojo.user.request.SysUserRequest;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -129,6 +130,24 @@ public interface BasicInfoService extends IService<BasicInfo> {
      * @date 2022/01/14 15:07
      */
     PageResult<BasicInfo> findPage(BasicInfoRequest basicInfoRequest);
+
+    /**
+     * 修改案件状态
+     *
+     * @param basicInfoRequest 查看参数
+     * @author 金波
+     * @date 2022/06/04 15:07
+     */
+    void editStatus(BasicInfoRequest basicInfoRequest);
+
+    /**
+     * 删除笔录
+     *
+     * @param basicInfoRequest 查看参数
+     * @author 金波
+     * @date 2022/06/04
+     */
+    void delete(BasicInfoRequest basicInfoRequest);
 
 }
 

@@ -6,13 +6,17 @@ import cn.stylefeng.guns.modular.mapper.BasicInfoMapper;
 import cn.stylefeng.guns.modular.model.request.BasicInfoRequest;
 import cn.stylefeng.guns.modular.service.*;
 import cn.stylefeng.roses.kernel.auth.api.context.LoginContext;
+import cn.stylefeng.roses.kernel.auth.api.pojo.login.LoginUser;
+import cn.stylefeng.roses.kernel.cache.api.CacheOperatorApi;
 import cn.stylefeng.roses.kernel.db.api.factory.PageFactory;
 import cn.stylefeng.roses.kernel.db.api.factory.PageResultFactory;
 import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
 import cn.stylefeng.roses.kernel.rule.enums.YesOrNotEnum;
+import cn.stylefeng.roses.kernel.system.api.pojo.user.SysUserDTO;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -49,6 +53,16 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
     private ReplyService replyService;
     @Resource
     private AllegeService allegeService;
+    @Resource
+    private AgentService agentService;
+    @Resource
+    private StateService stateService;
+    @Resource
+    private ArgueService argueService;
+    @Resource
+    private InquiryService inquiryService;
+    @Resource
+    private CacheOperatorApi<SysUserDTO> sysUserCacheOperatorApi;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -58,7 +72,6 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         //当前用户
         Long userId = LoginContext.me().getLoginUser().getUserId();
         basicInfo.setUserId(userId);
-
         //基本信息
         String basicInfoJsonStr = recordJsonObject.getString("basicInfo");
         JSONObject basicInfoObject = JSONObject.parseObject(basicInfoJsonStr);
@@ -122,7 +135,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         if (recordJsonObject.containsKey("mediateInfo")) {
             JSONObject mediateInfoObject = recordJsonObject.getJSONObject("mediateInfo");
             String finalMediatePlan = "";
-            if(mediateInfoObject.containsKey("final_mediate_plan")){
+            if (mediateInfoObject.containsKey("final_mediate_plan")) {
                 finalMediatePlan = mediateInfoObject.get("final_mediate_plan").toString();
             }
             basicInfo.setFinalMediatePlan(finalMediatePlan);
@@ -303,7 +316,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 Accuser accuser = accusers.get(i);
                 String accuserShortName = accuser.getAccuserShort();
                 String isDelivery = accuser.getIsDelivery();
-                if(ObjectUtils.isEmpty(isDelivery)){
+                if (ObjectUtils.isEmpty(isDelivery)) {
                     isDelivery = "1";
                 }
                 String email = accuser.getEmail();
@@ -332,7 +345,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 Defendant defendant = defendants.get(i);
                 String defendantShortName = defendant.getDefendantShort();
                 String isDelivery = defendant.getIsDelivery();
-                if(ObjectUtils.isEmpty(isDelivery)){
+                if (ObjectUtils.isEmpty(isDelivery)) {
                     isDelivery = "1";
                 }
                 defendantDeliveryObject.put("name", defendantShortName + "（被告）");
@@ -381,7 +394,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 String accuserShort = accuser.getAccuserShort();
                 String isMediate = accuser.getIsMediate();
                 mediateAccuserObject.put("accuser", accuserShort);
-                if(ObjectUtils.isEmpty(isMediate)){
+                if (ObjectUtils.isEmpty(isMediate)) {
                     isMediate = "1";
                 }
                 mediateAccuserObject.put("is_mediate", isMediate);
@@ -412,13 +425,13 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 String isMediate = defendant.getIsMediate();
                 String mediatePlan = defendant.getMediatePlan();
                 mediateDefendantObject.put("defendant", defendantShort);
-                if(ObjectUtils.isEmpty(isMediate)){
+                if (ObjectUtils.isEmpty(isMediate)) {
                     isMediate = "1";
                 }
                 mediateDefendantObject.put("is_mediate", isMediate);
                 mediateDefendantObject.put("mediate_plan", mediatePlan);
                 mediateDefendantArray.add(mediateDefendantObject);
-                }
+            }
         }
         mediateInfoObject.put("mediate_defendant", mediateDefendantArray);
         return mediateInfoObject;
@@ -837,6 +850,36 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         return PageResultFactory.createPageResult(page);
     }
 
+    @Override
+    public void editStatus(BasicInfoRequest basicInfoRequest) {
+        Long basicId = basicInfoRequest.getBasicId();
+        Integer status = basicInfoRequest.getStatus();
+        // 更新枚举，更新只能更新未删除状态的
+        LambdaUpdateWrapper<BasicInfo> updateWrapper = new LambdaUpdateWrapper<>();
+        updateWrapper.eq(BasicInfo::getBasicId, basicId).and(i -> i.ne(BasicInfo::getDelFlag, YesOrNotEnum.Y.getCode())).set(BasicInfo::getStatus, status);
+        this.update(updateWrapper);
+
+        LoginUser loginUser = LoginContext.me().getLoginUser();
+        // 清除缓存中的用户信息
+        sysUserCacheOperatorApi.remove(String.valueOf(loginUser.getUserId()));
+    }
+
+    @Override
+    public void delete(BasicInfoRequest basicInfoRequest) {
+        String courtNumber = basicInfoRequest.getCourtNumber();
+        basicInfoService.deleteBasicInfo(courtNumber);
+        accuserService.deleteAccuserInfo(courtNumber);
+        defendantService.deleteDefendantInfo(courtNumber);
+        agentService.deleteAgentInfo(courtNumber);
+        stateService.deleteStateInfo(courtNumber);
+        argueService.deleteArgueInfo(courtNumber);
+        inquiryService.deleteInquiryInfo(courtNumber);
+        queryService.deleteQueryInfo(courtNumber);
+        proofService.deleteProofInfo(courtNumber);
+        replyService.deleteReplyInfo(courtNumber);
+        allegeService.deleteAllegeInfo(courtNumber);
+    }
+
     /**
      * 实体构建 QueryWrapper
      *
@@ -856,11 +899,13 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         String judge = basicInfoRequest.getJudge();
         String courtNumber = basicInfoRequest.getCourtNumber();
         String courtCause = basicInfoRequest.getCourtCause();
+        Integer status = basicInfoRequest.getStatus();
 
         queryWrapper.eq(ObjectUtil.isNotEmpty(basicId), BasicInfo::getBasicId, basicId);
         queryWrapper.like(ObjectUtil.isNotEmpty(judge), BasicInfo::getJudge, judge);
         queryWrapper.eq(ObjectUtil.isNotEmpty(courtNumber), BasicInfo::getCourtNumber, courtNumber);
         queryWrapper.like(ObjectUtil.isNotEmpty(courtCause), BasicInfo::getCourtCause, courtCause);
+        queryWrapper.eq(ObjectUtil.isNotEmpty(status), BasicInfo::getStatus, status);
 
         // 查询未删除状态的
         queryWrapper.eq(BasicInfo::getDelFlag, YesOrNotEnum.N.getCode());

@@ -1,6 +1,8 @@
 package cn.stylefeng.guns.modular.model.request;
 
 import cn.stylefeng.roses.kernel.rule.pojo.request.BaseRequest;
+import cn.stylefeng.roses.kernel.scanner.api.annotation.field.ChineseDescription;
+import cn.stylefeng.roses.kernel.validator.api.validators.status.StatusValue;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -17,6 +19,7 @@ import java.util.Date;
 @Data
 public class BasicInfoRequest extends BaseRequest {
 
+    public Object getStatus;
     /**
      * 主键
      */
@@ -82,7 +85,10 @@ public class BasicInfoRequest extends BaseRequest {
     /**
      * 案件状态
      */
-    private int status;
+    @NotNull(message = "状态不能为空", groups = updateStatus.class)
+    @StatusValue(message = "状态不正确", groups = updateStatus.class)
+    @ChineseDescription("状态（字典 1在审 2结案）")
+    private Integer status;
 
     /**
      * 删除标记：Y-已删除，N-未删除
@@ -108,5 +114,9 @@ public class BasicInfoRequest extends BaseRequest {
      * 更新时间
      */
     private Date updateTime;
+
+
+    public @interface changeStatus {
+    }
 
 }
