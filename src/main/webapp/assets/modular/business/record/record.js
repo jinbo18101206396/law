@@ -20,11 +20,9 @@ layui.use(['table', 'HttpRequest', 'func', 'form','laydate'], function () {
             {type: 'checkbox'},
             {field: 'basicId', hide: true, title: '主键'},
             {field: 'courtNumber', align: "center", sort: true, title: '案号'},
-          /*  {field: 'filingTime', align: "center", sort: true, title: '立案时间'},
-            {field: 'courtTime', align: "center", sort: true, title: '开庭时间'},*/
+            {field: 'courtCause', align: "center", sort: true, title: '案由'},
             {field: 'judge', align: "center", sort: true, title: '审判员'},
             {field: 'courtClerk', align: "center", sort: true, title: '书记员'},
-            {field: 'courtCause', align: "center", sort: true, title: '案由'},
             {field: 'status', align: "center", sort: true, templet: '#statusTpl', title: '案件状态'},
             {align: 'center', toolbar: '#tableBar', title: '操作', minWidth: 250}
         ]];

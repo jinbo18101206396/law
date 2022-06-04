@@ -105,7 +105,7 @@ public class RecordController {
      * @date 2022/05/22
      */
     @PostResource(name = "保存笔录信息", path = "/record/add")
-    public ResponseData add(@RequestBody String recordJson,@RequestBody String requestType) {
+    public ResponseData add(@RequestBody String recordJson, @RequestBody String requestType) {
         System.out.println("提交的数据：" + recordJson);
         //每次提交的recordJson保存一份在本地
         FileUtils.writerFile(recordJson, "src/main/backup");
@@ -159,7 +159,6 @@ public class RecordController {
             String courtInvestigate = recordJsonObject.getString("courtInvestigate");
             courtInvestigateObject = JSONObject.parseObject(courtInvestigate);
         }
-
         //是否反诉
         String counterClaim = "";
         if (courtInvestigateObject != null && courtInvestigateObject.containsKey("is_counterclaim")) {
@@ -169,7 +168,6 @@ public class RecordController {
         if (!"".equals(counterClaim) && "1".equals(counterClaim)) {
             allegeService.saveCounterClaimAccuserItem(courtNumber, "1", recordJsonObject);
         }
-
         //反诉被告今日是否答辩
         String counterClaimDefendantTodayIsReply = "";
         if (courtInvestigateObject != null && courtInvestigateObject.containsKey("counterclaim_defendant_today_is_reply")) {
