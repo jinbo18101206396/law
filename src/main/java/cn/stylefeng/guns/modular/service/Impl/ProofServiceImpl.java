@@ -10,6 +10,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
 
@@ -37,12 +38,13 @@ public class ProofServiceImpl extends ServiceImpl<ProofMapper, Proof> implements
         //拼接所有原告的姓名
         JSONArray accuserInfoArray = recordJsonObject.getJSONArray("accuserInfo");
         StringBuffer accuserName = new StringBuffer();
-        for (int i = 0; i < accuserInfoArray.size(); i++) {
-            JSONObject accuserInfoObject = accuserInfoArray.getJSONObject(i);
-            String accuserShort = accuserInfoObject.get("accuser_short").toString();
-            accuserName.append(accuserShort);
+        if(!ObjectUtils.isEmpty(accuserInfoArray)){
+            for (int i = 0; i < accuserInfoArray.size(); i++) {
+                JSONObject accuserInfoObject = accuserInfoArray.getJSONObject(i);
+                String accuserShort = accuserInfoObject.get("accuser_short").toString();
+                accuserName.append(accuserShort);
+            }
         }
-
         //法庭调查
         if(recordJsonObject.containsKey("courtInvestigate")){
             JSONObject courtInvestigateObject = recordJsonObject.getJSONObject("courtInvestigate");

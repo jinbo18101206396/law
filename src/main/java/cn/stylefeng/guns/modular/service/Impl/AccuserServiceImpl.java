@@ -38,6 +38,10 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
         //原告信息
         JSONArray accuserInfoArray = recordJsonObject.getJSONArray("accuserInfo");
 
+        if(ObjectUtils.isEmpty(accuserInfoArray)){
+            return;
+        }
+
         for (int i = 0; i < accuserInfoArray.size(); i++) {
             Accuser accuser = new Accuser();
             JSONObject accuserInfoObject = accuserInfoArray.getJSONObject(i);

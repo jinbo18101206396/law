@@ -8,6 +8,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -40,20 +41,22 @@ public class InquiryServiceImpl extends ServiceImpl<InquiryMapper, Inquiry> impl
                 JSONArray inquiryAnswerArray = inquiryInfoObject.getJSONArray("inquiry_answer");
                 for (int j = 0; j < inquiryAnswerArray.size(); j++) {
                     JSONObject inquiryAnswerObject = inquiryAnswerArray.getJSONObject(j);
-                    String answerName = inquiryAnswerObject.get("name").toString();
-                    String name = answerName.split("（")[0];
-                    //原告、被告、反诉原告、反诉被告
-                    String type = answerName.split("（")[1];
                     String answer = inquiryAnswerObject.get("answer").toString();
+                    String answerName = inquiryAnswerObject.get("name").toString();
 
-                    Inquiry inquiry = new Inquiry();
-                    inquiry.setQuestion(question);
-                    inquiry.setName(name);
-                    inquiry.setType(type.substring(0, type.length() - 1));
-                    inquiry.setAnswer(answer);
-                    inquiry.setIsCounterClaim(counterClaim);
-                    inquiry.setCourtNumber(courtNumber);
-                    this.save(inquiry);
+                    if (!ObjectUtils.isEmpty(answerName) && answerName.contains("（")) {
+                        String name = answerName.split("（")[0];
+                        //原告、被告、反诉原告、反诉被告
+                        String type = answerName.split("（")[1];
+                        Inquiry inquiry = new Inquiry();
+                        inquiry.setQuestion(question);
+                        inquiry.setName(name);
+                        inquiry.setType(type.substring(0, type.length() - 1));
+                        inquiry.setAnswer(answer);
+                        inquiry.setIsCounterClaim(counterClaim);
+                        inquiry.setCourtNumber(courtNumber);
+                        this.save(inquiry);
+                    }
                 }
             }
         }

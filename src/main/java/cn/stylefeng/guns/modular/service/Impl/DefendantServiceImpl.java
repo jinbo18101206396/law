@@ -37,7 +37,9 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
     public void saveDefendantInfo(String courtNumber, JSONObject recordJsonObject) {
         //被告信息
         JSONArray defendantInfoArray = recordJsonObject.getJSONArray("defendantInfo");
-
+        if(ObjectUtils.isEmpty(defendantInfoArray)){
+            return;
+        }
         for (int i = 0; i < defendantInfoArray.size(); i++) {
             Defendant defendant = new Defendant();
             JSONObject defendantInfoObject = defendantInfoArray.getJSONObject(i);

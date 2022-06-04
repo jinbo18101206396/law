@@ -9,6 +9,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
 
@@ -30,18 +31,20 @@ public class AllegeServiceImpl extends ServiceImpl<AllegeMapper, Allege> impleme
     public void saveAccuserClaimItem(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
         //拼接所有原告的姓名
         JSONArray accuserInfoArray = recordJsonObject.getJSONArray("accuserInfo");
+
         StringBuffer accuserName = new StringBuffer();
-        for (int i = 0; i < accuserInfoArray.size(); i++) {
-            JSONObject accuserInfoObject = accuserInfoArray.getJSONObject(i);
-            String accuserShort = accuserInfoObject.get("accuser_short").toString();
-            accuserName.append(accuserShort);
+        if(!ObjectUtils.isEmpty(accuserInfoArray)){
+            for (int i = 0; i < accuserInfoArray.size(); i++) {
+                JSONObject accuserInfoObject = accuserInfoArray.getJSONObject(i);
+                String accuserShort = accuserInfoObject.get("accuser_short").toString();
+                accuserName.append(accuserShort);
+            }
         }
         JSONObject courtInvestigateObject = recordJsonObject.getJSONObject("courtInvestigate");
         //原告的诉讼请求项和事实与理由
         if (courtInvestigateObject.containsKey("accuser_claim_item") && courtInvestigateObject.containsKey("accuser_claim_fact_reason")) {
             String accuserClaimItem = courtInvestigateObject.get("accuser_claim_item").toString();
             String accuserClaimFactReason = courtInvestigateObject.get("accuser_claim_fact_reason").toString();
-
             Allege allege = new Allege();
             allege.setName(accuserName.toString());
             allege.setType("原告");

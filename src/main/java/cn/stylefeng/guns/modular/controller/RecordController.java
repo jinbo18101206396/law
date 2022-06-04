@@ -120,8 +120,10 @@ public class RecordController {
         //每次提交的recordJson保存一份在本地
         FileUtils.writerFile(recordJson, "src/main/backup");
 
-        System.out.println("提交的数据：" + recordJson);
+        //TODO 需要区分 "新建笔录" 和 "继续开庭"，若是新建笔录，则提示案号不能重复
 
+
+        System.out.println("提交的数据：" + recordJson);
         JSONObject recordJsonObject = JSONObject.parseObject(recordJson);
         String courtNumber = "";
         if (recordJsonObject.containsKey("basicInfo")) {

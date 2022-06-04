@@ -121,7 +121,10 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         //原被告都统一且法院最终确认的调解方案
         if (recordJsonObject.containsKey("mediateInfo")) {
             JSONObject mediateInfoObject = recordJsonObject.getJSONObject("mediateInfo");
-            String finalMediatePlan = mediateInfoObject.get("final_mediate_plan").toString();
+            String finalMediatePlan = "";
+            if(mediateInfoObject.containsKey("final_mediate_plan")){
+                finalMediatePlan = mediateInfoObject.get("final_mediate_plan").toString();
+            }
             basicInfo.setFinalMediatePlan(finalMediatePlan);
         }
         //审判员最终总结

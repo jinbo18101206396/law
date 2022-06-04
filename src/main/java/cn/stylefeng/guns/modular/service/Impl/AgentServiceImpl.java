@@ -9,6 +9,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
 
@@ -30,12 +31,12 @@ public class AgentServiceImpl extends ServiceImpl<AgentMapper, Agent> implements
     public void saveAgentInfo(String courtNumber, JSONObject recordJsonObject) {
         //原告信息
         JSONArray accuserInfoArray = recordJsonObject.getJSONArray("accuserInfo");
-        if (accuserInfoArray.size() > 0) {
+        if (!ObjectUtils.isEmpty(accuserInfoArray)) {
             saveAccuserAgent(courtNumber, accuserInfoArray);
         }
         //被告信息
         JSONArray defendantInfoArray = recordJsonObject.getJSONArray("defendantInfo");
-        if (defendantInfoArray.size() > 0) {
+        if (!ObjectUtils.isEmpty(accuserInfoArray)) {
             saveDefendantAgent(courtNumber, defendantInfoArray);
         }
     }
