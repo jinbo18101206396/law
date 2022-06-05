@@ -164,6 +164,9 @@ layui.use(['table', 'HttpRequest', 'func', 'form','laydate'], function () {
                         let inquiryInfoItem = wholeItem.inquiryInfo
                         myLocalStorage["inquiryInfo"]={}
                         myLocalStorage["inquiryInfo"]["inquiry_info"] = inquiryInfoItem
+
+                        //临时添加
+                        myLocalStorage["inquiryInfo"]["question_list"]= ["问题列表项1","问题列表项2"]
                     }
 
                     //法庭辩论表
