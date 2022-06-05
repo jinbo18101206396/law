@@ -26,6 +26,7 @@ import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -220,6 +221,8 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
     public List<BasicInfo> getBasicInfoList(String courtNumber) {
         LambdaQueryWrapper<BasicInfo> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(BasicInfo::getCourtNumber, courtNumber);
+        queryWrapper.eq(BasicInfo::getDelFlag, YesOrNotEnum.N.getCode());
+
         List<BasicInfo> basicInfos = basicInfoService.list(queryWrapper);
         return basicInfos;
     }
@@ -458,12 +461,10 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 Accuser accuser = accusers.get(i);
                 String accuserShortName = accuser.getAccuserShort();
                 String finalStatement = accuser.getFinalStatement();
-                if (!ObjectUtils.isEmpty(accuserShortName) && !ObjectUtils.isEmpty(finalStatement)) {
-                    JSONObject accuserFinalStatementInfoObject = new JSONObject();
-                    accuserFinalStatementInfoObject.put("name", accuserShortName + "（原告）");
-                    accuserFinalStatementInfoObject.put("final_statement", finalStatement);
-                    finalStatementInfoArray.add(accuserFinalStatementInfoObject);
-                }
+                JSONObject accuserFinalStatementInfoObject = new JSONObject();
+                accuserFinalStatementInfoObject.put("name", accuserShortName + "（原告）");
+                accuserFinalStatementInfoObject.put("final_statement", finalStatement);
+                finalStatementInfoArray.add(accuserFinalStatementInfoObject);
             }
         }
 
@@ -481,12 +482,10 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 Defendant defendant = defendants.get(j);
                 String defendantShortName = defendant.getDefendantShort();
                 String finalStatement = defendant.getFinalStatement();
-                if (!ObjectUtils.isEmpty(defendantShortName) && !ObjectUtils.isEmpty(finalStatement)) {
-                    JSONObject defendantFinalStatementInfoObject = new JSONObject();
-                    defendantFinalStatementInfoObject.put("name", defendantShortName + "（被告）");
-                    defendantFinalStatementInfoObject.put("final_statement", finalStatement);
-                    finalStatementInfoArray.add(defendantFinalStatementInfoObject);
-                }
+                JSONObject defendantFinalStatementInfoObject = new JSONObject();
+                defendantFinalStatementInfoObject.put("name", defendantShortName + "（被告）");
+                defendantFinalStatementInfoObject.put("final_statement", finalStatement);
+                finalStatementInfoArray.add(defendantFinalStatementInfoObject);
             }
         }
         return finalStatementInfoArray;
@@ -896,16 +895,16 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
             queryWrapper.eq(ObjectUtil.isNotEmpty(userId), BasicInfo::getUserId, userId);
         }
         Long basicId = basicInfoRequest.getBasicId();
-        String judge = basicInfoRequest.getJudge();
         String courtNumber = basicInfoRequest.getCourtNumber();
         String courtCause = basicInfoRequest.getCourtCause();
-        Integer status = basicInfoRequest.getStatus();
+        String judge = basicInfoRequest.getJudge();
+        String courtClerk = basicInfoRequest.getCourtClerk();
 
         queryWrapper.eq(ObjectUtil.isNotEmpty(basicId), BasicInfo::getBasicId, basicId);
-        queryWrapper.like(ObjectUtil.isNotEmpty(judge), BasicInfo::getJudge, judge);
         queryWrapper.eq(ObjectUtil.isNotEmpty(courtNumber), BasicInfo::getCourtNumber, courtNumber);
         queryWrapper.like(ObjectUtil.isNotEmpty(courtCause), BasicInfo::getCourtCause, courtCause);
-        queryWrapper.eq(ObjectUtil.isNotEmpty(status), BasicInfo::getStatus, status);
+        queryWrapper.eq(ObjectUtil.isNotEmpty(judge), BasicInfo::getJudge, judge);
+        queryWrapper.eq(ObjectUtil.isNotEmpty(courtClerk), BasicInfo::getJudge, courtClerk);
 
         // 查询未删除状态的
         queryWrapper.eq(BasicInfo::getDelFlag, YesOrNotEnum.N.getCode());

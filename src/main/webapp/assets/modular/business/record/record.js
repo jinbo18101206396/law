@@ -23,6 +23,7 @@ layui.use(['table', 'HttpRequest', 'func', 'form','laydate'], function () {
             {field: 'courtCause', align: "center", sort: true, title: '案由'},
             {field: 'judge', align: "center", sort: true, title: '审判员'},
             {field: 'courtClerk', align: "center", sort: true, title: '书记员'},
+            {field: 'courtTime', align: "center", sort: true, title: '开庭时间'},
             {field: 'status', align: "center", sort: true, templet: '#statusTpl', title: '案件状态'},
             {align: 'center', toolbar: '#tableBar', title: '操作', minWidth: 250}
         ]];
@@ -33,9 +34,10 @@ layui.use(['table', 'HttpRequest', 'func', 'form','laydate'], function () {
      */
     Record.search = function () {
         var queryData = {};
-        queryData['judge'] = $("#judge").val();
         queryData['courtNumber'] = $("#court_number").val();
         queryData['courtCause'] = $("#court_cause").val();
+        queryData['judge'] = $("#judge").val();
+        queryData['courtClerk'] = $("#court_clerk").val();
 
         table.reload(Record.tableId, {
             where: queryData, page: {curr: 1}
