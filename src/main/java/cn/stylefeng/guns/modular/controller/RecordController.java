@@ -45,6 +45,8 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.List;
 
+import static org.bouncycastle.asn1.eac.CertificateBody.requestType;
+
 /**
  * 笔录基本信息控制器
  *
@@ -99,18 +101,21 @@ public class RecordController {
     /**
      * 保存笔录信息
      * <p>
-     * requestType: 1-新建笔录，2-继续开庭
      *
      * @author 金波
      * @date 2022/05/22
      */
     @PostResource(name = "保存笔录信息", path = "/record/add")
-    public ResponseData add(@RequestBody String recordJson, @RequestBody String requestType) {
-        System.out.println("提交的数据：" + recordJson);
+    public ResponseData add(@RequestBody String recordJsonStr) {
+        System.out.println("提交的数据：" + recordJsonStr);
         //每次提交的recordJson保存一份在本地
-        FileUtils.writerFile(recordJson, "src/main/backup");
+        FileUtils.writerFile(recordJsonStr, "src/main/backup");
 
-        JSONObject recordJsonObject = JSONObject.parseObject(recordJson);
+        JSONObject recordJson = JSONObject.parseObject(recordJsonStr);
+        JSONObject recordJsonObject = recordJson.getJSONObject("recordJson");
+        // requestType: 1-新建笔录，2-继续开庭
+        String requestType = recordJson.getString("requestType");
+
         String courtNumber = "";
         if (recordJsonObject.containsKey("basicInfo")) {
             String basicInfo = recordJsonObject.getString("basicInfo");
