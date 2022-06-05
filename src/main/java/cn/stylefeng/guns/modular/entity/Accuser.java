@@ -108,6 +108,13 @@ public class Accuser implements Serializable {
      */
     @TableField("final_statement")
     private String finalStatement;
+
+    /**
+     * 删除标记
+     */
+    @TableField("del_flag")
+    private String delFlag;
+
     /**
      * 创建时间
      */
@@ -289,6 +296,14 @@ public class Accuser implements Serializable {
 
     public void setUpdateUser(Long updateUser) {
         this.updateUser = updateUser;
+    }
+
+    public String getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(String delFlag) {
+        this.delFlag = delFlag;
     }
 
     @Override

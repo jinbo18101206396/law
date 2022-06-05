@@ -55,6 +55,12 @@ public class Agent implements Serializable {
     private String courtNumber;
 
     /**
+     * 删除标记
+     */
+    @TableField("del_flag")
+    private String delFlag;
+
+    /**
      * 创建时间
      */
     @TableField(value = "create_time", fill = FieldFill.INSERT)
@@ -157,6 +163,14 @@ public class Agent implements Serializable {
 
     public void setUpdateUser(Long updateUser) {
         this.updateUser = updateUser;
+    }
+
+    public String getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(String delFlag) {
+        this.delFlag = delFlag;
     }
 
     @Override

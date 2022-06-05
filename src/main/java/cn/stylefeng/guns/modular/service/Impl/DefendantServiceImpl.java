@@ -1,13 +1,16 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
+import cn.stylefeng.guns.modular.entity.Accuser;
 import cn.stylefeng.guns.modular.entity.Agent;
 import cn.stylefeng.guns.modular.entity.Defendant;
 import cn.stylefeng.guns.modular.mapper.DefendantMapper;
 import cn.stylefeng.guns.modular.service.AgentService;
 import cn.stylefeng.guns.modular.service.DefendantService;
+import cn.stylefeng.roses.kernel.rule.enums.YesOrNotEnum;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -81,9 +84,13 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
                 for (int k = 0; k < mediateDefendantArray.size(); k++) {
                     JSONObject mediateDefendantObject = mediateDefendantArray.getJSONObject(k);
                     String mediateDefendantName = mediateDefendantObject.get("defendant").toString();
-                    if (!"".equals(mediateDefendantName) && mediateDefendantName.equals(defendantShortName)) {
-                        defendant.setIsMediate(mediateDefendantObject.get("is_mediate").toString());
-                        defendant.setMediatePlan(mediateDefendantObject.get("mediate_plan").toString());
+
+                    if(!ObjectUtils.isEmpty(mediateDefendantName) && mediateDefendantName.contains("（")){
+                        String defendantName = mediateDefendantName.split("（")[0];
+                        if(defendantName.equals(defendantShortName)){
+                            defendant.setIsMediate(mediateDefendantObject.get("is_mediate").toString());
+                            defendant.setMediatePlan(mediateDefendantObject.get("mediate_plan").toString());
+                        }
                     }
                 }
             }
@@ -95,11 +102,12 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
                     JSONObject deliveryObject = deliveryInfoArray.getJSONObject(m);
                     //格式：姓名（类型），例如：张三（被告）
                     String deliveryDefendantName = deliveryObject.get("name").toString();
+                    String delivery = deliveryObject.get("is_delivery").toString();
                     if(!ObjectUtils.isEmpty(deliveryDefendantName) && deliveryDefendantName.contains("（")){
                         String name = deliveryDefendantName.split("（")[0];
                         String type = deliveryDefendantName.split("（")[1];
                         if (name.equals(defendantShortName) && type.startsWith("被告")) {
-                            defendant.setIsDelivery(deliveryObject.get("is_delivery").toString());
+                            defendant.setIsDelivery(delivery);
                             defendant.setEmail(deliveryObject.get("email").toString());
                         }
                     }
@@ -132,10 +140,12 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
         JSONArray defendantInfoArray = new JSONArray();
         LambdaQueryWrapper<Defendant> defendantQueryWrapper = new LambdaQueryWrapper<>();
         defendantQueryWrapper.eq(Defendant::getCourtNumber, courtNumber);
+        defendantQueryWrapper.eq(Defendant::getDelFlag, YesOrNotEnum.N.getCode());
         List<Defendant> defendants = defendantService.list(defendantQueryWrapper);
         //委托诉讼代理人
         LambdaQueryWrapper<Agent> agentQueryWrapper = new LambdaQueryWrapper<>();
         agentQueryWrapper.eq(Agent::getCourtNumber, courtNumber);
+        agentQueryWrapper.eq(Agent::getDelFlag, YesOrNotEnum.N.getCode());
         agentQueryWrapper.eq(Agent::getAgentType, "2");
         List<Agent> agents = agentService.list(agentQueryWrapper);
 
@@ -201,8 +211,8 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
 
     @Override
     public Boolean deleteDefendantInfo(String courtNumber) {
-        LambdaQueryWrapper<Defendant> defendantQueryWrapper = new LambdaQueryWrapper<>();
-        defendantQueryWrapper.eq(Defendant::getCourtNumber, courtNumber);
-        return defendantService.remove(defendantQueryWrapper);
+        LambdaUpdateWrapper<Defendant> defendantWrapper = new LambdaUpdateWrapper<>();
+        defendantWrapper.set(Defendant::getDelFlag, YesOrNotEnum.Y.getCode()).eq(Defendant::getCourtNumber,courtNumber);
+        return defendantService.update(defendantWrapper);
     }
 }

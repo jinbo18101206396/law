@@ -30,13 +30,13 @@ public class BasicInfoRequest extends BaseRequest {
      * 立案时间
      */
     @NotNull(message = "filingTime不能为空", groups = {add.class, edit.class})
-    private Date filingTime;
+    private String filingTime;
 
     /**
      * 开庭时间
      */
     @NotNull(message = "courtTime不能为空", groups = {add.class, edit.class})
-    private Date courtTime;
+    private String courtTime;
 
     /**
      * 开庭地点

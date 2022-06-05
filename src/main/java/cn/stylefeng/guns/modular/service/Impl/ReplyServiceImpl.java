@@ -1,12 +1,15 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
 import cn.stylefeng.guns.modular.entity.Accuser;
+import cn.stylefeng.guns.modular.entity.Proof;
 import cn.stylefeng.guns.modular.entity.Reply;
 import cn.stylefeng.guns.modular.mapper.ReplyMapper;
 import cn.stylefeng.guns.modular.service.ReplyService;
+import cn.stylefeng.roses.kernel.rule.enums.YesOrNotEnum;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -70,8 +73,8 @@ public class ReplyServiceImpl extends ServiceImpl<ReplyMapper, Reply> implements
 
     @Override
     public Boolean deleteReplyInfo(String courtNumber) {
-        LambdaQueryWrapper<Reply> replyQueryWrapper = new LambdaQueryWrapper<>();
-        replyQueryWrapper.eq(Reply::getCourtNumber, courtNumber);
-        return replyService.remove(replyQueryWrapper);
+        LambdaUpdateWrapper<Reply> replyWrapper = new LambdaUpdateWrapper<>();
+        replyWrapper.set(Reply::getDelFlag, YesOrNotEnum.Y.getCode()).eq(Reply::getCourtNumber,courtNumber);
+        return replyService.update(replyWrapper);
     }
 }

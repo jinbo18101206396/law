@@ -1,11 +1,15 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
 import cn.stylefeng.guns.modular.entity.Argue;
+import cn.stylefeng.guns.modular.entity.Inquiry;
+import cn.stylefeng.guns.modular.entity.State;
 import cn.stylefeng.guns.modular.mapper.ArgueMapper;
 import cn.stylefeng.guns.modular.service.ArgueService;
+import cn.stylefeng.roses.kernel.rule.enums.YesOrNotEnum;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -92,6 +96,7 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
     public JSONObject getArgueInfoObject(String courtNumber) {
         LambdaQueryWrapper<Argue> argueQueryWrapper = new LambdaQueryWrapper<>();
         argueQueryWrapper.eq(Argue::getCourtNumber, courtNumber);
+        argueQueryWrapper.eq(Argue::getDelFlag, YesOrNotEnum.N.getCode());
         List<Argue> argues = argueService.list(argueQueryWrapper);
         JSONArray argueArray = new JSONArray();
         JSONArray counterClaimArgueArray = new JSONArray();
@@ -132,8 +137,8 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
 
     @Override
     public Boolean deleteArgueInfo(String courtNumber) {
-        LambdaQueryWrapper<Argue> argueQueryWrapper = new LambdaQueryWrapper<>();
-        argueQueryWrapper.eq(Argue::getCourtNumber, courtNumber);
-        return argueService.remove(argueQueryWrapper);
+        LambdaUpdateWrapper<Argue> argueWrapper = new LambdaUpdateWrapper<>();
+        argueWrapper.set(Argue::getDelFlag, YesOrNotEnum.Y.getCode()).eq(Argue::getCourtNumber,courtNumber);
+        return argueService.update(argueWrapper);
     }
 }

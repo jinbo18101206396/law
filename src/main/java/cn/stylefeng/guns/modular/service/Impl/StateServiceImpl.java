@@ -1,11 +1,14 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
 import cn.stylefeng.guns.modular.entity.Accuser;
+import cn.stylefeng.guns.modular.entity.Agent;
 import cn.stylefeng.guns.modular.entity.State;
 import cn.stylefeng.guns.modular.mapper.StateMapper;
 import cn.stylefeng.guns.modular.service.StateService;
+import cn.stylefeng.roses.kernel.rule.enums.YesOrNotEnum;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -49,6 +52,7 @@ public class StateServiceImpl extends ServiceImpl<StateMapper, State> implements
     public JSONObject getStateInfoObject(String courtNumber) {
         LambdaQueryWrapper<State> stateQueryWrapper = new LambdaQueryWrapper<>();
         stateQueryWrapper.eq(State::getCourtNumber, courtNumber);
+        stateQueryWrapper.eq(State::getDelFlag, YesOrNotEnum.N.getCode());
         State state = stateService.getOne(stateQueryWrapper);
         String stateType = "1";
         String stateContent = "";
@@ -64,8 +68,8 @@ public class StateServiceImpl extends ServiceImpl<StateMapper, State> implements
 
     @Override
     public Boolean deleteStateInfo(String courtNumber) {
-        LambdaQueryWrapper<State> stateQueryWrapper = new LambdaQueryWrapper<>();
-        stateQueryWrapper.eq(State::getCourtNumber, courtNumber);
-        return stateService.remove(stateQueryWrapper);
+        LambdaUpdateWrapper<State> stateWrapper = new LambdaUpdateWrapper<>();
+        stateWrapper.set(State::getDelFlag, YesOrNotEnum.Y.getCode()).eq(State::getCourtNumber,courtNumber);
+        return stateService.update(stateWrapper);
     }
 }

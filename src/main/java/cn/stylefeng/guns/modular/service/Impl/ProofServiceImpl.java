@@ -2,12 +2,15 @@ package cn.stylefeng.guns.modular.service.Impl;
 
 import cn.stylefeng.guns.modular.entity.Accuser;
 import cn.stylefeng.guns.modular.entity.Proof;
+import cn.stylefeng.guns.modular.entity.Query;
 import cn.stylefeng.guns.modular.mapper.ProofMapper;
 import cn.stylefeng.guns.modular.service.AccuserService;
 import cn.stylefeng.guns.modular.service.ProofService;
+import cn.stylefeng.roses.kernel.rule.enums.YesOrNotEnum;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -149,9 +152,9 @@ public class ProofServiceImpl extends ServiceImpl<ProofMapper, Proof> implements
 
     @Override
     public Boolean deleteProofInfo(String courtNumber) {
-        LambdaQueryWrapper<Proof> proofQueryWrapper = new LambdaQueryWrapper<>();
-        proofQueryWrapper.eq(Proof::getCourtNumber, courtNumber);
-        return proofService.remove(proofQueryWrapper);
+        LambdaUpdateWrapper<Proof> proofWrapper = new LambdaUpdateWrapper<>();
+        proofWrapper.set(Proof::getDelFlag, YesOrNotEnum.Y.getCode()).eq(Proof::getCourtNumber,courtNumber);
+        return proofService.update(proofWrapper);
     }
 
 }

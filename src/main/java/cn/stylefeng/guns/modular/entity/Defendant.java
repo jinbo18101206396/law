@@ -75,6 +75,12 @@ public class Defendant implements Serializable {
     private String courtNumber;
 
     /**
+     * 删除标记
+     */
+    @TableField("del_flag")
+    private String delFlag;
+
+    /**
      * 是否听清诉讼权力和义务
      */
     @TableField("defendant_right_duty")
@@ -297,6 +303,14 @@ public class Defendant implements Serializable {
 
     public void setIsDelivery(String isDelivery) {
         this.isDelivery = isDelivery;
+    }
+
+    public String getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(String delFlag) {
+        this.delFlag = delFlag;
     }
 
     @Override

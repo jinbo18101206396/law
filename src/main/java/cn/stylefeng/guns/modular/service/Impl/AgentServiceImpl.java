@@ -2,11 +2,14 @@ package cn.stylefeng.guns.modular.service.Impl;
 
 import cn.stylefeng.guns.modular.entity.Accuser;
 import cn.stylefeng.guns.modular.entity.Agent;
+import cn.stylefeng.guns.modular.entity.Defendant;
 import cn.stylefeng.guns.modular.mapper.AgentMapper;
 import cn.stylefeng.guns.modular.service.AgentService;
+import cn.stylefeng.roses.kernel.rule.enums.YesOrNotEnum;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -43,9 +46,9 @@ public class AgentServiceImpl extends ServiceImpl<AgentMapper, Agent> implements
 
     @Override
     public Boolean deleteAgentInfo(String courtNumber) {
-        LambdaQueryWrapper<Agent> agentQueryWrapper = new LambdaQueryWrapper<>();
-        agentQueryWrapper.eq(Agent::getCourtNumber, courtNumber);
-        return agentService.remove(agentQueryWrapper);
+        LambdaUpdateWrapper<Agent> agentWrapper = new LambdaUpdateWrapper<>();
+        agentWrapper.set(Agent::getDelFlag, YesOrNotEnum.Y.getCode()).eq(Agent::getCourtNumber,courtNumber);
+        return agentService.update(agentWrapper);
     }
 
     public void saveAccuserAgent(String courtNumber, JSONArray accuserInfoArray) {

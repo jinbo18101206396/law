@@ -1,11 +1,15 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
+import cn.stylefeng.guns.modular.entity.Argue;
+import cn.stylefeng.guns.modular.entity.Defendant;
 import cn.stylefeng.guns.modular.entity.Inquiry;
 import cn.stylefeng.guns.modular.mapper.InquiryMapper;
 import cn.stylefeng.guns.modular.service.InquiryService;
+import cn.stylefeng.roses.kernel.rule.enums.YesOrNotEnum;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -68,6 +72,7 @@ public class InquiryServiceImpl extends ServiceImpl<InquiryMapper, Inquiry> impl
         JSONArray inquiryInfoArray = new JSONArray();
         LambdaQueryWrapper<Inquiry> inquiryQueryWrapper = new LambdaQueryWrapper<>();
         inquiryQueryWrapper.eq(Inquiry::getCourtNumber, courtNumber);
+        inquiryQueryWrapper.eq(Inquiry::getDelFlag, YesOrNotEnum.N.getCode());
         List<Inquiry> inquiries = inquiryService.list(inquiryQueryWrapper);
 
         if (null == inquiries || inquiries.size() == 0) {
@@ -123,8 +128,8 @@ public class InquiryServiceImpl extends ServiceImpl<InquiryMapper, Inquiry> impl
 
     @Override
     public Boolean deleteInquiryInfo(String courtNumber) {
-        LambdaQueryWrapper<Inquiry> inquiryQueryWrapper = new LambdaQueryWrapper<>();
-        inquiryQueryWrapper.eq(Inquiry::getCourtNumber, courtNumber);
-        return inquiryService.remove(inquiryQueryWrapper);
+        LambdaUpdateWrapper<Inquiry> inquiryWrapper = new LambdaUpdateWrapper<>();
+        inquiryWrapper.set(Inquiry::getDelFlag, YesOrNotEnum.Y.getCode()).eq(Inquiry::getCourtNumber,courtNumber);
+        return inquiryService.update(inquiryWrapper);
     }
 }

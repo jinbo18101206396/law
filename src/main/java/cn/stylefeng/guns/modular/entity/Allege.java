@@ -61,6 +61,12 @@ public class Allege implements Serializable {
     private String courtNumber;
 
     /**
+     * 删除标记
+     */
+    @TableField("del_flag")
+    private String delFlag;
+
+    /**
      * 创建时间
      */
     @TableField(value = "create_time", fill = FieldFill.INSERT)
@@ -171,6 +177,14 @@ public class Allege implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(String delFlag) {
+        this.delFlag = delFlag;
     }
 
     @Override
