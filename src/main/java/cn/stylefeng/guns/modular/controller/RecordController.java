@@ -45,8 +45,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.List;
 
-import static org.bouncycastle.asn1.eac.CertificateBody.requestType;
-
 /**
  * 笔录基本信息控制器
  *
@@ -274,6 +272,7 @@ public class RecordController {
         recordJson.put("summarize", summarize);
 
         System.out.println("回显的数据：" + recordJson.toString());
+
         return new SuccessResponseData(recordJson.toString());
     }
 

@@ -103,12 +103,13 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
                     //格式：姓名（类型），例如：张三（被告）
                     String deliveryDefendantName = deliveryObject.get("name").toString();
                     String delivery = deliveryObject.get("is_delivery").toString();
+                    Object email = deliveryObject.get("email");
                     if(!ObjectUtils.isEmpty(deliveryDefendantName) && deliveryDefendantName.contains("（")){
                         String name = deliveryDefendantName.split("（")[0];
                         String type = deliveryDefendantName.split("（")[1];
                         if (name.equals(defendantShortName) && type.startsWith("被告")) {
                             defendant.setIsDelivery(delivery);
-                            defendant.setEmail(deliveryObject.get("email").toString());
+                            defendant.setEmail(email==null?"":email.toString());
                         }
                     }
                 }

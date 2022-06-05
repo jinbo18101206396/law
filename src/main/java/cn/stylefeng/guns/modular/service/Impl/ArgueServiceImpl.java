@@ -52,22 +52,18 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
             JSONObject argueObject = argueArray.getJSONObject(i);
             //姓名格式，例如：张三（原告）
             String argueName = argueObject.get("name").toString();
-            String name = "";
-            String type = "";
-            if(!ObjectUtils.isEmpty(argueName) && argueName.contains("（")){
-                name = argueName.split("（")[0];
-                type = argueName.split("（")[1];
-                type = type.substring(0, type.length() - 1);
-            }
             String argueContent = argueObject.get("argue").toString();
-            Argue argue = new Argue();
-            argue.setName(name);
-            //辩论人的类型（原告，被告）
-            argue.setType(type);
-            argue.setArgueContent(argueContent);
-            argue.setIsCounterClaim(counterClaim);
-            argue.setCourtNumber(courtNumber);
-            this.save(argue);
+            if(!ObjectUtils.isEmpty(argueName) && argueName.contains("（") && !ObjectUtils.isEmpty(argueContent)){
+               String name = argueName.split("（")[0];
+               String type = argueName.split("（")[1];
+                Argue argue = new Argue();
+                argue.setName(name);
+                argue.setType(type.substring(0, type.length() - 1));
+                argue.setArgueContent(argueContent);
+                argue.setIsCounterClaim(counterClaim);
+                argue.setCourtNumber(courtNumber);
+                this.save(argue);
+            }
         }
     }
 
@@ -76,16 +72,18 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
             JSONObject cointerClaimArgueObject = counterClaimArgueArray.getJSONObject(i);
             //姓名格式，例如：张三（反诉被告）
             String argueName = cointerClaimArgueObject.get("name").toString();
-            String name = argueName.split("（")[0];
-            String type = argueName.split("（")[1];
-            Argue argue = new Argue();
-            argue.setName(name);
-            //辩论人的类型（反诉原告，反诉被告）
-            argue.setType(type.substring(0, type.length() - 1));
-            argue.setArgueContent(cointerClaimArgueObject.get("argue").toString());
-            argue.setIsCounterClaim(counterClaim);
-            argue.setCourtNumber(courtNumber);
-            this.save(argue);
+            String argueContent = cointerClaimArgueObject.get("argue").toString();
+            if(!ObjectUtils.isEmpty(argueName) && argueName.contains("（") && !ObjectUtils.isEmpty(argueContent)){
+                String name = argueName.split("（")[0];
+                String type = argueName.split("（")[1];
+                Argue argue = new Argue();
+                argue.setName(name);
+                argue.setType(type.substring(0, type.length() - 1));
+                argue.setArgueContent(argueContent);
+                argue.setIsCounterClaim(counterClaim);
+                argue.setCourtNumber(courtNumber);
+                this.save(argue);
+            }
         }
     }
 
