@@ -106,12 +106,12 @@ layui.use(['table', 'HttpRequest', 'func', 'form','laydate'], function () {
                         }
                         myLocalStorage["CourtInves"] = courtInves
 
-                        courtTemp.defendant_query.forEach(e => {e.defendant=e.defendant.split("**"),e.evidence = e.evidence.split("**")})
+                        courtTemp.defendant_query.forEach(e => {e.defendant= e.defendant=="" ?[]:e.defendant.split("**"),e.evidence = e.evidence==""?[]: e.evidence.split("**")})
                         let accuserShowInfo={
                             //第一个动态生成的json accuser_evidence 包含以下3个信息
                             accuser_evidence: courtTemp.accuser_evidence,
                             accuser_evidence_fact_reason: courtTemp.accuser_evidence_fact_reason, //事实和理由(原告举证)
-
+                            //处理空值.forEach( i => {i.defendant=i.defendant==[""]?[]:i.defendant, i.evidence= i.evidence==[""]?[]:i.evidence})
                             defendant_query:courtTemp.defendant_query
                         }
                         myLocalStorage["accuserShowInfo"] = accuserShowInfo
