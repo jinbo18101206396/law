@@ -1,14 +1,11 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
-import cn.stylefeng.guns.modular.entity.Accuser;
 import cn.stylefeng.guns.modular.entity.Agent;
-import cn.stylefeng.guns.modular.entity.Defendant;
 import cn.stylefeng.guns.modular.mapper.AgentMapper;
 import cn.stylefeng.guns.modular.service.AgentService;
 import cn.stylefeng.roses.kernel.rule.enums.YesOrNotEnum;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
@@ -47,7 +44,7 @@ public class AgentServiceImpl extends ServiceImpl<AgentMapper, Agent> implements
     @Override
     public Boolean deleteAgentInfo(String courtNumber) {
         LambdaUpdateWrapper<Agent> agentWrapper = new LambdaUpdateWrapper<>();
-        agentWrapper.set(Agent::getDelFlag, YesOrNotEnum.Y.getCode()).eq(Agent::getCourtNumber,courtNumber);
+        agentWrapper.set(Agent::getDelFlag, YesOrNotEnum.Y.getCode()).eq(Agent::getCourtNumber, courtNumber);
         return agentService.update(agentWrapper);
     }
 
@@ -61,6 +58,9 @@ public class AgentServiceImpl extends ServiceImpl<AgentMapper, Agent> implements
                 Agent accuserAgent = new Agent();
                 JSONObject accuserAgentObject = accuserAgentArray.getJSONObject(j);
                 String agentName = accuserAgentObject.get("agent").toString();
+                if (ObjectUtils.isEmpty(agentName)) {
+                    continue;
+                }
                 String agentAddress = accuserAgentObject.get("agent_address").toString();
                 accuserAgent.setAgent(agentName);
                 accuserAgent.setAgentAddress(agentAddress);
@@ -82,7 +82,11 @@ public class AgentServiceImpl extends ServiceImpl<AgentMapper, Agent> implements
             for (int n = 0; n < defendantAgentArray.size(); n++) {
                 Agent defendantAgent = new Agent();
                 JSONObject defendantAgentObject = defendantAgentArray.getJSONObject(n);
-                defendantAgent.setAgent(defendantAgentObject.get("agent").toString());
+                String agentName = defendantAgentObject.get("agent").toString();
+                if (ObjectUtils.isEmpty(agentName)) {
+                    continue;
+                }
+                defendantAgent.setAgent(agentName);
                 defendantAgent.setAgentAddress(defendantAgentObject.get("agent_address").toString());
                 defendantAgent.setAgentName(defendantShortName);
                 //代理类型（1-原告代理，2-被告代理）

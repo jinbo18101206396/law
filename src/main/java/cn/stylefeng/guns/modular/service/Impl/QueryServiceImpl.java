@@ -1,14 +1,11 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
-import cn.stylefeng.guns.modular.entity.Accuser;
-import cn.stylefeng.guns.modular.entity.Inquiry;
 import cn.stylefeng.guns.modular.entity.Query;
 import cn.stylefeng.guns.modular.mapper.QueryMapper;
 import cn.stylefeng.guns.modular.service.QueryService;
 import cn.stylefeng.roses.kernel.rule.enums.YesOrNotEnum;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
@@ -92,7 +89,7 @@ public class QueryServiceImpl extends ServiceImpl<QueryMapper, Query> implements
             for (int i = 0; i < otherDefendantQueryArray.size(); i++) {
                 JSONObject otherDefendantQueryObject = otherDefendantQueryArray.getJSONObject(i);
                 String defendant = otherDefendantQueryObject.get("defendant").toString();
-                if(ObjectUtils.isEmpty(defendant)){
+                if (ObjectUtils.isEmpty(defendant)) {
                     continue;
                 }
                 String evidence = otherDefendantQueryObject.get("evidence").toString();
@@ -127,7 +124,7 @@ public class QueryServiceImpl extends ServiceImpl<QueryMapper, Query> implements
             for (int i = 0; i < counterClaimDefendantQueryArray.size(); i++) {
                 JSONObject counterClaimDefendantQueryObject = counterClaimDefendantQueryArray.getJSONObject(i);
                 String counterclaimDefendant = counterClaimDefendantQueryObject.get("counterclaim_defendant").toString();
-                if(ObjectUtils.isEmpty(counterclaimDefendant)){
+                if (ObjectUtils.isEmpty(counterclaimDefendant)) {
                     continue;
                 }
                 String evidence = counterClaimDefendantQueryObject.get("evidence").toString();
@@ -162,7 +159,7 @@ public class QueryServiceImpl extends ServiceImpl<QueryMapper, Query> implements
             for (int i = 0; i < counterClaimAccuserQueryArray.size(); i++) {
                 JSONObject counterClaimAccuserQueryObject = counterClaimAccuserQueryArray.getJSONObject(i);
                 String counterclaimAccuser = counterClaimAccuserQueryObject.get("counterclaim_accuser").toString();
-                if(ObjectUtils.isEmpty(counterclaimAccuser)){
+                if (ObjectUtils.isEmpty(counterclaimAccuser)) {
                     continue;
                 }
                 String evidence = counterClaimAccuserQueryObject.get("evidence").toString();
@@ -197,7 +194,7 @@ public class QueryServiceImpl extends ServiceImpl<QueryMapper, Query> implements
             for (int i = 0; i < otherCounterClaimDefendantQueryArray.size(); i++) {
                 JSONObject otherCounterClaimDefendantQueryObject = otherCounterClaimDefendantQueryArray.getJSONObject(i);
                 String otherCounterClaimDefendant = otherCounterClaimDefendantQueryObject.get("other_counterclaim_defendant").toString();
-                if(ObjectUtils.isEmpty(otherCounterClaimDefendant)){
+                if (ObjectUtils.isEmpty(otherCounterClaimDefendant)) {
                     continue;
                 }
                 String evidence = otherCounterClaimDefendantQueryObject.get("evidence").toString();
@@ -224,7 +221,7 @@ public class QueryServiceImpl extends ServiceImpl<QueryMapper, Query> implements
     @Override
     public Boolean deleteQueryInfo(String courtNumber) {
         LambdaUpdateWrapper<Query> queryWrapper = new LambdaUpdateWrapper<>();
-        queryWrapper.set(Query::getDelFlag, YesOrNotEnum.Y.getCode()).eq(Query::getCourtNumber,courtNumber);
+        queryWrapper.set(Query::getDelFlag, YesOrNotEnum.Y.getCode()).eq(Query::getCourtNumber, courtNumber);
         return queryService.update(queryWrapper);
     }
 }
