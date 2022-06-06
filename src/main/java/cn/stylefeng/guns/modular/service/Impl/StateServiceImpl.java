@@ -37,9 +37,12 @@ public class StateServiceImpl extends ServiceImpl<StateMapper, State> implements
         if (recordJsonObject.containsKey("stateInfo")) {
             String stateInfo = recordJsonObject.getString("stateInfo");
             JSONObject stateInfoObject = JSONObject.parseObject(stateInfo);
+            String stateType = stateInfoObject.get("state_type").toString();
+            String stateContent = stateInfoObject.get("state_content").toString();
+
             State state = new State();
-            state.setStateType(stateInfoObject.get("state_type").toString());
-            state.setStateContent(stateInfoObject.get("state_content").toString());
+            state.setStateType(stateType);
+            state.setStateContent(stateContent);
             state.setCourtNumber(courtNumber);
             this.save(state);
         }

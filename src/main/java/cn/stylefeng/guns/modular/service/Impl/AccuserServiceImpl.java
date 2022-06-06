@@ -85,17 +85,15 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
                 for (int k = 0; k < mediateAccuserArray.size(); k++) {
                     JSONObject mediateAccuserObject = mediateAccuserArray.getJSONObject(k);
                     String mediate = mediateAccuserObject.get("is_mediate").toString();
-
                     Object mediatePlan = mediateAccuserObject.get("mediate_plan");
                     Object timeLimit = mediateAccuserObject.get("time_limit");
                     String mediateAccuserName = mediateAccuserObject.get("accuser").toString();
-
                     if (!ObjectUtils.isEmpty(mediateAccuserName) && mediateAccuserName.contains("（")) {
                         String accUserName = mediateAccuserName.split("（")[0];
-                        if(accUserName.equals(accuserShortName)){
+                        if (accUserName.equals(accuserShortName)) {
                             accuser.setIsMediate(mediate);
-                            accuser.setMediatePlan(mediatePlan==null?"":mediatePlan.toString());
-                            accuser.setTimeLimit(timeLimit==null?"":timeLimit.toString());
+                            accuser.setMediatePlan(mediatePlan == null ? "" : mediatePlan.toString());
+                            accuser.setTimeLimit(timeLimit == null ? "" : timeLimit.toString());
                         }
                     }
                 }
@@ -114,8 +112,8 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
                         String name = deliveryAccuserName.split("（")[0];
                         String type = deliveryAccuserName.split("（")[1];
                         if (name.equals(accuserShortName) && type.startsWith("原告")) {
-                            accuser.setIsDelivery(delivery==null?"":delivery.toString());
-                            accuser.setEmail(email==null?"":email.toString());
+                            accuser.setIsDelivery(delivery == null ? "" : delivery.toString());
+                            accuser.setEmail(email == null ? "" : email.toString());
                         }
                     }
                 }

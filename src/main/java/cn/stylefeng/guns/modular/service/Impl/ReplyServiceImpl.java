@@ -1,17 +1,15 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
-import cn.stylefeng.guns.modular.entity.Accuser;
-import cn.stylefeng.guns.modular.entity.Proof;
 import cn.stylefeng.guns.modular.entity.Reply;
 import cn.stylefeng.guns.modular.mapper.ReplyMapper;
 import cn.stylefeng.guns.modular.service.ReplyService;
 import cn.stylefeng.roses.kernel.rule.enums.YesOrNotEnum;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
 
@@ -39,10 +37,16 @@ public class ReplyServiceImpl extends ServiceImpl<ReplyMapper, Reply> implements
             JSONArray defendantReplyArray = courtInvestigateObject.getJSONArray("defendant_reply");
             for (int i = 0; i < defendantReplyArray.size(); i++) {
                 JSONObject defendantReplyObject = defendantReplyArray.getJSONObject(i);
+                String name = defendantReplyObject.get("name").toString();
+                String content = defendantReplyObject.get("content").toString();
+                if (ObjectUtils.isEmpty(name) || ObjectUtils.isEmpty(content)) {
+                    continue;
+                }
+
                 Reply reply = new Reply();
-                reply.setName(defendantReplyObject.get("name").toString());
+                reply.setName(name);
                 reply.setType("被告");
-                reply.setContent(defendantReplyObject.get("content").toString());
+                reply.setContent(content);
                 reply.setIsCounterClaim(counterClaim);
                 reply.setCourtNumber(courtNumber);
                 this.save(reply);
@@ -60,10 +64,16 @@ public class ReplyServiceImpl extends ServiceImpl<ReplyMapper, Reply> implements
             JSONArray counterClaimDefendantReplyArray = courtInvestigateObject.getJSONArray("counterclaim_defendant_reply");
             for (int i = 0; i < counterClaimDefendantReplyArray.size(); i++) {
                 JSONObject counterClaimDefendantReplyObject = counterClaimDefendantReplyArray.getJSONObject(i);
+                String name = counterClaimDefendantReplyObject.get("name").toString();
+                String content = counterClaimDefendantReplyObject.get("content").toString();
+                if (ObjectUtils.isEmpty(name) || ObjectUtils.isEmpty(content)) {
+                    continue;
+                }
+
                 Reply reply = new Reply();
-                reply.setName(counterClaimDefendantReplyObject.get("name").toString());
+                reply.setName(name);
                 reply.setType("反诉被告");
-                reply.setContent(counterClaimDefendantReplyObject.get("content").toString());
+                reply.setContent(content);
                 reply.setIsCounterClaim(counterClaim);
                 reply.setCourtNumber(courtNumber);
                 this.save(reply);
@@ -74,7 +84,7 @@ public class ReplyServiceImpl extends ServiceImpl<ReplyMapper, Reply> implements
     @Override
     public Boolean deleteReplyInfo(String courtNumber) {
         LambdaUpdateWrapper<Reply> replyWrapper = new LambdaUpdateWrapper<>();
-        replyWrapper.set(Reply::getDelFlag, YesOrNotEnum.Y.getCode()).eq(Reply::getCourtNumber,courtNumber);
+        replyWrapper.set(Reply::getDelFlag, YesOrNotEnum.Y.getCode()).eq(Reply::getCourtNumber, courtNumber);
         return replyService.update(replyWrapper);
     }
 }
