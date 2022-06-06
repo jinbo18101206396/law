@@ -1,4 +1,4 @@
-layui.use(['table', 'HttpRequest', 'func', 'form','laydate'], function () {
+layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
     var $ = layui.$;
     var table = layui.table;
     var HttpRequest = layui.HttpRequest;
@@ -54,14 +54,14 @@ layui.use(['table', 'HttpRequest', 'func', 'form','laydate'], function () {
         $.get(
             "/record/detail",
             {courtNumber: data.courtNumber},
-            (result) =>{
+            (result) => {
                 let wholeItem = JSON.parse(result.data)
-                let myLocalStorage={}
+                let myLocalStorage = {}
                 if (wholeItem != null) {
                     //组织数据
-                    if ("basicInfo" in wholeItem){
+                    if ("basicInfo" in wholeItem) {
                         myLocalStorage["BasicInfo"] = wholeItem.basicInfo
-                        myLocalStorage["BasicInfo"]["court_number"]=data.courtNumber
+                        myLocalStorage["BasicInfo"]["court_number"] = data.courtNumber
                     }
 
                     //基本信息陈述
@@ -79,7 +79,7 @@ layui.use(['table', 'HttpRequest', 'func', 'form','laydate'], function () {
 
                     //被告数据
                     if ("defendantInfo" in wholeItem && wholeItem.defendantInfo.length > 0) {
-                        let  DefendantItems= []
+                        let DefendantItems = []
                         for (j = 0; j < wholeItem.defendantInfo.length; j++) {
                             DefendantItems.push(wholeItem.defendantInfo[j])
                         }
@@ -93,47 +93,49 @@ layui.use(['table', 'HttpRequest', 'func', 'form','laydate'], function () {
 
                     //法庭调查数据，包含原被告举证表，法庭调查表三个表
                     if ("courtInvestigate" in wholeItem) {
-                        let courtTemp= wholeItem.courtInvestigate // 临时存储数据
-                        let courtInves={
+                        let courtTemp = wholeItem.courtInvestigate // 临时存储数据
+                        let courtInves = {
                             accuser_claim_item: courtTemp.accuser_claim_item,// 原告诉讼请求
-                            accuser_claim_fact_reason:courtTemp.accuser_claim_fact_reason ,// 原告诉讼请求的事实及理由
+                            accuser_claim_fact_reason: courtTemp.accuser_claim_fact_reason,// 原告诉讼请求的事实及理由
                             is_counterclaim: courtTemp.is_counterclaim,
                             defendant_reply: courtTemp.defendant_reply,
                             counterclaim_accuser_claim_item: courtTemp.counterclaim_accuser_claim_item,
                             counterclaim_accuser_fact_reason: courtTemp.counterclaim_accuser_fact_reason,
-                            counterclaim_defendant_reply:courtTemp.counterclaim_defendant_reply,
+                            counterclaim_defendant_reply: courtTemp.counterclaim_defendant_reply,
                             counterclaim_defendant_today_is_reply: courtTemp.counterclaim_defendant_today_is_reply,
                         }
                         myLocalStorage["CourtInves"] = courtInves
 
-                        courtTemp.defendant_query.forEach(e => {e.defendant= e.defendant=="" ?[]:e.defendant.split("**"),e.evidence = e.evidence==""?[]: e.evidence.split("**")})
-                        let accuserShowInfo={
+                        courtTemp.defendant_query.forEach(e => {
+                            e.defendant = Array.isArray(e.defendant)  ?e.defendant.split("**"): [] , e.evidence = Array.isArray(e.evidence)? e.evidence.split("**"):[]
+                        })
+                        let accuserShowInfo = {
                             //第一个动态生成的json accuser_evidence 包含以下3个信息
                             accuser_evidence: courtTemp.accuser_evidence,
                             accuser_evidence_fact_reason: courtTemp.accuser_evidence_fact_reason, //事实和理由(原告举证)
                             //处理空值.forEach( i => {i.defendant=i.defendant==[""]?[]:i.defendant, i.evidence= i.evidence==[""]?[]:i.evidence})
-                            defendant_query:courtTemp.defendant_query
+                            defendant_query: courtTemp.defendant_query
                         }
                         myLocalStorage["accuserShowInfo"] = accuserShowInfo
 
-                        courtTemp.accuser_query.forEach(e => {e.accuser=e.accuser.split("**"),e.evidence = e.evidence.split("**")})
+                        courtTemp.accuser_query.forEach(e => {
+                            e.accuser =(e.accuser)?e.accuser.split("**"):[], e.evidence = Array.isArray(e.evidence)?e.evidence.split("**"):[]
+                        })
                         courtTemp.other_defendant_query.forEach(e => {
-                            e.defendant = e.defendant.split("**"), e.evidence = e.evidence.split("**")
+                            e.defendant =Array.isArray(e.defendant)?e.defendant.split("**"):[], e.evidence = Array.isArray(e.evidence)?e.evidence.split("**"):[]
                         })
                         courtTemp.counterclaim_accuser_query.forEach(e => {
-                            e.counterclaim_accuser = e.counterclaim_accuser.split("**"), e.evidence = e.evidence.split("**")
+                            e.counterclaim_accuser = Array.isArray(e.counterclaim_accuser)?e.counterclaim_accuser.split("**"):[],e.evidence = Array.isArray(e.evidence)?e.evidence.split("**"):[]
                         })
                         courtTemp.other_counterclaim_defendant_query.forEach(e => {
-                            e.other_counterclaim_defendant = e.other_counterclaim_defendant.split("**"), e.evidence = e.evidence.split("**")
+                            e.other_counterclaim_defendant = Array.isArray(e.other_counterclaim_defendant)?e.other_counterclaim_defendant.split("**"):[], e.evidence = Array.isArray(e.evidence)?e.evidence.split("**"):[]
                         })
                         courtTemp.counterclaim_defendant_query.forEach(e => {
-                            e.counterclaim_defendant = e.counterclaim_defendant.split("**"), e.evidence = e.evidence.split("**")
+                            e.counterclaim_defendant =Array.isArray(counterclaim_defendant)? e.counterclaim_defendant.split("**"):[], e.evidence = Array.isArray(e.evidence)?e.evidence.split("**"):[]
                         })
 
-                        let defendantShowInfo={
+                        let defendantShowInfo = {
                             //第一个动态生成的json defendant_evidence 包含以下3个信息
-                            is_defendant_give_evidence: "1",//被告是否提供证据
-                            is_counterclaim_give_defendant_evidence: "1",//反诉被告是否提供证据
                             defendant_evidence: courtTemp.defendant_evidence,
                             defendant_evidence_fact_reason: courtTemp.defendant_evidence_fact_reason,   //事实和理由(被告举证)
                             //第二个动态生成的json accuser_query 包含以下6个信息
@@ -144,13 +146,13 @@ layui.use(['table', 'HttpRequest', 'func', 'form','laydate'], function () {
                             //反诉后的答辩情况
                             //反诉后第一个部分 反诉被告（原告）进行举证
                             counterclaim_defendant_evidence: courtTemp.counterclaim_defendant_evidence,
-                            counterclaim_defendant_evidence_fact_reason: courtTemp.counterclaim_defendant_evidence_fact_reason ,  //事实和理由(反诉被告提出，事实和理由 不是动态添加的)
+                            counterclaim_defendant_evidence_fact_reason: courtTemp.counterclaim_defendant_evidence_fact_reason,  //事实和理由(反诉被告提出，事实和理由 不是动态添加的)
                             //反诉后第二个动态生成的部分 反诉原告质证
                             counterclaim_accuser_query: courtTemp.counterclaim_accuser_query,
                             other_counterclaim_defendant_query: courtTemp.other_counterclaim_defendant_query,
-                            counterclaim_accuser_evidence_fact_reason:courtTemp.counterclaim_accuser_evidence_fact_reason, //反诉原告的事实与理由
+                            counterclaim_accuser_evidence_fact_reason: courtTemp.counterclaim_accuser_evidence_fact_reason, //反诉原告的事实与理由
                             //反诉后第三个生成部分 反诉原告 (原告) 进行举证
-                            counterclaim_accuser_evidence:courtTemp.counterclaim_accuser_evidence,
+                            counterclaim_accuser_evidence: courtTemp.counterclaim_accuser_evidence,
                             //反诉后第四个生成部分 反诉被告 (原告) 进行质证
                             counterclaim_defendant_query: courtTemp.counterclaim_defendant_query,
                         }
@@ -162,11 +164,11 @@ layui.use(['table', 'HttpRequest', 'func', 'form','laydate'], function () {
                     // let inquiryInfo=[]
                     if ("inquiryInfo" in wholeItem) {
                         let inquiryInfoItem = wholeItem.inquiryInfo
-                        myLocalStorage["inquiryInfo"]={}
+                        myLocalStorage["inquiryInfo"] = {}
                         myLocalStorage["inquiryInfo"]["inquiry_info"] = inquiryInfoItem
 
                         //临时添加
-                        myLocalStorage["inquiryInfo"]["question_list"]= ["问题列表项1","问题列表项2"]
+                        myLocalStorage["inquiryInfo"]["question_list"] = ["问题列表项1", "问题列表项2"]
                     }
 
                     //法庭辩论表
@@ -178,7 +180,7 @@ layui.use(['table', 'HttpRequest', 'func', 'form','laydate'], function () {
                     //最后陈述表
                     if ("finalStatementInfo" in wholeItem) {
                         let finalStatementInfoItem = wholeItem.finalStatementInfo
-                        myLocalStorage["finalStatementInfo"]={}
+                        myLocalStorage["finalStatementInfo"] = {}
                         myLocalStorage["finalStatementInfo"]["final_statement_info"] = finalStatementInfoItem
                     }
 
@@ -192,20 +194,25 @@ layui.use(['table', 'HttpRequest', 'func', 'form','laydate'], function () {
                     //电子文书送达表
                     if ("deliveryInfo" in wholeItem) {
                         let deliveryInfoItem = wholeItem.deliveryInfo
-                        let delivery_info=[]
-                        for (let i=0;i<deliveryInfoItem.length;i++){
-                            let delivery=deliveryInfoItem[i]
-                            if(JSON.stringify(delivery) != '{}'){
+                        let delivery_info = []
+                        for (let i = 0; i < deliveryInfoItem.length; i++) {
+                            let delivery = deliveryInfoItem[i]
+                            if (JSON.stringify(delivery) != '{}') {
                                 delivery_info.push(delivery)
                             }
                         }
-                        myLocalStorage["deliveryInfo"]={}
+                        myLocalStorage["deliveryInfo"] = {}
                         myLocalStorage["deliveryInfo"]["delivery_info"] = delivery_info
                     }
 
-                    localStorage.setItem( wholeItem.basicInfo.court_number,JSON.stringify(myLocalStorage))
+                    //审判员最后陈述
+                    if ("summarize" in wholeItem) {
+                        myLocalStorage["summarize"] = wholeItem.summarize
+                    }
+
+                    localStorage.setItem(wholeItem.basicInfo.court_number, JSON.stringify(myLocalStorage))
                     //获取笔录信息，传到前台
-                    $(location).attr('href', '/view/record/detail'+"/?CourtNum="+data.courtNumber);
+                    $(location).attr('href', '/view/record/detail' + "/?CourtNum=" + data.courtNumber);
                 }
             },
             "json"
@@ -255,9 +262,9 @@ layui.use(['table', 'HttpRequest', 'func', 'form','laydate'], function () {
         var data = obj.data;
         var layEvent = obj.event;
 
-        if (layEvent == 'detail'){
+        if (layEvent == 'detail') {
             Record.onDetailItem(data);
-        }else if(layEvent == 'delete'){
+        } else if (layEvent == 'delete') {
             Record.onDeleteItem(data);
         }
     });
