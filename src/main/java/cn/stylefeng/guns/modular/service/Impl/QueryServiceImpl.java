@@ -12,6 +12,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
 
@@ -90,13 +91,23 @@ public class QueryServiceImpl extends ServiceImpl<QueryMapper, Query> implements
             JSONArray otherDefendantQueryArray = courtInvestigateObject.getJSONArray("other_defendant_query");
             for (int i = 0; i < otherDefendantQueryArray.size(); i++) {
                 JSONObject otherDefendantQueryObject = otherDefendantQueryArray.getJSONObject(i);
+                String defendant = otherDefendantQueryObject.get("defendant").toString();
+                if(ObjectUtils.isEmpty(defendant)){
+                    continue;
+                }
+                String evidence = otherDefendantQueryObject.get("evidence").toString();
+                String facticity = otherDefendantQueryObject.get("facticity").toString();
+                String legality = otherDefendantQueryObject.get("legality").toString();
+                String relevance = otherDefendantQueryObject.get("relevance").toString();
+                String reason = otherDefendantQueryObject.get("other_defendant_query_fact_reason").toString();
+
                 Query query = new Query();
-                query.setName(otherDefendantQueryObject.get("defendant").toString());
-                query.setEvidence(otherDefendantQueryObject.get("evidence").toString());
-                query.setFacticity(otherDefendantQueryObject.get("facticity").toString());
-                query.setLegality(otherDefendantQueryObject.get("legality").toString());
-                query.setRelevance(otherDefendantQueryObject.get("relevance").toString());
-                query.setReason(otherDefendantQueryObject.get("other_defendant_query_fact_reason").toString());
+                query.setName(defendant);
+                query.setEvidence(evidence);
+                query.setFacticity(facticity);
+                query.setLegality(legality);
+                query.setRelevance(relevance);
+                query.setReason(reason);
                 query.setIsCounterClaim(counterClaim);
                 query.setQueryType(2);
                 query.setCourtNumber(courtNumber);
@@ -115,13 +126,23 @@ public class QueryServiceImpl extends ServiceImpl<QueryMapper, Query> implements
             JSONArray counterClaimDefendantQueryArray = courtInvestigateObject.getJSONArray("counterclaim_defendant_query");
             for (int i = 0; i < counterClaimDefendantQueryArray.size(); i++) {
                 JSONObject counterClaimDefendantQueryObject = counterClaimDefendantQueryArray.getJSONObject(i);
+                String counterclaimDefendant = counterClaimDefendantQueryObject.get("counterclaim_defendant").toString();
+                if(ObjectUtils.isEmpty(counterclaimDefendant)){
+                    continue;
+                }
+                String evidence = counterClaimDefendantQueryObject.get("evidence").toString();
+                String facticity = counterClaimDefendantQueryObject.get("facticity").toString();
+                String legality = counterClaimDefendantQueryObject.get("legality").toString();
+                String relevance = counterClaimDefendantQueryObject.get("relevance").toString();
+                String reason = counterClaimDefendantQueryObject.get("counterclaim_defendant_query_fact_reason").toString();
+
                 Query query = new Query();
-                query.setName(counterClaimDefendantQueryObject.get("counterclaim_defendant").toString());
-                query.setEvidence(counterClaimDefendantQueryObject.get("evidence").toString());
-                query.setFacticity(counterClaimDefendantQueryObject.get("facticity").toString());
-                query.setLegality(counterClaimDefendantQueryObject.get("legality").toString());
-                query.setRelevance(counterClaimDefendantQueryObject.get("relevance").toString());
-                query.setReason(counterClaimDefendantQueryObject.get("counterclaim_defendant_query_fact_reason").toString());
+                query.setName(counterclaimDefendant);
+                query.setEvidence(evidence);
+                query.setFacticity(facticity);
+                query.setLegality(legality);
+                query.setRelevance(relevance);
+                query.setReason(reason);
                 query.setIsCounterClaim(counterClaim);
                 query.setQueryType(3);
                 query.setCourtNumber(courtNumber);
@@ -140,13 +161,23 @@ public class QueryServiceImpl extends ServiceImpl<QueryMapper, Query> implements
             JSONArray counterClaimAccuserQueryArray = courtInvestigateObject.getJSONArray("counterclaim_accuser_query");
             for (int i = 0; i < counterClaimAccuserQueryArray.size(); i++) {
                 JSONObject counterClaimAccuserQueryObject = counterClaimAccuserQueryArray.getJSONObject(i);
+                String counterclaimAccuser = counterClaimAccuserQueryObject.get("counterclaim_accuser").toString();
+                if(ObjectUtils.isEmpty(counterclaimAccuser)){
+                    continue;
+                }
+                String evidence = counterClaimAccuserQueryObject.get("evidence").toString();
+                String facticity = counterClaimAccuserQueryObject.get("facticity").toString();
+                String legality = counterClaimAccuserQueryObject.get("legality").toString();
+                String relevance = counterClaimAccuserQueryObject.get("relevance").toString();
+                String reason = counterClaimAccuserQueryObject.get("counterclaim_accuser_query_fact_reason").toString();
+
                 Query query = new Query();
-                query.setName(counterClaimAccuserQueryObject.get("counterclaim_accuser").toString());
-                query.setEvidence(counterClaimAccuserQueryObject.get("evidence").toString());
-                query.setFacticity(counterClaimAccuserQueryObject.get("facticity").toString());
-                query.setLegality(counterClaimAccuserQueryObject.get("legality").toString());
-                query.setRelevance(counterClaimAccuserQueryObject.get("relevance").toString());
-                query.setReason(counterClaimAccuserQueryObject.get("counterclaim_accuser_query_fact_reason").toString());
+                query.setName(counterclaimAccuser);
+                query.setEvidence(evidence);
+                query.setFacticity(facticity);
+                query.setLegality(legality);
+                query.setRelevance(relevance);
+                query.setReason(reason);
                 query.setIsCounterClaim(counterClaim);
                 query.setQueryType(4);
                 query.setCourtNumber(courtNumber);
@@ -165,13 +196,23 @@ public class QueryServiceImpl extends ServiceImpl<QueryMapper, Query> implements
             JSONArray otherCounterClaimDefendantQueryArray = courtInvestigateObject.getJSONArray("other_counterclaim_defendant_query");
             for (int i = 0; i < otherCounterClaimDefendantQueryArray.size(); i++) {
                 JSONObject otherCounterClaimDefendantQueryObject = otherCounterClaimDefendantQueryArray.getJSONObject(i);
+                String otherCounterClaimDefendant = otherCounterClaimDefendantQueryObject.get("other_counterclaim_defendant").toString();
+                if(ObjectUtils.isEmpty(otherCounterClaimDefendant)){
+                    continue;
+                }
+                String evidence = otherCounterClaimDefendantQueryObject.get("evidence").toString();
+                String facticity = otherCounterClaimDefendantQueryObject.get("facticity").toString();
+                String legality = otherCounterClaimDefendantQueryObject.get("legality").toString();
+                String relevance = otherCounterClaimDefendantQueryObject.get("relevance").toString();
+                String reason = otherCounterClaimDefendantQueryObject.get("other_counterclaim_defendant_query_fact_reason").toString();
+
                 Query query = new Query();
-                query.setName(otherCounterClaimDefendantQueryObject.get("other_counterclaim_defendant").toString());
-                query.setEvidence(otherCounterClaimDefendantQueryObject.get("evidence").toString());
-                query.setFacticity(otherCounterClaimDefendantQueryObject.get("facticity").toString());
-                query.setLegality(otherCounterClaimDefendantQueryObject.get("legality").toString());
-                query.setRelevance(otherCounterClaimDefendantQueryObject.get("relevance").toString());
-                query.setReason(otherCounterClaimDefendantQueryObject.get("other_counterclaim_defendant_query_fact_reason").toString());
+                query.setName(otherCounterClaimDefendant);
+                query.setEvidence(evidence);
+                query.setFacticity(facticity);
+                query.setLegality(legality);
+                query.setRelevance(relevance);
+                query.setReason(reason);
                 query.setIsCounterClaim(counterClaim);
                 query.setQueryType(4);
                 query.setCourtNumber(courtNumber);

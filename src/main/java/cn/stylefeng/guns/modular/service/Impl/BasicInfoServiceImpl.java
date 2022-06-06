@@ -729,6 +729,9 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         for (int i = 0; i < queries.size(); i++) {
             Query query = queries.get(i);
             String name = query.getName();
+            if(ObjectUtils.isEmpty(name)){
+                continue;
+            }
             String reason = query.getReason();
             String queryType = query.getQueryType().toString();
             String evidence = query.getEvidence();
@@ -748,7 +751,11 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 defendantQueryArray.add(queryObject);
             } else if ("2".equals(queryType)) {
                 //原告质证及其他被告质证
-                if (accuserShortNames.contains(name)) {
+                String multiName = "";
+                if(name.contains("**")){
+                    multiName = name.split("[**]")[0];
+                }
+                if (accuserShortNames.contains(name) || accuserShortNames.contains(multiName)) {
                     JSONObject accuserQueryObject = new JSONObject();
                     accuserQueryObject.put("evidence", evidence);
                     accuserQueryObject.put("facticity", facticity);
