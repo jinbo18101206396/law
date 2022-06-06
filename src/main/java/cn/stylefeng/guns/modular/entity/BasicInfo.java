@@ -91,6 +91,12 @@ public class BasicInfo implements Serializable {
     private String courtCause;
 
     /**
+     * 反诉被告今日是否答辩（1-答辩，2-不答辩）
+     */
+    @TableField("counterclaim_defendant_today_is_reply")
+    private String counterClaimDefendantTodayIsReply;
+
+    /**
      * 原被告都同意且法院最终确认的调解方案
      */
     @TableField("final_mediate_plan")
@@ -224,6 +230,14 @@ public class BasicInfo implements Serializable {
 
     public void setCourtNumber(String courtNumber) {
         this.courtNumber = courtNumber;
+    }
+
+    public String getCounterClaimDefendantTodayIsReply() {
+        return counterClaimDefendantTodayIsReply;
+    }
+
+    public void setCounterClaimDefendantTodayIsReply(String counterClaimDefendantTodayIsReply) {
+        this.counterClaimDefendantTodayIsReply = counterClaimDefendantTodayIsReply;
     }
 
     public String getCourtCause() {

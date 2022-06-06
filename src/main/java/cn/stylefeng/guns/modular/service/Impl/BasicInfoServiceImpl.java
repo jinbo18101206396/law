@@ -75,6 +75,9 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         //基本信息
         String basicInfoJsonStr = recordJsonObject.getString("basicInfo");
         JSONObject basicInfoObject = JSONObject.parseObject(basicInfoJsonStr);
+
+
+
         //立案时间
         if (basicInfoObject.containsKey("filing_time")) {
             basicInfo.setFilingTime(basicInfoObject.get("filing_time").toString());
@@ -130,6 +133,14 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         //案由
         if (basicInfoObject.containsKey("court_cause")) {
             basicInfo.setCourtCause(basicInfoObject.get("court_cause").toString());
+        }
+        //反诉被告今日是否答辩
+        if(recordJsonObject.containsKey("courtInvestigate")){
+            JSONObject courtInvestigateObject = recordJsonObject.getJSONObject("courtInvestigate");
+            if(!ObjectUtils.isEmpty(courtInvestigateObject) && courtInvestigateObject.containsKey("counterclaim_defendant_today_is_reply")){
+                String counterClaimDefendantTodayIsReply = courtInvestigateObject.get("counterclaim_defendant_today_is_reply").toString();
+                basicInfo.setCounterClaimDefendantTodayIsReply(counterClaimDefendantTodayIsReply);
+            }
         }
         //原被告都统一且法院最终确认的调解方案
         if (recordJsonObject.containsKey("mediateInfo")) {
@@ -584,20 +595,31 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         JSONArray defendantReplyArray = new JSONArray();
         JSONArray counterClaimDefendantReplyArray = new JSONArray();
 
+        LambdaQueryWrapper<BasicInfo> basicInfoQueryWrapper = new LambdaQueryWrapper<>();
+        basicInfoQueryWrapper.eq(BasicInfo::getCourtNumber, courtNumber);
+        basicInfoQueryWrapper.eq(BasicInfo::getDelFlag, YesOrNotEnum.N.getCode());
+        BasicInfo basicInfo = basicInfoService.getOne(basicInfoQueryWrapper);
+        String counterClaimDefendantTodayIsReply = basicInfo.getCounterClaimDefendantTodayIsReply();
+
         //若答辩内容为空
         for (int i = 0; i < replies.size(); i++) {
             Reply reply = replies.get(i);
-            JSONObject replyObject = new JSONObject();
-            replyObject.put("name", reply.getName());
-            replyObject.put("content", reply.getContent());
+            String name = reply.getName();
+            String content = reply.getContent();
             String type = reply.getType();
             if ("被告".equals(type)) {
-                defendantReplyArray.add(replyObject);
+                JSONObject defendantReplyObject = new JSONObject();
+                defendantReplyObject.put("name", name);
+                defendantReplyObject.put("content", content);
+                defendantReplyArray.add(defendantReplyObject);
             } else if ("反诉被告".equals(type)) {
-                counterClaimDefendantReplyArray.add(replyObject);
-                courtInvestigateObject.put("counterclaim_defendant_today_is_reply", "1");
+                JSONObject counterClaimReplyObject = new JSONObject();
+                counterClaimReplyObject.put("name", name);
+                counterClaimReplyObject.put("content", content);
+                counterClaimDefendantReplyArray.add(counterClaimReplyObject);
             }
         }
+        courtInvestigateObject.put("counterclaim_defendant_today_is_reply", counterClaimDefendantTodayIsReply);
 
         if (defendantReplyArray == null || defendantReplyArray.size() <= 0) {
             JSONObject defendantReplyObject = new JSONObject();
@@ -612,7 +634,6 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
             counterClaimDefendantReplyObject.put("name", "");
             counterClaimDefendantReplyObject.put("content", "");
             counterClaimDefendantReplyArray.add(counterClaimDefendantReplyObject);
-            courtInvestigateObject.put("counterclaim_defendant_today_is_reply", "1");
         }
         courtInvestigateObject.put("counterclaim_defendant_reply", counterClaimDefendantReplyArray);
     }
