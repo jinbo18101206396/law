@@ -84,12 +84,13 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
                 for (int k = 0; k < mediateDefendantArray.size(); k++) {
                     JSONObject mediateDefendantObject = mediateDefendantArray.getJSONObject(k);
                     String mediateDefendantName = mediateDefendantObject.get("defendant").toString();
-
+                    Object isMediate = mediateDefendantObject.get("is_mediate");
+                    Object mediatePlan = mediateDefendantObject.get("mediate_plan");
                     if(!ObjectUtils.isEmpty(mediateDefendantName) && mediateDefendantName.contains("（")){
                         String defendantName = mediateDefendantName.split("（")[0];
                         if(defendantName.equals(defendantShortName)){
-                            defendant.setIsMediate(mediateDefendantObject.get("is_mediate").toString());
-                            defendant.setMediatePlan(mediateDefendantObject.get("mediate_plan").toString());
+                            defendant.setIsMediate(ObjectUtils.isEmpty(isMediate)?"":isMediate.toString());
+                            defendant.setMediatePlan(ObjectUtils.isEmpty(mediatePlan)?"":mediatePlan.toString());
                         }
                     }
                 }
@@ -125,8 +126,9 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
                     if(!ObjectUtils.isEmpty(finalStatementDefendantName) && finalStatementDefendantName.contains("（")){
                         String name = finalStatementDefendantName.split("（")[0];
                         String type = finalStatementDefendantName.split("（")[1];
+                        Object finalStatement = finalStatementObject.get("final_statement");
                         if (name.equals(defendantShortName) && type.startsWith("被告")) {
-                            defendant.setFinalStatement(finalStatementObject.get("final_statement").toString());
+                            defendant.setFinalStatement(ObjectUtils.isEmpty(finalStatement)?"":finalStatement.toString());
                         }
                     }
                 }

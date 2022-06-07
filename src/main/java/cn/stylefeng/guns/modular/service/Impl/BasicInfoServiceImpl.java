@@ -407,7 +407,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
             String isMediate = accuser.getIsMediate();
             String timeLimit = accuser.getTimeLimit();
             String mediatePlan = accuser.getMediatePlan();
-            mediateAccuserObject.put("accuser", accuserShort);
+            mediateAccuserObject.put("accuser", accuserShort+"（原告）");
             if (ObjectUtils.isEmpty(isMediate)) {
                 isMediate = "1";
             }
@@ -440,7 +440,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
             String defendantShort = defendant.getDefendantShort();
             String isMediate = defendant.getIsMediate();
             String mediatePlan = defendant.getMediatePlan();
-            mediateDefendantObject.put("defendant", defendantShort);
+            mediateDefendantObject.put("defendant", defendantShort+"（被告）");
             if (ObjectUtils.isEmpty(isMediate)) {
                 isMediate = "1";
             }
