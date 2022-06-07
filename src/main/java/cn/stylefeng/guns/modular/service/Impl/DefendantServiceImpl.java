@@ -1,6 +1,5 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
-import cn.stylefeng.guns.modular.entity.Accuser;
 import cn.stylefeng.guns.modular.entity.Agent;
 import cn.stylefeng.guns.modular.entity.Defendant;
 import cn.stylefeng.guns.modular.mapper.DefendantMapper;
@@ -40,7 +39,7 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
     public void saveDefendantInfo(String courtNumber, JSONObject recordJsonObject) {
         //被告信息
         JSONArray defendantInfoArray = recordJsonObject.getJSONArray("defendantInfo");
-        if(ObjectUtils.isEmpty(defendantInfoArray)){
+        if (ObjectUtils.isEmpty(defendantInfoArray)) {
             return;
         }
         for (int i = 0; i < defendantInfoArray.size(); i++) {
@@ -86,11 +85,11 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
                     String mediateDefendantName = mediateDefendantObject.get("defendant").toString();
                     Object isMediate = mediateDefendantObject.get("is_mediate");
                     Object mediatePlan = mediateDefendantObject.get("mediate_plan");
-                    if(!ObjectUtils.isEmpty(mediateDefendantName) && mediateDefendantName.contains("（")){
+                    if (!ObjectUtils.isEmpty(mediateDefendantName) && mediateDefendantName.contains("（")) {
                         String defendantName = mediateDefendantName.split("（")[0];
-                        if(defendantName.equals(defendantShortName)){
-                            defendant.setIsMediate(ObjectUtils.isEmpty(isMediate)?"":isMediate.toString());
-                            defendant.setMediatePlan(ObjectUtils.isEmpty(mediatePlan)?"":mediatePlan.toString());
+                        if (defendantName.equals(defendantShortName)) {
+                            defendant.setIsMediate(ObjectUtils.isEmpty(isMediate) ? "" : isMediate.toString());
+                            defendant.setMediatePlan(ObjectUtils.isEmpty(mediatePlan) ? "" : mediatePlan.toString());
                         }
                     }
                 }
@@ -105,12 +104,12 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
                     String deliveryDefendantName = deliveryObject.get("name").toString();
                     String delivery = deliveryObject.get("is_delivery").toString();
                     Object email = deliveryObject.get("email");
-                    if(!ObjectUtils.isEmpty(deliveryDefendantName) && deliveryDefendantName.contains("（")){
+                    if (!ObjectUtils.isEmpty(deliveryDefendantName) && deliveryDefendantName.contains("（")) {
                         String name = deliveryDefendantName.split("（")[0];
                         String type = deliveryDefendantName.split("（")[1];
                         if (name.equals(defendantShortName) && type.startsWith("被告")) {
                             defendant.setIsDelivery(delivery);
-                            defendant.setEmail(email==null?"":email.toString());
+                            defendant.setEmail(email == null ? "" : email.toString());
                         }
                     }
                 }
@@ -123,12 +122,12 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
                     JSONObject finalStatementObject = finalStatementInfoArray.getJSONObject(m);
                     //格式：姓名（类型），例如：张三（被告）
                     String finalStatementDefendantName = finalStatementObject.get("name").toString();
-                    if(!ObjectUtils.isEmpty(finalStatementDefendantName) && finalStatementDefendantName.contains("（")){
+                    if (!ObjectUtils.isEmpty(finalStatementDefendantName) && finalStatementDefendantName.contains("（")) {
                         String name = finalStatementDefendantName.split("（")[0];
                         String type = finalStatementDefendantName.split("（")[1];
                         Object finalStatement = finalStatementObject.get("final_statement");
                         if (name.equals(defendantShortName) && type.startsWith("被告")) {
-                            defendant.setFinalStatement(ObjectUtils.isEmpty(finalStatement)?"":finalStatement.toString());
+                            defendant.setFinalStatement(ObjectUtils.isEmpty(finalStatement) ? "" : finalStatement.toString());
                         }
                     }
                 }
@@ -152,8 +151,46 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
         agentQueryWrapper.eq(Agent::getAgentType, "2");
         List<Agent> agents = agentService.list(agentQueryWrapper);
 
-        //若被告为空
-        if (null == defendants || defendants.size() == 0) {
+        for (int i = 0; i < defendants.size(); i++) {
+            Defendant defendant = defendants.get(i);
+            String defendantType = defendant.getDefendantType();
+            String defendantName = defendant.getDefendant();
+            String defendantShort = defendant.getDefendantShort();
+            String defendantAddress = defendant.getDefendantAddress();
+            String defendantRepresent = defendant.getDefendantRepresent();
+            String defendantDuty = defendant.getDefendantDuty();
+            JSONArray defendantAgentArray = new JSONArray();
+            if (null == agents || agents.size() == 0) {
+                JSONObject defendantAgentObject = new JSONObject();
+                defendantAgentObject.put("agent", "");
+                defendantAgentObject.put("agent_address", "");
+                defendantAgentArray.add(defendantAgentObject);
+            } else {
+                for (int j = 0; j < agents.size(); j++) {
+                    Agent agent = agents.get(j);
+                    //被告姓名
+                    String agentName = agent.getAgentName();
+                    //委托诉讼代理人
+                    String agentType = agent.getAgentType();
+                    JSONObject defendantAgentObject = new JSONObject();
+                    if (agentName.equals(defendantShort) && agentType.equals("2")) {
+                        defendantAgentObject.put("agent", agent.getAgent());
+                        defendantAgentObject.put("agent_address", agent.getAgentAddress());
+                        defendantAgentArray.add(defendantAgentObject);
+                    }
+                }
+            }
+            JSONObject defendantInfoObject = new JSONObject();
+            defendantInfoObject.put("defendant_type", defendantType);
+            defendantInfoObject.put("defendant", defendantName);
+            defendantInfoObject.put("defendant_short", defendantShort);
+            defendantInfoObject.put("defendant_address", defendantAddress);
+            defendantInfoObject.put("defendant_represent", defendantRepresent);
+            defendantInfoObject.put("defendant_duty", defendantDuty);
+            defendantInfoObject.put("defendant_agent", defendantAgentArray);
+            defendantInfoArray.add(defendantInfoObject);
+        }
+        if (defendantInfoArray.size() <= 0) {
             JSONObject defendantInfoObject = new JSONObject();
             defendantInfoObject.put("defendant_type", "1");
             defendantInfoObject.put("defendant", "");
@@ -168,46 +205,6 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
             defendantAgentArray.add(defendantAgentObject);
             defendantInfoObject.put("defendant_agent", defendantAgentArray);
             defendantInfoArray.add(defendantInfoObject);
-        } else {
-            for (int i = 0; i < defendants.size(); i++) {
-                Defendant defendant = defendants.get(i);
-                String defendantType = defendant.getDefendantType();
-                String defendantName = defendant.getDefendant();
-                String defendantShort = defendant.getDefendantShort();
-                String defendantAddress = defendant.getDefendantAddress();
-                String defendantRepresent = defendant.getDefendantRepresent();
-                String defendantDuty = defendant.getDefendantDuty();
-                JSONArray defendantAgentArray = new JSONArray();
-                if(null == agents || agents.size() == 0){
-                    JSONObject defendantAgentObject = new JSONObject();
-                    defendantAgentObject.put("agent", "");
-                    defendantAgentObject.put("agent_address", "");
-                    defendantAgentArray.add(defendantAgentObject);
-                }else{
-                    for (int j = 0; j < agents.size(); j++) {
-                        Agent agent = agents.get(j);
-                        //被告姓名
-                        String agentName = agent.getAgentName();
-                        //委托诉讼代理人
-                        String agentType = agent.getAgentType();
-                        JSONObject defendantAgentObject = new JSONObject();
-                        if (agentName.equals(defendantShort) && agentType.equals("2")) {
-                            defendantAgentObject.put("agent", agent.getAgent());
-                            defendantAgentObject.put("agent_address", agent.getAgentAddress());
-                            defendantAgentArray.add(defendantAgentObject);
-                        }
-                    }
-                }
-                JSONObject defendantInfoObject = new JSONObject();
-                defendantInfoObject.put("defendant_type", defendantType);
-                defendantInfoObject.put("defendant", defendantName);
-                defendantInfoObject.put("defendant_short", defendantShort);
-                defendantInfoObject.put("defendant_address", defendantAddress);
-                defendantInfoObject.put("defendant_represent", defendantRepresent);
-                defendantInfoObject.put("defendant_duty", defendantDuty);
-                defendantInfoObject.put("defendant_agent", defendantAgentArray);
-                defendantInfoArray.add(defendantInfoObject);
-            }
         }
         return defendantInfoArray;
     }
@@ -215,7 +212,7 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
     @Override
     public Boolean deleteDefendantInfo(String courtNumber) {
         LambdaUpdateWrapper<Defendant> defendantWrapper = new LambdaUpdateWrapper<>();
-        defendantWrapper.set(Defendant::getDelFlag, YesOrNotEnum.Y.getCode()).eq(Defendant::getCourtNumber,courtNumber);
+        defendantWrapper.set(Defendant::getDelFlag, YesOrNotEnum.Y.getCode()).eq(Defendant::getCourtNumber, courtNumber);
         return defendantService.update(defendantWrapper);
     }
 }

@@ -155,8 +155,44 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
         agentQueryWrapper.eq(Agent::getAgentType, "1");
         List<Agent> agents = agentService.list(agentQueryWrapper);
 
-        //若原告为空
-        if (null == accusers || accusers.size() == 0) {
+        for (int i = 0; i < accusers.size(); i++) {
+            JSONObject accuserInfoObject = new JSONObject();
+            Accuser accuser = accusers.get(i);
+            String accuserShort = accuser.getAccuserShort();
+
+            JSONArray accuserAgentArray = new JSONArray();
+
+            if (agents.size() <= 0) {
+                JSONObject accuserAgentObject = new JSONObject();
+                accuserAgentObject.put("agent", "");
+                accuserAgentObject.put("agent_address", "");
+                accuserAgentArray.add(accuserAgentObject);
+            } else {
+                for (int j = 0; j < agents.size(); j++) {
+                    Agent agent = agents.get(j);
+                    //原告姓名
+                    String agentName = agent.getAgentName();
+                    //委托诉讼代理人
+                    String agentType = agent.getAgentType();
+                    JSONObject accuserAgentObject = new JSONObject();
+                    if (agentName.equals(accuserShort) && agentType.equals("1")) {
+                        accuserAgentObject.put("agent", agent.getAgent());
+                        accuserAgentObject.put("agent_address", agent.getAgentAddress());
+                        accuserAgentArray.add(accuserAgentObject);
+                    }
+                }
+            }
+            accuserInfoObject.put("accuser_type", accuser.getAccuserType());
+            accuserInfoObject.put("accuser", accuser.getAccuser());
+            accuserInfoObject.put("accuser_short", accuserShort);
+            accuserInfoObject.put("accuser_address", accuser.getAccuserAddress());
+            accuserInfoObject.put("accuser_represent", accuser.getAccuserRepresent());
+            accuserInfoObject.put("accuser_duty", accuser.getAccuserDuty());
+            accuserInfoObject.put("accuser_agent", accuserAgentArray);
+            accuserInfoArray.add(accuserInfoObject);
+        }
+
+        if (accuserInfoArray.size() <= 0) {
             JSONObject accuserInfoObject = new JSONObject();
             accuserInfoObject.put("accuser_type", "1");
             accuserInfoObject.put("accuser", "");
@@ -171,43 +207,6 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
             accuserAgentArray.add(accuserAgentObject);
             accuserInfoObject.put("accuser_agent", accuserAgentArray);
             accuserInfoArray.add(accuserInfoObject);
-        } else {
-            for (int i = 0; i < accusers.size(); i++) {
-                JSONObject accuserInfoObject = new JSONObject();
-                Accuser accuser = accusers.get(i);
-                String accuserShort = accuser.getAccuserShort();
-
-                JSONArray accuserAgentArray = new JSONArray();
-
-                if (null == agents || agents.size() == 0) {
-                    JSONObject accuserAgentObject = new JSONObject();
-                    accuserAgentObject.put("agent", "");
-                    accuserAgentObject.put("agent_address", "");
-                    accuserAgentArray.add(accuserAgentObject);
-                } else {
-                    for (int j = 0; j < agents.size(); j++) {
-                        Agent agent = agents.get(j);
-                        //原告姓名
-                        String agentName = agent.getAgentName();
-                        //委托诉讼代理人
-                        String agentType = agent.getAgentType();
-                        JSONObject accuserAgentObject = new JSONObject();
-                        if (agentName.equals(accuserShort) && agentType.equals("1")) {
-                            accuserAgentObject.put("agent", agent.getAgent());
-                            accuserAgentObject.put("agent_address", agent.getAgentAddress());
-                            accuserAgentArray.add(accuserAgentObject);
-                        }
-                    }
-                }
-                accuserInfoObject.put("accuser_type", accuser.getAccuserType());
-                accuserInfoObject.put("accuser", accuser.getAccuser());
-                accuserInfoObject.put("accuser_short", accuserShort);
-                accuserInfoObject.put("accuser_address", accuser.getAccuserAddress());
-                accuserInfoObject.put("accuser_represent", accuser.getAccuserRepresent());
-                accuserInfoObject.put("accuser_duty", accuser.getAccuserDuty());
-                accuserInfoObject.put("accuser_agent", accuserAgentArray);
-                accuserInfoArray.add(accuserInfoObject);
-            }
         }
         return accuserInfoArray;
     }
