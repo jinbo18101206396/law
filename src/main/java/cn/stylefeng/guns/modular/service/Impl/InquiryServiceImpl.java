@@ -92,14 +92,15 @@ public class InquiryServiceImpl extends ServiceImpl<InquiryMapper, Inquiry> impl
             for (int i = 0; i < inquiries.size(); i++) {
                 Inquiry inquiry = inquiries.get(i);
                 String question = inquiry.getQuestion();
+                if(ObjectUtils.isEmpty(question)){
+                    continue;
+                }
                 String answer = inquiry.getAnswer();
                 String name = inquiry.getName();
                 String type = inquiry.getType();
                 String nameAndType = name + "（" + type + "）";
-
                 JSONObject inquiryAnswerObject = new JSONObject();
                 if (!lastInquiryQuestion.equals(question)) {
-
                     if (inquiryAnswerArray != null && inquiryAnswerArray.size() > 0) {
                         inquiryInfoObject.put("inquiry_answer", inquiryAnswerArray);
                         inquiryInfoArray.add(inquiryInfoObject);
@@ -118,7 +119,7 @@ public class InquiryServiceImpl extends ServiceImpl<InquiryMapper, Inquiry> impl
                     inquiryAnswerArray.add(inquiryAnswerObject);
                 }
             }
-            if (inquiryAnswerArray != null && inquiryAnswerArray.size() > 0) {
+            if (inquiryAnswerArray.size() > 0) {
                 inquiryInfoObject.put("inquiry_answer", inquiryAnswerArray);
                 inquiryInfoArray.add(inquiryInfoObject);
             }

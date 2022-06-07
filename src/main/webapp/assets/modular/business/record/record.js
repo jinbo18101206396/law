@@ -131,7 +131,7 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                             e.other_counterclaim_defendant = Array.isArray(e.other_counterclaim_defendant)?e.other_counterclaim_defendant.split("**"):[], e.evidence = Array.isArray(e.evidence)?e.evidence.split("**"):[]
                         })
                         courtTemp.counterclaim_defendant_query.forEach(e => {
-                            e.counterclaim_defendant =Array.isArray(counterclaim_defendant)? e.counterclaim_defendant.split("**"):[], e.evidence = Array.isArray(e.evidence)?e.evidence.split("**"):[]
+                            e.counterclaim_defendant =Array.isArray(e.counterclaim_defendant)? e.counterclaim_defendant.split("**"):[], e.evidence = Array.isArray(e.evidence)?e.evidence.split("**"):[]
                         })
 
                         let defendantShowInfo = {
