@@ -188,6 +188,12 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
             accuserInfoObject.put("accuser_address", accuser.getAccuserAddress());
             accuserInfoObject.put("accuser_represent", accuser.getAccuserRepresent());
             accuserInfoObject.put("accuser_duty", accuser.getAccuserDuty());
+            if(accuserAgentArray.size() <= 0){
+                JSONObject agentObject = new JSONObject();
+                agentObject.put("agent", "");
+                agentObject.put("agent_address", "");
+                accuserAgentArray.add(agentObject);
+            }
             accuserInfoObject.put("accuser_agent", accuserAgentArray);
             accuserInfoArray.add(accuserInfoObject);
         }

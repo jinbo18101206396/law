@@ -187,6 +187,12 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
             defendantInfoObject.put("defendant_address", defendantAddress);
             defendantInfoObject.put("defendant_represent", defendantRepresent);
             defendantInfoObject.put("defendant_duty", defendantDuty);
+            if(defendantAgentArray.size() <= 0){
+                JSONObject agentObject = new JSONObject();
+                agentObject.put("agent", "");
+                agentObject.put("agent_address", "");
+                defendantAgentArray.add(agentObject);
+            }
             defendantInfoObject.put("defendant_agent", defendantAgentArray);
             defendantInfoArray.add(defendantInfoObject);
         }
