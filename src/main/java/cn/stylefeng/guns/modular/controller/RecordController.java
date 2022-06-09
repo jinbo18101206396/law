@@ -28,6 +28,7 @@ import cn.stylefeng.guns.modular.FileUtils;
 import cn.stylefeng.guns.modular.entity.BasicInfo;
 import cn.stylefeng.guns.modular.model.request.BasicInfoRequest;
 import cn.stylefeng.guns.modular.service.*;
+import cn.stylefeng.guns.utils.WordUtil;
 import cn.stylefeng.roses.kernel.rule.pojo.response.ResponseData;
 import cn.stylefeng.roses.kernel.rule.pojo.response.SuccessResponseData;
 import cn.stylefeng.roses.kernel.scanner.api.annotation.ApiResource;
@@ -43,7 +44,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 笔录基本信息控制器
@@ -333,6 +336,28 @@ public class RecordController {
     @PostResource(name = "删除笔录", path = "/record/delete")
     public ResponseData delete(@RequestBody @Validated(BasicInfoRequest.delete.class) BasicInfoRequest basicInfoRequest) {
         basicInfoService.delete(basicInfoRequest);
+        return new SuccessResponseData();
+    }
+
+    /**
+     * 生成笔录
+     *
+     * @author 金波
+     * @date 2022/06/08
+     */
+    @PostResource(name = "生成笔录", path = "/record/generate")
+    public ResponseData generateRecord(String courtNumber) {
+
+        String templatePath = "src/main/resources/templates/";
+        String templateFile = "record.ftl";
+        String generateFile = "src/main/resources/templates/" + courtNumber + ".doc";
+
+        JSONObject basicInfoObject = basicInfoService.getBasicInfoObject(courtNumber);
+        basicInfoObject.put("court_number",courtNumber);
+        Map<String, Object> dataMap = new HashMap<>();
+        dataMap.put("basicInfo", basicInfoObject);
+
+        WordUtil.generateWord(dataMap, templatePath, templateFile, generateFile);
         return new SuccessResponseData();
     }
 }

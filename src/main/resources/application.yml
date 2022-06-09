@@ -32,6 +32,32 @@ spring:
     # 关闭占位符替换，因为插入的sql里边可能包含${}关键字
     placeholder-replacement: false
 
+    # 生成word
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
+    # 设置缓存为false 为了热部署 host refresh
+    cache: false
+
+    # 设置freemarker
+  freemarker:
+    allow-request-override: false
+    # 开发过程建议关闭缓存
+    cache: true
+    check-template-location: false
+    charset: UTF-8
+    content-type: text/html; charset=utf-8
+    expose-request-attributes: false
+    expose-session-attributes: false
+    expose-spring-macro-helpers: false
+    request-context-attribute:
+    # 默认后缀就是.ftl
+    suffix: .ftl
+    template-loader-path: classPath:/templates/
+    prefer-file-system-access: false
+
 # 资源扫描
 scanner:
   open: true

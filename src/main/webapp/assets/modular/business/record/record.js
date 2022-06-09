@@ -107,7 +107,7 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                         myLocalStorage["CourtInves"] = courtInves
 
                         courtTemp.defendant_query.forEach(e => {
-                            e.defendant = e.defendant  ?e.defendant.split("**"): [] , e.evidence = e.evidence? e.evidence.split("**"):[]
+                            e.defendant = e.defendant ? e.defendant.split("**") : [] , e.evidence = e.evidence ? e.evidence.split("**") : []
                         })
                         let accuserShowInfo = {
                             //第一个动态生成的json accuser_evidence 包含以下3个信息
@@ -119,19 +119,19 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                         myLocalStorage["accuserShowInfo"] = accuserShowInfo
 
                         courtTemp.accuser_query.forEach(e => {
-                            e.accuser =e.accuser?e.accuser.split("**"):[], e.evidence = e.evidence?e.evidence.split("**"):[]
+                            e.accuser = e.accuser ? e.accuser.split("**") : [], e.evidence = e.evidence ? e.evidence.split("**") : []
                         })
                         courtTemp.other_defendant_query.forEach(e => {
-                            e.defendant =e.defendant?e.defendant.split("**"):[], e.evidence = e.evidence?e.evidence.split("**"):[]
+                            e.defendant = e.defendant ? e.defendant.split("**") : [], e.evidence = e.evidence ? e.evidence.split("**") : []
                         })
                         courtTemp.counterclaim_accuser_query.forEach(e => {
-                            e.counterclaim_accuser = e.counterclaim_accuser?e.counterclaim_accuser.split("**"):[],e.evidence = e.evidence?e.evidence.split("**"):[]
+                            e.counterclaim_accuser = e.counterclaim_accuser ? e.counterclaim_accuser.split("**") : [], e.evidence = e.evidence ? e.evidence.split("**") : []
                         })
                         courtTemp.other_counterclaim_defendant_query.forEach(e => {
-                            e.other_counterclaim_defendant = e.other_counterclaim_defendant?e.other_counterclaim_defendant.split("**"):[], e.evidence =e.evidence?e.evidence.split("**"):[]
+                            e.other_counterclaim_defendant = e.other_counterclaim_defendant ? e.other_counterclaim_defendant.split("**") : [], e.evidence = e.evidence ? e.evidence.split("**") : []
                         })
                         courtTemp.counterclaim_defendant_query.forEach(e => {
-                            e.counterclaim_defendant =e.counterclaim_defendant? e.counterclaim_defendant.split("**"):[], e.evidence = e.evidence?e.evidence.split("**"):[]
+                            e.counterclaim_defendant = e.counterclaim_defendant ? e.counterclaim_defendant.split("**") : [], e.evidence = e.evidence ? e.evidence.split("**") : []
                         })
 
                         let defendantShowInfo = {
@@ -257,6 +257,16 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
         Feng.confirm("是否删除案号为（" + data.courtNumber + "）的笔录?", operation);
     };
 
+    Record.generateRecord = function (data) {
+        alert(data.courtNumber)
+        const Url = '/record/generate';
+        const Data = {"courtNumber": data.courtNumber};
+
+        $.post(Url, Data, function (data, status) {
+            console.log(`${data} and status is ${status}`)
+        });
+    }
+
     // 工具条点击事件
     table.on('tool(' + Record.tableId + ')', function (obj) {
         var data = obj.data;
@@ -266,6 +276,8 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
             Record.onDetailItem(data);
         } else if (layEvent == 'delete') {
             Record.onDeleteItem(data);
+        } else if (layEvent == 'generate') {
+            Record.generateRecord(data)
         }
     });
 
