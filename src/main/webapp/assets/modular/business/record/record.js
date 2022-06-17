@@ -257,15 +257,38 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
         Feng.confirm("是否删除案号为（" + data.courtNumber + "）的笔录?", operation);
     };
 
+    //生成笔录
     Record.generateRecord = function (data) {
-        Feng.confirm("确定生成案号为【" + data.courtNumber + "】的笔录?", function(){
-            const Url = '/record/generate';
-            const Data = {"courtNumber": data.courtNumber};
-            $.post(Url, Data, function (data, status) {
-                console.log(`${data} and status is ${status}`)
-            });
-            Feng.success("生成成功!");
-        });
+
+        // Feng.confirm("是否生成案号为（" + data.courtNumber + "）的笔录?", function(){
+        //     const Url = '/record/generate';
+        //     const Data = {"courtNumber": data.courtNumber};
+        //     $.post(Url, Data, function (data, status) {
+        //         console.log(`${data} and status is ${status}`)
+        //     });
+        //     Feng.success("生成成功!");
+        // });
+
+
+        // const Url = '/record/generate';
+        // const Data = {"courtNumber": data.courtNumber};
+        //
+        // $.post(Url, Data, function (data, status) {
+        //     console.log(`${data} and status is ${status}`)
+        // });
+
+        // func.open({
+        //     title: '笔录版本',
+        //     content: Feng.ctxPath + '/view/recordlayer',
+        //     courtNumber: 1,
+        //     area: ['500px', '300px']
+        //
+        // });
+
+        // const Url = '/record/getpdf';
+        // const Data = {"courtNumber": data.courtNumber};
+        //
+        $(location).attr('href', '/record/getword?courtNumber='+data.courtNumber);
     }
 
     // 工具条点击事件
