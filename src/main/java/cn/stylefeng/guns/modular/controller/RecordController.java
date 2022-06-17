@@ -60,7 +60,7 @@ import java.util.Map;
 @ApiResource(name = "笔录基本信息")
 public class RecordController {
 
-    private static final SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private static final SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
     @Resource
     private BasicInfoService basicInfoService;
     @Resource
