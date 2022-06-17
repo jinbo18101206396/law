@@ -49,6 +49,14 @@ public class RecordViewController {
         return "/modular/business/record/record.html";
     }
 
+    /**
+     *@author liaoweiming
+     *@date 2022-06-17 00:20
+     */
+    @GetResource(name = "点击笔录弹出页面", path = "/view/recordlayer", requiredPermission = false)
+    public String recordLayerView() {
+        return "/modular/business/record/record_layer.html";
+    }
 
     /**
      * 新增笔录视图
