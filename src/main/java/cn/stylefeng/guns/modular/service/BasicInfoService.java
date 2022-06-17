@@ -4,11 +4,11 @@ import cn.stylefeng.guns.modular.entity.BasicInfo;
 import cn.stylefeng.guns.modular.entity.CourtInvestigate;
 import cn.stylefeng.guns.modular.model.request.BasicInfoRequest;
 import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
-import cn.stylefeng.roses.kernel.system.api.pojo.user.request.SysUserRequest;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -36,6 +36,7 @@ public interface BasicInfoService extends IService<BasicInfo> {
      * @date 2022/05/25
      */
     JSONObject getBasicInfoObject(String courtNumber);
+
 
     /**
      * 获取笔录基本信息

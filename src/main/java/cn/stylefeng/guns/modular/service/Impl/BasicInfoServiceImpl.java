@@ -5,12 +5,16 @@ import cn.stylefeng.guns.modular.entity.*;
 import cn.stylefeng.guns.modular.mapper.BasicInfoMapper;
 import cn.stylefeng.guns.modular.model.request.BasicInfoRequest;
 import cn.stylefeng.guns.modular.service.*;
+import cn.stylefeng.guns.utils.WordUtil;
 import cn.stylefeng.roses.kernel.auth.api.context.LoginContext;
 import cn.stylefeng.roses.kernel.auth.api.pojo.login.LoginUser;
 import cn.stylefeng.roses.kernel.cache.api.CacheOperatorApi;
 import cn.stylefeng.roses.kernel.db.api.factory.PageFactory;
 import cn.stylefeng.roses.kernel.db.api.factory.PageResultFactory;
 import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
+import cn.stylefeng.roses.kernel.file.api.exception.FileException;
+import cn.stylefeng.roses.kernel.file.api.exception.enums.FileExceptionEnum;
+import cn.stylefeng.roses.kernel.file.api.util.DownloadUtil;
 import cn.stylefeng.roses.kernel.rule.enums.YesOrNotEnum;
 import cn.stylefeng.roses.kernel.system.api.pojo.user.SysUserDTO;
 import com.alibaba.fastjson.JSONArray;
@@ -25,6 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 

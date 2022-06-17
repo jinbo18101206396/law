@@ -29,8 +29,10 @@ import cn.stylefeng.guns.modular.entity.*;
 import cn.stylefeng.guns.modular.model.request.BasicInfoRequest;
 import cn.stylefeng.guns.modular.service.*;
 import cn.stylefeng.guns.utils.WordUtil;
+import cn.stylefeng.roses.kernel.rule.enums.YesOrNotEnum;
 import cn.stylefeng.roses.kernel.rule.pojo.response.ResponseData;
 import cn.stylefeng.roses.kernel.rule.pojo.response.SuccessResponseData;
+import cn.stylefeng.roses.kernel.rule.util.HttpServletUtil;
 import cn.stylefeng.roses.kernel.scanner.api.annotation.ApiResource;
 import cn.stylefeng.roses.kernel.scanner.api.annotation.GetResource;
 import cn.stylefeng.roses.kernel.scanner.api.annotation.PostResource;
@@ -392,75 +394,18 @@ public class RecordController {
         WordUtil.generateWord(recordMap, templatePath, templateFile, generateFile);
         return new SuccessResponseData();
     }
-    /**
-     *@author liaoweiming
-     *@date 2022-06-10 14:50
-     */
-    @GetResource(name = "生成笔录", path = "/record/getword")
-    public void  getRecordDocxFile(String courtNumber, HttpServletResponse response ) throws IOException {
-        System.out.println(courtNumber);
-        String wordFile = "src/main/resources/templates/"+courtNumber+".doc";
-
-        File file = new File(wordFile);
-        // 获取文件名
-        String filename = file.getName();
-        // 获取文件后缀名
-        String ext = filename.substring(filename.lastIndexOf(".") + 1).toLowerCase();
-
-        // 将文件写入输入流
-        FileInputStream fileInputStream = new FileInputStream(file);
-        InputStream fis = new BufferedInputStream(fileInputStream);
-        byte[] buffer = new byte[fis.available()];
-        fis.read(buffer);
-        fis.close();
-        // 清空response
-        response.reset();
-        // 设置response的Header
-        response.setCharacterEncoding("UTF-8");
-        //Content-Disposition的作用：告知浏览器以何种方式显示响应返回的文件，用浏览器打开还是以附件的形式下载到本地保存
-        //attachment表示以附件方式下载   inline表示在线打开   "Content-Disposition: inline; filename=文件名.mp3"
-        // filename表示文件的默认名称，因为网络传输只支持URL编码的相关支付，因此需要将文件名URL编码后进行传输,前端收到后需要反编码才能获取到真正的名称
-        response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(filename, "UTF-8"));
-        // 告知浏览器文件的大小
-        response.addHeader("Content-Length", "" + file.length());
-        OutputStream outputStream = new BufferedOutputStream(response.getOutputStream());
-        response.setContentType("application/octet-stream");
-        outputStream.write(buffer);
-        outputStream.flush();
-    }
 
     /**
-     *@author liaoweiming
-     *@date 2022-06-10 14:50
+     * 下载笔录
+     *
+     * @author jinbo
+     * @date 2022/6/17
      */
-    @GetResource(name = "生成笔录", path = "/record/getpdf")
-    public void pdfStreamHandler(String courtNumber, HttpServletResponse response) {
-        System.out.println(courtNumber);
-        String wordFile = "src/main/resources/templates/（2022）京0108民初111号.pdf";
-        //PDF文件地址
-        File file = new File(wordFile);
-        if (file.exists()) {
-            byte[] data = null;
-            FileInputStream input=null;
-            try {
-                input= new FileInputStream(file);
-                data = new byte[input.available()];
-                input.read(data);
-                response.getOutputStream().write(data);
-            } catch (Exception e) {
-                System.out.println("pdf文件处理异常：" + e);
-            }finally{
-                try {
-                    if(input!=null){
-                        input.close();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        else{
-            System.out.println("none");
-        }
+    @GetResource(name = "下载笔录", path = "/record/download")
+    public ResponseData recordDownload(String courtNumber) {
+        HttpServletResponse response = HttpServletUtil.getResponse();
+        String recordName = "src/main/resources/templates/"+courtNumber+".doc";
+        WordUtil.downloadRecord(response,recordName);
+        return new SuccessResponseData();
     }
 }
