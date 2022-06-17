@@ -353,7 +353,8 @@ public class RecordController {
 
         String templatePath = "src/main/resources/templates/template/";
         String templateFile = "record.ftl";
-        String generateFile = "src/main/resources/templates/" + courtNumber + "+" + simpleFormat.format(new Date()) + ".doc";
+        //String generateFile = "src/main/resources/templates/" + courtNumber + "+" + simpleFormat.format(new Date()) + ".doc";
+        String generateFile = "src/main/resources/templates/" + courtNumber+ ".doc";
 
         Map<String, Object> recordMap = new HashMap<>();
         BasicInfo basicInfo = basicInfoService.getBasicInfo(courtNumber);
