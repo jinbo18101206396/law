@@ -37,18 +37,16 @@ public class Defendant implements Serializable {
     private String defendantShort;
 
     /**
+     * 被告简称
+     */
+    @TableField("defendant_info")
+    private String defendantInfo;
+
+    /**
      * 被告类型：1-单位，2-个人
      */
     @TableField("defendant_type")
     private String defendantType;
-
-    public String getDefendantType() {
-        return defendantType;
-    }
-
-    public void setDefendantType(String defendantType) {
-        this.defendantType = defendantType;
-    }
 
     /**
      * 被告地址
@@ -67,6 +65,9 @@ public class Defendant implements Serializable {
      */
     @TableField("defendant_duty")
     private String defendantDuty;
+
+    @TableField(exist = false)
+    private String defendantAgent;
 
     /**
      * 案号
@@ -152,7 +153,6 @@ public class Defendant implements Serializable {
     @TableField(value = "update_user", fill = FieldFill.UPDATE)
     private Long updateUser;
 
-
     public Long getDefendantId() {
         return defendantId;
     }
@@ -175,6 +175,22 @@ public class Defendant implements Serializable {
 
     public void setDefendantShort(String defendantShort) {
         this.defendantShort = defendantShort;
+    }
+
+    public String getDefendantInfo() {
+        return defendantInfo;
+    }
+
+    public void setDefendantInfo(String defendantInfo) {
+        this.defendantInfo = defendantInfo;
+    }
+
+    public String getDefendantType() {
+        return defendantType;
+    }
+
+    public void setDefendantType(String defendantType) {
+        this.defendantType = defendantType;
     }
 
     public String getDefendantAddress() {
@@ -201,12 +217,28 @@ public class Defendant implements Serializable {
         this.defendantDuty = defendantDuty;
     }
 
+    public String getDefendantAgent() {
+        return defendantAgent;
+    }
+
+    public void setDefendantAgent(String defendantAgent) {
+        this.defendantAgent = defendantAgent;
+    }
+
     public String getCourtNumber() {
         return courtNumber;
     }
 
     public void setCourtNumber(String courtNumber) {
         this.courtNumber = courtNumber;
+    }
+
+    public String getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(String delFlag) {
+        this.delFlag = delFlag;
     }
 
     public String getDefendantRightDuty() {
@@ -225,6 +257,14 @@ public class Defendant implements Serializable {
         this.defendantAvoid = defendantAvoid;
     }
 
+    public String getIsMediate() {
+        return isMediate;
+    }
+
+    public void setIsMediate(String isMediate) {
+        this.isMediate = isMediate;
+    }
+
     public String getMediatePlan() {
         return mediatePlan;
     }
@@ -239,6 +279,14 @@ public class Defendant implements Serializable {
 
     public void setTimeLimit(String timeLimit) {
         this.timeLimit = timeLimit;
+    }
+
+    public String getIsDelivery() {
+        return isDelivery;
+    }
+
+    public void setIsDelivery(String isDelivery) {
+        this.isDelivery = isDelivery;
     }
 
     public String getEmail() {
@@ -289,53 +337,32 @@ public class Defendant implements Serializable {
         this.updateUser = updateUser;
     }
 
-    public String getIsMediate() {
-        return isMediate;
-    }
-
-    public void setIsMediate(String isMediate) {
-        this.isMediate = isMediate;
-    }
-
-    public String getIsDelivery() {
-        return isDelivery;
-    }
-
-    public void setIsDelivery(String isDelivery) {
-        this.isDelivery = isDelivery;
-    }
-
-    public String getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(String delFlag) {
-        this.delFlag = delFlag;
-    }
-
     @Override
     public String toString() {
         return "Defendant{" +
                 "defendantId=" + defendantId +
-                ", defendant=" + defendant +
-                ", defendantShort=" + defendantShort +
-                ", defendantType=" + defendantType +
-                ", defendantAddress=" + defendantAddress +
-                ", defendantRepresent=" + defendantRepresent +
-                ", defendantDuty=" + defendantDuty +
-                ", courtNumber=" + courtNumber +
-                ", defendantRightDuty=" + defendantRightDuty +
-                ", defendantAvoid=" + defendantAvoid +
-                ", isMediate=" + isMediate +
-                ", mediatePlan=" + mediatePlan +
-                ", timeLimit=" + timeLimit +
-                ", isDelivery=" + isDelivery +
-                ", email=" + email +
-                ", finalStatement=" + finalStatement +
+                ", defendant='" + defendant + '\'' +
+                ", defendantShort='" + defendantShort + '\'' +
+                ", defendantInfo='" + defendantInfo + '\'' +
+                ", defendantType='" + defendantType + '\'' +
+                ", defendantAddress='" + defendantAddress + '\'' +
+                ", defendantRepresent='" + defendantRepresent + '\'' +
+                ", defendantDuty='" + defendantDuty + '\'' +
+                ", defendantAgent='" + defendantAgent + '\'' +
+                ", courtNumber='" + courtNumber + '\'' +
+                ", delFlag='" + delFlag + '\'' +
+                ", defendantRightDuty='" + defendantRightDuty + '\'' +
+                ", defendantAvoid='" + defendantAvoid + '\'' +
+                ", isMediate='" + isMediate + '\'' +
+                ", mediatePlan='" + mediatePlan + '\'' +
+                ", timeLimit='" + timeLimit + '\'' +
+                ", isDelivery='" + isDelivery + '\'' +
+                ", email='" + email + '\'' +
+                ", finalStatement='" + finalStatement + '\'' +
                 ", createTime=" + createTime +
                 ", createUser=" + createUser +
                 ", updateTime=" + updateTime +
                 ", updateUser=" + updateUser +
-                "}";
+                '}';
     }
 }

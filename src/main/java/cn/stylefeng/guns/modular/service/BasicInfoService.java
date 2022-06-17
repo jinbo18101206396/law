@@ -1,6 +1,7 @@
 package cn.stylefeng.guns.modular.service;
 
 import cn.stylefeng.guns.modular.entity.BasicInfo;
+import cn.stylefeng.guns.modular.entity.CourtInvestigate;
 import cn.stylefeng.guns.modular.model.request.BasicInfoRequest;
 import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
 import cn.stylefeng.roses.kernel.system.api.pojo.user.request.SysUserRequest;
@@ -35,6 +36,16 @@ public interface BasicInfoService extends IService<BasicInfo> {
      * @date 2022/05/25
      */
     JSONObject getBasicInfoObject(String courtNumber);
+
+    /**
+     * 获取笔录基本信息
+     *
+     * @param courtNumber 查看参数
+     * @return 详情结果
+     * @author 金波
+     * @date 2022/06/16
+     */
+    BasicInfo getBasicInfo(String courtNumber);
 
     /**
      * 删除笔录基本信息
@@ -119,6 +130,16 @@ public interface BasicInfoService extends IService<BasicInfo> {
      * @date 2022/05/25
      */
     JSONObject getCourtInvestigateObject(String courtNumber);
+
+    /**
+     * 获取法庭调查信息
+     *
+     * @param courtNumber 查看参数
+     * @return 详情结果
+     * @author 金波
+     * @date 2022/05/25
+     */
+    CourtInvestigate getCourtInvestigateInfo(String courtNumber);
 
 
     /**

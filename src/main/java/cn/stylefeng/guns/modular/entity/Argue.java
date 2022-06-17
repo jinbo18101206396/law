@@ -55,6 +55,18 @@ public class Argue implements Serializable {
     private String courtNumber;
 
     /**
+     * 原告辩论
+     */
+    @TableField(exist = false)
+    private String accuserArgue;
+
+    /**
+     * 被告辩论
+     */
+    @TableField(exist = false)
+    private String defendantArgue;
+
+    /**
      * 删除标记
      */
     @TableField("del_flag")
@@ -170,6 +182,22 @@ public class Argue implements Serializable {
 
     public void setDelFlag(String delFlag) {
         this.delFlag = delFlag;
+    }
+
+    public String getAccuserArgue() {
+        return accuserArgue;
+    }
+
+    public void setAccuserArgue(String accuserArgue) {
+        this.accuserArgue = accuserArgue;
+    }
+
+    public String getDefendantArgue() {
+        return defendantArgue;
+    }
+
+    public void setDefendantArgue(String defendantArgue) {
+        this.defendantArgue = defendantArgue;
     }
 
     @Override

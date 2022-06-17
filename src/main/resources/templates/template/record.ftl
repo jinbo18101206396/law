@@ -17,12 +17,10 @@
             <Relationships
                 xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
                 <Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/webSettings" Target="webSettings.xml"/>
-                <Relationship Id="rId7" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/theme" Target="theme/theme1.xml"/>
                 <Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/settings" Target="settings.xml"/>
                 <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>
-                <Relationship Id="rId6" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/fontTable" Target="fontTable.xml"/>
-                <Relationship Id="rId5" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink" Target="mailto:电子邮箱地址28114471@qq.com" TargetMode="External"/>
-                <Relationship Id="rId4" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink" Target="mailto:电子邮箱地址linwei@126.com" TargetMode="External"/>
+                <Relationship Id="rId5" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/theme" Target="theme/theme1.xml"/>
+                <Relationship Id="rId4" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/fontTable" Target="fontTable.xml"/>
             </Relationships>
         </pkg:xmlData>
     </pkg:part>
@@ -63,1036 +61,1205 @@
                 xmlns:wne="http://schemas.microsoft.com/office/word/2006/wordml"
                 xmlns:wps="http://schemas.microsoft.com/office/word/2010/wordprocessingShape" mc:Ignorable="w14 w15 w16se w16cid w16 w16cex w16sdtdh wp14">
                 <w:body>
-                    <w:p w14:paraId="3A333DDE" w14:textId="4A6C2B60" w:rsidR="00AA13DE" w:rsidRPr="00B660E3" w:rsidRDefault="00B660E3" w:rsidP="00B660E3">
+                    <w:p w14:paraId="1527D226" w14:textId="77777777" w:rsidR="0062525F" w:rsidRPr="00D5721E" w:rsidRDefault="00B660E3" w:rsidP="002F1027">
                         <w:pPr>
                             <w:spacing w:line="240" w:lineRule="atLeast"/>
                             <w:jc w:val="center"/>
                             <w:rPr>
-                                <w:rFonts w:ascii="黑体" w:eastAsia="黑体" w:hAnsi="黑体"/>
-                                <w:sz w:val="36"/>
-                                <w:szCs w:val="36"/>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体"/>
+                                <w:b/>
+                                <w:bCs/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="32"/>
+                                <w:szCs w:val="32"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r w:rsidRPr="00B660E3">
-                            <w:rPr>
-                                <w:rFonts w:ascii="黑体" w:eastAsia="黑体" w:hAnsi="黑体" w:hint="eastAsia"/>
-                                <w:sz w:val="36"/>
-                                <w:szCs w:val="36"/>
-                            </w:rPr>
-                            <w:t>北京市海淀区人民法院开庭笔录</w:t>
-                        </w:r>
-                    </w:p>
-                    <w:p w14:paraId="20FCF8EB" w14:textId="0A5EDD39" w:rsidR="00B660E3" w:rsidRPr="00A54F22" w:rsidRDefault="00B660E3" w:rsidP="00B517E9">
-                        <w:pPr>
-                            <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="482"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                        </w:pPr>
-                        <w:r w:rsidRPr="00A54F22">
+                        <w:r w:rsidRPr="00D5721E">
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
                                 <w:b/>
                                 <w:bCs/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="32"/>
+                                <w:szCs w:val="32"/>
                             </w:rPr>
-                            <w:t>时间：${basicInfo.filing_time}</w:t>
+                            <w:t>北京市海淀区人民法院</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="0B7DF656" w14:textId="182DCFF2" w:rsidR="00B660E3" w:rsidRPr="00A54F22" w:rsidRDefault="00B660E3" w:rsidP="00B517E9">
+                    <w:p w14:paraId="5F728399" w14:textId="0C9841EB" w:rsidR="0062525F" w:rsidRPr="00D5721E" w:rsidRDefault="00B660E3" w:rsidP="002F1027">
                         <w:pPr>
-                            <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="482"/>
+                            <w:spacing w:line="240" w:lineRule="atLeast"/>
+                            <w:jc w:val="center"/>
                             <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体"/>
+                                <w:b/>
+                                <w:bCs/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="32"/>
+                                <w:szCs w:val="32"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r w:rsidRPr="00A54F22">
+                        <w:r w:rsidRPr="00D5721E">
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
                                 <w:b/>
                                 <w:bCs/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="32"/>
+                                <w:szCs w:val="32"/>
                             </w:rPr>
-                            <w:t>地点：${basicInfo.court_place}</w:t>
+                            <w:t>开庭笔录</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="03664602" w14:textId="11038278" w:rsidR="00B660E3" w:rsidRPr="00A54F22" w:rsidRDefault="00B660E3" w:rsidP="00B517E9">
+                    <w:p w14:paraId="20FCF8EB" w14:textId="01BEDEAF" w:rsidR="00B660E3" w:rsidRPr="001822B7" w:rsidRDefault="00A922EE" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="482"/>
+                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
                             <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r w:rsidRPr="00A54F22">
+                        <w:r w:rsidRPr="001822B7">
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
-                                <w:b/>
-                                <w:bCs/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>审判员: </w:t>
+                            <w:t>立案时间：${basicInfo.filingTime}</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="65F1DA6F" w14:textId="2B56B115" w:rsidR="00B660E3" w:rsidRPr="00A54F22" w:rsidRDefault="00B660E3" w:rsidP="00B517E9">
+                    <w:p w14:paraId="1CD09EB1" w14:textId="268EEEA4" w:rsidR="00A922EE" w:rsidRPr="001822B7" w:rsidRDefault="00A922EE" w:rsidP="00BF01D8">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="482"/>
+                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
                             <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r w:rsidRPr="00A54F22">
+                        <w:r w:rsidRPr="001822B7">
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
-                                <w:b/>
-                                <w:bCs/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>书记员：${basicInfo.court_clerk}</w:t>
+                            <w:t>开庭时间：${basicInfo.courtTime}</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="5004654E" w14:textId="08656EFE" w:rsidR="00B660E3" w:rsidRPr="00A54F22" w:rsidRDefault="00B660E3" w:rsidP="00B517E9">
+                    <w:p w14:paraId="0B7DF656" w14:textId="61BFAFE0" w:rsidR="00B660E3" w:rsidRPr="001822B7" w:rsidRDefault="00A922EE" w:rsidP="00BF01D8">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="482"/>
+                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
                             <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r w:rsidRPr="00A54F22">
+                        <w:r w:rsidRPr="001822B7">
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
-                                <w:b/>
-                                <w:bCs/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>案号：${basicInfo.court_number}</w:t>
+                            <w:t>开庭地点：${basicInfo.courtPlace}</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="2101FE3B" w14:textId="77484DAB" w:rsidR="00B660E3" w:rsidRPr="00A54F22" w:rsidRDefault="00B660E3" w:rsidP="00B517E9">
+                    <w:p w14:paraId="03664602" w14:textId="40CB764B" w:rsidR="00B660E3" w:rsidRPr="001822B7" w:rsidRDefault="00B660E3" w:rsidP="00BF01D8">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="482"/>
+                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r w:rsidRPr="00A54F22">
+                        <w:r w:rsidRPr="001822B7">
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
-                                <w:b/>
-                                <w:bCs/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>案由：${basicInfo.court_cause}</w:t>
+                            <w:t>审判员：${basicInfo.judge}</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="2BD89E92" w14:textId="0BBE3725" w:rsidR="00026F2D" w:rsidRPr="00A54F22" w:rsidRDefault="00026F2D" w:rsidP="00B517E9">
+                    <w:p w14:paraId="65F1DA6F" w14:textId="43B9E507" w:rsidR="00B660E3" w:rsidRPr="001822B7" w:rsidRDefault="00B660E3" w:rsidP="00BF01D8">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
                             <w:ind w:firstLineChars="200" w:firstLine="480"/>
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r w:rsidRPr="00A54F22">
+                        <w:r w:rsidRPr="001822B7">
                             <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>原告：北京大学出版社有限公司</w:t>
+                            <w:t>书记员：${basicInfo.courtClerk}</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="460E48A3" w14:textId="650C2E8B" w:rsidR="00026F2D" w:rsidRPr="00A54F22" w:rsidRDefault="00026F2D" w:rsidP="00B517E9">
+                    <w:p w14:paraId="5004654E" w14:textId="3987B989" w:rsidR="00B660E3" w:rsidRPr="001822B7" w:rsidRDefault="00B660E3" w:rsidP="00BF01D8">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
                             <w:ind w:firstLineChars="200" w:firstLine="480"/>
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r w:rsidRPr="00A54F22">
+                        <w:r w:rsidRPr="001822B7">
                             <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>法定代表人：王明州</w:t>
+                            <w:t>案号：${basicInfo.courtNumber}</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="4C7E4FFC" w14:textId="75E7C1D6" w:rsidR="00026F2D" w:rsidRPr="00A54F22" w:rsidRDefault="00026F2D" w:rsidP="00B517E9">
+                    <w:p w14:paraId="220971E6" w14:textId="0017F5E7" w:rsidR="00A922EE" w:rsidRPr="001822B7" w:rsidRDefault="00B660E3" w:rsidP="002F4006">
+                        <w:pPr>
+                            <w:spacing w:line="360" w:lineRule="auto"/>
+                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r w:rsidRPr="001822B7">
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                            <w:t>案由：${basicInfo.courtCause}</w:t>
+                        </w:r>
+                    </w:p>
+                    <w:p w14:paraId="2BD89E92" w14:textId="45B5F7E4" w:rsidR="00026F2D" w:rsidRPr="001822B7" w:rsidRDefault="00026F2D" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
                             <w:ind w:firstLineChars="200" w:firstLine="480"/>
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r w:rsidRPr="00A54F22">
+                        <w:r w:rsidRPr="001822B7">
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>被告：泰学汇聚（北京）教育科技有限公司</w:t>
+                            <w:t>原告全称：${accuser.accuser}</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="49118F0C" w14:textId="1AD87385" w:rsidR="00026F2D" w:rsidRPr="00A54F22" w:rsidRDefault="00026F2D" w:rsidP="00B517E9">
+                    <w:p w14:paraId="2423E191" w14:textId="29EAAD5B" w:rsidR="00B31915" w:rsidRPr="001822B7" w:rsidRDefault="00B31915" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
                             <w:ind w:firstLineChars="200" w:firstLine="480"/>
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r w:rsidRPr="00A54F22">
+                        <w:r w:rsidRPr="001822B7">
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>法定代表人：徐瀛</w:t>
+                            <w:t>原告简称：${accuser.accuserShort}</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="7EDFB622" w14:textId="79CB3939" w:rsidR="00FA3401" w:rsidRDefault="00FA3401" w:rsidP="00B517E9">
+                    <w:p w14:paraId="29524E06" w14:textId="4BDA20AE" w:rsidR="00B31915" w:rsidRPr="001822B7" w:rsidRDefault="00B31915" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
                             <w:ind w:firstLineChars="200" w:firstLine="480"/>
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r w:rsidRPr="00A54F22">
+                        <w:r w:rsidRPr="001822B7">
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>审：当事人身份经核对无误，法庭宣布双方当事人及其诉讼代理人身份符合法律规定，出庭资格合法，可以参加诉讼。现在宣布开庭。北京市海淀区人民法院今天依法试用简易程序，公开开庭审理原告诉被告买卖合同纠纷一案，由本院审判员独任审判，书记员担任法庭记录。依据《中华人民共和国民事诉讼法》的规定，当事人在法庭上享有下列权利：1、原告有权承认、变更、放弃自己的诉讼请求，被告有权反驳原告的诉讼请求或提起反诉；2、当事人有权申请回避；3、当事人有权举证；4、当事人有权辩论、有权请求法庭调解。当事人在享有上述诉讼权利的同时，负有下列义务：1、当事人有依法行使诉讼权利的义务；2、当事人有听从法庭指挥、遵守法庭纪律的义务；3、当事人如实陈述事实、如实举证的义务。上述诉讼权利和义务双方是否听清？</w:t>
+                            <w:t>原告地址：${accuser.accuserAddress}</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="451059A4" w14:textId="78EAA528" w:rsidR="006278D3" w:rsidRDefault="006278D3" w:rsidP="00B517E9">
+                    <w:p w14:paraId="460E48A3" w14:textId="2AE2A071" w:rsidR="00026F2D" w:rsidRPr="001822B7" w:rsidRDefault="00026F2D" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
                             <w:ind w:firstLineChars="200" w:firstLine="480"/>
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r>
+                        <w:r w:rsidRPr="001822B7">
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>原：听清楚了。</w:t>
+                            <w:t>法人代表：${accuser.accuserRepresent}</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="5CCEE086" w14:textId="26BF129B" w:rsidR="006278D3" w:rsidRDefault="006278D3" w:rsidP="00B517E9">
+                    <w:p w14:paraId="421B5086" w14:textId="690B479F" w:rsidR="00B31915" w:rsidRPr="001822B7" w:rsidRDefault="00B31915" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
                             <w:ind w:firstLineChars="200" w:firstLine="480"/>
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r>
+                        <w:r w:rsidRPr="001822B7">
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>被：听清楚了。</w:t>
+                            <w:t>法人职务：${accuser.accuserDuty}</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="0B398919" w14:textId="63F3DAB8" w:rsidR="006278D3" w:rsidRDefault="006278D3" w:rsidP="00B517E9">
+                    <w:p w14:paraId="4F2D7AA3" w14:textId="18C77596" w:rsidR="00B31915" w:rsidRPr="001822B7" w:rsidRDefault="00D4452B" w:rsidP="00B517E9">
+                        <w:pPr>
+                            <w:spacing w:line="360" w:lineRule="auto"/>
+                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r w:rsidRPr="001822B7">
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                            <w:t>原告委托诉讼代理人：${accuser.accuserAgent}</w:t>
+                        </w:r>
+                    </w:p>
+                    <w:p w14:paraId="5FCF4497" w14:textId="730F091D" w:rsidR="00096FDA" w:rsidRPr="001822B7" w:rsidRDefault="00B31915" w:rsidP="00BF01D8">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
                             <w:ind w:firstLineChars="200" w:firstLine="480"/>
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r>
+                        <w:r w:rsidRPr="001822B7">
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>审：当事人对审判员和书记员是否申请回避？</w:t>
+                            <w:t>被告全称：${defendant.defendant}</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="1D1AB803" w14:textId="28552FA9" w:rsidR="006278D3" w:rsidRDefault="006278D3" w:rsidP="00B517E9">
+                    <w:p w14:paraId="3D2FE412" w14:textId="3719E909" w:rsidR="00B31915" w:rsidRPr="001822B7" w:rsidRDefault="00B31915" w:rsidP="00096FDA">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
                             <w:ind w:firstLineChars="200" w:firstLine="480"/>
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r>
+                        <w:r w:rsidRPr="001822B7">
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>原：不申请回避。</w:t>
+                            <w:t>被告简称：${defendant.defendantShort}</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="671224CF" w14:textId="4584B5E7" w:rsidR="006278D3" w:rsidRDefault="006278D3" w:rsidP="00B517E9">
+                    <w:p w14:paraId="714D5ECD" w14:textId="0CD3AA90" w:rsidR="00B31915" w:rsidRPr="001822B7" w:rsidRDefault="00B31915" w:rsidP="00B31915">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
                             <w:ind w:firstLineChars="200" w:firstLine="480"/>
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r>
+                        <w:r w:rsidRPr="001822B7">
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>被：不申请回避</w:t>
-                        </w:r>
-                        <w:r w:rsidR="007F7DBD">
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                            <w:t>。</w:t>
+                            <w:t>被告地址：${defendant.defendantAddress}</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="0F432B0C" w14:textId="306DD548" w:rsidR="007F7DBD" w:rsidRDefault="007F7DBD" w:rsidP="00B517E9">
+                    <w:p w14:paraId="403ADDA0" w14:textId="6DD85AE8" w:rsidR="00B31915" w:rsidRPr="001822B7" w:rsidRDefault="00B31915" w:rsidP="00B31915">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
                             <w:ind w:firstLineChars="200" w:firstLine="480"/>
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r>
+                        <w:r w:rsidRPr="001822B7">
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>审：现在开庭，进行法庭调查，原告陈述诉讼请求和事实理由。</w:t>
+                            <w:t>法人代表：${defendant.defendantRepresent}</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="16BE311D" w14:textId="0459BD37" w:rsidR="007F7DBD" w:rsidRDefault="007F7DBD" w:rsidP="00B517E9">
+                    <w:p w14:paraId="2D552668" w14:textId="1D8D792A" w:rsidR="00B31915" w:rsidRPr="001822B7" w:rsidRDefault="00B31915" w:rsidP="00B31915">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
                             <w:ind w:firstLineChars="200" w:firstLine="480"/>
                             <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r>
+                        <w:r w:rsidRPr="001822B7">
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                            <w:t>法人职务：${defendant.defendantDuty}</w:t>
+                        </w:r>
+                    </w:p>
+                    <w:p w14:paraId="36AF311C" w14:textId="52B8C7C4" w:rsidR="00B31915" w:rsidRPr="001822B7" w:rsidRDefault="00D4452B" w:rsidP="00190EC9">
+                        <w:pPr>
+                            <w:spacing w:line="360" w:lineRule="auto"/>
+                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r w:rsidRPr="001822B7">
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                            <w:t>被告委托诉讼代理人：${defendant.defendantAgent}</w:t>
+                        </w:r>
+                    </w:p>
+                    <w:p w14:paraId="5516D82E" w14:textId="4D31FEF7" w:rsidR="00E45642" w:rsidRPr="001822B7" w:rsidRDefault="00A66D3A" w:rsidP="00096FDA">
+                        <w:pPr>
+                            <w:spacing w:line="360" w:lineRule="auto"/>
+                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r w:rsidRPr="001822B7">
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                            <w:t>${state.stateContent}</w:t>
+                        </w:r>
+                    </w:p>
+                    <w:p w14:paraId="7EDFB622" w14:textId="26720F2D" w:rsidR="00FA3401" w:rsidRPr="001822B7" w:rsidRDefault="00A66D3A" w:rsidP="00B517E9">
+                        <w:pPr>
+                            <w:spacing w:line="360" w:lineRule="auto"/>
+                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r w:rsidRPr="001822B7">
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                            <w:t>审判员：依据《中华人民共和国民事诉讼法》的规定，当事人在法庭上享有下列权利：1、原告有权承认、变更、放弃自己的诉讼请求，被告有权反驳原告的诉讼请求或提起反诉；2、当事人有权申请回避；3、当事人有权举证；4、当事人有权辩论、有权请求法庭调解。当事人在享有上述诉讼权利的同时，负有下列义务：1、当事人有依法行使诉讼权利的义务；2、当事人有听从法庭指挥、遵守法庭纪律的义务；3、当事人如实陈述事实、如实举证的义务。上述诉讼权利和义务双方是否听清？</w:t>
+                        </w:r>
+                    </w:p>
+                    <w:p w14:paraId="451059A4" w14:textId="68FC53EF" w:rsidR="006278D3" w:rsidRPr="001822B7" w:rsidRDefault="006278D3" w:rsidP="00B517E9">
+                        <w:pPr>
+                            <w:spacing w:line="360" w:lineRule="auto"/>
+                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r w:rsidRPr="001822B7">
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                             <w:lastRenderedPageBreak/>
-                            <w:t>原：诉讼请求：1.请求判令被告立即支付货款178270.09元；2.被告应向原告支付货款的利息（以货款178270.09元为基数，自2017年5月3日起至2019年8月19日按照同期银行贷款利率计算；自2019年8月19日起至实际付清货款之日止，按照同期全国银行间同业拆借中心公布的贷款市场报价利率）；3.请求判令由被告承担本案诉讼保全费用及本案诉讼。事实与理由：被告曾用名称“北京太学教育书刊音像中心”，于2016年4月26日更名。原告与被告之间长期存在图书经销合作，原告提供各品类出版物供被告进行销售，被告应依约向原告支付货款。2017年5月3日，被告在原告出具的《2017年上半年财务确认函》上盖章确认总欠款金额为204594.57元，2020年8月2日被告向原告出具《还款承诺书》，被告至今仍有178270.09元欠款未付。综上，原告为维护其合法权益，特诉至贵院，请求法院依法判如所请。</w:t>
+                            <w:t>原告：${accuser.accuserRightDuty}。</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="595F2B84" w14:textId="320C42A0" w:rsidR="007F7DBD" w:rsidRDefault="007F7DBD" w:rsidP="00B517E9">
+                    <w:p w14:paraId="5CCEE086" w14:textId="59FEEBDC" w:rsidR="006278D3" w:rsidRPr="001822B7" w:rsidRDefault="006278D3" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
                             <w:ind w:firstLineChars="200" w:firstLine="480"/>
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r>
+                        <w:r w:rsidRPr="001822B7">
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>审：被告发表答辩意见？</w:t>
+                            <w:t>被告：${defendant.defendantRightDuty}。</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="1B64BA13" w14:textId="01BCA15B" w:rsidR="007F7DBD" w:rsidRDefault="007F7DBD" w:rsidP="00B517E9">
+                    <w:p w14:paraId="0B398919" w14:textId="3543E166" w:rsidR="006278D3" w:rsidRPr="001822B7" w:rsidRDefault="005144A9" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
                             <w:ind w:firstLineChars="200" w:firstLine="480"/>
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r>
+                        <w:r w:rsidRPr="001822B7">
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>被：认可欠款金额，但因公司经营不善，目前无力支付，不认可支付利息。</w:t>
+                            <w:t>审判员：当事人对审判员和书记员是否申请回避？</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="3C86C047" w14:textId="6B761876" w:rsidR="00DB47D8" w:rsidRDefault="00DB47D8" w:rsidP="00B517E9">
+                    <w:p w14:paraId="1D1AB803" w14:textId="64D2BAF5" w:rsidR="006278D3" w:rsidRPr="001822B7" w:rsidRDefault="005144A9" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
                             <w:ind w:firstLineChars="200" w:firstLine="480"/>
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r>
+                        <w:r w:rsidRPr="001822B7">
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>审：下面进入举证质证，首先原告进行举证。</w:t>
+                            <w:t>原告：${accuser.accuserAvoid}。</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="2C9563A0" w14:textId="04B5C183" w:rsidR="00DB47D8" w:rsidRDefault="00DB47D8" w:rsidP="00B517E9">
+                    <w:p w14:paraId="671224CF" w14:textId="4532661C" w:rsidR="006278D3" w:rsidRPr="001822B7" w:rsidRDefault="005144A9" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
                             <w:ind w:firstLineChars="200" w:firstLine="480"/>
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r>
+                        <w:r w:rsidRPr="001822B7">
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>原：证据1、《2017年上半年财务确认函》、更名通知、《北京大学出版社结算清单》，证明2017年5月3日被告签章确认总欠款金额为204594.57元；证据二、被告出具的《还款承诺书》，证明2020年8月2日被告向原告出具的还款承诺，至今仍有178270.09元欠款未付，因为我们有退货，所以把退货的金额都减去了。</w:t>
+                            <w:t>被告：${defendant.defendantAvoid}。</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="4BCD5EA9" w14:textId="482DC496" w:rsidR="00B76C03" w:rsidRDefault="00B76C03" w:rsidP="00B517E9">
+                    <w:p w14:paraId="0F432B0C" w14:textId="0177E0C8" w:rsidR="007F7DBD" w:rsidRPr="001822B7" w:rsidRDefault="00D755CA" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
                             <w:ind w:firstLineChars="200" w:firstLine="480"/>
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r>
+                        <w:r w:rsidRPr="001822B7">
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>审：双方是否具有书面供货合同？</w:t>
+                            <w:t>审判员：现在开庭，进行法庭调查，原告陈述诉讼请求和事实理由。</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="1EDB8B2E" w14:textId="394B71A6" w:rsidR="00B76C03" w:rsidRDefault="00B76C03" w:rsidP="00B517E9">
+                    <w:p w14:paraId="7289FD74" w14:textId="255C28E6" w:rsidR="00F45410" w:rsidRPr="001822B7" w:rsidRDefault="00E45642" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
                             <w:ind w:firstLineChars="200" w:firstLine="480"/>
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r>
+                        <w:r w:rsidRPr="001822B7">
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>原：需要与当事人核实，因为被告出具了确认函及承诺书，我们本次诉讼就没有准备合同。</w:t>
+                            <w:t>原告诉讼请求项：${courtInvestigate.accuserClaimItem}</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="1E53B277" w14:textId="0E280405" w:rsidR="00B76C03" w:rsidRDefault="00B76C03" w:rsidP="00B517E9">
+                    <w:p w14:paraId="16BE311D" w14:textId="7DB22D25" w:rsidR="007F7DBD" w:rsidRPr="001822B7" w:rsidRDefault="007F7DBD" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
                             <w:ind w:firstLineChars="200" w:firstLine="480"/>
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r>
+                        <w:r w:rsidRPr="001822B7">
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>被：出版行业没有合同，都是以发货单、出库单作为依据。</w:t>
+                            <w:t>事实与理由：${courtInvestigate.accuserClaimFactReason}</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="302EEF76" w14:textId="19BBB888" w:rsidR="00B76C03" w:rsidRDefault="00B76C03" w:rsidP="00B517E9">
+                    <w:p w14:paraId="595F2B84" w14:textId="73669482" w:rsidR="007F7DBD" w:rsidRPr="001822B7" w:rsidRDefault="00D755CA" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
                             <w:ind w:firstLineChars="200" w:firstLine="480"/>
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r>
+                        <w:r w:rsidRPr="001822B7">
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>审：被告进行质证。</w:t>
+                            <w:t>审判员：对于原告的诉讼请求及事实理由，被告进行答辩。</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="51A2FEDD" w14:textId="145845E6" w:rsidR="00B76C03" w:rsidRDefault="00B76C03" w:rsidP="00B517E9">
+                    <w:p w14:paraId="1B64BA13" w14:textId="61AB1231" w:rsidR="007F7DBD" w:rsidRPr="001822B7" w:rsidRDefault="00D755CA" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
                             <w:ind w:firstLineChars="200" w:firstLine="480"/>
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r>
+                        <w:r w:rsidRPr="001822B7">
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>被：认可原告的上述证据。</w:t>
+                            <w:t>被告答辩：${courtInvestigate.defendantReply}</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="197E555C" w14:textId="2D12A5F0" w:rsidR="00B76C03" w:rsidRDefault="00B76C03" w:rsidP="00B517E9">
+                    <w:p w14:paraId="3C86C047" w14:textId="2C0113E9" w:rsidR="00DB47D8" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
                             <w:ind w:firstLineChars="200" w:firstLine="480"/>
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r>
+                        <w:r w:rsidRPr="001822B7">
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>审：被告是否有证据提交？</w:t>
+                            <w:t>审判员：下面进入举证质证，首先原告进行举证。</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="3F74B956" w14:textId="0D1E6657" w:rsidR="00B76C03" w:rsidRDefault="00B76C03" w:rsidP="00B517E9">
+                    <w:p w14:paraId="762DB4BE" w14:textId="1334C620" w:rsidR="001D7536" w:rsidRPr="001822B7" w:rsidRDefault="002F2BE6" w:rsidP="001D7536">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
                             <w:ind w:firstLineChars="200" w:firstLine="480"/>
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r>
+                        <w:r w:rsidRPr="001822B7">
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>被：没有。</w:t>
+                            <w:t>原告举证：${courtInvestigate.accuserEvidence}</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="6248BCFE" w14:textId="279474CC" w:rsidR="00B76C03" w:rsidRDefault="00B76C03" w:rsidP="00B517E9">
+                    <w:p w14:paraId="302EEF76" w14:textId="379A541D" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
                             <w:ind w:firstLineChars="200" w:firstLine="480"/>
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r>
+                        <w:r w:rsidRPr="001822B7">
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>审：举证质证结束，下面进入法庭询问，原告利息的起算时间为什么是2017年5月3日。</w:t>
+                            <w:t>审判员：被告对原告提交的证据进行质证。</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="05517C8C" w14:textId="62CB5A62" w:rsidR="00B76C03" w:rsidRDefault="00B76C03" w:rsidP="00B517E9">
+                    <w:p w14:paraId="51A2FEDD" w14:textId="60A913D5" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="00B76C03" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
                             <w:ind w:firstLineChars="200" w:firstLine="480"/>
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r>
+                        <w:r w:rsidRPr="001822B7">
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                            <w:t>被告质证：${courtInvestigate.defendantQuery}</w:t>
+                        </w:r>
+                    </w:p>
+                    <w:p w14:paraId="3C94FD3E" w14:textId="3D3A3AA0" w:rsidR="00096FDA" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
+                        <w:pPr>
+                            <w:spacing w:line="360" w:lineRule="auto"/>
+                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r w:rsidRPr="001822B7">
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                            <w:t>审判员：举证质证结束，下面进入法庭询问。</w:t>
+                        </w:r>
+                    </w:p>
+                    <w:p w14:paraId="6248BCFE" w14:textId="0680E81B" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
+                        <w:pPr>
+                            <w:spacing w:line="360" w:lineRule="auto"/>
+                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r w:rsidRPr="001822B7">
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                            <w:t>审判员：${inquiry.question}</w:t>
+                        </w:r>
+                    </w:p>
+                    <w:p w14:paraId="05517C8C" w14:textId="0FB197AB" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="005F657E" w:rsidP="00B517E9">
+                        <w:pPr>
+                            <w:spacing w:line="360" w:lineRule="auto"/>
+                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r w:rsidRPr="001822B7">
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                            <w:t>原告：${inquiry.accuserAnswer}</w:t>
+                        </w:r>
+                    </w:p>
+                    <w:p w14:paraId="59F04965" w14:textId="758847A2" w:rsidR="005F657E" w:rsidRPr="001822B7" w:rsidRDefault="005F657E" w:rsidP="00B517E9">
+                        <w:pPr>
+                            <w:spacing w:line="360" w:lineRule="auto"/>
+                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r w:rsidRPr="001822B7">
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                            <w:t>被告：${inquiry.defendantAnswer}</w:t>
+                        </w:r>
+                    </w:p>
+                    <w:p w14:paraId="13D9E9C1" w14:textId="5CB74E63" w:rsidR="00125693" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
+                        <w:pPr>
+                            <w:spacing w:line="360" w:lineRule="auto"/>
+                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r w:rsidRPr="001822B7">
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                            <w:t>审判员：法庭调查结束，下面进行法庭辩论，首先由原告发表辩论意见。</w:t>
+                        </w:r>
+                    </w:p>
+                    <w:p w14:paraId="336AA18B" w14:textId="5B383F1E" w:rsidR="00300833" w:rsidRPr="001822B7" w:rsidRDefault="00A9433D" w:rsidP="00B517E9">
+                        <w:pPr>
+                            <w:spacing w:line="360" w:lineRule="auto"/>
+                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r w:rsidRPr="001822B7">
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                            <w:t>原告：${argue.accuserArgue}</w:t>
+                        </w:r>
+                    </w:p>
+                    <w:p w14:paraId="7BA80082" w14:textId="6C86783D" w:rsidR="00A9433D" w:rsidRPr="001822B7" w:rsidRDefault="00A9433D" w:rsidP="00A9433D">
+                        <w:pPr>
+                            <w:spacing w:line="360" w:lineRule="auto"/>
+                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r w:rsidRPr="001822B7">
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                            <w:t>被告：${argue.defendantArgue}</w:t>
+                        </w:r>
+                    </w:p>
+                    <w:p w14:paraId="0248C834" w14:textId="631CDCE2" w:rsidR="00300833" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
+                        <w:pPr>
+                            <w:spacing w:line="360" w:lineRule="auto"/>
+                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r w:rsidRPr="001822B7">
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                            <w:t>审判员：双方发表最后陈述意见。</w:t>
+                        </w:r>
+                    </w:p>
+                    <w:p w14:paraId="125FBC4A" w14:textId="3DC39794" w:rsidR="00300833" w:rsidRPr="001822B7" w:rsidRDefault="00300833" w:rsidP="00B517E9">
+                        <w:pPr>
+                            <w:spacing w:line="360" w:lineRule="auto"/>
+                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r w:rsidRPr="001822B7">
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                            <w:t>原告：${accuser.finalStatement}。</w:t>
+                        </w:r>
+                    </w:p>
+                    <w:p w14:paraId="00E22EB0" w14:textId="28E1063D" w:rsidR="00300833" w:rsidRPr="001822B7" w:rsidRDefault="00300833" w:rsidP="00B517E9">
+                        <w:pPr>
+                            <w:spacing w:line="360" w:lineRule="auto"/>
+                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r w:rsidRPr="001822B7">
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                            <w:t>被告：${defendant.finalStatement}。</w:t>
+                        </w:r>
+                    </w:p>
+                    <w:p w14:paraId="2CE1A4C6" w14:textId="379507AD" w:rsidR="00300833" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
+                        <w:pPr>
+                            <w:spacing w:line="360" w:lineRule="auto"/>
+                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r w:rsidRPr="001822B7">
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                            <w:t>审判员：当事人是否能够调解？</w:t>
+                        </w:r>
+                    </w:p>
+                    <w:p w14:paraId="4FDC9A37" w14:textId="4D215636" w:rsidR="00300833" w:rsidRPr="001822B7" w:rsidRDefault="00300833" w:rsidP="00B517E9">
+                        <w:pPr>
+                            <w:spacing w:line="360" w:lineRule="auto"/>
+                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r w:rsidRPr="001822B7">
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                            <w:t>原告：${accuser.isMediate}。</w:t>
+                        </w:r>
+                    </w:p>
+                    <w:p w14:paraId="48E3BB98" w14:textId="0BFA41F9" w:rsidR="002A5270" w:rsidRPr="001822B7" w:rsidRDefault="00300833" w:rsidP="007B1D07">
+                        <w:pPr>
+                            <w:spacing w:line="360" w:lineRule="auto"/>
+                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r w:rsidRPr="001822B7">
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                            <w:t>被告：${defendant.isMediate}。</w:t>
+                        </w:r>
+                    </w:p>
+                    <w:p w14:paraId="3215EE91" w14:textId="431B9DA5" w:rsidR="00300833" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
+                        <w:pPr>
+                            <w:spacing w:line="360" w:lineRule="auto"/>
+                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r w:rsidRPr="001822B7">
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                            <w:t>审判员：当事人是否同意电子送达判决书？</w:t>
+                        </w:r>
+                    </w:p>
+                    <w:p w14:paraId="1A40FAD8" w14:textId="627DFB70" w:rsidR="00300833" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
+                        <w:pPr>
+                            <w:spacing w:line="360" w:lineRule="auto"/>
+                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r w:rsidRPr="001822B7">
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                            <w:t>原告：${accuser.isDelivery} 。</w:t>
+                        </w:r>
+                    </w:p>
+                    <w:p w14:paraId="33679BE2" w14:textId="7C90ABA1" w:rsidR="00643B3E" w:rsidRPr="001822B7" w:rsidRDefault="00300833" w:rsidP="007B1D07">
+                        <w:pPr>
+                            <w:spacing w:line="360" w:lineRule="auto"/>
+                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r w:rsidRPr="001822B7">
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                             <w:lastRenderedPageBreak/>
-                            <w:t>原：确认函的时间是2017年5月3日</w:t>
+                            <w:t>被告：${defendant.isDelivery} 。</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="2E5757B1" w14:textId="46AC4C4D" w:rsidR="00B76C03" w:rsidRDefault="00B76C03" w:rsidP="00B517E9">
+                    <w:p w14:paraId="03EDED93" w14:textId="1C07E2D2" w:rsidR="003B2B23" w:rsidRPr="001822B7" w:rsidRDefault="00B354CB" w:rsidP="003B2B23">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
                             <w:ind w:firstLineChars="200" w:firstLine="480"/>
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r>
+                        <w:r w:rsidRPr="001822B7">
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>审：被告后续又出具了承诺函，你方起算时间是否有变化？</w:t>
+                            <w:t>审判员：${basicInfo.summarize}</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="5AF7F8B1" w14:textId="7E89594D" w:rsidR="00125693" w:rsidRDefault="00125693" w:rsidP="00B517E9">
+                    <w:p w14:paraId="7E6D1AA9" w14:textId="77777777" w:rsidR="003B2B23" w:rsidRPr="001822B7" w:rsidRDefault="003B2B23" w:rsidP="003B2B23">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
                             <w:ind w:firstLineChars="200" w:firstLine="480"/>
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                            <w:t>原：因为被告没有旅行承诺函，所以我们起诉时间按照确认函的时间计算利息，现在我们同意按照2021年2月6日起开始计算利息。</w:t>
-                        </w:r>
                     </w:p>
-                    <w:p w14:paraId="7633DD86" w14:textId="4D248186" w:rsidR="00125693" w:rsidRDefault="00125693" w:rsidP="00B517E9">
+                    <w:p w14:paraId="12C4D20C" w14:textId="6A1D34D1" w:rsidR="00411AE5" w:rsidRPr="001822B7" w:rsidRDefault="00411AE5" w:rsidP="003B2B23">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                            <w:ind w:firstLineChars="1850" w:firstLine="4440"/>
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r>
+                        <w:r w:rsidRPr="001822B7">
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>变更诉讼请求如下：1.请求判令被告立即支付欠付货款178270.09元；2.被告应向原告支付逾期付款的利息；3.请求判令由被告承担本案诉讼保全费用及本案诉讼。</w:t>
+                            <w:t>原告签字：</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="0C89DCC1" w14:textId="25899447" w:rsidR="00125693" w:rsidRDefault="00125693" w:rsidP="00B517E9">
+                    <w:p w14:paraId="7D802890" w14:textId="75837CEC" w:rsidR="00C659EC" w:rsidRPr="001822B7" w:rsidRDefault="00C659EC" w:rsidP="003B2B23">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                            <w:ind w:firstLineChars="1850" w:firstLine="4440"/>
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                         </w:pPr>
-                        <w:r>
+                        <w:r w:rsidRPr="001822B7">
                             <w:rPr>
                                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>审：被告认可欠付货款的金额是吗？</w:t>
+                            <w:t>被告签字：</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="711BC31A" w14:textId="3B96EE41" w:rsidR="00125693" w:rsidRDefault="00125693" w:rsidP="00B517E9">
-                        <w:pPr>
-                            <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                        </w:pPr>
-                        <w:r>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                            <w:t>被：对，但不认可利息，因为这是欠款，不是银行存款。</w:t>
-                        </w:r>
-                    </w:p>
-                    <w:p w14:paraId="283EF8C6" w14:textId="4E61D62E" w:rsidR="00125693" w:rsidRDefault="00125693" w:rsidP="00B517E9">
-                        <w:pPr>
-                            <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                        </w:pPr>
-                        <w:r>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                            <w:t>审：双方就事实部分还有补充吗？</w:t>
-                        </w:r>
-                    </w:p>
-                    <w:p w14:paraId="1A6282FF" w14:textId="16D2FC18" w:rsidR="00125693" w:rsidRDefault="00125693" w:rsidP="00B517E9">
-                        <w:pPr>
-                            <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                        </w:pPr>
-                        <w:r>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                            <w:t>原：没有。</w:t>
-                        </w:r>
-                    </w:p>
-                    <w:p w14:paraId="371DEB9A" w14:textId="63717D1F" w:rsidR="00125693" w:rsidRDefault="00125693" w:rsidP="00B517E9">
-                        <w:pPr>
-                            <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                        </w:pPr>
-                        <w:r>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                            <w:t>被：没有。</w:t>
-                        </w:r>
-                    </w:p>
-                    <w:p w14:paraId="13D9E9C1" w14:textId="541B391B" w:rsidR="00125693" w:rsidRDefault="00300833" w:rsidP="00B517E9">
-                        <w:pPr>
-                            <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                        </w:pPr>
-                        <w:r>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                            <w:t>审：法庭调查结束，下面进行法庭辩论，首先由原告发表辩论意见。</w:t>
-                        </w:r>
-                    </w:p>
-                    <w:p w14:paraId="336AA18B" w14:textId="1FF6EBD8" w:rsidR="00300833" w:rsidRDefault="00300833" w:rsidP="00B517E9">
-                        <w:pPr>
-                            <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                        </w:pPr>
-                        <w:r>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                            <w:t>原：没有。</w:t>
-                        </w:r>
-                    </w:p>
-                    <w:p w14:paraId="5EC27DD5" w14:textId="13F03C5F" w:rsidR="00300833" w:rsidRDefault="00300833" w:rsidP="00B517E9">
-                        <w:pPr>
-                            <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                        </w:pPr>
-                        <w:r>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                            <w:t>被：没有。</w:t>
-                        </w:r>
-                    </w:p>
-                    <w:p w14:paraId="0248C834" w14:textId="4862D3AF" w:rsidR="00300833" w:rsidRDefault="00300833" w:rsidP="00B517E9">
-                        <w:pPr>
-                            <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                        </w:pPr>
-                        <w:r>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                            <w:t>审：双方发表最后陈述意见。</w:t>
-                        </w:r>
-                    </w:p>
-                    <w:p w14:paraId="125FBC4A" w14:textId="34E99ABE" w:rsidR="00300833" w:rsidRDefault="00300833" w:rsidP="00B517E9">
-                        <w:pPr>
-                            <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                        </w:pPr>
-                        <w:r>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                            <w:t>原：坚持诉讼请求。</w:t>
-                        </w:r>
-                    </w:p>
-                    <w:p w14:paraId="00E22EB0" w14:textId="3A74C621" w:rsidR="00300833" w:rsidRDefault="00300833" w:rsidP="00B517E9">
-                        <w:pPr>
-                            <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                        </w:pPr>
-                        <w:r>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                            <w:t>被：坚持答辩意见。</w:t>
-                        </w:r>
-                    </w:p>
-                    <w:p w14:paraId="2CE1A4C6" w14:textId="70DC5603" w:rsidR="00300833" w:rsidRDefault="00300833" w:rsidP="00B517E9">
-                        <w:pPr>
-                            <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                        </w:pPr>
-                        <w:r>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                            <w:t>审：当事人是否能够调解？</w:t>
-                        </w:r>
-                    </w:p>
-                    <w:p w14:paraId="4FDC9A37" w14:textId="36303B23" w:rsidR="00300833" w:rsidRDefault="00300833" w:rsidP="00B517E9">
-                        <w:pPr>
-                            <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                        </w:pPr>
-                        <w:r>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                            <w:t>原：不能。</w:t>
-                        </w:r>
-                    </w:p>
-                    <w:p w14:paraId="73599138" w14:textId="0FA7C3F9" w:rsidR="00300833" w:rsidRDefault="00300833" w:rsidP="00B517E9">
-                        <w:pPr>
-                            <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                        </w:pPr>
-                        <w:r>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                            <w:t>被：不能。</w:t>
-                        </w:r>
-                    </w:p>
-                    <w:p w14:paraId="3215EE91" w14:textId="4C4BFD4B" w:rsidR="00300833" w:rsidRDefault="00300833" w:rsidP="00B517E9">
-                        <w:pPr>
-                            <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                        </w:pPr>
-                        <w:r>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                            <w:t>审：当事人是否同意电子判决文书送达？</w:t>
-                        </w:r>
-                    </w:p>
-                    <w:p w14:paraId="1A40FAD8" w14:textId="615A3AF1" w:rsidR="00300833" w:rsidRDefault="00300833" w:rsidP="00B517E9">
-                        <w:pPr>
-                            <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                        </w:pPr>
-                        <w:r>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                            <w:t>原：同意，电子邮箱地址linwei@126.com。</w:t>
-                        </w:r>
-                    </w:p>
-                    <w:p w14:paraId="5D9411C8" w14:textId="384B09C0" w:rsidR="00300833" w:rsidRDefault="00300833" w:rsidP="00B517E9">
-                        <w:pPr>
-                            <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                        </w:pPr>
-                        <w:r>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                            <w:t>被：同意，电子邮箱地址28114471@qq.com。</w:t>
-                        </w:r>
-                    </w:p>
-                    <w:p w14:paraId="4702E43F" w14:textId="06C4759F" w:rsidR="007F7DBD" w:rsidRPr="00A54F22" w:rsidRDefault="00300833" w:rsidP="000560C4">
-                        <w:pPr>
-                            <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                        </w:pPr>
-                        <w:r>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                            <w:t>审：鉴于当事人不同意调解，法院不再主持调解，双方当事人看笔录无误后签字。</w:t>
-                        </w:r>
-                    </w:p>
-                    <w:sectPr w:rsidR="007F7DBD" w:rsidRPr="00A54F22" w:rsidSect="00683CA3">
+                    <w:sectPr w:rsidR="00C659EC" w:rsidRPr="001822B7" w:rsidSect="00683CA3">
                         <w:pgSz w:w="11900" w:h="16840"/>
                         <w:pgMar w:top="1440" w:right="1800" w:bottom="1440" w:left="1800" w:header="851" w:footer="992" w:gutter="0"/>
                         <w:cols w:space="425"/>
@@ -1418,7 +1585,7 @@
                     xmlns:w16sdtdh="http://schemas.microsoft.com/office/word/2020/wordml/sdtdatahash"
                     xmlns:w16se="http://schemas.microsoft.com/office/word/2015/wordml/symex"
                     xmlns:sl="http://schemas.openxmlformats.org/schemaLibrary/2006/main" mc:Ignorable="w14 w15 w16se w16cid w16 w16cex w16sdtdh">
-                    <w:zoom w:percent="140"/>
+                    <w:zoom w:percent="170"/>
                     <w:bordersDoNotSurroundHeader/>
                     <w:bordersDoNotSurroundFooter/>
                     <w:proofState w:spelling="clean" w:grammar="clean"/>
@@ -1445,14 +1612,20 @@
                     <w:rsids>
                         <w:rsidRoot w:val="00B660E3"/>
                         <w:rsid w:val="00004B70"/>
+                        <w:rsid w:val="00021F4A"/>
                         <w:rsid w:val="00025878"/>
                         <w:rsid w:val="00026F2D"/>
                         <w:rsid w:val="000553F1"/>
                         <w:rsid w:val="000560C4"/>
+                        <w:rsid w:val="00070F7F"/>
+                        <w:rsid w:val="000743F6"/>
                         <w:rsid w:val="00092647"/>
                         <w:rsid w:val="00095635"/>
                         <w:rsid w:val="00096E28"/>
+                        <w:rsid w:val="00096FDA"/>
                         <w:rsid w:val="000B1EA1"/>
+                        <w:rsid w:val="000B29EE"/>
+                        <w:rsid w:val="000B6472"/>
                         <w:rsid w:val="000B79B2"/>
                         <w:rsid w:val="000C6D77"/>
                         <w:rsid w:val="000D1DE0"/>
@@ -1463,37 +1636,53 @@
                         <w:rsid w:val="000F1A06"/>
                         <w:rsid w:val="000F79CA"/>
                         <w:rsid w:val="00111C2C"/>
+                        <w:rsid w:val="00115C2B"/>
                         <w:rsid w:val="00120537"/>
                         <w:rsid w:val="00120D8B"/>
                         <w:rsid w:val="00125693"/>
+                        <w:rsid w:val="001317EE"/>
                         <w:rsid w:val="0014046F"/>
+                        <w:rsid w:val="00141B9F"/>
                         <w:rsid w:val="001448B7"/>
                         <w:rsid w:val="0016489A"/>
+                        <w:rsid w:val="00176464"/>
+                        <w:rsid w:val="001822B7"/>
                         <w:rsid w:val="00182864"/>
+                        <w:rsid w:val="00190EC9"/>
                         <w:rsid w:val="001A0118"/>
                         <w:rsid w:val="001A1B9A"/>
                         <w:rsid w:val="001A2C84"/>
                         <w:rsid w:val="001D05B8"/>
                         <w:rsid w:val="001D73DF"/>
+                        <w:rsid w:val="001D7536"/>
                         <w:rsid w:val="001F275B"/>
                         <w:rsid w:val="0023016C"/>
                         <w:rsid w:val="002326D4"/>
                         <w:rsid w:val="00233A90"/>
                         <w:rsid w:val="00237930"/>
                         <w:rsid w:val="0024212D"/>
+                        <w:rsid w:val="002520BB"/>
                         <w:rsid w:val="00252BD8"/>
+                        <w:rsid w:val="00257F04"/>
+                        <w:rsid w:val="00272238"/>
                         <w:rsid w:val="00274B9E"/>
                         <w:rsid w:val="002809AA"/>
                         <w:rsid w:val="002850B7"/>
                         <w:rsid w:val="00296783"/>
                         <w:rsid w:val="002A029C"/>
+                        <w:rsid w:val="002A5270"/>
                         <w:rsid w:val="002A75BB"/>
                         <w:rsid w:val="002C00B2"/>
                         <w:rsid w:val="002C4925"/>
+                        <w:rsid w:val="002C5C06"/>
                         <w:rsid w:val="002D1F2C"/>
                         <w:rsid w:val="002E0C6B"/>
                         <w:rsid w:val="002E1D91"/>
                         <w:rsid w:val="002E65E5"/>
+                        <w:rsid w:val="002F1027"/>
+                        <w:rsid w:val="002F2372"/>
+                        <w:rsid w:val="002F2BE6"/>
+                        <w:rsid w:val="002F4006"/>
                         <w:rsid w:val="002F7D29"/>
                         <w:rsid w:val="00300833"/>
                         <w:rsid w:val="00304209"/>
@@ -1505,6 +1694,7 @@
                         <w:rsid w:val="0038390C"/>
                         <w:rsid w:val="0039396F"/>
                         <w:rsid w:val="003A6D1C"/>
+                        <w:rsid w:val="003B2B23"/>
                         <w:rsid w:val="003B4CDC"/>
                         <w:rsid w:val="003D7D86"/>
                         <w:rsid w:val="003E6172"/>
@@ -1512,20 +1702,27 @@
                         <w:rsid w:val="003F6E01"/>
                         <w:rsid w:val="00401E2C"/>
                         <w:rsid w:val="00410EFA"/>
+                        <w:rsid w:val="00411AE5"/>
                         <w:rsid w:val="00412164"/>
+                        <w:rsid w:val="00413247"/>
                         <w:rsid w:val="00414C8C"/>
+                        <w:rsid w:val="00417402"/>
                         <w:rsid w:val="004250C0"/>
                         <w:rsid w:val="00426913"/>
                         <w:rsid w:val="00445521"/>
                         <w:rsid w:val="0045283F"/>
+                        <w:rsid w:val="00455D36"/>
                         <w:rsid w:val="004715AD"/>
                         <w:rsid w:val="00485782"/>
+                        <w:rsid w:val="004977FA"/>
                         <w:rsid w:val="004C2440"/>
                         <w:rsid w:val="004C5273"/>
                         <w:rsid w:val="004E43C3"/>
                         <w:rsid w:val="004F6410"/>
                         <w:rsid w:val="00503A19"/>
                         <w:rsid w:val="005063D4"/>
+                        <w:rsid w:val="005144A9"/>
+                        <w:rsid w:val="00516B0E"/>
                         <w:rsid w:val="00533CF5"/>
                         <w:rsid w:val="005363B7"/>
                         <w:rsid w:val="00540CC1"/>
@@ -1536,6 +1733,7 @@
                         <w:rsid w:val="0058495A"/>
                         <w:rsid w:val="0059142D"/>
                         <w:rsid w:val="0059191A"/>
+                        <w:rsid w:val="00594672"/>
                         <w:rsid w:val="005A235B"/>
                         <w:rsid w:val="005B131F"/>
                         <w:rsid w:val="005B5A8D"/>
@@ -1543,41 +1741,57 @@
                         <w:rsid w:val="005C38FB"/>
                         <w:rsid w:val="005D4523"/>
                         <w:rsid w:val="005E0C7D"/>
+                        <w:rsid w:val="005F657E"/>
                         <w:rsid w:val="00600716"/>
                         <w:rsid w:val="00601BAF"/>
                         <w:rsid w:val="006125E5"/>
                         <w:rsid w:val="00617B25"/>
                         <w:rsid w:val="00624D36"/>
+                        <w:rsid w:val="0062525F"/>
                         <w:rsid w:val="006278D3"/>
+                        <w:rsid w:val="00632095"/>
                         <w:rsid w:val="00632D37"/>
                         <w:rsid w:val="00633C89"/>
+                        <w:rsid w:val="00633E26"/>
                         <w:rsid w:val="0063400D"/>
                         <w:rsid w:val="00634CEB"/>
+                        <w:rsid w:val="00643B3E"/>
                         <w:rsid w:val="00650276"/>
                         <w:rsid w:val="00652982"/>
                         <w:rsid w:val="00663FF4"/>
                         <w:rsid w:val="0066556D"/>
                         <w:rsid w:val="00683CA3"/>
+                        <w:rsid w:val="006921EC"/>
                         <w:rsid w:val="006C5709"/>
                         <w:rsid w:val="006D18D1"/>
                         <w:rsid w:val="006D5FDC"/>
                         <w:rsid w:val="006E081E"/>
+                        <w:rsid w:val="006F37D5"/>
                         <w:rsid w:val="006F5457"/>
+                        <w:rsid w:val="00701A41"/>
+                        <w:rsid w:val="00722794"/>
+                        <w:rsid w:val="0072420B"/>
+                        <w:rsid w:val="00730C0A"/>
                         <w:rsid w:val="007354EA"/>
                         <w:rsid w:val="00760139"/>
                         <w:rsid w:val="00766C83"/>
                         <w:rsid w:val="007838F6"/>
                         <w:rsid w:val="007856D9"/>
+                        <w:rsid w:val="00797AC1"/>
                         <w:rsid w:val="007A24A3"/>
                         <w:rsid w:val="007A4F8F"/>
+                        <w:rsid w:val="007A52D7"/>
+                        <w:rsid w:val="007B1D07"/>
                         <w:rsid w:val="007C2F91"/>
                         <w:rsid w:val="007C70A4"/>
                         <w:rsid w:val="007D260D"/>
+                        <w:rsid w:val="007E0ED3"/>
                         <w:rsid w:val="007E5DCF"/>
                         <w:rsid w:val="007F7DBD"/>
                         <w:rsid w:val="00803767"/>
                         <w:rsid w:val="00803812"/>
                         <w:rsid w:val="00815492"/>
+                        <w:rsid w:val="00815505"/>
                         <w:rsid w:val="008172C7"/>
                         <w:rsid w:val="00822544"/>
                         <w:rsid w:val="00827E05"/>
@@ -1585,58 +1799,83 @@
                         <w:rsid w:val="008537FD"/>
                         <w:rsid w:val="00855FF9"/>
                         <w:rsid w:val="008A1F48"/>
+                        <w:rsid w:val="008B54E3"/>
                         <w:rsid w:val="008C4E17"/>
                         <w:rsid w:val="008D798A"/>
                         <w:rsid w:val="008E26ED"/>
                         <w:rsid w:val="00901E9C"/>
+                        <w:rsid w:val="009063A0"/>
                         <w:rsid w:val="00913406"/>
+                        <w:rsid w:val="009311FA"/>
                         <w:rsid w:val="00932C69"/>
                         <w:rsid w:val="00935F63"/>
                         <w:rsid w:val="00974435"/>
+                        <w:rsid w:val="00977E00"/>
                         <w:rsid w:val="00984B42"/>
+                        <w:rsid w:val="009951F1"/>
                         <w:rsid w:val="00995895"/>
+                        <w:rsid w:val="009A3F7A"/>
                         <w:rsid w:val="009C5351"/>
                         <w:rsid w:val="009F19B2"/>
                         <w:rsid w:val="009F4A79"/>
+                        <w:rsid w:val="00A01058"/>
+                        <w:rsid w:val="00A0600E"/>
                         <w:rsid w:val="00A2560C"/>
                         <w:rsid w:val="00A40571"/>
                         <w:rsid w:val="00A41438"/>
                         <w:rsid w:val="00A5472C"/>
                         <w:rsid w:val="00A54F22"/>
                         <w:rsid w:val="00A56FA6"/>
+                        <w:rsid w:val="00A66D3A"/>
                         <w:rsid w:val="00A75FCA"/>
+                        <w:rsid w:val="00A922EE"/>
                         <w:rsid w:val="00A93C86"/>
+                        <w:rsid w:val="00A9433D"/>
                         <w:rsid w:val="00AA13DE"/>
                         <w:rsid w:val="00AC64AB"/>
                         <w:rsid w:val="00AC7256"/>
                         <w:rsid w:val="00AD000E"/>
                         <w:rsid w:val="00AD249A"/>
                         <w:rsid w:val="00AD2A2E"/>
+                        <w:rsid w:val="00AF6CAD"/>
                         <w:rsid w:val="00B03ADA"/>
                         <w:rsid w:val="00B220BF"/>
+                        <w:rsid w:val="00B31915"/>
                         <w:rsid w:val="00B3198D"/>
+                        <w:rsid w:val="00B354CB"/>
                         <w:rsid w:val="00B401DD"/>
                         <w:rsid w:val="00B46AE6"/>
                         <w:rsid w:val="00B517E9"/>
                         <w:rsid w:val="00B65EBD"/>
                         <w:rsid w:val="00B660E3"/>
                         <w:rsid w:val="00B66441"/>
+                        <w:rsid w:val="00B67A4C"/>
+                        <w:rsid w:val="00B722E2"/>
                         <w:rsid w:val="00B72ED1"/>
                         <w:rsid w:val="00B74AC6"/>
+                        <w:rsid w:val="00B7541C"/>
                         <w:rsid w:val="00B755E7"/>
                         <w:rsid w:val="00B76C03"/>
                         <w:rsid w:val="00B91D08"/>
                         <w:rsid w:val="00B973DF"/>
                         <w:rsid w:val="00BA5D12"/>
+                        <w:rsid w:val="00BD1AB1"/>
+                        <w:rsid w:val="00BF01D8"/>
                         <w:rsid w:val="00C30442"/>
+                        <w:rsid w:val="00C479FE"/>
+                        <w:rsid w:val="00C659EC"/>
                         <w:rsid w:val="00CD0B86"/>
                         <w:rsid w:val="00CD4949"/>
                         <w:rsid w:val="00CE6DCD"/>
                         <w:rsid w:val="00D30EF6"/>
                         <w:rsid w:val="00D31685"/>
+                        <w:rsid w:val="00D4452B"/>
+                        <w:rsid w:val="00D5721E"/>
                         <w:rsid w:val="00D60593"/>
                         <w:rsid w:val="00D6414B"/>
                         <w:rsid w:val="00D70340"/>
+                        <w:rsid w:val="00D73E81"/>
+                        <w:rsid w:val="00D755CA"/>
                         <w:rsid w:val="00D75D3D"/>
                         <w:rsid w:val="00D86358"/>
                         <w:rsid w:val="00D93BC4"/>
@@ -1652,9 +1891,12 @@
                         <w:rsid w:val="00E21B8E"/>
                         <w:rsid w:val="00E228A9"/>
                         <w:rsid w:val="00E362E0"/>
+                        <w:rsid w:val="00E45642"/>
                         <w:rsid w:val="00E45698"/>
+                        <w:rsid w:val="00E45780"/>
                         <w:rsid w:val="00E5026E"/>
                         <w:rsid w:val="00E658F4"/>
+                        <w:rsid w:val="00E708C6"/>
                         <w:rsid w:val="00E733E6"/>
                         <w:rsid w:val="00E7724E"/>
                         <w:rsid w:val="00E93BBB"/>
@@ -1664,16 +1906,23 @@
                         <w:rsid w:val="00EB6071"/>
                         <w:rsid w:val="00ED345C"/>
                         <w:rsid w:val="00EE26E1"/>
+                        <w:rsid w:val="00EE3894"/>
+                        <w:rsid w:val="00EE3C85"/>
+                        <w:rsid w:val="00EF03E8"/>
                         <w:rsid w:val="00EF260E"/>
-                        <w:rsid w:val="00F10DB9"/>
                         <w:rsid w:val="00F22325"/>
                         <w:rsid w:val="00F2728D"/>
+                        <w:rsid w:val="00F34F95"/>
                         <w:rsid w:val="00F4112D"/>
+                        <w:rsid w:val="00F42193"/>
+                        <w:rsid w:val="00F45410"/>
                         <w:rsid w:val="00F54B53"/>
                         <w:rsid w:val="00F57750"/>
+                        <w:rsid w:val="00F63329"/>
                         <w:rsid w:val="00F9105A"/>
                         <w:rsid w:val="00FA3401"/>
                         <w:rsid w:val="00FB4A50"/>
+                        <w:rsid w:val="00FD2465"/>
                         <w:rsid w:val="00FD5891"/>
                         <w:rsid w:val="00FD68E3"/>
                         <w:rsid w:val="00FE0712"/>
@@ -1717,8 +1966,8 @@
                     <dc:description/>
                     <cp:lastModifiedBy>张 彩娥</cp:lastModifiedBy>
                     <cp:revision>2</cp:revision>
-                    <dcterms:created xsi:type="dcterms:W3CDTF">2022-06-09T13:32:00Z</dcterms:created>
-                    <dcterms:modified xsi:type="dcterms:W3CDTF">2022-06-09T13:32:00Z</dcterms:modified>
+                    <dcterms:created xsi:type="dcterms:W3CDTF">2022-06-16T15:34:00Z</dcterms:created>
+                    <dcterms:modified xsi:type="dcterms:W3CDTF">2022-06-16T15:34:00Z</dcterms:modified>
                 </cp:coreProperties>
             </pkg:xmlData>
         </pkg:part>
@@ -1749,14 +1998,6 @@
                         <w:family w:val="auto"/>
                         <w:pitch w:val="variable"/>
                         <w:sig w:usb0="00000003" w:usb1="288F0000" w:usb2="00000016" w:usb3="00000000" w:csb0="00040001" w:csb1="00000000"/>
-                    </w:font>
-                    <w:font w:name="黑体">
-                        <w:altName w:val="SimHei"/>
-                        <w:panose1 w:val="02010609060101010101"/>
-                        <w:charset w:val="86"/>
-                        <w:family w:val="modern"/>
-                        <w:pitch w:val="fixed"/>
-                        <w:sig w:usb0="800002BF" w:usb1="38CF7CFA" w:usb2="00000016" w:usb3="00000000" w:csb0="00040001" w:csb1="00000000"/>
                     </w:font>
                     <w:font w:name="Calibri">
                         <w:panose1 w:val="020F0502020204030204"/>
@@ -1798,6 +2039,58 @@
                     xmlns:w16se="http://schemas.microsoft.com/office/word/2015/wordml/symex" mc:Ignorable="w14 w15 w16se w16cid w16 w16cex w16sdtdh">
                     <w:divs>
                         <w:div w:id="75827114">
+                            <w:bodyDiv w:val="1"/>
+                            <w:marLeft w:val="0"/>
+                            <w:marRight w:val="0"/>
+                            <w:marTop w:val="0"/>
+                            <w:marBottom w:val="0"/>
+                            <w:divBdr>
+                                <w:top w:val="none" w:sz="0" w:space="0" w:color="auto"/>
+                                <w:left w:val="none" w:sz="0" w:space="0" w:color="auto"/>
+                                <w:bottom w:val="none" w:sz="0" w:space="0" w:color="auto"/>
+                                <w:right w:val="none" w:sz="0" w:space="0" w:color="auto"/>
+                            </w:divBdr>
+                        </w:div>
+                        <w:div w:id="214656905">
+                            <w:bodyDiv w:val="1"/>
+                            <w:marLeft w:val="0"/>
+                            <w:marRight w:val="0"/>
+                            <w:marTop w:val="0"/>
+                            <w:marBottom w:val="0"/>
+                            <w:divBdr>
+                                <w:top w:val="none" w:sz="0" w:space="0" w:color="auto"/>
+                                <w:left w:val="none" w:sz="0" w:space="0" w:color="auto"/>
+                                <w:bottom w:val="none" w:sz="0" w:space="0" w:color="auto"/>
+                                <w:right w:val="none" w:sz="0" w:space="0" w:color="auto"/>
+                            </w:divBdr>
+                        </w:div>
+                        <w:div w:id="954602866">
+                            <w:bodyDiv w:val="1"/>
+                            <w:marLeft w:val="0"/>
+                            <w:marRight w:val="0"/>
+                            <w:marTop w:val="0"/>
+                            <w:marBottom w:val="0"/>
+                            <w:divBdr>
+                                <w:top w:val="none" w:sz="0" w:space="0" w:color="auto"/>
+                                <w:left w:val="none" w:sz="0" w:space="0" w:color="auto"/>
+                                <w:bottom w:val="none" w:sz="0" w:space="0" w:color="auto"/>
+                                <w:right w:val="none" w:sz="0" w:space="0" w:color="auto"/>
+                            </w:divBdr>
+                        </w:div>
+                        <w:div w:id="1100220753">
+                            <w:bodyDiv w:val="1"/>
+                            <w:marLeft w:val="0"/>
+                            <w:marRight w:val="0"/>
+                            <w:marTop w:val="0"/>
+                            <w:marBottom w:val="0"/>
+                            <w:divBdr>
+                                <w:top w:val="none" w:sz="0" w:space="0" w:color="auto"/>
+                                <w:left w:val="none" w:sz="0" w:space="0" w:color="auto"/>
+                                <w:bottom w:val="none" w:sz="0" w:space="0" w:color="auto"/>
+                                <w:right w:val="none" w:sz="0" w:space="0" w:color="auto"/>
+                            </w:divBdr>
+                        </w:div>
+                        <w:div w:id="1627155460">
                             <w:bodyDiv w:val="1"/>
                             <w:marLeft w:val="0"/>
                             <w:marRight w:val="0"/>
@@ -2288,18 +2581,18 @@
                     xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties"
                     xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">
                     <Template>Normal.dotm</Template>
-                    <TotalTime>0</TotalTime>
+                    <TotalTime>1</TotalTime>
                     <Pages>3</Pages>
-                    <Words>305</Words>
-                    <Characters>1739</Characters>
+                    <Words>266</Words>
+                    <Characters>1517</Characters>
                     <Application>Microsoft Office Word</Application>
                     <DocSecurity>0</DocSecurity>
-                    <Lines>14</Lines>
-                    <Paragraphs>4</Paragraphs>
+                    <Lines>12</Lines>
+                    <Paragraphs>3</Paragraphs>
                     <ScaleCrop>false</ScaleCrop>
                     <Company/>
                     <LinksUpToDate>false</LinksUpToDate>
-                    <CharactersWithSpaces>2040</CharactersWithSpaces>
+                    <CharactersWithSpaces>1780</CharactersWithSpaces>
                     <SharedDoc>false</SharedDoc>
                     <HyperlinksChanged>false</HyperlinksChanged>
                     <AppVersion>16.0000</AppVersion>

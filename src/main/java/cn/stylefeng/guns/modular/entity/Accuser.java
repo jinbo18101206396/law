@@ -49,6 +49,12 @@ public class Accuser implements Serializable {
     private String accuserAddress;
 
     /**
+     * 原告其他信息
+     */
+    @TableField("accuser_info")
+    private String accuserInfo;
+
+    /**
      * 法人代表
      */
     @TableField("accuser_represent")
@@ -59,6 +65,9 @@ public class Accuser implements Serializable {
      */
     @TableField("accuser_duty")
     private String accuserDuty;
+
+    @TableField(exist = false)
+    private String accuserAgent;
 
     /**
      * 案号
@@ -136,22 +145,6 @@ public class Accuser implements Serializable {
     @TableField(value = "update_user", fill = FieldFill.UPDATE)
     private Long updateUser;
 
-    public String getIsMediate() {
-        return isMediate;
-    }
-
-    public void setIsMediate(String isMediate) {
-        this.isMediate = isMediate;
-    }
-
-    public String getIsDelivery() {
-        return isDelivery;
-    }
-
-    public void setIsDelivery(String isDelivery) {
-        this.isDelivery = isDelivery;
-    }
-
     public Long getAccuserId() {
         return accuserId;
     }
@@ -192,6 +185,14 @@ public class Accuser implements Serializable {
         this.accuserAddress = accuserAddress;
     }
 
+    public String getAccuserInfo() {
+        return accuserInfo;
+    }
+
+    public void setAccuserInfo(String accuserInfo) {
+        this.accuserInfo = accuserInfo;
+    }
+
     public String getAccuserRepresent() {
         return accuserRepresent;
     }
@@ -206,6 +207,14 @@ public class Accuser implements Serializable {
 
     public void setAccuserDuty(String accuserDuty) {
         this.accuserDuty = accuserDuty;
+    }
+
+    public String getAccuserAgent() {
+        return accuserAgent;
+    }
+
+    public void setAccuserAgent(String accuserAgent) {
+        this.accuserAgent = accuserAgent;
     }
 
     public String getCourtNumber() {
@@ -232,6 +241,13 @@ public class Accuser implements Serializable {
         this.accuserAvoid = accuserAvoid;
     }
 
+    public String getIsMediate() {
+        return isMediate;
+    }
+
+    public void setIsMediate(String isMediate) {
+        this.isMediate = isMediate;
+    }
 
     public String getMediatePlan() {
         return mediatePlan;
@@ -249,6 +265,13 @@ public class Accuser implements Serializable {
         this.timeLimit = timeLimit;
     }
 
+    public String getIsDelivery() {
+        return isDelivery;
+    }
+
+    public void setIsDelivery(String isDelivery) {
+        this.isDelivery = isDelivery;
+    }
 
     public String getEmail() {
         return email;
@@ -264,6 +287,14 @@ public class Accuser implements Serializable {
 
     public void setFinalStatement(String finalStatement) {
         this.finalStatement = finalStatement;
+    }
+
+    public String getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(String delFlag) {
+        this.delFlag = delFlag;
     }
 
     public Date getCreateTime() {
@@ -298,37 +329,32 @@ public class Accuser implements Serializable {
         this.updateUser = updateUser;
     }
 
-    public String getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(String delFlag) {
-        this.delFlag = delFlag;
-    }
-
     @Override
     public String toString() {
         return "Accuser{" +
                 "accuserId=" + accuserId +
-                ", accuser=" + accuser +
-                ", accuserShort=" + accuserShort +
-                ", accuserType=" + accuserType +
-                ", accuserAddress=" + accuserAddress +
-                ", accuserRepresent=" + accuserRepresent +
-                ", accuserDuty=" + accuserDuty +
-                ", courtNumber=" + courtNumber +
-                ", accuserRightDuty=" + accuserRightDuty +
-                ", accuserAvoid=" + accuserAvoid +
-                ", isMediate=" + isMediate +
-                ", mediatePlan=" + mediatePlan +
-                ", timeLimit=" + timeLimit +
-                ", isDelivery=" + isDelivery +
-                ", email=" + email +
-                ", finalStatement=" + finalStatement +
+                ", accuser='" + accuser + '\'' +
+                ", accuserShort='" + accuserShort + '\'' +
+                ", accuserType='" + accuserType + '\'' +
+                ", accuserAddress='" + accuserAddress + '\'' +
+                ", accuserInfo='" + accuserInfo + '\'' +
+                ", accuserRepresent='" + accuserRepresent + '\'' +
+                ", accuserDuty='" + accuserDuty + '\'' +
+                ", accuserAgent='" + accuserAgent + '\'' +
+                ", courtNumber='" + courtNumber + '\'' +
+                ", accuserRightDuty='" + accuserRightDuty + '\'' +
+                ", accuserAvoid='" + accuserAvoid + '\'' +
+                ", isMediate='" + isMediate + '\'' +
+                ", mediatePlan='" + mediatePlan + '\'' +
+                ", timeLimit='" + timeLimit + '\'' +
+                ", isDelivery='" + isDelivery + '\'' +
+                ", email='" + email + '\'' +
+                ", finalStatement='" + finalStatement + '\'' +
+                ", delFlag='" + delFlag + '\'' +
                 ", createTime=" + createTime +
                 ", createUser=" + createUser +
                 ", updateTime=" + updateTime +
                 ", updateUser=" + updateUser +
-                "}";
+                '}';
     }
 }

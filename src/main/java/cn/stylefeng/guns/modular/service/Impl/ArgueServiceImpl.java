@@ -134,6 +134,32 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
     }
 
     @Override
+    public Argue getArgueInfo(String courtNumber) {
+        JSONObject argueInfoObject = this.getArgueInfoObject(courtNumber);
+        JSONArray argueArray = argueInfoObject.getJSONArray("argue");
+        String accuserArgue = "";
+        String defendantArgue = "";
+        for(int i=0;i<argueArray.size();i++){
+            JSONObject argueObject = argueArray.getJSONObject(i);
+            String name = argueObject.getString("name");
+            String argue = argueObject.getString("argue");
+            if(!ObjectUtils.isEmpty(name) && !ObjectUtils.isEmpty(argue)){
+                if(name.contains("原告")){
+                    name = name.replace("（原告）","");
+                    accuserArgue += name+":"+argue+"；";
+                }else{
+                    name = name.replace("（被告）","");
+                    defendantArgue += name+":"+argue+"；";
+                }
+            }
+        }
+        Argue argue = new Argue();
+        argue.setAccuserArgue(accuserArgue);
+        argue.setDefendantArgue(defendantArgue);
+        return argue;
+    }
+
+    @Override
     public Boolean deleteArgueInfo(String courtNumber) {
         LambdaUpdateWrapper<Argue> argueWrapper = new LambdaUpdateWrapper<>();
         argueWrapper.set(Argue::getDelFlag, YesOrNotEnum.Y.getCode()).eq(Argue::getCourtNumber,courtNumber);

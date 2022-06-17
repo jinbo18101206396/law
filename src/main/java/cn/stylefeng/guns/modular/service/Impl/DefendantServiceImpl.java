@@ -1,5 +1,6 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
+import cn.stylefeng.guns.modular.entity.Accuser;
 import cn.stylefeng.guns.modular.entity.Agent;
 import cn.stylefeng.guns.modular.entity.Defendant;
 import cn.stylefeng.guns.modular.mapper.DefendantMapper;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,10 +49,12 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
             JSONObject defendantInfoObject = defendantInfoArray.getJSONObject(i);
             defendant.setDefendant(defendantInfoObject.get("defendant").toString());
             String defendantShortName = defendantInfoObject.get("defendant_short").toString();
+            String defendantInfo = defendantInfoObject.getString("defendant_info");
             //被告类型（1-机构，2-个人）
             String defendantType = defendantInfoObject.get("defendant_type").toString();
             defendant.setDefendantType(defendantType);
             defendant.setDefendantShort(defendantShortName);
+            defendant.setDefendantInfo(defendantInfo);
             defendant.setDefendantAddress(defendantInfoObject.get("defendant_address").toString());
             //被告（机构）
             if ("1".equals(defendantType)) {
@@ -156,6 +160,7 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
             String defendantType = defendant.getDefendantType();
             String defendantName = defendant.getDefendant();
             String defendantShort = defendant.getDefendantShort();
+            String defendantInfo = defendant.getDefendantInfo();
             String defendantAddress = defendant.getDefendantAddress();
             String defendantRepresent = defendant.getDefendantRepresent();
             String defendantDuty = defendant.getDefendantDuty();
@@ -184,6 +189,7 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
             defendantInfoObject.put("defendant_type", defendantType);
             defendantInfoObject.put("defendant", defendantName);
             defendantInfoObject.put("defendant_short", defendantShort);
+            defendantInfoObject.put("defendant_info",defendantInfo);
             defendantInfoObject.put("defendant_address", defendantAddress);
             defendantInfoObject.put("defendant_represent", defendantRepresent);
             defendantInfoObject.put("defendant_duty", defendantDuty);
@@ -201,6 +207,7 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
             defendantInfoObject.put("defendant_type", "1");
             defendantInfoObject.put("defendant", "");
             defendantInfoObject.put("defendant_short", "");
+            defendantInfoObject.put("defendant_info", "");
             defendantInfoObject.put("defendant_address", "");
             defendantInfoObject.put("defendant_represent", "");
             defendantInfoObject.put("defendant_duty", "");
@@ -214,6 +221,75 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
         }
         return defendantInfoArray;
     }
+
+
+    @Override
+    public List<Defendant> getDefendantInfoList(String courtNumber) {
+        //原告
+        LambdaQueryWrapper<Defendant> defendantQueryWrapper = new LambdaQueryWrapper<>();
+        defendantQueryWrapper.eq(Defendant::getCourtNumber, courtNumber);
+        defendantQueryWrapper.eq(Defendant::getDelFlag, YesOrNotEnum.N.getCode());
+        List<Defendant> defendantList = defendantService.list(defendantQueryWrapper);
+        //委托诉讼代理人
+        LambdaQueryWrapper<Agent> agentQueryWrapper = new LambdaQueryWrapper<>();
+        agentQueryWrapper.eq(Agent::getCourtNumber, courtNumber);
+        agentQueryWrapper.eq(Agent::getDelFlag, YesOrNotEnum.N.getCode());
+        agentQueryWrapper.eq(Agent::getAgentType, "2");
+        List<Agent> agents = agentService.list(agentQueryWrapper);
+        for (int i = 0; i < defendantList.size(); i++) {
+            Defendant defendant = defendantList.get(i);
+            String defendantShort = defendant.getDefendantShort();
+            String defendantRightDuty = defendant.getDefendantRightDuty();
+            if (!ObjectUtils.isEmpty(defendantRightDuty)) {
+                if ("1".equals(defendantRightDuty)) {
+                    defendantRightDuty = "听清楚了";
+                } else {
+                    defendantRightDuty = "没听清楚";
+                }
+                defendant.setDefendantRightDuty(defendantRightDuty);
+            }
+            String defendantAvoid = defendant.getDefendantAvoid();
+            if (!ObjectUtils.isEmpty(defendantAvoid)) {
+                if ("1".equals(defendantAvoid)) {
+                    defendantAvoid = "申请回避";
+                } else {
+                    defendantAvoid = "不申请回避";
+                }
+                defendant.setDefendantAvoid(defendantAvoid);
+            }
+            String mediate = defendant.getIsMediate();
+            if (!ObjectUtils.isEmpty(mediate)) {
+                if ("1".equals(mediate)) {
+                    mediate = "能";
+                } else {
+                    mediate = "不能";
+                }
+                defendant.setIsMediate(mediate);
+            }
+            String delivery = defendant.getIsDelivery();
+            if (!ObjectUtils.isEmpty(delivery)) {
+                if ("1".equals(delivery)) {
+                    delivery = "同意";
+                } else {
+                    delivery = "不同意";
+                }
+                defendant.setIsDelivery(delivery);
+            }
+            String defendantAgent = "";
+            for (int j = 0; j < agents.size(); j++) {
+                Agent agent = agents.get(j);
+                String agentName = agent.getAgentName();
+                String agent1 = agent.getAgent();
+                String agentAddress = agent.getAgentAddress();
+                if (agentName.equals(defendantShort) && !ObjectUtils.isEmpty(agent1) && !ObjectUtils.isEmpty(agentAddress)) {
+                    defendantAgent += agent1 + "," + agentAddress + "；";
+                }
+            }
+            defendant.setDefendantAgent(defendantAgent);
+        }
+        return defendantList;
+    }
+
 
     @Override
     public Boolean deleteDefendantInfo(String courtNumber) {

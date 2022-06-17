@@ -41,6 +41,16 @@ public interface InquiryService extends IService<Inquiry> {
 
 
     /**
+     * 获取法庭询问信息列表
+     *
+     * @param courtNumber 请求参数
+     * @return
+     * @author 金波
+     * @Date 2022-05-25
+     */
+    List<Inquiry> getInquiryInfoList(String courtNumber);
+
+    /**
      * 删除法庭询问信息
      *
      * @param courtNumber 请求参数

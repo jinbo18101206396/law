@@ -47,13 +47,15 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
         for (int i = 0; i < accuserInfoArray.size(); i++) {
             Accuser accuser = new Accuser();
             JSONObject accuserInfoObject = accuserInfoArray.getJSONObject(i);
-            accuser.setAccuser(accuserInfoObject.get("accuser").toString());
-            String accuserShortName = accuserInfoObject.get("accuser_short").toString();
+            accuser.setAccuser(accuserInfoObject.getString("accuser"));
+            String accuserShortName = accuserInfoObject.getString("accuser_short");
+            String accuserInfo = accuserInfoObject.getString("accuser_info");
             //原告类型（1-机构，2-个人）
-            String accuserType = accuserInfoObject.get("accuser_type").toString();
+            String accuserType = accuserInfoObject.getString("accuser_type");
             accuser.setAccuserType(accuserType);
             accuser.setAccuserShort(accuserShortName);
-            accuser.setAccuserAddress(accuserInfoObject.get("accuser_address").toString());
+            accuser.setAccuserInfo(accuserInfo);
+            accuser.setAccuserAddress(accuserInfoObject.getString("accuser_address"));
             //原告-机构
             if ("1".equals(accuserType)) {
                 accuser.setAccuserRepresent(accuserInfoObject.get("accuser_represent").toString());
@@ -141,14 +143,12 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
 
     @Override
     public JSONArray getAccuserInfoArray(String courtNumber) {
-        //原告信息
         JSONArray accuserInfoArray = new JSONArray();
         LambdaQueryWrapper<Accuser> accuserQueryWrapper = new LambdaQueryWrapper<>();
         accuserQueryWrapper.eq(Accuser::getCourtNumber, courtNumber);
         accuserQueryWrapper.eq(Accuser::getDelFlag, YesOrNotEnum.N.getCode());
         List<Accuser> accusers = accuserService.list(accuserQueryWrapper);
 
-        //委托诉讼代理人
         LambdaQueryWrapper<Agent> agentQueryWrapper = new LambdaQueryWrapper<>();
         agentQueryWrapper.eq(Agent::getCourtNumber, courtNumber);
         agentQueryWrapper.eq(Agent::getDelFlag, YesOrNotEnum.N.getCode());
@@ -159,9 +159,7 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
             JSONObject accuserInfoObject = new JSONObject();
             Accuser accuser = accusers.get(i);
             String accuserShort = accuser.getAccuserShort();
-
             JSONArray accuserAgentArray = new JSONArray();
-
             if (agents.size() <= 0) {
                 JSONObject accuserAgentObject = new JSONObject();
                 accuserAgentObject.put("agent", "");
@@ -185,10 +183,11 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
             accuserInfoObject.put("accuser_type", accuser.getAccuserType());
             accuserInfoObject.put("accuser", accuser.getAccuser());
             accuserInfoObject.put("accuser_short", accuserShort);
+            accuserInfoObject.put("accuser_info",accuser.getAccuserInfo());
             accuserInfoObject.put("accuser_address", accuser.getAccuserAddress());
             accuserInfoObject.put("accuser_represent", accuser.getAccuserRepresent());
             accuserInfoObject.put("accuser_duty", accuser.getAccuserDuty());
-            if(accuserAgentArray.size() <= 0){
+            if (accuserAgentArray.size() <= 0) {
                 JSONObject agentObject = new JSONObject();
                 agentObject.put("agent", "");
                 agentObject.put("agent_address", "");
@@ -203,6 +202,7 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
             accuserInfoObject.put("accuser_type", "1");
             accuserInfoObject.put("accuser", "");
             accuserInfoObject.put("accuser_short", "");
+            accuserInfoObject.put("accuser_info", "");
             accuserInfoObject.put("accuser_address", "");
             accuserInfoObject.put("accuser_represent", "");
             accuserInfoObject.put("accuser_duty", "");
@@ -215,6 +215,72 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
             accuserInfoArray.add(accuserInfoObject);
         }
         return accuserInfoArray;
+    }
+
+    @Override
+    public List<Accuser> getAccuserInfoList(String courtNumber) {
+        LambdaQueryWrapper<Accuser> accuserQueryWrapper = new LambdaQueryWrapper<>();
+        accuserQueryWrapper.eq(Accuser::getCourtNumber, courtNumber);
+        accuserQueryWrapper.eq(Accuser::getDelFlag, YesOrNotEnum.N.getCode());
+        List<Accuser> accuserList = accuserService.list(accuserQueryWrapper);
+
+        LambdaQueryWrapper<Agent> agentQueryWrapper = new LambdaQueryWrapper<>();
+        agentQueryWrapper.eq(Agent::getCourtNumber, courtNumber);
+        agentQueryWrapper.eq(Agent::getDelFlag, YesOrNotEnum.N.getCode());
+        agentQueryWrapper.eq(Agent::getAgentType, "1");
+        List<Agent> agents = agentService.list(agentQueryWrapper);
+        for (int i = 0; i < accuserList.size(); i++) {
+            Accuser accuser = accuserList.get(i);
+            String accuserShort = accuser.getAccuserShort();
+            String accuserRightDuty = accuser.getAccuserRightDuty();
+            if (!ObjectUtils.isEmpty(accuserRightDuty)) {
+                if ("1".equals(accuserRightDuty)) {
+                    accuserRightDuty = "听清楚了";
+                } else {
+                    accuserRightDuty = "没听清楚";
+                }
+                accuser.setAccuserRightDuty(accuserRightDuty);
+            }
+            String accuserAvoid = accuser.getAccuserAvoid();
+            if (!ObjectUtils.isEmpty(accuserAvoid)) {
+                if ("1".equals(accuserAvoid)) {
+                    accuserAvoid = "申请回避";
+                } else {
+                    accuserAvoid = "不申请回避";
+                }
+                accuser.setAccuserAvoid(accuserAvoid);
+            }
+            String mediate = accuser.getIsMediate();
+            if (!ObjectUtils.isEmpty(mediate)) {
+                if ("1".equals(mediate)) {
+                    mediate = "能";
+                } else {
+                    mediate = "不能";
+                }
+                accuser.setIsMediate(mediate);
+            }
+            String delivery = accuser.getIsDelivery();
+            if (!ObjectUtils.isEmpty(delivery)) {
+                if ("1".equals(delivery)) {
+                    delivery = "同意";
+                } else {
+                    delivery = "不同意";
+                }
+                accuser.setIsDelivery(delivery);
+            }
+            String accuserAgent = "";
+            for (int j = 0; j < agents.size(); j++) {
+                Agent agent = agents.get(j);
+                String agentName = agent.getAgentName();
+                String agent1 = agent.getAgent();
+                String agentAddress = agent.getAgentAddress();
+                if (agentName.equals(accuserShort) && !ObjectUtils.isEmpty(agent1) && !ObjectUtils.isEmpty(agentAddress)) {
+                    accuserAgent += agent1 + "," + agentAddress + "；";
+                }
+            }
+            accuser.setAccuserAgent(accuserAgent);
+        }
+        return accuserList;
     }
 
     @Override
