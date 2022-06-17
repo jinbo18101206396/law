@@ -258,12 +258,13 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
     };
 
     Record.generateRecord = function (data) {
-        alert(data.courtNumber)
-        const Url = '/record/generate';
-        const Data = {"courtNumber": data.courtNumber};
-
-        $.post(Url, Data, function (data, status) {
-            console.log(`${data} and status is ${status}`)
+        Feng.confirm("是否生成案号为（" + data.courtNumber + "）的笔录?", function(){
+            const Url = '/record/generate';
+            const Data = {"courtNumber": data.courtNumber};
+            $.post(Url, Data, function (data, status) {
+                console.log(`${data} and status is ${status}`)
+            });
+            Feng.success("生成成功!");
         });
     }
 

@@ -146,10 +146,10 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
             if(!ObjectUtils.isEmpty(name) && !ObjectUtils.isEmpty(argue)){
                 if(name.contains("原告")){
                     name = name.replace("（原告）","");
-                    accuserArgue += name+":"+argue+"；";
+                    accuserArgue += argue+"；";
                 }else{
                     name = name.replace("（被告）","");
-                    defendantArgue += name+":"+argue+"；";
+                    defendantArgue += argue+"；";
                 }
             }
         }
