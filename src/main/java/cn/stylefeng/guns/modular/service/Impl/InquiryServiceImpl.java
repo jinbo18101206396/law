@@ -1,7 +1,5 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
-import cn.stylefeng.guns.modular.entity.Argue;
-import cn.stylefeng.guns.modular.entity.Defendant;
 import cn.stylefeng.guns.modular.entity.Inquiry;
 import cn.stylefeng.guns.modular.mapper.InquiryMapper;
 import cn.stylefeng.guns.modular.service.InquiryService;
@@ -15,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -92,7 +91,7 @@ public class InquiryServiceImpl extends ServiceImpl<InquiryMapper, Inquiry> impl
             for (int i = 0; i < inquiries.size(); i++) {
                 Inquiry inquiry = inquiries.get(i);
                 String question = inquiry.getQuestion();
-                if(ObjectUtils.isEmpty(question)){
+                if (ObjectUtils.isEmpty(question)) {
                     continue;
                 }
                 String answer = inquiry.getAnswer();
@@ -128,9 +127,42 @@ public class InquiryServiceImpl extends ServiceImpl<InquiryMapper, Inquiry> impl
     }
 
     @Override
+    public List<Inquiry> getInquiryInfoList(String courtNumber) {
+        List<Inquiry> inquiryList = new ArrayList<>();
+        JSONArray inquiryInfoArray = this.getInquiryInfoArray(courtNumber);
+        for (int i = 0; i < inquiryInfoArray.size(); i++) {
+            JSONObject inquiryObject = inquiryInfoArray.getJSONObject(i);
+            String question = inquiryObject.getString("inquiry_question");
+            String accuserAnswer = "";
+            String defendantAnswer = "";
+            JSONArray answerArray = inquiryObject.getJSONArray("inquiry_answer");
+            for (int j = 0; j < answerArray.size(); j++) {
+                JSONObject answerObject = answerArray.getJSONObject(j);
+                String name = answerObject.getString("name");
+                String answer = answerObject.getString("answer");
+                if (!ObjectUtils.isEmpty(name) && !ObjectUtils.isEmpty(answer)) {
+                    if (name.contains("原告")) {
+                        name = name.replace("（原告）", "");
+                        accuserAnswer += name + ":" + answer + "；";
+                    } else {
+                        name = name.replace("（被告）", "");
+                        defendantAnswer += name + ":" + answer + "；";
+                    }
+                }
+            }
+            Inquiry inquiry = new Inquiry();
+            inquiry.setQuestion(question);
+            inquiry.setAccuserAnswer(accuserAnswer);
+            inquiry.setDefendantAnswer(defendantAnswer);
+            inquiryList.add(inquiry);
+        }
+        return inquiryList;
+    }
+
+    @Override
     public Boolean deleteInquiryInfo(String courtNumber) {
         LambdaUpdateWrapper<Inquiry> inquiryWrapper = new LambdaUpdateWrapper<>();
-        inquiryWrapper.set(Inquiry::getDelFlag, YesOrNotEnum.Y.getCode()).eq(Inquiry::getCourtNumber,courtNumber);
+        inquiryWrapper.set(Inquiry::getDelFlag, YesOrNotEnum.Y.getCode()).eq(Inquiry::getCourtNumber, courtNumber);
         return inquiryService.update(inquiryWrapper);
     }
 }

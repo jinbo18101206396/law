@@ -1,7 +1,5 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
-import cn.stylefeng.guns.modular.entity.Accuser;
-import cn.stylefeng.guns.modular.entity.Agent;
 import cn.stylefeng.guns.modular.entity.State;
 import cn.stylefeng.guns.modular.mapper.StateMapper;
 import cn.stylefeng.guns.modular.service.StateService;
@@ -59,7 +57,7 @@ public class StateServiceImpl extends ServiceImpl<StateMapper, State> implements
         State state = stateService.getOne(stateQueryWrapper);
         String stateType = "1";
         String stateContent = "";
-        if(!ObjectUtils.isEmpty(state)){
+        if (!ObjectUtils.isEmpty(state)) {
             stateType = state.getStateType();
             stateContent = state.getStateContent();
         }
@@ -70,9 +68,18 @@ public class StateServiceImpl extends ServiceImpl<StateMapper, State> implements
     }
 
     @Override
+    public State getStateInfo(String courtNumber) {
+        JSONObject stateInfoObject = this.getStateInfoObject(courtNumber);
+        String stateContent = stateInfoObject.getString("state_content");
+        State state = new State();
+        state.setStateContent(stateContent);
+        return state;
+    }
+
+    @Override
     public Boolean deleteStateInfo(String courtNumber) {
         LambdaUpdateWrapper<State> stateWrapper = new LambdaUpdateWrapper<>();
-        stateWrapper.set(State::getDelFlag, YesOrNotEnum.Y.getCode()).eq(State::getCourtNumber,courtNumber);
+        stateWrapper.set(State::getDelFlag, YesOrNotEnum.Y.getCode()).eq(State::getCourtNumber, courtNumber);
         return stateService.update(stateWrapper);
     }
 }

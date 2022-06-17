@@ -25,7 +25,7 @@
 package cn.stylefeng.guns.modular.controller;
 
 import cn.stylefeng.guns.modular.FileUtils;
-import cn.stylefeng.guns.modular.entity.BasicInfo;
+import cn.stylefeng.guns.modular.entity.*;
 import cn.stylefeng.guns.modular.model.request.BasicInfoRequest;
 import cn.stylefeng.guns.modular.service.*;
 import cn.stylefeng.guns.utils.WordUtil;
@@ -44,6 +44,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,6 +60,7 @@ import java.util.Map;
 @ApiResource(name = "笔录基本信息")
 public class RecordController {
 
+    private static final SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     @Resource
     private BasicInfoService basicInfoService;
     @Resource
@@ -348,16 +351,33 @@ public class RecordController {
     @PostResource(name = "生成笔录", path = "/record/generate")
     public ResponseData generateRecord(String courtNumber) {
 
-        String templatePath = "src/main/resources/templates/";
+        String templatePath = "src/main/resources/templates/template/";
         String templateFile = "record.ftl";
-        String generateFile = "src/main/resources/templates/" + courtNumber + ".doc";
+        String generateFile = "src/main/resources/templates/" + courtNumber + "+" + simpleFormat.format(new Date()) + ".doc";
 
-        JSONObject basicInfoObject = basicInfoService.getBasicInfoObject(courtNumber);
-        basicInfoObject.put("court_number",courtNumber);
-        Map<String, Object> dataMap = new HashMap<>();
-        dataMap.put("basicInfo", basicInfoObject);
+        Map<String, Object> recordMap = new HashMap<>();
+        BasicInfo basicInfo = basicInfoService.getBasicInfo(courtNumber);
+        recordMap.put("basicInfo",basicInfo);
 
-        WordUtil.generateWord(dataMap, templatePath, templateFile, generateFile);
+        List<Accuser> accuserList = accuserService.getAccuserInfoList(courtNumber);
+        recordMap.put("accuser",accuserList.get(0));
+
+        List<Defendant> defendantList = defendantService.getDefendantInfoList(courtNumber);
+        recordMap.put("defendant",defendantList.get(0));
+
+        State stateInfo = stateService.getStateInfo(courtNumber);
+        recordMap.put("state",stateInfo);
+
+        CourtInvestigate courtInvestigateInfo = basicInfoService.getCourtInvestigateInfo(courtNumber);
+        recordMap.put("courtInvestigate",courtInvestigateInfo);
+
+        List<Inquiry> inquiryInfoList = inquiryService.getInquiryInfoList(courtNumber);
+        recordMap.put("inquiry",inquiryInfoList.get(0));
+
+        Argue argueInfo = argueService.getArgueInfo(courtNumber);
+        recordMap.put("argue",argueInfo);
+
+        WordUtil.generateWord(recordMap, templatePath, templateFile, generateFile);
         return new SuccessResponseData();
     }
 }

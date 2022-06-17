@@ -49,6 +49,18 @@ public class Inquiry implements Serializable {
     private String answer;
 
     /**
+     * 原告答案
+     */
+    @TableField(exist = false)
+    private String accuserAnswer;
+
+    /**
+     * 被告答案
+     */
+    @TableField(exist = false)
+    private String defendantAnswer;
+
+    /**
      * 是否反诉
      */
     @TableField("is_counter_claim")
@@ -189,6 +201,22 @@ public class Inquiry implements Serializable {
 
     public void setDelFlag(String delFlag) {
         this.delFlag = delFlag;
+    }
+
+    public String getAccuserAnswer() {
+        return accuserAnswer;
+    }
+
+    public void setAccuserAnswer(String accuserAnswer) {
+        this.accuserAnswer = accuserAnswer;
+    }
+
+    public String getDefendantAnswer() {
+        return defendantAnswer;
+    }
+
+    public void setDefendantAnswer(String defendantAnswer) {
+        this.defendantAnswer = defendantAnswer;
     }
 
     @Override

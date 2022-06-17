@@ -5,6 +5,8 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 原告信息表 服务类
@@ -35,6 +37,16 @@ public interface AccuserService extends IService<Accuser> {
      * @date 2022/05/23
      */
     JSONArray getAccuserInfoArray(String courtNumber);
+
+    /**
+     * 获取原告信息列表
+     *
+     * @param courtNumber 查看参数
+     * @return
+     * @author 金波
+     * @date 2022/06/16
+     */
+    List<Accuser> getAccuserInfoList(String courtNumber);
 
 
     /**

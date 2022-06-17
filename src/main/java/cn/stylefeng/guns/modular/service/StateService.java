@@ -35,6 +35,14 @@ public interface StateService extends IService<State> {
      */
     JSONObject getStateInfoObject(String courtNumber);
 
+    /**
+     * 获取基本信息陈述
+     *
+     * @author jinbo
+     * @Date 2022-06-16
+     */
+    State getStateInfo(String courtNumber);
+
 
     /**
      * 删除基本信息陈述
