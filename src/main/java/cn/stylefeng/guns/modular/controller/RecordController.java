@@ -73,7 +73,7 @@ import java.util.List;
 @ApiResource(name = "笔录基本信息")
 public class RecordController {
 
-    private static final SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd HHmmss");
+    private static final SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy年MM月dd日HH时mm分");
     @Resource
     private BasicInfoService basicInfoService;
     @Resource
@@ -366,8 +366,8 @@ public class RecordController {
 
         String templatePath = "src/main/resources/templates/template/";
         String templateFile = "record.ftl";
-        //String generateFile = "src/main/resources/templates/" + courtNumber + "+" + simpleFormat.format(new Date()) + ".doc";
-        String generateFile = "src/main/resources/templates/" + courtNumber+ ".doc";
+        String generateFile = "src/main/resources/templates/" + courtNumber + "-" + simpleFormat.format(new Date()) + ".doc";
+        //String generateFile = "src/main/resources/templates/" + courtNumber+ ".doc";
 
         Map<String, Object> recordMap = new HashMap<>();
         BasicInfo basicInfo = basicInfoService.getBasicInfo(courtNumber);
@@ -396,16 +396,31 @@ public class RecordController {
     }
 
     /**
+     * 读取生成的笔录文件
+     *
+     * @author jinbo
+     * @date 2022/6/17
+     */
+    @GetResource(name = "读取生成的笔录文件列表", path = "/record/list")
+    public ResponseData recordList(String courtNumber) {
+        String recordPath = "src/main/resources/templates/";
+        List<Record> records = WordUtil.listRecord(recordPath, courtNumber);
+        return new SuccessResponseData(records);
+    }
+
+    /**
      * 下载笔录
      *
      * @author jinbo
      * @date 2022/6/17
      */
     @GetResource(name = "下载笔录", path = "/record/download")
-    public ResponseData recordDownload(String courtNumber) {
+    public ResponseData recordDownload(String recordPath) {
         HttpServletResponse response = HttpServletUtil.getResponse();
-        String recordName = "src/main/resources/templates/"+courtNumber+".doc";
-        WordUtil.downloadRecord(response,recordName);
+        if(!ObjectUtils.isEmpty(recordPath)){
+            WordUtil.downloadRecord(response,recordPath);
+        }
         return new SuccessResponseData();
     }
+
 }

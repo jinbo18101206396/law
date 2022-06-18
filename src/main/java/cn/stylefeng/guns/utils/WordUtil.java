@@ -1,13 +1,15 @@
 package cn.stylefeng.guns.utils;
 
+import cn.stylefeng.guns.modular.entity.Record;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
-import freemarker.template.Version;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,7 +41,7 @@ public class WordUtil {
             Template template = configuration.getTemplate(templateFile, "UTF-8");
             // 创建一个Word文档的输出流
             out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(generateFile)), StandardCharsets.UTF_8));
-            //FreeMarker使用Word模板和数据生成Word文档
+            // FreeMarker使用Word模板和数据生成Word文档
             template.process(dataMap, out);
         } catch (Exception e) {
             e.printStackTrace();
@@ -56,10 +58,11 @@ public class WordUtil {
 
     /**
      * 下载笔录
+     *
      * @param fileName 笔录文件的路径+名称
      */
     public static void downloadRecord(HttpServletResponse response, String fileName) {
-        try{
+        try {
             File file = new File(fileName);
             String filename = file.getName();
             FileInputStream fileInputStream = new FileInputStream(file);
@@ -75,8 +78,31 @@ public class WordUtil {
             response.setContentType("application/octet-stream");
             outputStream.write(buffer);
             outputStream.flush();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 列出当前案号对应的所有笔录
+     *
+     * @param recordPath 笔录文件的路径
+     */
+    public static List<Record> listRecord(String recordPath, String courtNumber){
+        List<Record> recordList = new ArrayList<>();
+        File recordFile = new File(recordPath);
+        File[] files = recordFile.listFiles();
+        for(File file:files){
+            String name = file.getName();
+            String path = file.getPath();
+            if(name.endsWith(".doc") && name.contains(courtNumber)){
+                Record record = new Record();
+                record.setRecordName(name);
+                record.setRecordPath(path);
+                record.setCourtNumber(courtNumber);
+                recordList.add(record);
+            }
+        }
+        return recordList;
     }
 }

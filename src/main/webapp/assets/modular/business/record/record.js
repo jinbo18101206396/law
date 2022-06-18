@@ -269,15 +269,48 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
     table.on('tool(' + Record.tableId + ')', function (obj) {
         var data = obj.data;
         var layEvent = obj.event;
-
         if (layEvent == 'detail') {
             Record.onDetailItem(data);
         } else if (layEvent == 'delete') {
             Record.onDeleteItem(data);
         } else if (layEvent == 'generate') {
-            Record.generateRecord(data)
+             $.get('/record/list?courtNumber='+data.courtNumber,function(result){
+                 recordList(result.data);
+             })
         }
     });
+
+    // 工具条点击事件
+    table.on('tool(templateTable)', function (obj) {
+        var data = obj.data;
+        var layEvent = obj.event;
+       if(layEvent == 'download'){
+            $(location).attr('href', '/record/download?recordPath='+data.recordPath);
+        }
+    });
+
+    function recordList(result) {
+        layui.use('table', function () {
+            var table = layui.table;
+            layer.open({
+                type: 1,
+                area: ['40%', '40%'],
+                title: "笔录列表",
+                content: '<div><table id="templateTable" lay-filter="templateTable"></table></div>', //先定义一个数据表格的div框
+                success: function (index, layero) {
+                    table.render({
+                        elem: '#templateTable',
+                        data: result,
+                        cols: [[
+                            {field: 'recordName', align:'center',title: '笔录名称'},
+                            {field: 'recordPath', align:'center',title: '笔录路径',hide:true},
+                            {align: 'center', toolbar: '#recordBar', title: '操作',width: 150}
+                        ]]
+                    });
+                }
+            });
+        });
+    }
 
     /* 修改案件状态 */
     Record.changeCourtStatus = function (basicId, checked) {
@@ -296,5 +329,4 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
         var checked = obj.elem.checked ? 1 : 2;
         Record.changeCourtStatus(basicId, checked);
     });
-
 });
