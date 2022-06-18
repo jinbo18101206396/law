@@ -362,8 +362,9 @@ public class RecordController {
      * @date 2022/06/08
      */
     @PostResource(name = "生成笔录", path = "/record/generate")
-    public ResponseData generateRecord(String courtNumber) {
+    public ResponseData generateRecord(@RequestBody String courtNumberJson) {
 
+        String courtNumber=JSONObject.parseObject(courtNumberJson).getString("courtNumber");
         String templatePath = "src/main/resources/templates/template/";
         String templateFile = "record.ftl";
         //String generateFile = "src/main/resources/templates/" + courtNumber + "+" + simpleFormat.format(new Date()) + ".doc";
