@@ -416,9 +416,10 @@ public class RecordController {
      * @date 2022/6/17
      */
     @GetResource(name = "下载笔录", path = "/record/download")
-    public ResponseData recordDownload(String recordPath) {
+    public ResponseData recordDownload(String recordPath) throws UnsupportedEncodingException {
         HttpServletResponse response = HttpServletUtil.getResponse();
-        if(!ObjectUtils.isEmpty(recordPath)){
+        String filepath=java.net.URLDecoder.decode(recordPath,"utf-8");
+        if(!ObjectUtils.isEmpty(filepath)){
             WordUtil.downloadRecord(response,recordPath);
         }
         return new SuccessResponseData();

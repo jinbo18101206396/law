@@ -285,7 +285,7 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
         var data = obj.data;
         var layEvent = obj.event;
        if(layEvent == 'download'){
-            $(location).attr('href', '/record/download?recordPath='+data.recordPath);
+            $(location).attr('href', '/record/download?recordPath='+encodeURI(data.recordPath));
         }
     });
 
