@@ -38,17 +38,22 @@ public class QueryServiceImpl extends ServiceImpl<QueryMapper, Query> implements
             //被告质证
             for (int i = 0; i < defendantQueryArray.size(); i++) {
                 JSONObject defendantQueryObject = defendantQueryArray.getJSONObject(i);
-                Query query = new Query();
-                query.setName(defendantQueryObject.get("defendant").toString());
-                query.setEvidence(defendantQueryObject.get("evidence").toString());
-                query.setFacticity(defendantQueryObject.get("facticity").toString());
-                query.setLegality(defendantQueryObject.get("legality").toString());
-                query.setRelevance(defendantQueryObject.get("relevance").toString());
-                query.setReason(defendantQueryObject.get("defendant_query_fact_reason").toString());
-                query.setIsCounterClaim(counterClaim);
-                query.setQueryType(1);
-                query.setCourtNumber(courtNumber);
-                this.save(query);
+                String defendant = defendantQueryObject.getString("defendant");
+                String evidence = defendantQueryObject.getString("evidence");
+                String defendantQueryFactReason = defendantQueryObject.getString("defendant_query_fact_reason");
+                if(!ObjectUtils.isEmpty(defendant) && !ObjectUtils.isEmpty(evidence) && !ObjectUtils.isEmpty(defendantQueryFactReason)){
+                    Query query = new Query();
+                    query.setName(defendant);
+                    query.setEvidence(evidence);
+                    query.setFacticity(defendantQueryObject.get("facticity").toString());
+                    query.setLegality(defendantQueryObject.get("legality").toString());
+                    query.setRelevance(defendantQueryObject.get("relevance").toString());
+                    query.setReason(defendantQueryFactReason);
+                    query.setIsCounterClaim(counterClaim);
+                    query.setQueryType(1);
+                    query.setCourtNumber(courtNumber);
+                    this.save(query);
+                }
             }
         }
     }
@@ -63,17 +68,22 @@ public class QueryServiceImpl extends ServiceImpl<QueryMapper, Query> implements
             JSONArray accuserQueryArray = courtInvestigateObject.getJSONArray("accuser_query");
             for (int i = 0; i < accuserQueryArray.size(); i++) {
                 JSONObject accuserQueryObject = accuserQueryArray.getJSONObject(i);
-                Query query = new Query();
-                query.setName(accuserQueryObject.get("accuser").toString());
-                query.setEvidence(accuserQueryObject.get("evidence").toString());
-                query.setFacticity(accuserQueryObject.get("facticity").toString());
-                query.setLegality(accuserQueryObject.get("legality").toString());
-                query.setRelevance(accuserQueryObject.get("relevance").toString());
-                query.setReason(accuserQueryObject.get("accuser_query_fact_reason").toString());
-                query.setIsCounterClaim(counterClaim);
-                query.setQueryType(2);
-                query.setCourtNumber(courtNumber);
-                this.save(query);
+                String accuser = accuserQueryObject.getString("accuser");
+                String evidence = accuserQueryObject.getString("evidence");
+                String accuserQueryFactReason = accuserQueryObject.getString("accuser_query_fact_reason");
+                if(!ObjectUtils.isEmpty(accuser) && !ObjectUtils.isEmpty(evidence) && !ObjectUtils.isEmpty(accuserQueryFactReason)){
+                    Query query = new Query();
+                    query.setName(accuser);
+                    query.setEvidence(evidence);
+                    query.setFacticity(accuserQueryObject.get("facticity").toString());
+                    query.setLegality(accuserQueryObject.get("legality").toString());
+                    query.setRelevance(accuserQueryObject.get("relevance").toString());
+                    query.setReason(accuserQueryFactReason);
+                    query.setIsCounterClaim(counterClaim);
+                    query.setQueryType(2);
+                    query.setCourtNumber(courtNumber);
+                    this.save(query);
+                }
             }
         }
     }

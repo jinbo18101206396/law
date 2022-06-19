@@ -56,16 +56,22 @@ public class ProofServiceImpl extends ServiceImpl<ProofMapper, Proof> implements
                 JSONArray accuserEvidenceArray = courtInvestigateObject.getJSONArray("accuser_evidence");
                 for (int i = 0; i < accuserEvidenceArray.size(); i++) {
                     JSONObject accuserEvidenceObject = accuserEvidenceArray.getJSONObject(i);
-                    Proof proof = new Proof();
-                    proof.setName(accuserName.toString());
-                    proof.setType("原告");
-                    proof.setSerial(accuserEvidenceObject.get("serial").toString());
-                    proof.setEvidence(accuserEvidenceObject.get("evidence").toString());
-                    proof.setEvidenceType(accuserEvidenceObject.get("evidence_type").toString());
-                    proof.setContent(accuserEvidenceObject.get("content").toString());
-                    proof.setIsCounterClaim(counterClaim);
-                    proof.setCourtNumber(courtNumber);
-                    this.save(proof);
+                    String serial = accuserEvidenceObject.getString("serial");
+                    String evidence = accuserEvidenceObject.getString("evidence");
+                    String evidenceType = accuserEvidenceObject.getString("evidence_type");
+                    String content = accuserEvidenceObject.getString("content");
+                    if(!ObjectUtils.isEmpty(accuserName) && !ObjectUtils.isEmpty(evidence) && !ObjectUtils.isEmpty(evidenceType) ){
+                        Proof proof = new Proof();
+                        proof.setName(accuserName.toString());
+                        proof.setType("原告");
+                        proof.setSerial(serial);
+                        proof.setEvidence(evidence);
+                        proof.setEvidenceType(evidenceType);
+                        proof.setContent(content);
+                        proof.setIsCounterClaim(counterClaim);
+                        proof.setCourtNumber(courtNumber);
+                        this.save(proof);
+                    }
                 }
             }
         }
@@ -83,15 +89,21 @@ public class ProofServiceImpl extends ServiceImpl<ProofMapper, Proof> implements
                 JSONArray defendantEvidenceArray = courtInvestigateObject.getJSONArray("defendant_evidence");
                 for (int i = 0; i < defendantEvidenceArray.size(); i++) {
                     JSONObject defendantEvidenceObject = defendantEvidenceArray.getJSONObject(i);
-                    Proof proof = new Proof();
-                    proof.setType("被告");
-                    proof.setSerial(defendantEvidenceObject.get("serial").toString());
-                    proof.setEvidence(defendantEvidenceObject.get("evidence").toString());
-                    proof.setEvidenceType(defendantEvidenceObject.get("evidence_type").toString());
-                    proof.setContent(defendantEvidenceObject.get("content").toString());
-                    proof.setIsCounterClaim(counterClaim);
-                    proof.setCourtNumber(courtNumber);
-                    this.save(proof);
+                    String serial = defendantEvidenceObject.getString("serial");
+                    String evidence = defendantEvidenceObject.getString("evidence");
+                    String evidenceType = defendantEvidenceObject.getString("evidence_type");
+                    String content = defendantEvidenceObject.getString("content");
+                    if(!ObjectUtils.isEmpty(evidence) && !ObjectUtils.isEmpty(evidenceType) ){
+                        Proof proof = new Proof();
+                        proof.setType("被告");
+                        proof.setSerial(serial);
+                        proof.setEvidence(evidence);
+                        proof.setEvidenceType(evidenceType);
+                        proof.setContent(content);
+                        proof.setIsCounterClaim(counterClaim);
+                        proof.setCourtNumber(courtNumber);
+                        this.save(proof);
+                    }
                 }
             }
         }
@@ -109,16 +121,22 @@ public class ProofServiceImpl extends ServiceImpl<ProofMapper, Proof> implements
                 JSONArray counterClaimAccuserEvidenceArray = courtInvestigateObject.getJSONArray("counterclaim_accuser_evidence");
                 for (int i = 0; i < counterClaimAccuserEvidenceArray.size(); i++) {
                     JSONObject counterClaimAccuserEvidenceObject = counterClaimAccuserEvidenceArray.getJSONObject(i);
-                    Proof proof = new Proof();
-                    proof.setName("反诉原告");
-                    proof.setType("反诉原告");
-                    proof.setSerial(counterClaimAccuserEvidenceObject.get("serial").toString());
-                    proof.setEvidence(counterClaimAccuserEvidenceObject.get("evidence").toString());
-                    proof.setEvidenceType(counterClaimAccuserEvidenceObject.get("evidence_type").toString());
-                    proof.setContent(counterClaimAccuserEvidenceObject.get("content").toString());
-                    proof.setIsCounterClaim(counterClaim);
-                    proof.setCourtNumber(courtNumber);
-                    this.save(proof);
+                    String serial = counterClaimAccuserEvidenceObject.getString("serial");
+                    String evidence = counterClaimAccuserEvidenceObject.getString("evidence");
+                    String evidenceType = counterClaimAccuserEvidenceObject.getString("evidence_type");
+                    String content = counterClaimAccuserEvidenceObject.getString("content");
+                    if(!ObjectUtils.isEmpty(evidence) && !ObjectUtils.isEmpty(evidenceType) ){
+                        Proof proof = new Proof();
+                        proof.setName("反诉原告");
+                        proof.setType("反诉原告");
+                        proof.setSerial(serial);
+                        proof.setEvidence(evidence);
+                        proof.setEvidenceType(evidenceType);
+                        proof.setContent(content);
+                        proof.setIsCounterClaim(counterClaim);
+                        proof.setCourtNumber(courtNumber);
+                        this.save(proof);
+                    }
                 }
             }
         }
@@ -136,15 +154,21 @@ public class ProofServiceImpl extends ServiceImpl<ProofMapper, Proof> implements
                 JSONArray counterClaimDefendantEvidenceArray = courtInvestigateObject.getJSONArray("counterclaim_defendant_evidence");
                 for (int i = 0; i < counterClaimDefendantEvidenceArray.size(); i++) {
                     JSONObject counterClaimDefendantEvidenceObject = counterClaimDefendantEvidenceArray.getJSONObject(i);
-                    Proof proof = new Proof();
-                    proof.setType("反诉被告");
-                    proof.setSerial(counterClaimDefendantEvidenceObject.get("serial").toString());
-                    proof.setEvidence(counterClaimDefendantEvidenceObject.get("evidence").toString());
-                    proof.setEvidenceType(counterClaimDefendantEvidenceObject.get("evidence_type").toString());
-                    proof.setContent(counterClaimDefendantEvidenceObject.get("content").toString());
-                    proof.setIsCounterClaim(counterClaim);
-                    proof.setCourtNumber(courtNumber);
-                    this.save(proof);
+                    String serial = counterClaimDefendantEvidenceObject.getString("serial");
+                    String evidence = counterClaimDefendantEvidenceObject.getString("evidence");
+                    String evidenceType = counterClaimDefendantEvidenceObject.getString("evidence_type");
+                    String content = counterClaimDefendantEvidenceObject.getString("content");
+                    if(!ObjectUtils.isEmpty(evidence) && !ObjectUtils.isEmpty(evidenceType) ){
+                        Proof proof = new Proof();
+                        proof.setType("反诉被告");
+                        proof.setSerial(serial);
+                        proof.setEvidence(evidence);
+                        proof.setEvidenceType(evidenceType);
+                        proof.setContent(content);
+                        proof.setIsCounterClaim(counterClaim);
+                        proof.setCourtNumber(courtNumber);
+                        this.save(proof);
+                    }
                 }
             }
         }
