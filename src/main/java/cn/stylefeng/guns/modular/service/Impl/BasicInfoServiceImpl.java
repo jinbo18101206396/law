@@ -580,7 +580,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
             String evidenceType = accuserEvidenceObject.getString("evidence_type");
             String evidence = accuserEvidenceObject.getString("evidence");
             String content = accuserEvidenceObject.getString("content");
-            accuserEvidence += serial + "." + evidence + "(" + evidenceType + "),证明事项：" + content + "；";
+            accuserEvidence += serial + "." + evidence + "(" + evidenceType + "),证明事项：" + content;
         }
         //被告质证
         String defendantQuery = "";
@@ -597,7 +597,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 if (evidence.contains("**")) {
                     evidence = evidence.replace("**", "、");
                 }
-                defendantQuery += defendant + "质证（" + evidence + "）；事实和理由：" + defendantQueryFactReason + "；";
+                defendantQuery += defendant + "质证（" + evidence + "）；事实和理由：" + defendantQueryFactReason;
             }
         }
         CourtInvestigate courtInvestigate = new CourtInvestigate();
