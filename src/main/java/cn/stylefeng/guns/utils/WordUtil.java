@@ -88,14 +88,14 @@ public class WordUtil {
      *
      * @param recordPath 笔录文件的路径
      */
-    public static List<Record> listRecord(String recordPath, String courtNumber){
+    public static List<Record> listRecord(String recordPath, String courtNumber) {
         List<Record> recordList = new ArrayList<>();
         File recordFile = new File(recordPath);
         File[] files = recordFile.listFiles();
-        for(File file:files){
+        for (File file : files) {
             String name = file.getName();
             String path = file.getPath();
-            if(name.endsWith(".doc") && name.contains(courtNumber)){
+            if (name.endsWith(".doc") && name.contains(courtNumber)) {
                 Record record = new Record();
                 record.setRecordName(name);
                 record.setRecordPath(path);

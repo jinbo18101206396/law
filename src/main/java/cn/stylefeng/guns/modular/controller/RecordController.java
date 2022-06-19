@@ -29,7 +29,6 @@ import cn.stylefeng.guns.modular.entity.*;
 import cn.stylefeng.guns.modular.model.request.BasicInfoRequest;
 import cn.stylefeng.guns.modular.service.*;
 import cn.stylefeng.guns.utils.WordUtil;
-import cn.stylefeng.roses.kernel.rule.enums.YesOrNotEnum;
 import cn.stylefeng.roses.kernel.rule.pojo.response.ResponseData;
 import cn.stylefeng.roses.kernel.rule.pojo.response.SuccessResponseData;
 import cn.stylefeng.roses.kernel.rule.util.HttpServletUtil;
@@ -38,6 +37,7 @@ import cn.stylefeng.roses.kernel.scanner.api.annotation.GetResource;
 import cn.stylefeng.roses.kernel.scanner.api.annotation.PostResource;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.ObjectUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,21 +46,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.ByteArrayInputStream;
-import java.io.OutputStream;
-import java.math.BigInteger;
-import java.net.URLEncoder;
-import java.util.List;
 
 
 /**
@@ -103,6 +95,18 @@ public class RecordController {
     @Resource
     private ClerkRelationService clerkRelationService;
 
+    @Value("${record.backup.path}")
+    private String backupPath;
+
+    @Value("${record.templates.template-path}")
+    private String templatePath;
+
+    @Value("${record.templates.generate-path}")
+    private String generatePath;
+
+    @Value("${record.templates.template-name}")
+    private String templateName;
+
     /**
      * 分页查询笔录基本信息(系统首页)
      *
@@ -126,7 +130,7 @@ public class RecordController {
     public ResponseData add(@RequestBody String recordJsonStr) {
         System.out.println("提交的数据：" + recordJsonStr);
         //每次提交的recordJson保存一份在本地
-        FileUtils.writerFile(recordJsonStr, "src/main/backup");
+        FileUtils.writerFile(recordJsonStr, backupPath);
 
         JSONObject recordJson = JSONObject.parseObject(recordJsonStr);
         JSONObject recordJsonObject = recordJson.getJSONObject("recordJson");
@@ -363,36 +367,32 @@ public class RecordController {
      */
     @PostResource(name = "生成笔录", path = "/record/generate")
     public ResponseData generateRecord(@RequestBody String courtNumberJson) {
-
-        String courtNumber=JSONObject.parseObject(courtNumberJson).getString("courtNumber");
-        String templatePath = "src/main/resources/templates/template/";
-        String templateFile = "record.ftl";
-        String generateFile = "src/main/resources/templates/" + courtNumber + "-" + simpleFormat.format(new Date()) + ".doc";
-        //String generateFile = "src/main/resources/templates/" + courtNumber+ ".doc";
+        String courtNumber = JSONObject.parseObject(courtNumberJson).getString("courtNumber");
+        String generateFile = generatePath + courtNumber + "-" + simpleFormat.format(new Date()) + ".doc";
 
         Map<String, Object> recordMap = new HashMap<>();
         BasicInfo basicInfo = basicInfoService.getBasicInfo(courtNumber);
-        recordMap.put("basicInfo",basicInfo);
+        recordMap.put("basicInfo", basicInfo);
 
         List<Accuser> accuserList = accuserService.getAccuserInfoList(courtNumber);
-        recordMap.put("accuser",accuserList.get(0));
+        recordMap.put("accuser", accuserList.get(0));
 
         List<Defendant> defendantList = defendantService.getDefendantInfoList(courtNumber);
-        recordMap.put("defendant",defendantList.get(0));
+        recordMap.put("defendant", defendantList.get(0));
 
         State stateInfo = stateService.getStateInfo(courtNumber);
-        recordMap.put("state",stateInfo);
+        recordMap.put("state", stateInfo);
 
         CourtInvestigate courtInvestigateInfo = basicInfoService.getCourtInvestigateInfo(courtNumber);
-        recordMap.put("courtInvestigate",courtInvestigateInfo);
+        recordMap.put("courtInvestigate", courtInvestigateInfo);
 
         List<Inquiry> inquiryInfoList = inquiryService.getInquiryInfoList(courtNumber);
-        recordMap.put("inquiry",inquiryInfoList.get(0));
+        recordMap.put("inquiry", inquiryInfoList.get(0));
 
         Argue argueInfo = argueService.getArgueInfo(courtNumber);
-        recordMap.put("argue",argueInfo);
+        recordMap.put("argue", argueInfo);
 
-        WordUtil.generateWord(recordMap, templatePath, templateFile, generateFile);
+        WordUtil.generateWord(recordMap, templatePath, templateName, generateFile);
         return new SuccessResponseData();
     }
 
@@ -404,8 +404,7 @@ public class RecordController {
      */
     @GetResource(name = "读取生成的笔录文件列表", path = "/record/list")
     public ResponseData recordList(String courtNumber) {
-        String recordPath = "src/main/resources/templates/";
-        List<Record> records = WordUtil.listRecord(recordPath, courtNumber);
+        List<Record> records = WordUtil.listRecord(generatePath, courtNumber);
         return new SuccessResponseData(records);
     }
 
@@ -418,9 +417,9 @@ public class RecordController {
     @GetResource(name = "下载笔录", path = "/record/download")
     public ResponseData recordDownload(String recordPath) throws UnsupportedEncodingException {
         HttpServletResponse response = HttpServletUtil.getResponse();
-        String filepath=java.net.URLDecoder.decode(recordPath,"utf-8");
-        if(!ObjectUtils.isEmpty(filepath)){
-            WordUtil.downloadRecord(response,recordPath);
+        String filepath = java.net.URLDecoder.decode(recordPath, "utf-8");
+        if (!ObjectUtils.isEmpty(filepath)) {
+            WordUtil.downloadRecord(response, recordPath);
         }
         return new SuccessResponseData();
     }
