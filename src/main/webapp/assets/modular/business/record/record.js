@@ -207,7 +207,9 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
 
                     //审判员最后陈述
                     if ("summarize" in wholeItem) {
-                        myLocalStorage["summarize"] = wholeItem.summarize
+                        let summarize={}
+                        summarize["summarize"]=wholeItem.summarize
+                        myLocalStorage["summarize"] = summarize
                     }
 
                     localStorage.setItem(wholeItem.basicInfo.court_number, JSON.stringify(myLocalStorage))
