@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class FileUtils {
 
-    private static final SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd HH：mm：ss");
+    private static final SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒");
 
     public static void writerFile(String recordJson, String filePath) {
         FileWriter fw = null;
