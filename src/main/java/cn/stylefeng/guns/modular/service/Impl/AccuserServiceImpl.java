@@ -251,20 +251,22 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
                 accuser.setAccuserAvoid(accuserAvoid);
             }
             String mediate = accuser.getIsMediate();
+            String mediatePlan = accuser.getMediatePlan();
             if (!ObjectUtils.isEmpty(mediate)) {
                 if ("1".equals(mediate)) {
-                    mediate = "能";
+                    mediate = "能，调解方案："+mediatePlan;
                 } else {
                     mediate = "不能";
                 }
                 accuser.setIsMediate(mediate);
             }
             String delivery = accuser.getIsDelivery();
+            String email = accuser.getEmail();
             if (!ObjectUtils.isEmpty(delivery)) {
                 if ("1".equals(delivery)) {
-                    delivery = "同意";
+                    delivery = "同意，邮箱："+email;
                 } else {
-                    delivery = "不同意";
+                    delivery = "不同意，邮寄地址："+email;
                 }
                 accuser.setIsDelivery(delivery);
             }

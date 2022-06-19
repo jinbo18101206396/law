@@ -258,20 +258,22 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
                 defendant.setDefendantAvoid(defendantAvoid);
             }
             String mediate = defendant.getIsMediate();
+            String mediatePlan = defendant.getMediatePlan();
             if (!ObjectUtils.isEmpty(mediate)) {
                 if ("1".equals(mediate)) {
-                    mediate = "能";
+                    mediate = "能，调解方案："+mediatePlan;
                 } else {
                     mediate = "不能";
                 }
                 defendant.setIsMediate(mediate);
             }
             String delivery = defendant.getIsDelivery();
+            String email = defendant.getEmail();
             if (!ObjectUtils.isEmpty(delivery)) {
                 if ("1".equals(delivery)) {
-                    delivery = "同意";
+                    delivery = "同意，邮箱："+email;
                 } else {
-                    delivery = "不同意";
+                    delivery = "不同意，邮寄地址："+email;
                 }
                 defendant.setIsDelivery(delivery);
             }
