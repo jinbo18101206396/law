@@ -143,10 +143,10 @@ public class InquiryServiceImpl extends ServiceImpl<InquiryMapper, Inquiry> impl
                 if (!ObjectUtils.isEmpty(name) && !ObjectUtils.isEmpty(answer)) {
                     if (name.contains("原告")) {
                         name = name.replace("（原告）", "");
-                        accuserAnswer += name + ":" + answer + "；";
+                        accuserAnswer += name + "（" + answer + "）；";
                     } else {
                         name = name.replace("（被告）", "");
-                        defendantAnswer += name + ":" + answer + "；";
+                        defendantAnswer += name + "（" + answer + "）；";
                     }
                 }
             }

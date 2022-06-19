@@ -41,7 +41,7 @@ public class QueryServiceImpl extends ServiceImpl<QueryMapper, Query> implements
                 String defendant = defendantQueryObject.getString("defendant");
                 String evidence = defendantQueryObject.getString("evidence");
                 String defendantQueryFactReason = defendantQueryObject.getString("defendant_query_fact_reason");
-                if(!ObjectUtils.isEmpty(defendant) && !ObjectUtils.isEmpty(evidence) && !ObjectUtils.isEmpty(defendantQueryFactReason)){
+                if (!ObjectUtils.isEmpty(defendant) && !ObjectUtils.isEmpty(evidence) && !ObjectUtils.isEmpty(defendantQueryFactReason)) {
                     Query query = new Query();
                     query.setName(defendant);
                     query.setEvidence(evidence);
@@ -71,7 +71,7 @@ public class QueryServiceImpl extends ServiceImpl<QueryMapper, Query> implements
                 String accuser = accuserQueryObject.getString("accuser");
                 String evidence = accuserQueryObject.getString("evidence");
                 String accuserQueryFactReason = accuserQueryObject.getString("accuser_query_fact_reason");
-                if(!ObjectUtils.isEmpty(accuser) && !ObjectUtils.isEmpty(evidence) && !ObjectUtils.isEmpty(accuserQueryFactReason)){
+                if (!ObjectUtils.isEmpty(accuser) && !ObjectUtils.isEmpty(evidence) && !ObjectUtils.isEmpty(accuserQueryFactReason)) {
                     Query query = new Query();
                     query.setName(accuser);
                     query.setEvidence(evidence);

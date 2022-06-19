@@ -568,7 +568,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
             String name = defendantReplyObject.getString("name");
             String content = defendantReplyObject.getString("content");
             if (!ObjectUtils.isEmpty(name) && !ObjectUtils.isEmpty(content)) {
-                defendantReply += name + ":" + content + "；";
+                defendantReply += name + "（" + content + "）；";
             }
         }
         //原告举证
@@ -597,7 +597,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 if (evidence.contains("**")) {
                     evidence = evidence.replace("**", "、");
                 }
-                defendantQuery += defendant + "，质证：" + evidence + "，事实和理由：" + defendantQueryFactReason + "；";
+                defendantQuery += defendant + "质证（" + evidence + "）；事实和理由：" + defendantQueryFactReason + "；";
             }
         }
         CourtInvestigate courtInvestigate = new CourtInvestigate();
