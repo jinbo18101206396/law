@@ -308,7 +308,7 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
             var table = layui.table;
             layer.open({
                 type: 1,
-                area: ['40%', '40%'],
+                area: ['50%', '50%'],
                 title: "笔录列表",
                 content: '<div><table id="templateTable" lay-filter="templateTable"></table></div>', //先定义一个数据表格的div框
                 success: function (index, layero) {
