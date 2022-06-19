@@ -84,6 +84,21 @@ public class WordUtil {
     }
 
     /**
+     * 删除笔录
+     *
+     * @param filePath 笔录文件的路径+名称
+     */
+    public static boolean deleteRecord(String filePath) {
+        boolean flag = false;
+        File file = new File(filePath);
+        if(file.isFile() && file.exists()){
+            file.delete();
+            flag = true;
+        }
+        return flag;
+    }
+
+    /**
      * 列出当前案号对应的所有笔录
      *
      * @param recordPath 笔录文件的路径

@@ -280,13 +280,25 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
         }
     });
 
-    // 工具条点击事件
+    // 笔录列表弹框工具条点击事件
     table.on('tool(templateTable)', function (obj) {
         var data = obj.data;
         var layEvent = obj.event;
        if(layEvent == 'download'){
             $(location).attr('href', '/record/download?recordPath='+encodeURI(data.recordPath));
-        }
+        }else if(layEvent == 'delete'){
+           var operation = function () {
+               var httpRequest = new HttpRequest(Feng.ctxPath + "/record/word/delete", 'post', function (data) {
+                   Feng.success("删除成功!");
+                   location.reload();
+               }, function (data) {
+                   Feng.error("删除失败!" + data.message + "!");
+               });
+               httpRequest.set(data);
+               httpRequest.start(true);
+           };
+           Feng.confirm("确定删除笔录【" + data.recordName + "】?", operation);
+       }
     });
 
     function recordList(result) {
@@ -307,6 +319,9 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                             {align: 'center', toolbar: '#recordBar', title: '操作',width: 150}
                         ]]
                     });
+                },
+                end: function () {
+                    location.reload();
                 }
             });
         });

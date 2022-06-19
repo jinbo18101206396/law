@@ -424,4 +424,20 @@ public class RecordController {
         return new SuccessResponseData();
     }
 
+    /**
+     * 删除已经生成的笔录
+     *
+     * @author jinbo
+     * @date 2022/6/19
+     */
+    @PostResource(name = "删除已经生成的笔录", path = "/record/word/delete")
+    public ResponseData recordDelete(@RequestBody Record record) {
+        String recordPath = record.getRecordPath();
+        Boolean deleteFlag = false;
+        if (!ObjectUtils.isEmpty(recordPath)) {
+            deleteFlag = WordUtil.deleteRecord(recordPath);
+        }
+        return new SuccessResponseData(deleteFlag);
+    }
+
 }
