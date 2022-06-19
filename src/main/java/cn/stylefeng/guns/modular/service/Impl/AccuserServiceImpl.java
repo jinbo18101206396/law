@@ -183,7 +183,7 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
             accuserInfoObject.put("accuser_type", accuser.getAccuserType());
             accuserInfoObject.put("accuser", accuser.getAccuser());
             accuserInfoObject.put("accuser_short", accuserShort);
-            accuserInfoObject.put("accuser_info",accuser.getAccuserInfo());
+            accuserInfoObject.put("accuser_info", accuser.getAccuserInfo());
             accuserInfoObject.put("accuser_address", accuser.getAccuserAddress());
             accuserInfoObject.put("accuser_represent", accuser.getAccuserRepresent());
             accuserInfoObject.put("accuser_duty", accuser.getAccuserDuty());

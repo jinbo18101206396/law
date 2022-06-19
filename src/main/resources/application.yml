@@ -58,6 +58,15 @@ spring:
     template-loader-path: classPath:/templates/
     prefer-file-system-access: false
 
+# 笔录文件相关
+record:
+  backup:
+    path: src/main/backup
+  templates:
+    generate-path: src/main/resources/templates/
+    template-path: src/main/resources/templates/template/
+    template-name: record.ftl
+
 # 资源扫描
 scanner:
   open: true
