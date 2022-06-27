@@ -58,8 +58,8 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
             accuser.setAccuserAddress(accuserInfoObject.getString("accuser_address"));
             //原告-机构
             if ("1".equals(accuserType)) {
-                accuser.setAccuserRepresent(accuserInfoObject.get("accuser_represent").toString());
-                accuser.setAccuserDuty(accuserInfoObject.get("accuser_duty").toString());
+                accuser.setAccuserRepresent(accuserInfoObject.getString("accuser_represent"));
+                accuser.setAccuserDuty(accuserInfoObject.getString("accuser_duty"));
             }
             accuser.setCourtNumber(courtNumber);
 
@@ -70,10 +70,10 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
                 JSONArray accuserRightDutyArray = rightInfoObject.getJSONArray("accuser_right_duty");
                 for (int j = 0; j < accuserRightDutyArray.size(); j++) {
                     JSONObject accuserRightDutyObject = accuserRightDutyArray.getJSONObject(j);
-                    String rightDutyAccuserName = accuserRightDutyObject.get("accuser").toString();
+                    String rightDutyAccuserName = accuserRightDutyObject.getString("accuser");
                     if (!"".equals(rightDutyAccuserName) && rightDutyAccuserName.equals(accuserShortName)) {
-                        accuser.setAccuserRightDuty(accuserRightDutyObject.get("right_duty").toString());
-                        accuser.setAccuserAvoid(accuserRightDutyObject.get("avoid").toString());
+                        accuser.setAccuserRightDuty(accuserRightDutyObject.getString("right_duty"));
+                        accuser.setAccuserAvoid(accuserRightDutyObject.getString("avoid"));
                     }
                 }
             }
@@ -86,16 +86,16 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
                 JSONArray mediateAccuserArray = mediateInfoObject.getJSONArray("mediate_accuser");
                 for (int k = 0; k < mediateAccuserArray.size(); k++) {
                     JSONObject mediateAccuserObject = mediateAccuserArray.getJSONObject(k);
-                    String mediate = mediateAccuserObject.get("is_mediate").toString();
-                    Object mediatePlan = mediateAccuserObject.get("mediate_plan");
-                    Object timeLimit = mediateAccuserObject.get("time_limit");
-                    String mediateAccuserName = mediateAccuserObject.get("accuser").toString();
+                    String mediate = mediateAccuserObject.getString("is_mediate");
+                    String mediatePlan = mediateAccuserObject.getString("mediate_plan");
+                    String timeLimit = mediateAccuserObject.getString("time_limit");
+                    String mediateAccuserName = mediateAccuserObject.getString("accuser");
                     if (!ObjectUtils.isEmpty(mediateAccuserName) && mediateAccuserName.contains("（")) {
                         String accUserName = mediateAccuserName.split("（")[0];
                         if (accUserName.equals(accuserShortName)) {
                             accuser.setIsMediate(mediate);
-                            accuser.setMediatePlan(mediatePlan == null ? "" : mediatePlan.toString());
-                            accuser.setTimeLimit(timeLimit == null ? "" : timeLimit.toString());
+                            accuser.setMediatePlan(mediatePlan == null ? "" : mediatePlan);
+                            accuser.setTimeLimit(timeLimit == null ? "" : timeLimit);
                         }
                     }
                 }
@@ -107,15 +107,15 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
                 for (int m = 0; m < deliveryInfoArray.size(); m++) {
                     JSONObject deliveryObject = deliveryInfoArray.getJSONObject(m);
                     //格式：姓名（类型），例如：张三（原告）
-                    String deliveryAccuserName = deliveryObject.get("name").toString();
-                    Object email = deliveryObject.get("email");
-                    Object delivery = deliveryObject.get("is_delivery");
+                    String deliveryAccuserName = deliveryObject.getString("name");
+                    String email = deliveryObject.getString("email");
+                    String delivery = deliveryObject.getString("is_delivery");
                     if (!ObjectUtils.isEmpty(deliveryAccuserName) && deliveryAccuserName.contains("（")) {
                         String name = deliveryAccuserName.split("（")[0];
                         String type = deliveryAccuserName.split("（")[1];
                         if (name.equals(accuserShortName) && type.startsWith("原告")) {
-                            accuser.setIsDelivery(delivery == null ? "" : delivery.toString());
-                            accuser.setEmail(email == null ? "" : email.toString());
+                            accuser.setIsDelivery(delivery == null ? "" : delivery);
+                            accuser.setEmail(email == null ? "" : email);
                         }
                     }
                 }
@@ -127,12 +127,12 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
                 for (int m = 0; m < finalStatementInfoArray.size(); m++) {
                     JSONObject finalStatementObject = finalStatementInfoArray.getJSONObject(m);
                     //格式：姓名（类型），例如：张三（原告）
-                    String finalStatementAccuserName = finalStatementObject.get("name").toString();
+                    String finalStatementAccuserName = finalStatementObject.getString("name");
                     if (!ObjectUtils.isEmpty(finalStatementAccuserName) && finalStatementAccuserName.contains("（")) {
                         String name = finalStatementAccuserName.split("（")[0];
                         String type = finalStatementAccuserName.split("（")[1];
                         if (name.equals(accuserShortName) && type.startsWith("原告")) {
-                            accuser.setFinalStatement(finalStatementObject.get("final_statement").toString());
+                            accuser.setFinalStatement(finalStatementObject.getString("final_statement"));
                         }
                     }
                 }
@@ -160,7 +160,7 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
             Accuser accuser = accusers.get(i);
             String accuserShort = accuser.getAccuserShort();
             JSONArray accuserAgentArray = new JSONArray();
-            if (agents.size() <= 0) {
+            if (agents == null || agents.size() <= 0) {
                 JSONObject accuserAgentObject = new JSONObject();
                 accuserAgentObject.put("agent", "");
                 accuserAgentObject.put("agent_address", "");
@@ -187,7 +187,7 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
             accuserInfoObject.put("accuser_address", accuser.getAccuserAddress());
             accuserInfoObject.put("accuser_represent", accuser.getAccuserRepresent());
             accuserInfoObject.put("accuser_duty", accuser.getAccuserDuty());
-            if (accuserAgentArray.size() <= 0) {
+            if (accuserAgentArray == null || accuserAgentArray.size() <= 0) {
                 JSONObject agentObject = new JSONObject();
                 agentObject.put("agent", "");
                 agentObject.put("agent_address", "");
@@ -197,7 +197,7 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
             accuserInfoArray.add(accuserInfoObject);
         }
 
-        if (accuserInfoArray.size() <= 0) {
+        if (accuserInfoArray == null || accuserInfoArray.size() <= 0) {
             JSONObject accuserInfoObject = new JSONObject();
             accuserInfoObject.put("accuser_type", "1");
             accuserInfoObject.put("accuser", "");
@@ -254,7 +254,7 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
             String mediatePlan = accuser.getMediatePlan();
             if (!ObjectUtils.isEmpty(mediate)) {
                 if ("1".equals(mediate)) {
-                    mediate = "能，调解方案："+mediatePlan;
+                    mediate = "能，调解方案：" + mediatePlan;
                 } else {
                     mediate = "不能";
                 }
@@ -264,9 +264,9 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
             String email = accuser.getEmail();
             if (!ObjectUtils.isEmpty(delivery)) {
                 if ("1".equals(delivery)) {
-                    delivery = "同意，邮箱："+email;
+                    delivery = "同意，邮箱：" + email;
                 } else {
-                    delivery = "不同意，邮寄地址："+email;
+                    delivery = "不同意，邮寄地址：" + email;
                 }
                 accuser.setIsDelivery(delivery);
             }

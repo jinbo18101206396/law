@@ -1,6 +1,5 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
-import cn.stylefeng.guns.modular.entity.Accuser;
 import cn.stylefeng.guns.modular.entity.Agent;
 import cn.stylefeng.guns.modular.entity.Defendant;
 import cn.stylefeng.guns.modular.mapper.DefendantMapper;
@@ -17,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,19 +45,19 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
         for (int i = 0; i < defendantInfoArray.size(); i++) {
             Defendant defendant = new Defendant();
             JSONObject defendantInfoObject = defendantInfoArray.getJSONObject(i);
-            defendant.setDefendant(defendantInfoObject.get("defendant").toString());
-            String defendantShortName = defendantInfoObject.get("defendant_short").toString();
+            defendant.setDefendant(defendantInfoObject.getString("defendant"));
+            String defendantShortName = defendantInfoObject.getString("defendant_short");
             String defendantInfo = defendantInfoObject.getString("defendant_info");
             //被告类型（1-机构，2-个人）
-            String defendantType = defendantInfoObject.get("defendant_type").toString();
+            String defendantType = defendantInfoObject.getString("defendant_type");
             defendant.setDefendantType(defendantType);
             defendant.setDefendantShort(defendantShortName);
             defendant.setDefendantInfo(defendantInfo);
-            defendant.setDefendantAddress(defendantInfoObject.get("defendant_address").toString());
+            defendant.setDefendantAddress(defendantInfoObject.getString("defendant_address"));
             //被告（机构）
             if ("1".equals(defendantType)) {
-                defendant.setDefendantRepresent(defendantInfoObject.get("defendant_represent").toString());
-                defendant.setDefendantDuty(defendantInfoObject.get("defendant_duty").toString());
+                defendant.setDefendantRepresent(defendantInfoObject.getString("defendant_represent"));
+                defendant.setDefendantDuty(defendantInfoObject.getString("defendant_duty"));
             }
             defendant.setCourtNumber(courtNumber);
 
@@ -70,10 +68,10 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
                 JSONArray defendantRightDutyArray = rightInfoObject.getJSONArray("defendant_right_duty");
                 for (int j = 0; j < defendantRightDutyArray.size(); j++) {
                     JSONObject defendantRightDutyObject = defendantRightDutyArray.getJSONObject(j);
-                    String rightDutyDefendantName = defendantRightDutyObject.get("defendant").toString();
-                    if (!"".equals(rightDutyDefendantName) && rightDutyDefendantName.equals(defendantShortName)) {
-                        defendant.setDefendantRightDuty(defendantRightDutyObject.get("right_duty").toString());
-                        defendant.setDefendantAvoid(defendantRightDutyObject.get("avoid").toString());
+                    String rightDutyDefendantName = defendantRightDutyObject.getString("defendant");
+                    if (!ObjectUtils.isEmpty(rightDutyDefendantName) && rightDutyDefendantName.equals(defendantShortName)) {
+                        defendant.setDefendantRightDuty(defendantRightDutyObject.getString("right_duty"));
+                        defendant.setDefendantAvoid(defendantRightDutyObject.getString("avoid"));
                     }
                 }
             }
@@ -86,14 +84,14 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
                 JSONArray mediateDefendantArray = mediateInfoObject.getJSONArray("mediate_defendant");
                 for (int k = 0; k < mediateDefendantArray.size(); k++) {
                     JSONObject mediateDefendantObject = mediateDefendantArray.getJSONObject(k);
-                    String mediateDefendantName = mediateDefendantObject.get("defendant").toString();
-                    Object isMediate = mediateDefendantObject.get("is_mediate");
-                    Object mediatePlan = mediateDefendantObject.get("mediate_plan");
+                    String mediateDefendantName = mediateDefendantObject.getString("defendant");
+                    String isMediate = mediateDefendantObject.getString("is_mediate");
+                    String mediatePlan = mediateDefendantObject.getString("mediate_plan");
                     if (!ObjectUtils.isEmpty(mediateDefendantName) && mediateDefendantName.contains("（")) {
                         String defendantName = mediateDefendantName.split("（")[0];
                         if (defendantName.equals(defendantShortName)) {
-                            defendant.setIsMediate(ObjectUtils.isEmpty(isMediate) ? "" : isMediate.toString());
-                            defendant.setMediatePlan(ObjectUtils.isEmpty(mediatePlan) ? "" : mediatePlan.toString());
+                            defendant.setIsMediate(ObjectUtils.isEmpty(isMediate) ? "" : isMediate);
+                            defendant.setMediatePlan(ObjectUtils.isEmpty(mediatePlan) ? "" : mediatePlan);
                         }
                     }
                 }
@@ -105,15 +103,15 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
                 for (int m = 0; m < deliveryInfoArray.size(); m++) {
                     JSONObject deliveryObject = deliveryInfoArray.getJSONObject(m);
                     //格式：姓名（类型），例如：张三（被告）
-                    String deliveryDefendantName = deliveryObject.get("name").toString();
-                    String delivery = deliveryObject.get("is_delivery").toString();
-                    Object email = deliveryObject.get("email");
+                    String deliveryDefendantName = deliveryObject.getString("name");
+                    String delivery = deliveryObject.getString("is_delivery");
+                    String email = deliveryObject.getString("email");
                     if (!ObjectUtils.isEmpty(deliveryDefendantName) && deliveryDefendantName.contains("（")) {
                         String name = deliveryDefendantName.split("（")[0];
                         String type = deliveryDefendantName.split("（")[1];
                         if (name.equals(defendantShortName) && type.startsWith("被告")) {
                             defendant.setIsDelivery(delivery);
-                            defendant.setEmail(email == null ? "" : email.toString());
+                            defendant.setEmail(ObjectUtils.isEmpty(email) ? "" : email);
                         }
                     }
                 }
@@ -129,9 +127,9 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
                     if (!ObjectUtils.isEmpty(finalStatementDefendantName) && finalStatementDefendantName.contains("（")) {
                         String name = finalStatementDefendantName.split("（")[0];
                         String type = finalStatementDefendantName.split("（")[1];
-                        Object finalStatement = finalStatementObject.get("final_statement");
+                        String finalStatement = finalStatementObject.getString("final_statement");
                         if (name.equals(defendantShortName) && type.startsWith("被告")) {
-                            defendant.setFinalStatement(ObjectUtils.isEmpty(finalStatement) ? "" : finalStatement.toString());
+                            defendant.setFinalStatement(ObjectUtils.isEmpty(finalStatement) ? "" : finalStatement);
                         }
                     }
                 }
@@ -165,7 +163,7 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
             String defendantRepresent = defendant.getDefendantRepresent();
             String defendantDuty = defendant.getDefendantDuty();
             JSONArray defendantAgentArray = new JSONArray();
-            if (null == agents || agents.size() == 0) {
+            if (null == agents || agents.size() <= 0) {
                 JSONObject defendantAgentObject = new JSONObject();
                 defendantAgentObject.put("agent", "");
                 defendantAgentObject.put("agent_address", "");
@@ -189,11 +187,11 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
             defendantInfoObject.put("defendant_type", defendantType);
             defendantInfoObject.put("defendant", defendantName);
             defendantInfoObject.put("defendant_short", defendantShort);
-            defendantInfoObject.put("defendant_info",defendantInfo);
+            defendantInfoObject.put("defendant_info", defendantInfo);
             defendantInfoObject.put("defendant_address", defendantAddress);
             defendantInfoObject.put("defendant_represent", defendantRepresent);
             defendantInfoObject.put("defendant_duty", defendantDuty);
-            if(defendantAgentArray.size() <= 0){
+            if (defendantAgentArray.size() <= 0) {
                 JSONObject agentObject = new JSONObject();
                 agentObject.put("agent", "");
                 agentObject.put("agent_address", "");
@@ -261,7 +259,7 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
             String mediatePlan = defendant.getMediatePlan();
             if (!ObjectUtils.isEmpty(mediate)) {
                 if ("1".equals(mediate)) {
-                    mediate = "能，调解方案："+mediatePlan;
+                    mediate = "能，调解方案：" + mediatePlan;
                 } else {
                     mediate = "不能";
                 }
@@ -271,9 +269,9 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
             String email = defendant.getEmail();
             if (!ObjectUtils.isEmpty(delivery)) {
                 if ("1".equals(delivery)) {
-                    delivery = "同意，邮箱："+email;
+                    delivery = "同意，邮箱：" + email;
                 } else {
-                    delivery = "不同意，邮寄地址："+email;
+                    delivery = "不同意，邮寄地址：" + email;
                 }
                 defendant.setIsDelivery(delivery);
             }

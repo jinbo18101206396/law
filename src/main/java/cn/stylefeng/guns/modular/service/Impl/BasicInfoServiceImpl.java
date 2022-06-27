@@ -76,7 +76,6 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         String basicInfoJsonStr = recordJsonObject.getString("basicInfo");
         JSONObject basicInfoObject = JSONObject.parseObject(basicInfoJsonStr);
 
-
         //立案时间
         if (basicInfoObject.containsKey("filing_time")) {
             basicInfo.setFilingTime(basicInfoObject.get("filing_time").toString());

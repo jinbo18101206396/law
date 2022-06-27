@@ -51,17 +51,17 @@ public class AgentServiceImpl extends ServiceImpl<AgentMapper, Agent> implements
     public void saveAccuserAgent(String courtNumber, JSONArray accuserInfoArray) {
         for (int i = 0; i < accuserInfoArray.size(); i++) {
             JSONObject accuserInfoObject = accuserInfoArray.getJSONObject(i);
-            String accuserShortName = accuserInfoObject.get("accuser_short").toString();
+            String accuserShortName = accuserInfoObject.getString("accuser_short");
             JSONArray accuserAgentArray = accuserInfoObject.getJSONArray("accuser_agent");
             //原告代理
             for (int j = 0; j < accuserAgentArray.size(); j++) {
                 Agent accuserAgent = new Agent();
                 JSONObject accuserAgentObject = accuserAgentArray.getJSONObject(j);
-                String agentName = accuserAgentObject.get("agent").toString();
+                String agentName = accuserAgentObject.getString("agent");
                 if (ObjectUtils.isEmpty(agentName)) {
                     continue;
                 }
-                String agentAddress = accuserAgentObject.get("agent_address").toString();
+                String agentAddress = accuserAgentObject.getString("agent_address");
                 accuserAgent.setAgent(agentName);
                 accuserAgent.setAgentAddress(agentAddress);
                 accuserAgent.setAgentName(accuserShortName);
@@ -76,18 +76,19 @@ public class AgentServiceImpl extends ServiceImpl<AgentMapper, Agent> implements
     public void saveDefendantAgent(String courtNumber, JSONArray defendantInfoArray) {
         for (int m = 0; m < defendantInfoArray.size(); m++) {
             JSONObject defendantInfoObject = defendantInfoArray.getJSONObject(m);
-            String defendantShortName = defendantInfoObject.get("defendant_short").toString();
+            String defendantShortName = defendantInfoObject.getString("defendant_short");
             JSONArray defendantAgentArray = defendantInfoObject.getJSONArray("defendant_agent");
             //被告代理
             for (int n = 0; n < defendantAgentArray.size(); n++) {
                 Agent defendantAgent = new Agent();
                 JSONObject defendantAgentObject = defendantAgentArray.getJSONObject(n);
-                String agentName = defendantAgentObject.get("agent").toString();
+                String agentName = defendantAgentObject.getString("agent");
                 if (ObjectUtils.isEmpty(agentName)) {
                     continue;
                 }
+                String agentAddress = defendantAgentObject.getString("agent_address");
                 defendantAgent.setAgent(agentName);
-                defendantAgent.setAgentAddress(defendantAgentObject.get("agent_address").toString());
+                defendantAgent.setAgentAddress(agentAddress);
                 defendantAgent.setAgentName(defendantShortName);
                 //代理类型（1-原告代理，2-被告代理）
                 defendantAgent.setAgentType("2");

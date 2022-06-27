@@ -868,6 +868,7 @@
                             <w:t>审判员：举证质证结束，下面进入法庭询问。</w:t>
                         </w:r>
                     </w:p>
+                    <#list inquiryList as inquiry>
                     <w:p w14:paraId="6248BCFE" w14:textId="0680E81B" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -889,6 +890,7 @@
                             <w:t>审判员：${inquiry.question}</w:t>
                         </w:r>
                     </w:p>
+                    <#if (inquiry.accuserAnswer)??>
                     <w:p w14:paraId="05517C8C" w14:textId="0FB197AB" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="005F657E" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -910,6 +912,8 @@
                             <w:t>原告：${inquiry.accuserAnswer}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
+                    <#if (inquiry.defendantAnswer)??>
                     <w:p w14:paraId="59F04965" w14:textId="758847A2" w:rsidR="005F657E" w:rsidRPr="001822B7" w:rsidRDefault="005F657E" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -931,6 +935,8 @@
                             <w:t>被告：${inquiry.defendantAnswer}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
+                    </#list>
                     <w:p w14:paraId="13D9E9C1" w14:textId="5CB74E63" w:rsidR="00125693" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>

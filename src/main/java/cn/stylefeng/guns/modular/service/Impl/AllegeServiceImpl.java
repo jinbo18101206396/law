@@ -1,14 +1,11 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
-import cn.stylefeng.guns.modular.entity.Accuser;
 import cn.stylefeng.guns.modular.entity.Allege;
-import cn.stylefeng.guns.modular.entity.Reply;
 import cn.stylefeng.guns.modular.mapper.AllegeMapper;
 import cn.stylefeng.guns.modular.service.AllegeService;
 import cn.stylefeng.roses.kernel.rule.enums.YesOrNotEnum;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
@@ -36,18 +33,18 @@ public class AllegeServiceImpl extends ServiceImpl<AllegeMapper, Allege> impleme
         JSONArray accuserInfoArray = recordJsonObject.getJSONArray("accuserInfo");
 
         StringBuffer accuserName = new StringBuffer();
-        if(!ObjectUtils.isEmpty(accuserInfoArray)){
+        if (!ObjectUtils.isEmpty(accuserInfoArray)) {
             for (int i = 0; i < accuserInfoArray.size(); i++) {
                 JSONObject accuserInfoObject = accuserInfoArray.getJSONObject(i);
-                String accuserShort = accuserInfoObject.get("accuser_short").toString();
+                String accuserShort = accuserInfoObject.getString("accuser_short");
                 accuserName.append(accuserShort);
             }
         }
         JSONObject courtInvestigateObject = recordJsonObject.getJSONObject("courtInvestigate");
         //原告的诉讼请求项和事实与理由
         if (courtInvestigateObject.containsKey("accuser_claim_item") && courtInvestigateObject.containsKey("accuser_claim_fact_reason")) {
-            String accuserClaimItem = courtInvestigateObject.get("accuser_claim_item").toString();
-            String accuserClaimFactReason = courtInvestigateObject.get("accuser_claim_fact_reason").toString();
+            String accuserClaimItem = courtInvestigateObject.getString("accuser_claim_item");
+            String accuserClaimFactReason = courtInvestigateObject.getString("accuser_claim_fact_reason");
             Allege allege = new Allege();
             allege.setName(accuserName.toString());
             allege.setType("原告");
@@ -66,14 +63,14 @@ public class AllegeServiceImpl extends ServiceImpl<AllegeMapper, Allege> impleme
         StringBuffer defendantName = new StringBuffer();
         for (int i = 0; i < defendantInfoArray.size(); i++) {
             JSONObject defendantInfoObject = defendantInfoArray.getJSONObject(i);
-            String defendantShort = defendantInfoObject.get("defendant_short").toString();
+            String defendantShort = defendantInfoObject.getString("defendant_short");
             defendantName.append(defendantShort);
         }
         JSONObject courtInvestigateObject = recordJsonObject.getJSONObject("courtInvestigate");
         //反诉原告的诉讼请求项和事实与理由
         if (courtInvestigateObject.containsKey("counterclaim_accuser_claim_item") && courtInvestigateObject.containsKey("counterclaim_accuser_fact_reason")) {
-            String counterClaimAccuserItem = courtInvestigateObject.get("counterclaim_accuser_claim_item").toString();
-            String counterClaimAccuserFactReason = courtInvestigateObject.get("counterclaim_accuser_fact_reason").toString();
+            String counterClaimAccuserItem = courtInvestigateObject.getString("counterclaim_accuser_claim_item");
+            String counterClaimAccuserFactReason = courtInvestigateObject.getString("counterclaim_accuser_fact_reason");
             Allege allege = new Allege();
             allege.setName(defendantName.toString());
             allege.setType("反诉原告");
@@ -88,7 +85,7 @@ public class AllegeServiceImpl extends ServiceImpl<AllegeMapper, Allege> impleme
     @Override
     public Boolean deleteAllegeInfo(String courtNumber) {
         LambdaUpdateWrapper<Allege> allegeWrapper = new LambdaUpdateWrapper<>();
-        allegeWrapper.set(Allege::getDelFlag, YesOrNotEnum.Y.getCode()).eq(Allege::getCourtNumber,courtNumber);
+        allegeWrapper.set(Allege::getDelFlag, YesOrNotEnum.Y.getCode()).eq(Allege::getCourtNumber, courtNumber);
         return allegeService.update(allegeWrapper);
     }
 }

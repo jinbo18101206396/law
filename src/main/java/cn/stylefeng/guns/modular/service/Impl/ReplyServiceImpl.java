@@ -37,8 +37,8 @@ public class ReplyServiceImpl extends ServiceImpl<ReplyMapper, Reply> implements
             JSONArray defendantReplyArray = courtInvestigateObject.getJSONArray("defendant_reply");
             for (int i = 0; i < defendantReplyArray.size(); i++) {
                 JSONObject defendantReplyObject = defendantReplyArray.getJSONObject(i);
-                String name = defendantReplyObject.get("name").toString();
-                String content = defendantReplyObject.get("content").toString();
+                String name = defendantReplyObject.getString("name");
+                String content = defendantReplyObject.getString("content");
                 if (ObjectUtils.isEmpty(name) || ObjectUtils.isEmpty(content)) {
                     continue;
                 }
@@ -64,8 +64,8 @@ public class ReplyServiceImpl extends ServiceImpl<ReplyMapper, Reply> implements
             JSONArray counterClaimDefendantReplyArray = courtInvestigateObject.getJSONArray("counterclaim_defendant_reply");
             for (int i = 0; i < counterClaimDefendantReplyArray.size(); i++) {
                 JSONObject counterClaimDefendantReplyObject = counterClaimDefendantReplyArray.getJSONObject(i);
-                String name = counterClaimDefendantReplyObject.get("name").toString();
-                String content = counterClaimDefendantReplyObject.get("content").toString();
+                String name = counterClaimDefendantReplyObject.getString("name");
+                String content = counterClaimDefendantReplyObject.getString("content");
                 if (ObjectUtils.isEmpty(name) || ObjectUtils.isEmpty(content)) {
                     continue;
                 }

@@ -387,7 +387,7 @@ public class RecordController {
         recordMap.put("courtInvestigate", courtInvestigateInfo);
 
         List<Inquiry> inquiryInfoList = inquiryService.getInquiryInfoList(courtNumber);
-        recordMap.put("inquiry", inquiryInfoList.get(0));
+        recordMap.put("inquiryList", inquiryInfoList);
 
         Argue argueInfo = argueService.getArgueInfo(courtNumber);
         recordMap.put("argue", argueInfo);

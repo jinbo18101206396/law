@@ -1,8 +1,6 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
 import cn.stylefeng.guns.modular.entity.Argue;
-import cn.stylefeng.guns.modular.entity.Inquiry;
-import cn.stylefeng.guns.modular.entity.State;
 import cn.stylefeng.guns.modular.mapper.ArgueMapper;
 import cn.stylefeng.guns.modular.service.ArgueService;
 import cn.stylefeng.roses.kernel.rule.enums.YesOrNotEnum;
@@ -51,11 +49,11 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
         for (int i = 0; i < argueArray.size(); i++) {
             JSONObject argueObject = argueArray.getJSONObject(i);
             //姓名格式，例如：张三（原告）
-            String argueName = argueObject.get("name").toString();
-            String argueContent = argueObject.get("argue").toString();
-            if(!ObjectUtils.isEmpty(argueName) && argueName.contains("（") && !ObjectUtils.isEmpty(argueContent)){
-               String name = argueName.split("（")[0];
-               String type = argueName.split("（")[1];
+            String argueName = argueObject.getString("name");
+            String argueContent = argueObject.getString("argue");
+            if (!ObjectUtils.isEmpty(argueName) && argueName.contains("（") && !ObjectUtils.isEmpty(argueContent)) {
+                String name = argueName.split("（")[0];
+                String type = argueName.split("（")[1];
                 Argue argue = new Argue();
                 argue.setName(name);
                 argue.setType(type.substring(0, type.length() - 1));
@@ -71,9 +69,9 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
         for (int i = 0; i < counterClaimArgueArray.size(); i++) {
             JSONObject cointerClaimArgueObject = counterClaimArgueArray.getJSONObject(i);
             //姓名格式，例如：张三（反诉被告）
-            String argueName = cointerClaimArgueObject.get("name").toString();
-            String argueContent = cointerClaimArgueObject.get("argue").toString();
-            if(!ObjectUtils.isEmpty(argueName) && argueName.contains("（") && !ObjectUtils.isEmpty(argueContent)){
+            String argueName = cointerClaimArgueObject.getString("name");
+            String argueContent = cointerClaimArgueObject.getString("argue");
+            if (!ObjectUtils.isEmpty(argueName) && argueName.contains("（") && !ObjectUtils.isEmpty(argueContent)) {
                 String name = argueName.split("（")[0];
                 String type = argueName.split("（")[1];
                 Argue argue = new Argue();
@@ -139,17 +137,17 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
         JSONArray argueArray = argueInfoObject.getJSONArray("argue");
         String accuserArgue = "";
         String defendantArgue = "";
-        for(int i=0;i<argueArray.size();i++){
+        for (int i = 0; i < argueArray.size(); i++) {
             JSONObject argueObject = argueArray.getJSONObject(i);
             String name = argueObject.getString("name");
             String argue = argueObject.getString("argue");
-            if(!ObjectUtils.isEmpty(name) && !ObjectUtils.isEmpty(argue)){
-                if(name.contains("原告")){
-                    name = name.replace("（原告）","");
-                    accuserArgue += argue+"；";
-                }else{
-                    name = name.replace("（被告）","");
-                    defendantArgue += argue+"；";
+            if (!ObjectUtils.isEmpty(name) && !ObjectUtils.isEmpty(argue)) {
+                if (name.contains("原告")) {
+                    name = name.replace("（原告）", "");
+                    accuserArgue += argue + "；";
+                } else {
+                    name = name.replace("（被告）", "");
+                    defendantArgue += argue + "；";
                 }
             }
         }
@@ -162,7 +160,7 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
     @Override
     public Boolean deleteArgueInfo(String courtNumber) {
         LambdaUpdateWrapper<Argue> argueWrapper = new LambdaUpdateWrapper<>();
-        argueWrapper.set(Argue::getDelFlag, YesOrNotEnum.Y.getCode()).eq(Argue::getCourtNumber,courtNumber);
+        argueWrapper.set(Argue::getDelFlag, YesOrNotEnum.Y.getCode()).eq(Argue::getCourtNumber, courtNumber);
         return argueService.update(argueWrapper);
     }
 }

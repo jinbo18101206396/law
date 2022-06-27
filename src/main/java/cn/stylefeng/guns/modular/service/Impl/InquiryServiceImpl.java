@@ -39,13 +39,13 @@ public class InquiryServiceImpl extends ServiceImpl<InquiryMapper, Inquiry> impl
 
             for (int i = 0; i < inquiryInfoArray.size(); i++) {
                 JSONObject inquiryInfoObject = inquiryInfoArray.getJSONObject(i);
-                String question = inquiryInfoObject.get("inquiry_question").toString();
+                String question = inquiryInfoObject.getString("inquiry_question");
 
                 JSONArray inquiryAnswerArray = inquiryInfoObject.getJSONArray("inquiry_answer");
                 for (int j = 0; j < inquiryAnswerArray.size(); j++) {
                     JSONObject inquiryAnswerObject = inquiryAnswerArray.getJSONObject(j);
-                    String answer = inquiryAnswerObject.get("answer").toString();
-                    String answerName = inquiryAnswerObject.get("name").toString();
+                    String answer = inquiryAnswerObject.getString("answer");
+                    String answerName = inquiryAnswerObject.getString("name");
 
                     if (!ObjectUtils.isEmpty(answerName) && answerName.contains("（")) {
                         String name = answerName.split("（")[0];
@@ -152,7 +152,13 @@ public class InquiryServiceImpl extends ServiceImpl<InquiryMapper, Inquiry> impl
             }
             Inquiry inquiry = new Inquiry();
             inquiry.setQuestion(question);
+            if (ObjectUtils.isEmpty(accuserAnswer)) {
+                accuserAnswer = null;
+            }
             inquiry.setAccuserAnswer(accuserAnswer);
+            if (ObjectUtils.isEmpty(defendantAnswer)) {
+                defendantAnswer = null;
+            }
             inquiry.setDefendantAnswer(defendantAnswer);
             inquiryList.add(inquiry);
         }
