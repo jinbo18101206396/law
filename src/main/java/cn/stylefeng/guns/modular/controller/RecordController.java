@@ -375,10 +375,10 @@ public class RecordController {
         recordMap.put("basicInfo", basicInfo);
 
         List<Accuser> accuserList = accuserService.getAccuserInfoList(courtNumber);
-        recordMap.put("accuser", accuserList.get(0));
+        recordMap.put("accuserList", accuserList);
 
         List<Defendant> defendantList = defendantService.getDefendantInfoList(courtNumber);
-        recordMap.put("defendant", defendantList.get(0));
+        recordMap.put("defendantList", defendantList);
 
         State stateInfo = stateService.getStateInfo(courtNumber);
         recordMap.put("state", stateInfo);
@@ -386,11 +386,17 @@ public class RecordController {
         CourtInvestigate courtInvestigateInfo = basicInfoService.getCourtInvestigateInfo(courtNumber);
         recordMap.put("courtInvestigate", courtInvestigateInfo);
 
+        List<Reply> defendantReplyList = basicInfoService.getDefendantReply(courtNumber);
+        recordMap.put("defendantReplyList", defendantReplyList);
+
+        List<Query> defendantQueryList = basicInfoService.getDefendantQuery(courtNumber);
+        recordMap.put("defendantQueryList", defendantQueryList);
+
         List<Inquiry> inquiryInfoList = inquiryService.getInquiryInfoList(courtNumber);
         recordMap.put("inquiryList", inquiryInfoList);
 
-        Argue argueInfo = argueService.getArgueInfo(courtNumber);
-        recordMap.put("argue", argueInfo);
+        List<Argue> argueList = argueService.getArgueList(courtNumber);
+        recordMap.put("argueList", argueList);
 
         WordUtil.generateWord(recordMap, templatePath, templateName, generateFile);
         return new SuccessResponseData();

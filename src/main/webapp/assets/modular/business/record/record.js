@@ -316,8 +316,8 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                         elem: '#templateTable',
                         data: result,
                         cols: [[
-                            {field: 'recordName', align:'center',title: '笔录名称'},
-                            {field: 'recordPath', align:'center',title: '笔录路径',hide:true},
+                            {field: 'recordName', align:'center', sort: true, title: '笔录名称'},
+                            {field: 'recordPath', align:'center',sort: true, title: '笔录路径',hide:true},
                             {align: 'center', toolbar: '#recordBar', title: '操作',width: 150}
                         ]]
                     });

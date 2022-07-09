@@ -111,6 +111,7 @@
                             <w:t>开庭笔录</w:t>
                         </w:r>
                     </w:p>
+                    <#if (basicInfo.filingTime)?? && (basicInfo.filingTime) != "">
                     <w:p w14:paraId="20FCF8EB" w14:textId="01BEDEAF" w:rsidR="00B660E3" w:rsidRPr="001822B7" w:rsidRDefault="00A922EE" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -132,6 +133,8 @@
                             <w:t>立案时间：${basicInfo.filingTime}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
+                    <#if (basicInfo.courtTime)?? && (basicInfo.courtTime) != "">
                     <w:p w14:paraId="1CD09EB1" w14:textId="268EEEA4" w:rsidR="00A922EE" w:rsidRPr="001822B7" w:rsidRDefault="00A922EE" w:rsidP="00BF01D8">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -153,6 +156,8 @@
                             <w:t>开庭时间：${basicInfo.courtTime}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
+                    <#if (basicInfo.courtPlace)?? && (basicInfo.courtPlace) != "">
                     <w:p w14:paraId="0B7DF656" w14:textId="61BFAFE0" w:rsidR="00B660E3" w:rsidRPr="001822B7" w:rsidRDefault="00A922EE" w:rsidP="00BF01D8">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -174,6 +179,8 @@
                             <w:t>开庭地点：${basicInfo.courtPlace}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
+                    <#if (basicInfo.judge)?? && (basicInfo.judge) != "">
                     <w:p w14:paraId="03664602" w14:textId="40CB764B" w:rsidR="00B660E3" w:rsidRPr="001822B7" w:rsidRDefault="00B660E3" w:rsidP="00BF01D8">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -195,6 +202,8 @@
                             <w:t>审判员：${basicInfo.judge}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
+                    <#if (basicInfo.courtClerk)?? && (basicInfo.courtClerk) != "">
                     <w:p w14:paraId="65F1DA6F" w14:textId="43B9E507" w:rsidR="00B660E3" w:rsidRPr="001822B7" w:rsidRDefault="00B660E3" w:rsidP="00BF01D8">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -216,6 +225,8 @@
                             <w:t>书记员：${basicInfo.courtClerk}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
+                    <#if (basicInfo.courtNumber)?? && (basicInfo.courtNumber) != "">
                     <w:p w14:paraId="5004654E" w14:textId="3987B989" w:rsidR="00B660E3" w:rsidRPr="001822B7" w:rsidRDefault="00B660E3" w:rsidP="00BF01D8">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -237,6 +248,8 @@
                             <w:t>案号：${basicInfo.courtNumber}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
+                    <#if (basicInfo.courtCause)?? && (basicInfo.courtCause) != "">
                     <w:p w14:paraId="220971E6" w14:textId="0017F5E7" w:rsidR="00A922EE" w:rsidRPr="001822B7" w:rsidRDefault="00B660E3" w:rsidP="002F4006">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -258,6 +271,9 @@
                             <w:t>案由：${basicInfo.courtCause}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
+                    <#list accuserList as accuser>
+                    <#if (accuser.accuser)?? && (accuser.accuser) != "">
                     <w:p w14:paraId="2BD89E92" w14:textId="45B5F7E4" w:rsidR="00026F2D" w:rsidRPr="001822B7" w:rsidRDefault="00026F2D" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -276,51 +292,11 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>原告全称：${accuser.accuser}</w:t>
+                            <w:t>原告（${accuser.accuserType}）：${accuser.accuser}</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="2423E191" w14:textId="29EAAD5B" w:rsidR="00B31915" w:rsidRPr="001822B7" w:rsidRDefault="00B31915" w:rsidP="00B517E9">
-                        <w:pPr>
-                            <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
-                                <w:color w:val="000000" w:themeColor="text1"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                        </w:pPr>
-                        <w:r w:rsidRPr="001822B7">
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
-                                <w:color w:val="000000" w:themeColor="text1"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                            <w:t>原告简称：${accuser.accuserShort}</w:t>
-                        </w:r>
-                    </w:p>
-                    <w:p w14:paraId="29524E06" w14:textId="4BDA20AE" w:rsidR="00B31915" w:rsidRPr="001822B7" w:rsidRDefault="00B31915" w:rsidP="00B517E9">
-                        <w:pPr>
-                            <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
-                                <w:color w:val="000000" w:themeColor="text1"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                        </w:pPr>
-                        <w:r w:rsidRPr="001822B7">
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
-                                <w:color w:val="000000" w:themeColor="text1"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                            <w:t>原告地址：${accuser.accuserAddress}</w:t>
-                        </w:r>
-                    </w:p>
+                    </#if>
+                    <#if (accuser.accuserRepresent)?? && (accuser.accuserRepresent) != "">
                     <w:p w14:paraId="460E48A3" w14:textId="2AE2A071" w:rsidR="00026F2D" w:rsidRPr="001822B7" w:rsidRDefault="00026F2D" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -339,30 +315,11 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>法人代表：${accuser.accuserRepresent}</w:t>
+                            <w:t>法定代表人：${accuser.accuserRepresent}</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="421B5086" w14:textId="690B479F" w:rsidR="00B31915" w:rsidRPr="001822B7" w:rsidRDefault="00B31915" w:rsidP="00B517E9">
-                        <w:pPr>
-                            <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
-                                <w:color w:val="000000" w:themeColor="text1"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                        </w:pPr>
-                        <w:r w:rsidRPr="001822B7">
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
-                                <w:color w:val="000000" w:themeColor="text1"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                            <w:t>法人职务：${accuser.accuserDuty}</w:t>
-                        </w:r>
-                    </w:p>
+                    </#if>
+                    <#if (accuser.accuserAgent)?? && (accuser.accuserAgent) != "">
                     <w:p w14:paraId="4F2D7AA3" w14:textId="18C77596" w:rsidR="00B31915" w:rsidRPr="001822B7" w:rsidRDefault="00D4452B" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -381,9 +338,13 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>原告委托诉讼代理人：${accuser.accuserAgent}</w:t>
+                            <w:t>委托诉讼代理人：${accuser.accuserAgent}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
+                    </#list>
+                    <#list defendantList as defendant>
+                    <#if (defendant.defendant)?? && (defendant.defendant) != "">
                     <w:p w14:paraId="5FCF4497" w14:textId="730F091D" w:rsidR="00096FDA" w:rsidRPr="001822B7" w:rsidRDefault="00B31915" w:rsidP="00BF01D8">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -402,51 +363,11 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>被告全称：${defendant.defendant}</w:t>
+                            <w:t>被告（${defendant.defendantType}）：${defendant.defendant}</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="3D2FE412" w14:textId="3719E909" w:rsidR="00B31915" w:rsidRPr="001822B7" w:rsidRDefault="00B31915" w:rsidP="00096FDA">
-                        <w:pPr>
-                            <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
-                                <w:color w:val="000000" w:themeColor="text1"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                        </w:pPr>
-                        <w:r w:rsidRPr="001822B7">
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
-                                <w:color w:val="000000" w:themeColor="text1"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                            <w:t>被告简称：${defendant.defendantShort}</w:t>
-                        </w:r>
-                    </w:p>
-                    <w:p w14:paraId="714D5ECD" w14:textId="0CD3AA90" w:rsidR="00B31915" w:rsidRPr="001822B7" w:rsidRDefault="00B31915" w:rsidP="00B31915">
-                        <w:pPr>
-                            <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
-                                <w:color w:val="000000" w:themeColor="text1"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                        </w:pPr>
-                        <w:r w:rsidRPr="001822B7">
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
-                                <w:color w:val="000000" w:themeColor="text1"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                            <w:t>被告地址：${defendant.defendantAddress}</w:t>
-                        </w:r>
-                    </w:p>
+                    </#if>
+                    <#if (defendant.defendantRepresent)?? && (defendant.defendantRepresent) != "">
                     <w:p w14:paraId="403ADDA0" w14:textId="6DD85AE8" w:rsidR="00B31915" w:rsidRPr="001822B7" w:rsidRDefault="00B31915" w:rsidP="00B31915">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -465,30 +386,11 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>法人代表：${defendant.defendantRepresent}</w:t>
+                            <w:t>法定代表人：${defendant.defendantRepresent}</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="2D552668" w14:textId="1D8D792A" w:rsidR="00B31915" w:rsidRPr="001822B7" w:rsidRDefault="00B31915" w:rsidP="00B31915">
-                        <w:pPr>
-                            <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
-                                <w:color w:val="000000" w:themeColor="text1"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                        </w:pPr>
-                        <w:r w:rsidRPr="001822B7">
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
-                                <w:color w:val="000000" w:themeColor="text1"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                            <w:t>法人职务：${defendant.defendantDuty}</w:t>
-                        </w:r>
-                    </w:p>
+                    </#if>
+                    <#if (defendant.defendantAgent)?? && (defendant.defendantAgent) != "">
                     <w:p w14:paraId="36AF311C" w14:textId="52B8C7C4" w:rsidR="00B31915" w:rsidRPr="001822B7" w:rsidRDefault="00D4452B" w:rsidP="00190EC9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -507,9 +409,12 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>被告委托诉讼代理人：${defendant.defendantAgent}</w:t>
+                            <w:t>委托诉讼代理人：${defendant.defendantAgent}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
+                    </#list>
+                    <#if (state.stateContent)?? && (state.stateContent) != "">
                     <w:p w14:paraId="5516D82E" w14:textId="4D31FEF7" w:rsidR="00E45642" w:rsidRPr="001822B7" w:rsidRDefault="00A66D3A" w:rsidP="00096FDA">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -531,6 +436,7 @@
                             <w:t>${state.stateContent}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
                     <w:p w14:paraId="7EDFB622" w14:textId="26720F2D" w:rsidR="00FA3401" w:rsidRPr="001822B7" w:rsidRDefault="00A66D3A" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -552,6 +458,8 @@
                             <w:t>审判员：依据《中华人民共和国民事诉讼法》的规定，当事人在法庭上享有下列权利：1、原告有权承认、变更、放弃自己的诉讼请求，被告有权反驳原告的诉讼请求或提起反诉；2、当事人有权申请回避；3、当事人有权举证；4、当事人有权辩论、有权请求法庭调解。当事人在享有上述诉讼权利的同时，负有下列义务：1、当事人有依法行使诉讼权利的义务；2、当事人有听从法庭指挥、遵守法庭纪律的义务；3、当事人如实陈述事实、如实举证的义务。上述诉讼权利和义务双方是否听清？</w:t>
                         </w:r>
                     </w:p>
+                    <#list accuserList as accuser>
+                    <#if (accuser.accuserRightDuty)?? && (accuser.accuserRightDuty) != "">
                     <w:p w14:paraId="451059A4" w14:textId="68FC53EF" w:rsidR="006278D3" w:rsidRPr="001822B7" w:rsidRDefault="006278D3" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -571,9 +479,13 @@
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                             <w:lastRenderedPageBreak/>
-                            <w:t>原告：${accuser.accuserRightDuty}。</w:t>
+                            <w:t>原告（${accuser.accuserShort}）：${accuser.accuserRightDuty}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
+                    </#list>
+                    <#list defendantList as defendant>
+                    <#if (defendant.defendantRightDuty)?? && (defendant.defendantRightDuty) != "">
                     <w:p w14:paraId="5CCEE086" w14:textId="59FEEBDC" w:rsidR="006278D3" w:rsidRPr="001822B7" w:rsidRDefault="006278D3" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -592,9 +504,11 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>被告：${defendant.defendantRightDuty}。</w:t>
+                            <w:t>被告（${defendant.defendantShort}）：${defendant.defendantRightDuty}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
+                    </#list>
                     <w:p w14:paraId="0B398919" w14:textId="3543E166" w:rsidR="006278D3" w:rsidRPr="001822B7" w:rsidRDefault="005144A9" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -616,6 +530,8 @@
                             <w:t>审判员：当事人对审判员和书记员是否申请回避？</w:t>
                         </w:r>
                     </w:p>
+                    <#list accuserList as accuser>
+                    <#if (accuser.accuserAvoid)?? && (accuser.accuserAvoid) != "">
                     <w:p w14:paraId="1D1AB803" w14:textId="64D2BAF5" w:rsidR="006278D3" w:rsidRPr="001822B7" w:rsidRDefault="005144A9" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -634,9 +550,13 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>原告：${accuser.accuserAvoid}。</w:t>
+                            <w:t>原告（${accuser.accuserShort}）：${accuser.accuserAvoid}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
+                    </#list>
+                    <#list defendantList as defendant>
+                    <#if (defendant.defendantAvoid)?? && (defendant.defendantAvoid) != "">
                     <w:p w14:paraId="671224CF" w14:textId="4532661C" w:rsidR="006278D3" w:rsidRPr="001822B7" w:rsidRDefault="005144A9" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -655,9 +575,11 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>被告：${defendant.defendantAvoid}。</w:t>
+                            <w:t>被告（${defendant.defendantShort}）：${defendant.defendantAvoid}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
+                    </#list>
                     <w:p w14:paraId="0F432B0C" w14:textId="0177E0C8" w:rsidR="007F7DBD" w:rsidRPr="001822B7" w:rsidRDefault="00D755CA" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -679,6 +601,7 @@
                             <w:t>审判员：现在开庭，进行法庭调查，原告陈述诉讼请求和事实理由。</w:t>
                         </w:r>
                     </w:p>
+                    <#if (courtInvestigate.accuserClaimItem)?? && (courtInvestigate.accuserClaimItem) != "">
                     <w:p w14:paraId="7289FD74" w14:textId="255C28E6" w:rsidR="00F45410" w:rsidRPr="001822B7" w:rsidRDefault="00E45642" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -700,6 +623,8 @@
                             <w:t>原告诉讼请求项：${courtInvestigate.accuserClaimItem}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
+                    <#if (courtInvestigate.accuserClaimFactReason)?? && (courtInvestigate.accuserClaimFactReason) != "">
                     <w:p w14:paraId="16BE311D" w14:textId="7DB22D25" w:rsidR="007F7DBD" w:rsidRPr="001822B7" w:rsidRDefault="007F7DBD" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -721,6 +646,7 @@
                             <w:t>事实与理由：${courtInvestigate.accuserClaimFactReason}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
                     <w:p w14:paraId="595F2B84" w14:textId="73669482" w:rsidR="007F7DBD" w:rsidRPr="001822B7" w:rsidRDefault="00D755CA" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -742,6 +668,8 @@
                             <w:t>审判员：对于原告的诉讼请求及事实理由，被告进行答辩。</w:t>
                         </w:r>
                     </w:p>
+                    <#list defendantReplyList as defendantReply>
+                    <#if (defendantReply.name)?? && (defendantReply.content) != "">
                     <w:p w14:paraId="1B64BA13" w14:textId="61AB1231" w:rsidR="007F7DBD" w:rsidRPr="001822B7" w:rsidRDefault="00D755CA" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -760,9 +688,11 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>被告答辩：${courtInvestigate.defendantReply}</w:t>
+                            <w:t>被告（${defendantReply.name}）：${defendantReply.content}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
+                    </#list>
                     <w:p w14:paraId="3C86C047" w14:textId="2C0113E9" w:rsidR="00DB47D8" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -784,6 +714,7 @@
                             <w:t>审判员：下面进入举证质证，首先原告进行举证。</w:t>
                         </w:r>
                     </w:p>
+                    <#if (courtInvestigate.accuserEvidence)?? && (courtInvestigate.accuserEvidence) != "">
                     <w:p w14:paraId="762DB4BE" w14:textId="1334C620" w:rsidR="001D7536" w:rsidRPr="001822B7" w:rsidRDefault="002F2BE6" w:rsidP="001D7536">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -805,6 +736,7 @@
                             <w:t>原告举证：${courtInvestigate.accuserEvidence}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
                     <w:p w14:paraId="302EEF76" w14:textId="379A541D" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -826,6 +758,8 @@
                             <w:t>审判员：被告对原告提交的证据进行质证。</w:t>
                         </w:r>
                     </w:p>
+                    <#list defendantQueryList as defendantQuery>
+                    <#if (defendantQuery.name)?? && (defendantQuery.evidence)?? && (defendantQuery.reason)??>
                     <w:p w14:paraId="51A2FEDD" w14:textId="60A913D5" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="00B76C03" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -844,7 +778,72 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>被告质证：${courtInvestigate.defendantQuery}</w:t>
+                            <w:t>被告（${defendantQuery.name}）：针对原告提出的${defendantQuery.evidence}进行质证，真实性：${defendantQuery.facticity}，合法性：${defendantQuery.legality}，关联性：${defendantQuery.relevance}，${defendantQuery.reason}</w:t>
+                        </w:r>
+                    </w:p>
+                    </#if>
+                    </#list>
+                    <w:p w14:paraId="3C94FD3E" w14:textId="3D3A3AA0" w:rsidR="00096FDA" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
+                        <w:pPr>
+                            <w:spacing w:line="360" w:lineRule="auto"/>
+                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r w:rsidRPr="001822B7">
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                            <w:t>审判员：双方是否有补充证据？</w:t>
+                        </w:r>
+                    </w:p>
+                    <w:p w14:paraId="51A2FEDD" w14:textId="60A913D5" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="00B76C03" w:rsidP="00B517E9">
+                        <w:pPr>
+                            <w:spacing w:line="360" w:lineRule="auto"/>
+                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r w:rsidRPr="001822B7">
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                            <w:t>原告：没有</w:t>
+                        </w:r>
+                    </w:p>
+                    <w:p w14:paraId="51A2FEDD" w14:textId="60A913D5" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="00B76C03" w:rsidP="00B517E9">
+                        <w:pPr>
+                            <w:spacing w:line="360" w:lineRule="auto"/>
+                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r w:rsidRPr="001822B7">
+                            <w:rPr>
+                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                <w:color w:val="000000" w:themeColor="text1"/>
+                                <w:sz w:val="24"/>
+                                <w:szCs w:val="24"/>
+                            </w:rPr>
+                            <w:t>被告：没有</w:t>
                         </w:r>
                     </w:p>
                     <w:p w14:paraId="3C94FD3E" w14:textId="3D3A3AA0" w:rsidR="00096FDA" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
@@ -890,7 +889,8 @@
                             <w:t>审判员：${inquiry.question}</w:t>
                         </w:r>
                     </w:p>
-                    <#if (inquiry.accuserAnswer)??>
+                    <#list inquiry.answerList as answer>
+                    <#if answer?? && answer != "">
                     <w:p w14:paraId="05517C8C" w14:textId="0FB197AB" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="005F657E" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -909,33 +909,11 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>原告：${inquiry.accuserAnswer}</w:t>
+                            <w:t>${answer}</w:t>
                         </w:r>
                     </w:p>
                     </#if>
-                    <#if (inquiry.defendantAnswer)??>
-                    <w:p w14:paraId="59F04965" w14:textId="758847A2" w:rsidR="005F657E" w:rsidRPr="001822B7" w:rsidRDefault="005F657E" w:rsidP="00B517E9">
-                        <w:pPr>
-                            <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
-                                <w:color w:val="000000" w:themeColor="text1"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                        </w:pPr>
-                        <w:r w:rsidRPr="001822B7">
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
-                                <w:color w:val="000000" w:themeColor="text1"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                            <w:t>被告：${inquiry.defendantAnswer}</w:t>
-                        </w:r>
-                    </w:p>
-                    </#if>
+                    </#list>
                     </#list>
                     <w:p w14:paraId="13D9E9C1" w14:textId="5CB74E63" w:rsidR="00125693" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                         <w:pPr>
@@ -958,6 +936,8 @@
                             <w:t>审判员：法庭调查结束，下面进行法庭辩论，首先由原告发表辩论意见。</w:t>
                         </w:r>
                     </w:p>
+                    <#list argueList as argue>
+                    <#if (argue.name)?? && (argue.type)?? && (argue.argueContent)??>
                     <w:p w14:paraId="336AA18B" w14:textId="5B383F1E" w:rsidR="00300833" w:rsidRPr="001822B7" w:rsidRDefault="00A9433D" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -976,30 +956,11 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>原告：${argue.accuserArgue}</w:t>
+                            <w:t>${argue.type}（${argue.name}）：${argue.argueContent}</w:t>
                         </w:r>
                     </w:p>
-                    <w:p w14:paraId="7BA80082" w14:textId="6C86783D" w:rsidR="00A9433D" w:rsidRPr="001822B7" w:rsidRDefault="00A9433D" w:rsidP="00A9433D">
-                        <w:pPr>
-                            <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
-                                <w:color w:val="000000" w:themeColor="text1"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                        </w:pPr>
-                        <w:r w:rsidRPr="001822B7">
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
-                                <w:color w:val="000000" w:themeColor="text1"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                            <w:t>被告：${argue.defendantArgue}</w:t>
-                        </w:r>
-                    </w:p>
+                    </#if>
+                    </#list>
                     <w:p w14:paraId="0248C834" w14:textId="631CDCE2" w:rsidR="00300833" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -1021,6 +982,8 @@
                             <w:t>审判员：双方发表最后陈述意见。</w:t>
                         </w:r>
                     </w:p>
+                    <#list accuserList as accuser>
+                    <#if (accuser.finalStatement)?? && (accuser.finalStatement) != "">
                     <w:p w14:paraId="125FBC4A" w14:textId="3DC39794" w:rsidR="00300833" w:rsidRPr="001822B7" w:rsidRDefault="00300833" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -1039,9 +1002,13 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>原告：${accuser.finalStatement}。</w:t>
+                            <w:t>原告（${accuser.accuserShort}）：${accuser.finalStatement}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
+                    </#list>
+                    <#list defendantList as defendant>
+                    <#if (defendant.finalStatement)?? && (defendant.finalStatement) != "">
                     <w:p w14:paraId="00E22EB0" w14:textId="28E1063D" w:rsidR="00300833" w:rsidRPr="001822B7" w:rsidRDefault="00300833" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -1060,9 +1027,11 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>被告：${defendant.finalStatement}。</w:t>
+                            <w:t>被告（${defendant.defendantShort}）：${defendant.finalStatement}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
+                    </#list>
                     <w:p w14:paraId="2CE1A4C6" w14:textId="379507AD" w:rsidR="00300833" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -1084,6 +1053,8 @@
                             <w:t>审判员：当事人是否能够调解？</w:t>
                         </w:r>
                     </w:p>
+                    <#list accuserList as accuser>
+                    <#if (accuser.isMediate)?? && (accuser.isMediate) != "">
                     <w:p w14:paraId="4FDC9A37" w14:textId="4D215636" w:rsidR="00300833" w:rsidRPr="001822B7" w:rsidRDefault="00300833" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -1102,9 +1073,13 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>原告：${accuser.isMediate}。</w:t>
+                            <w:t>原告（${accuser.accuserShort}）：${accuser.isMediate}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
+                    </#list>
+                    <#list defendantList as defendant>
+                    <#if (defendant.isMediate)?? && (defendant.isMediate) != "">
                     <w:p w14:paraId="48E3BB98" w14:textId="0BFA41F9" w:rsidR="002A5270" w:rsidRPr="001822B7" w:rsidRDefault="00300833" w:rsidP="007B1D07">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -1123,9 +1098,11 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>被告：${defendant.isMediate}。</w:t>
+                            <w:t>被告（${defendant.defendantShort}）：${defendant.isMediate}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
+                    </#list>
                     <w:p w14:paraId="3215EE91" w14:textId="431B9DA5" w:rsidR="00300833" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -1147,6 +1124,8 @@
                             <w:t>审判员：当事人是否同意电子送达判决书？</w:t>
                         </w:r>
                     </w:p>
+                    <#list accuserList as accuser>
+                    <#if (accuser.isDelivery)?? && (accuser.isDelivery) != "">
                     <w:p w14:paraId="1A40FAD8" w14:textId="627DFB70" w:rsidR="00300833" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -1165,9 +1144,13 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>原告：${accuser.isDelivery} 。</w:t>
+                            <w:t>原告（${accuser.accuserShort}）：${accuser.isDelivery}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
+                    </#list>
+                    <#list defendantList as defendant>
+                    <#if (defendant.isDelivery)?? && (defendant.isDelivery) != "">
                     <w:p w14:paraId="33679BE2" w14:textId="7C90ABA1" w:rsidR="00643B3E" w:rsidRPr="001822B7" w:rsidRDefault="00300833" w:rsidP="007B1D07">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -1187,9 +1170,12 @@
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                             <w:lastRenderedPageBreak/>
-                            <w:t>被告：${defendant.isDelivery} 。</w:t>
+                            <w:t>被告（${defendant.defendantShort}）：${defendant.isDelivery} 。</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
+                    </#list>
+                    <#if (basicInfo.summarize)?? && (basicInfo.summarize) != "">
                     <w:p w14:paraId="03EDED93" w14:textId="1C07E2D2" w:rsidR="003B2B23" w:rsidRPr="001822B7" w:rsidRDefault="00B354CB" w:rsidP="003B2B23">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -1211,6 +1197,7 @@
                             <w:t>审判员：${basicInfo.summarize}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
                     <w:p w14:paraId="7E6D1AA9" w14:textId="77777777" w:rsidR="003B2B23" w:rsidRPr="001822B7" w:rsidRDefault="003B2B23" w:rsidP="003B2B23">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>

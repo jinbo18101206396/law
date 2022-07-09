@@ -33,7 +33,7 @@ public class BasicInfo implements Serializable {
     /**
      * 立案时间
      */
-    @TableField("filing_time")
+    @TableField(value = "filing_time")
     private String filingTime;
 
     /**

@@ -4,6 +4,8 @@ import cn.stylefeng.guns.modular.entity.Argue;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 法庭辩论表 服务类
@@ -38,6 +40,14 @@ public interface ArgueService extends IService<Argue> {
      * @Date 2022-05-25
      */
     Argue getArgueInfo(String courtNumber);
+
+    /**
+     * 获取法庭辩论信息-生成笔录
+     *
+     * @author jinbo
+     * @Date 2022-07-07
+     */
+    List<Argue> getArgueList(String courtNumber);
 
 
     /**

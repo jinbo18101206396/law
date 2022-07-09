@@ -231,7 +231,23 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
         List<Agent> agents = agentService.list(agentQueryWrapper);
         for (int i = 0; i < accuserList.size(); i++) {
             Accuser accuser = accuserList.get(i);
+            String accuserName = accuser.getAccuser();
             String accuserShort = accuser.getAccuserShort();
+            String accuserAddress = accuser.getAccuserAddress();
+            String accuserType = accuser.getAccuserType();
+            String accuserInfo = accuser.getAccuserInfo();
+            if("1".equals(accuserType)){
+                accuser.setAccuser(accuserName+"（简称："+accuserShort+"），地址："+accuserAddress);
+                accuser.setAccuserType("机构");
+            }else if("2".equals(accuserType)) {
+                accuser.setAccuser(accuserName+"，"+accuserInfo);
+                accuser.setAccuserType("个人");
+            }
+            String accuserRepresent = accuser.getAccuserRepresent();
+            String accuserDuty = accuser.getAccuserDuty();
+            if(!ObjectUtils.isEmpty(accuserRepresent) && !ObjectUtils.isEmpty(accuserDuty)){
+                accuser.setAccuserRepresent(accuserRepresent+"，"+accuserDuty);
+            }
             String accuserRightDuty = accuser.getAccuserRightDuty();
             if (!ObjectUtils.isEmpty(accuserRightDuty)) {
                 if ("1".equals(accuserRightDuty)) {
@@ -276,7 +292,7 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
                 String agentName = agent.getAgentName();
                 String agent1 = agent.getAgent();
                 String agentAddress = agent.getAgentAddress();
-                if (agentName.equals(accuserShort) && !ObjectUtils.isEmpty(agent1) && !ObjectUtils.isEmpty(agentAddress)) {
+                if (agentName.equals(accuserShort) && !ObjectUtils.isEmpty(agent1)  && !ObjectUtils.isEmpty(agentAddress)) {
                     accuserAgent += agent1 + "," + agentAddress + "；";
                 }
             }

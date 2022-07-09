@@ -133,33 +133,27 @@ public class InquiryServiceImpl extends ServiceImpl<InquiryMapper, Inquiry> impl
         for (int i = 0; i < inquiryInfoArray.size(); i++) {
             JSONObject inquiryObject = inquiryInfoArray.getJSONObject(i);
             String question = inquiryObject.getString("inquiry_question");
-            String accuserAnswer = "";
-            String defendantAnswer = "";
+            List<String> answerList = new ArrayList<>();
             JSONArray answerArray = inquiryObject.getJSONArray("inquiry_answer");
             for (int j = 0; j < answerArray.size(); j++) {
                 JSONObject answerObject = answerArray.getJSONObject(j);
                 String name = answerObject.getString("name");
                 String answer = answerObject.getString("answer");
+                String answerContent = "";
                 if (!ObjectUtils.isEmpty(name) && !ObjectUtils.isEmpty(answer)) {
                     if (name.contains("原告")) {
                         name = name.replace("（原告）", "");
-                        accuserAnswer += name + "（" + answer + "）；";
+                        answerContent = "原告（"+name + "）：" + answer;
                     } else {
                         name = name.replace("（被告）", "");
-                        defendantAnswer += name + "（" + answer + "）；";
+                        answerContent = "被告（"+name + "）：" + answer;
                     }
+                    answerList.add(answerContent);
                 }
             }
             Inquiry inquiry = new Inquiry();
             inquiry.setQuestion(question);
-            if (ObjectUtils.isEmpty(accuserAnswer)) {
-                accuserAnswer = null;
-            }
-            inquiry.setAccuserAnswer(accuserAnswer);
-            if (ObjectUtils.isEmpty(defendantAnswer)) {
-                defendantAnswer = null;
-            }
-            inquiry.setDefendantAnswer(defendantAnswer);
+            inquiry.setAnswerList(answerList);
             inquiryList.add(inquiry);
         }
         return inquiryList;

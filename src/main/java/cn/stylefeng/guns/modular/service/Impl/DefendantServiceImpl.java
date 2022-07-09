@@ -236,7 +236,24 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
         List<Agent> agents = agentService.list(agentQueryWrapper);
         for (int i = 0; i < defendantList.size(); i++) {
             Defendant defendant = defendantList.get(i);
+            String defendantName = defendant.getDefendant();
             String defendantShort = defendant.getDefendantShort();
+            String defendantAddress = defendant.getDefendantAddress();
+
+            String defendantType = defendant.getDefendantType();
+            String defendantInfo = defendant.getDefendantInfo();
+            if("1".equals(defendantType)){
+                defendant.setDefendant(defendantName+"（简称："+defendantShort+"），地址："+defendantAddress);
+                defendant.setDefendantType("机构");
+            }else if("2".equals(defendantType)){
+                defendant.setDefendant(defendantName+"，"+defendantInfo);
+                defendant.setDefendantType("个人");
+            }
+            String defendantRepresent = defendant.getDefendantRepresent();
+            String defendantDuty = defendant.getDefendantDuty();
+            if(!ObjectUtils.isEmpty(defendantRepresent) && !ObjectUtils.isEmpty(defendantDuty)){
+                defendant.setDefendantRepresent(defendantRepresent+"，"+defendantDuty);
+            }
             String defendantRightDuty = defendant.getDefendantRightDuty();
             if (!ObjectUtils.isEmpty(defendantRightDuty)) {
                 if ("1".equals(defendantRightDuty)) {
