@@ -94,6 +94,8 @@ public class RecordController {
     private QuestionService questionService;
     @Resource
     private ClerkRelationService clerkRelationService;
+    @Resource
+    private JudgeSpeakService judgeSpeakService;
 
     @Value("${record.backup.path}")
     private String backupPath;
@@ -333,6 +335,20 @@ public class RecordController {
     public ResponseData getClerkJudgePlaceRelation() {
         JSONObject clerkJudgePlaceRelation = clerkRelationService.getClerkJudgePlaceRelation();
         return new SuccessResponseData(clerkJudgePlaceRelation);
+    }
+
+    /**
+     * 获取各模块审判员说话内容
+     * @param courtCause
+     * @return {"所属模块":"审判员说话内容"}，例如：{"法庭询问":"举证质证结束，下面进入法庭询问。"}
+     *
+     * @author 金波
+     * @date 2022/07/11
+     */
+    @GetResource(name = "获取各模块审判员说话内容", path = "/record/judge/speak")
+    public ResponseData getJudgeSpeak(String courtCause) {
+        JSONObject judgeSpeak = judgeSpeakService.getJudgeSpeak(courtCause);
+        return new SuccessResponseData(judgeSpeak);
     }
 
     /**
