@@ -86,6 +86,15 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                         myLocalStorage["DefendantItems"] = DefendantItems
                     }
 
+                    //第三人数据
+                    if ("thirdPartyInfo" in wholeItem && wholeItem.thirdPartyInfo.length > 0) {
+                        let thirdPartyInfo = []
+                        for (j = 0; j < wholeItem.thirdPartyInfo.length; j++) {
+                            thirdPartyInfo.push(wholeItem.thirdPartyInfo[j])
+                        }
+                        myLocalStorage["thirdPartyInfo"] = thirdPartyInfo
+                    }
+
                     if ("rightInfo" in wholeItem) {
                         let rightInfo = wholeItem.rightInfo
                         myLocalStorage["rightInfo"] = rightInfo
@@ -106,24 +115,25 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                         }
                         myLocalStorage["CourtInves"] = courtInves
 
-                        courtTemp.defendant_query.forEach(e => {
-                            e.defendant = e.defendant ? e.defendant.split("**") : [] , e.evidence = e.evidence ? e.evidence.split("**") : []
+                        courtTemp.defendant_and_other_accuser_query.forEach(e => {
+                            e.name = e.name ? e.name.split("**") : [] , e.evidence = e.evidence ? e.evidence.split("**") : []
                         })
                         let accuserShowInfo = {
                             //第一个动态生成的json accuser_evidence 包含以下3个信息
                             accuser_evidence: courtTemp.accuser_evidence,
-                            accuser_evidence_fact_reason: courtTemp.accuser_evidence_fact_reason, //事实和理由(原告举证)
                             //处理空值.forEach( i => {i.defendant=i.defendant==[""]?[]:i.defendant, i.evidence= i.evidence==[""]?[]:i.evidence})
-                            defendant_query: courtTemp.defendant_query
+                            defendant_and_other_accuser_query: courtTemp.defendant_and_other_accuser_query,
+                            is_defendant_evidence : courtTemp.is_defendant_evidence
                         }
                         myLocalStorage["accuserShowInfo"] = accuserShowInfo
 
-                        courtTemp.accuser_query.forEach(e => {
-                            e.accuser = e.accuser ? e.accuser.split("**") : [], e.evidence = e.evidence ? e.evidence.split("**") : []
+                        courtTemp.defendant_evidence.forEach(e => {
+                            e.defendant = e.defendant ? e.defendant.split("**") : []
                         })
-                        courtTemp.other_defendant_query.forEach(e => {
-                            e.defendant = e.defendant ? e.defendant.split("**") : [], e.evidence = e.evidence ? e.evidence.split("**") : []
+                        courtTemp.accuser_and_other_defendant_query.forEach(e => {
+                            e.name = e.name ? e.name.split("**") : [], e.evidence = e.evidence ? e.evidence.split("**") : []
                         })
+
                         courtTemp.counterclaim_accuser_query.forEach(e => {
                             e.counterclaim_accuser = e.counterclaim_accuser ? e.counterclaim_accuser.split("**") : [], e.evidence = e.evidence ? e.evidence.split("**") : []
                         })
@@ -139,10 +149,8 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                             defendant_evidence: courtTemp.defendant_evidence,
                             defendant_evidence_fact_reason: courtTemp.defendant_evidence_fact_reason,   //事实和理由(被告举证)
                             //第二个动态生成的json accuser_query 包含以下6个信息
-                            accuser_query: courtTemp.accuser_query,
-//其他被告质证环节
-                            other_defendant_query: courtTemp.other_defendant_query,
-
+                            //原告及其他被告质证
+                            accuser_and_other_defendant_query: courtTemp.accuser_and_other_defendant_query,
                             //反诉后的答辩情况
                             //反诉后第一个部分 反诉被告（原告）进行举证
                             counterclaim_defendant_evidence: courtTemp.counterclaim_defendant_evidence,
