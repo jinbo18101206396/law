@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -47,6 +48,12 @@ public class Inquiry implements Serializable {
      */
     @TableField("answer")
     private String answer;
+
+    /**
+     * 答案
+     */
+    @TableField(exist = false)
+    private List<String> answerList;
 
     /**
      * 原告答案
@@ -217,6 +224,14 @@ public class Inquiry implements Serializable {
 
     public void setDefendantAnswer(String defendantAnswer) {
         this.defendantAnswer = defendantAnswer;
+    }
+
+    public List<String> getAnswerList() {
+        return answerList;
+    }
+
+    public void setAnswerList(List<String> answerList) {
+        this.answerList = answerList;
     }
 
     @Override

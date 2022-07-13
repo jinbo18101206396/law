@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -129,6 +130,35 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
         argueInfoObject.put("argue", argueArray);
         argueInfoObject.put("counterclaim_argue", counterClaimArgueArray);
         return argueInfoObject;
+    }
+
+    /**
+     * 法庭辩论
+     */
+    @Override
+    public List<Argue> getArgueList(String courtNumber) {
+        List<Argue> argueList = new ArrayList<>();
+        JSONObject argueInfoObject = this.getArgueInfoObject(courtNumber);
+        JSONArray argueArray = argueInfoObject.getJSONArray("argue");
+        for (int i = 0; i < argueArray.size(); i++) {
+            JSONObject argueObject = argueArray.getJSONObject(i);
+            String name = argueObject.getString("name");
+            String argueContent = argueObject.getString("argue");
+            if (!ObjectUtils.isEmpty(name) && !ObjectUtils.isEmpty(argueContent)) {
+                Argue argue = new Argue();
+                if (name.contains("原告")) {
+                    name = name.replace("（原告）", "");
+                    argue.setType("原告");
+                } else {
+                    name = name.replace("（被告）", "");
+                    argue.setType("被告");
+                }
+                argue.setName(name);
+                argue.setArgueContent(argueContent);
+                argueList.add(argue);
+            }
+        }
+        return argueList;
     }
 
     @Override

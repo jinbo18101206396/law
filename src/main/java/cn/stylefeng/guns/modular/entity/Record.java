@@ -6,6 +6,7 @@ import java.io.Serializable;
 public class Record implements Serializable {
 
    private String recordName;
+   private String recordTime;
    private String recordPath;
    private String courtNumber;
 
@@ -31,5 +32,13 @@ public class Record implements Serializable {
 
     public void setRecordPath(String recordPath) {
         this.recordPath = recordPath;
+    }
+
+    public String getRecordTime() {
+        return recordTime;
+    }
+
+    public void setRecordTime(String recordTime) {
+        this.recordTime = recordTime;
     }
 }
