@@ -20,6 +20,26 @@ import java.util.List;
 public interface QueryService extends IService<Query> {
 
     /**
+     * 保存被告及其他原告质证信息
+     *
+     * @param recordJsonObject 请求参数
+     * @return
+     * @author 金波
+     * @Date 2022-07-12
+     */
+    void saveDefendantAndOtherAccuserQuery(String courtNumber, String counterClaim, JSONObject recordJsonObject);
+
+    /**
+     * 保存原告及其他被告质证信息
+     *
+     * @param recordJsonObject 请求参数
+     * @return
+     * @author 金波
+     * @Date 2022-07-12
+     */
+    void saveAccuserAndOtherDefendantQuery(String courtNumber, String counterClaim, JSONObject recordJsonObject);
+
+    /**
      * 保存被告质证信息
      *
      * @param recordJsonObject 请求参数
@@ -28,6 +48,9 @@ public interface QueryService extends IService<Query> {
      * @Date 2022-05-24
      */
     void saveDefendantQuery(String courtNumber, String counterClaim, JSONObject recordJsonObject);
+
+
+
 
     /**
      * 保存原告质证信息

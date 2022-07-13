@@ -108,12 +108,10 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                             accuser_claim_fact_reason: courtTemp.accuser_claim_fact_reason,// 原告诉讼请求的事实及理由
                             is_counterclaim: courtTemp.is_counterclaim,
                             defendant_reply: courtTemp.defendant_reply,
-                            counterclaim_accuser_claim_item: courtTemp.counterclaim_accuser_claim_item,
+                            /*counterclaim_accuser_claim_item: courtTemp.counterclaim_accuser_claim_item,
                             counterclaim_accuser_fact_reason: courtTemp.counterclaim_accuser_fact_reason,
                             counterclaim_defendant_reply: courtTemp.counterclaim_defendant_reply,
-                            counterclaim_defendant_today_is_reply: courtTemp.counterclaim_defendant_today_is_reply,
-                            judge_inquiry_after_accuser_claim_show: wholeItem.judge_inquiry_after_accuser_claim,
-                            judge_inquiry_after_defendant_reply: wholeItem.judge_inquiry_after_defendant_reply,
+                            counterclaim_defendant_today_is_reply: courtTemp.counterclaim_defendant_today_is_reply,*/
                         }
                         myLocalStorage["CourtInves"] = courtInves
 
@@ -136,7 +134,7 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                             e.name = e.name ? e.name.split("**") : [], e.evidence = e.evidence ? e.evidence.split("**") : []
                         })
 
-                        courtTemp.counterclaim_accuser_query.forEach(e => {
+                        /*courtTemp.counterclaim_accuser_query.forEach(e => {
                             e.counterclaim_accuser = e.counterclaim_accuser ? e.counterclaim_accuser.split("**") : [], e.evidence = e.evidence ? e.evidence.split("**") : []
                         })
                         courtTemp.other_counterclaim_defendant_query.forEach(e => {
@@ -144,7 +142,7 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                         })
                         courtTemp.counterclaim_defendant_query.forEach(e => {
                             e.counterclaim_defendant = e.counterclaim_defendant ? e.counterclaim_defendant.split("**") : [], e.evidence = e.evidence ? e.evidence.split("**") : []
-                        })
+                        })*/
 
                         let defendantShowInfo = {
                             //第一个动态生成的json defendant_evidence 包含以下3个信息
@@ -155,7 +153,7 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                             accuser_and_other_defendant_query: courtTemp.accuser_and_other_defendant_query,
                             //反诉后的答辩情况
                             //反诉后第一个部分 反诉被告（原告）进行举证
-                            counterclaim_defendant_evidence: courtTemp.counterclaim_defendant_evidence,
+                            /*counterclaim_defendant_evidence: courtTemp.counterclaim_defendant_evidence,
                             counterclaim_defendant_evidence_fact_reason: courtTemp.counterclaim_defendant_evidence_fact_reason,  //事实和理由(反诉被告提出，事实和理由 不是动态添加的)
                             //反诉后第二个动态生成的部分 反诉原告质证
                             counterclaim_accuser_query: courtTemp.counterclaim_accuser_query,
@@ -164,7 +162,7 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                             //反诉后第三个生成部分 反诉原告 (原告) 进行举证
                             counterclaim_accuser_evidence: courtTemp.counterclaim_accuser_evidence,
                             //反诉后第四个生成部分 反诉被告 (原告) 进行质证
-                            counterclaim_defendant_query: courtTemp.counterclaim_defendant_query,
+                            counterclaim_defendant_query: courtTemp.counterclaim_defendant_query,*/
                         }
                         myLocalStorage["defendantShowInfo"] = defendantShowInfo
                     }
@@ -219,7 +217,6 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                     if ("summarize" in wholeItem) {
                         let summarize={}
                         summarize["summarize"]=wholeItem.summarize
-                        summarize["summarize_inquiry"] = wholeItem.judge_inquiry_before_summarize
                         myLocalStorage["summarize"] = summarize
                     }
 
