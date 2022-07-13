@@ -39,6 +39,11 @@ public class AgentServiceImpl extends ServiceImpl<AgentMapper, Agent> implements
         if (!ObjectUtils.isEmpty(accuserInfoArray)) {
             saveDefendantAgent(courtNumber, defendantInfoArray);
         }
+        //第三人信息
+        JSONArray thirdPartyInfoArray = recordJsonObject.getJSONArray("thirdPartyInfo");
+        if (!ObjectUtils.isEmpty(thirdPartyInfoArray)) {
+            saveThirdPartyAgent(courtNumber, thirdPartyInfoArray);
+        }
     }
 
     @Override
@@ -53,23 +58,7 @@ public class AgentServiceImpl extends ServiceImpl<AgentMapper, Agent> implements
             JSONObject accuserInfoObject = accuserInfoArray.getJSONObject(i);
             String accuserShortName = accuserInfoObject.getString("accuser_short");
             JSONArray accuserAgentArray = accuserInfoObject.getJSONArray("accuser_agent");
-            //原告代理
-            for (int j = 0; j < accuserAgentArray.size(); j++) {
-                Agent accuserAgent = new Agent();
-                JSONObject accuserAgentObject = accuserAgentArray.getJSONObject(j);
-                String agentName = accuserAgentObject.getString("agent");
-                if (ObjectUtils.isEmpty(agentName)) {
-                    continue;
-                }
-                String agentAddress = accuserAgentObject.getString("agent_address");
-                accuserAgent.setAgent(agentName);
-                accuserAgent.setAgentAddress(agentAddress);
-                accuserAgent.setAgentName(accuserShortName);
-                //代理类型（1-原告代理，2-被告代理）
-                accuserAgent.setAgentType("1");
-                accuserAgent.setCourtNumber(courtNumber);
-                this.save(accuserAgent);
-            }
+            saveAgent(courtNumber, accuserShortName, "1", accuserAgentArray);
         }
     }
 
@@ -78,23 +67,36 @@ public class AgentServiceImpl extends ServiceImpl<AgentMapper, Agent> implements
             JSONObject defendantInfoObject = defendantInfoArray.getJSONObject(m);
             String defendantShortName = defendantInfoObject.getString("defendant_short");
             JSONArray defendantAgentArray = defendantInfoObject.getJSONArray("defendant_agent");
-            //被告代理
-            for (int n = 0; n < defendantAgentArray.size(); n++) {
-                Agent defendantAgent = new Agent();
-                JSONObject defendantAgentObject = defendantAgentArray.getJSONObject(n);
-                String agentName = defendantAgentObject.getString("agent");
-                if (ObjectUtils.isEmpty(agentName)) {
-                    continue;
-                }
-                String agentAddress = defendantAgentObject.getString("agent_address");
-                defendantAgent.setAgent(agentName);
-                defendantAgent.setAgentAddress(agentAddress);
-                defendantAgent.setAgentName(defendantShortName);
-                //代理类型（1-原告代理，2-被告代理）
-                defendantAgent.setAgentType("2");
-                defendantAgent.setCourtNumber(courtNumber);
-                this.save(defendantAgent);
+            saveAgent(courtNumber, defendantShortName, "2", defendantAgentArray);
+        }
+    }
+
+    public void saveThirdPartyAgent(String courtNumber, JSONArray thirdPartyInfoArray) {
+        for (int m = 0; m < thirdPartyInfoArray.size(); m++) {
+            JSONObject thirdPartyInfoObject = thirdPartyInfoArray.getJSONObject(m);
+            String thirdPartyShortName = thirdPartyInfoObject.getString("third_party_short");
+            JSONArray thirdPartyAgentArray = thirdPartyInfoObject.getJSONArray("third_party_agent");
+            saveAgent(courtNumber, thirdPartyShortName, "3", thirdPartyAgentArray);
+        }
+    }
+
+
+    public void saveAgent(String courtNumber, String shortName, String agentType, JSONArray agentArray) {
+        for (int n = 0; n < agentArray.size(); n++) {
+            Agent agent = new Agent();
+            JSONObject agentObject = agentArray.getJSONObject(n);
+            String agentName = agentObject.getString("agent");
+            if (ObjectUtils.isEmpty(agentName)) {
+                continue;
             }
+            String agentAddress = agentObject.getString("agent_address");
+            agent.setAgent(agentName);
+            agent.setAgentAddress(agentAddress);
+            agent.setAgentName(shortName);
+            //代理类型（1-原告代理，2-被告代理，3-第三人代理）
+            agent.setAgentType(agentType);
+            agent.setCourtNumber(courtNumber);
+            this.save(agent);
         }
     }
 }

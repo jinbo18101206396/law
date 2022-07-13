@@ -5,15 +5,19 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.entity.BasicInfo">
         <id column="basic_id" property="basicId"/>
+        <result column="user_id" property="userId"/>
         <result column="filing_time" property="filingTime"/>
         <result column="court_time" property="courtTime"/>
         <result column="court_place" property="courtPlace"/>
         <result column="chief_judge" property="chiefJudge"/>
         <result column="judge" property="judge"/>
         <result column="juror" property="juror"/>
+        <result column="people_juror" property="peopleJuror"/>
         <result column="court_clerk" property="courtClerk"/>
         <result column="court_number" property="courtNumber"/>
         <result column="court_cause" property="courtCause"/>
+        <result column="is_defendant_evidence" property="isDefendantEvidence"/>
+        <result column="counterclaim_defendant_today_is_reply" property="counterClaimDefendantTodayIsReply"/>
         <result column="final_mediate_plan" property="finalMediatePlan"/>
         <result column="summarize" property="summarize"/>
         <result column="status" property="status"/>

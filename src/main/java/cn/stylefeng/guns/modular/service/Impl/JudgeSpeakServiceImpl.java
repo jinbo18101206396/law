@@ -5,6 +5,7 @@ import cn.stylefeng.guns.modular.mapper.JudgeSpeakMapper;
 import cn.stylefeng.guns.modular.service.JudgeSpeakService;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -29,14 +30,23 @@ public class JudgeSpeakServiceImpl extends ServiceImpl<JudgeSpeakMapper, JudgeSp
     public JSONObject getJudgeSpeak(String courtCause) {
         JSONObject judgeSpeakObject = new JSONObject();
         LambdaQueryWrapper<JudgeSpeak> judgeSpeakWrapper = new LambdaQueryWrapper<>();
-        judgeSpeakWrapper.eq(JudgeSpeak::getCourtCause,courtCause);
+        judgeSpeakWrapper.eq(JudgeSpeak::getCourtCause, courtCause);
         List<JudgeSpeak> judgeSpeakList = judgeSpeakService.list(judgeSpeakWrapper);
-        for(int i=0;i<judgeSpeakList.size();i++){
+        for (int i = 0; i < judgeSpeakList.size(); i++) {
             JudgeSpeak judgeSpeak = judgeSpeakList.get(i);
             String module = judgeSpeak.getModule();
             String content = judgeSpeak.getContent();
-            judgeSpeakObject.put(module,content);
+            judgeSpeakObject.put(module, content);
         }
         return judgeSpeakObject;
+    }
+
+    @Override
+    public Boolean editJudgeSpeak(String courtCause, String module, String content) {
+        LambdaUpdateWrapper<JudgeSpeak> judgeSpeakWrapper = new LambdaUpdateWrapper<>();
+        judgeSpeakWrapper.set(JudgeSpeak::getContent, content);
+        judgeSpeakWrapper.eq(JudgeSpeak::getCourtCause, courtCause);
+        judgeSpeakWrapper.eq(JudgeSpeak::getModule, module);
+        return this.update(judgeSpeakWrapper);
     }
 }

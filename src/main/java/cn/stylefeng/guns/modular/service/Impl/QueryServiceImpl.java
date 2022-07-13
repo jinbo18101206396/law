@@ -28,6 +28,59 @@ public class QueryServiceImpl extends ServiceImpl<QueryMapper, Query> implements
     private QueryService queryService;
 
     /**
+     * 被告及其他原告质证
+     */
+    @Override
+    public void saveDefendantAndOtherAccuserQuery(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
+        JSONObject courtInvestigateObject = recordJsonObject.getJSONObject("courtInvestigate");
+        if (courtInvestigateObject.containsKey("defendant_and_other_accuser_query")) {
+            JSONArray defendantAndOtherAccuserQueryArray = courtInvestigateObject.getJSONArray("defendant_and_other_accuser_query");
+            if (!ObjectUtils.isEmpty(defendantAndOtherAccuserQueryArray)) {
+                saveQueryInfo(courtNumber, counterClaim, 1, defendantAndOtherAccuserQueryArray);
+            }
+        }
+    }
+
+    /**
+     * 原告及其他被告质证
+     */
+    @Override
+    public void saveAccuserAndOtherDefendantQuery(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
+        JSONObject courtInvestigateObject = recordJsonObject.getJSONObject("courtInvestigate");
+        if (courtInvestigateObject.containsKey("accuser_and_other_defendant_query")) {
+            JSONArray accuserAndOtherDefendantQueryArray = courtInvestigateObject.getJSONArray("accuser_and_other_defendant_query");
+            if (!ObjectUtils.isEmpty(accuserAndOtherDefendantQueryArray)) {
+                saveQueryInfo(courtNumber, counterClaim, 2, accuserAndOtherDefendantQueryArray);
+            }
+        }
+    }
+
+    public void saveQueryInfo(String courtNumber, String counterClaim, Integer queryType, JSONArray queryArray) {
+        for (int i = 0; i < queryArray.size(); i++) {
+            JSONObject queryObject = queryArray.getJSONObject(i);
+            String name = queryObject.getString("name");
+            String evidence = queryObject.getString("evidence");
+            String facticity = queryObject.getString("facticity");
+            String legality = queryObject.getString("legality");
+            String relevance = queryObject.getString("relevance");
+            String factReason = queryObject.getString("fact_reason");
+            if (!ObjectUtils.isEmpty(name) && !ObjectUtils.isEmpty(evidence) && !ObjectUtils.isEmpty(factReason)) {
+                Query query = new Query();
+                query.setName(name);
+                query.setEvidence(evidence);
+                query.setFacticity(facticity);
+                query.setLegality(legality);
+                query.setRelevance(relevance);
+                query.setReason(factReason);
+                query.setIsCounterClaim(counterClaim);
+                query.setQueryType(queryType);
+                query.setCourtNumber(courtNumber);
+                this.save(query);
+            }
+        }
+    }
+
+    /**
      * 被告质证
      */
     @Override

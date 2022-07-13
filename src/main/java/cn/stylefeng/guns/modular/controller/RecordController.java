@@ -73,6 +73,8 @@ public class RecordController {
     @Resource
     private DefendantService defendantService;
     @Resource
+    private ThirdPartyService thirdPartyService;
+    @Resource
     private StateService stateService;
     @Resource
     private AgentService agentService;
@@ -136,27 +138,27 @@ public class RecordController {
 
         JSONObject recordJson = JSONObject.parseObject(recordJsonStr);
         JSONObject recordJsonObject = recordJson.getJSONObject("recordJson");
-        // requestType: 1-新建笔录，2-继续开庭
-        String requestType = recordJson.getString("requestType");
-
         String courtNumber = "";
         if (recordJsonObject.containsKey("basicInfo")) {
             String basicInfo = recordJsonObject.getString("basicInfo");
             JSONObject basicInfoObject = JSONObject.parseObject(basicInfo);
-            courtNumber = basicInfoObject.get("court_number").toString();
+            courtNumber = basicInfoObject.getString("court_number");
         }
         if (ObjectUtils.isEmpty(courtNumber)) {
             return new SuccessResponseData("案号不能为空");
         }
+        // requestType: 1-新建笔录，2-继续开庭
+        String requestType = recordJson.getString("requestType");
         List<BasicInfo> basicInfoList = basicInfoService.getBasicInfoList(courtNumber);
         if (basicInfoList != null && basicInfoList.size() > 0) {
-            if ("1".equals(requestType)) {
+            if (!ObjectUtils.isEmpty(requestType) && "1".equals(requestType)) {
                 return new SuccessResponseData("案号不能重复");
             }
             //编辑笔录，若案号已存在，则清空库中当前案号的信息，重新插入最新数据
             basicInfoService.deleteBasicInfo(courtNumber);
             accuserService.deleteAccuserInfo(courtNumber);
             defendantService.deleteDefendantInfo(courtNumber);
+            thirdPartyService.deleteThirdPartyInfo(courtNumber);
             agentService.deleteAgentInfo(courtNumber);
             stateService.deleteStateInfo(courtNumber);
             argueService.deleteArgueInfo(courtNumber);
@@ -166,13 +168,14 @@ public class RecordController {
             replyService.deleteReplyInfo(courtNumber);
             allegeService.deleteAllegeInfo(courtNumber);
         }
-
         //基本信息
         basicInfoService.saveBasicInfo(courtNumber, recordJsonObject);
         //原告信息
         accuserService.saveAccuserInfo(courtNumber, recordJsonObject);
         //被告信息
         defendantService.saveDefendantInfo(courtNumber, recordJsonObject);
+        //第三人信息
+        thirdPartyService.saveThirdPartyInfo(courtNumber, recordJsonObject);
         //委托诉讼代理人
         agentService.saveAgentInfo(courtNumber, recordJsonObject);
         //基本信息陈述
@@ -186,6 +189,11 @@ public class RecordController {
         if (recordJsonObject.containsKey("courtInvestigate")) {
             String courtInvestigate = recordJsonObject.getString("courtInvestigate");
             courtInvestigateObject = JSONObject.parseObject(courtInvestigate);
+        }
+        //被告是否举证
+        String defendantEvidence = "";
+        if (courtInvestigateObject != null && courtInvestigateObject.containsKey("is_defendant_evidence")) {
+            defendantEvidence = courtInvestigateObject.getString("is_defendant_evidence");
         }
         //是否反诉
         String counterClaim = "";
@@ -212,14 +220,15 @@ public class RecordController {
         inquiryService.saveInquiryInfo(courtNumber, counterClaim, recordJsonObject);
         //原告举证
         proofService.saveAccuserEvidence(courtNumber, "2", recordJsonObject);
-        //被告质证
-        queryService.saveDefendantQuery(courtNumber, "2", recordJsonObject);
-        //被告举证
-        proofService.saveDefendantEvidence(courtNumber, "2", recordJsonObject);
-        //原告质证
-        queryService.saveAccuserQuery(courtNumber, "2", recordJsonObject);
-        //其他被告质证
-        queryService.saveOtherDefendantQuery(courtNumber, "2", recordJsonObject);
+        //被告及其他原告质证
+        queryService.saveDefendantAndOtherAccuserQuery(courtNumber, "2", recordJsonObject);
+
+        if (!"".equals(defendantEvidence) && "1".equals(defendantEvidence)) {
+            //被告举证
+            proofService.saveDefendantEvidence(courtNumber, "2", recordJsonObject);
+            //原告及其他被告质证
+            queryService.saveAccuserAndOtherDefendantQuery(courtNumber, "2", recordJsonObject);
+        }
 
         if (!"".equals(counterClaim) && "1".equals(counterClaim)) {
             //反诉被告答辩
@@ -259,6 +268,10 @@ public class RecordController {
         //被告信息
         JSONArray defendantInfoArray = defendantService.getDefendantInfoArray(courtNumber);
         recordJson.put("defendantInfo", defendantInfoArray);
+
+        //第三人信息
+        JSONArray thirdPartyInfoArray = thirdPartyService.getThirdPartyInfoArray(courtNumber);
+        recordJson.put("thirdPartyInfo", thirdPartyInfoArray);
 
         //基本信息陈述
         JSONObject stateInfoObject = stateService.getStateInfoObject(courtNumber);
@@ -339,9 +352,9 @@ public class RecordController {
 
     /**
      * 获取各模块审判员说话内容
+     *
      * @param courtCause
      * @return {"所属模块":"审判员说话内容"}，例如：{"法庭询问":"举证质证结束，下面进入法庭询问。"}
-     *
      * @author 金波
      * @date 2022/07/11
      */
@@ -349,6 +362,21 @@ public class RecordController {
     public ResponseData getJudgeSpeak(String courtCause) {
         JSONObject judgeSpeak = judgeSpeakService.getJudgeSpeak(courtCause);
         return new SuccessResponseData(judgeSpeak);
+    }
+
+    /**
+     * 编辑各模块审判员说话内容
+     *
+     * @param courtCause：案由
+     * @param module：所属模块
+     * @param content：审判员说话内容
+     * @author 金波
+     * @date 2022/07/11
+     */
+    @PostResource(name = "编辑各模块审判员说话内容", path = "/record/judge/speak/edit")
+    public ResponseData editJudgeSpeak(String courtCause, String module, String content) {
+        Boolean editJudgeSpeak = judgeSpeakService.editJudgeSpeak(courtCause, module, content);
+        return new SuccessResponseData(editJudgeSpeak);
     }
 
     /**
@@ -395,6 +423,9 @@ public class RecordController {
 
         List<Defendant> defendantList = defendantService.getDefendantInfoList(courtNumber);
         recordMap.put("defendantList", defendantList);
+
+        List<ThirdParty> thirdPartyList = thirdPartyService.getThirdPartyInfoList(courtNumber);
+        recordMap.put("thirdPartyList", thirdPartyList);
 
         State stateInfo = stateService.getStateInfo(courtNumber);
         recordMap.put("state", stateInfo);

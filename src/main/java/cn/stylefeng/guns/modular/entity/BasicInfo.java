@@ -33,7 +33,7 @@ public class BasicInfo implements Serializable {
     /**
      * 立案时间
      */
-    @TableField(value = "filing_time")
+    @TableField("filing_time")
     private String filingTime;
 
     /**
@@ -89,6 +89,12 @@ public class BasicInfo implements Serializable {
      */
     @TableField("court_cause")
     private String courtCause;
+
+    /**
+     * 被告是否举证（1-是，2-否）
+     */
+    @TableField("is_defendant_evidence")
+    private String isDefendantEvidence;
 
     /**
      * 反诉被告今日是否答辩（1-答辩，2-不答辩）
@@ -232,20 +238,28 @@ public class BasicInfo implements Serializable {
         this.courtNumber = courtNumber;
     }
 
-    public String getCounterClaimDefendantTodayIsReply() {
-        return counterClaimDefendantTodayIsReply;
-    }
-
-    public void setCounterClaimDefendantTodayIsReply(String counterClaimDefendantTodayIsReply) {
-        this.counterClaimDefendantTodayIsReply = counterClaimDefendantTodayIsReply;
-    }
-
     public String getCourtCause() {
         return courtCause;
     }
 
     public void setCourtCause(String courtCause) {
         this.courtCause = courtCause;
+    }
+
+    public String getIsDefendantEvidence() {
+        return isDefendantEvidence;
+    }
+
+    public void setIsDefendantEvidence(String isDefendantEvidence) {
+        this.isDefendantEvidence = isDefendantEvidence;
+    }
+
+    public String getCounterClaimDefendantTodayIsReply() {
+        return counterClaimDefendantTodayIsReply;
+    }
+
+    public void setCounterClaimDefendantTodayIsReply(String counterClaimDefendantTodayIsReply) {
+        this.counterClaimDefendantTodayIsReply = counterClaimDefendantTodayIsReply;
     }
 
     public String getFinalMediatePlan() {
@@ -327,6 +341,8 @@ public class BasicInfo implements Serializable {
                 ", courtClerk='" + courtClerk + '\'' +
                 ", courtNumber='" + courtNumber + '\'' +
                 ", courtCause='" + courtCause + '\'' +
+                ", isDefendantEvidence='" + isDefendantEvidence + '\'' +
+                ", counterClaimDefendantTodayIsReply='" + counterClaimDefendantTodayIsReply + '\'' +
                 ", finalMediatePlan='" + finalMediatePlan + '\'' +
                 ", summarize='" + summarize + '\'' +
                 ", status=" + status +

@@ -23,4 +23,12 @@ public interface JudgeSpeakService extends IService<JudgeSpeak> {
      */
     JSONObject getJudgeSpeak(String courtCause);
 
+    /**
+     * 编辑审判员说的话
+     *
+     * @author jinbo
+     * @Date 2022-07-11
+     */
+    Boolean editJudgeSpeak(String courtCause, String module, String content);
+
 }
