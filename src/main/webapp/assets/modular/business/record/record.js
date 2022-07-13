@@ -108,8 +108,20 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                             accuser_claim_fact_reason: courtTemp.accuser_claim_fact_reason,// 原告诉讼请求的事实及理由
                             is_counterclaim: courtTemp.is_counterclaim,
                             defendant_reply: courtTemp.defendant_reply,
-                            judge_inquiry_after_accuser_claim: wholeItem.judge_inquiry_after_accuser_claim,
-                            judge_inquiry_after_defendant_reply: wholeItem.judge_inquiry_after_defendant_reply,
+                            judge_inquiry_after_accuser_claim:[{  //原告诉称后的审判员问答对
+                                question:"",
+                                answer:[{
+                                    name:"",
+                                    answer:"",
+                                }]
+                            }],
+                            judge_inquiry_after_defendant_reply:[{  //被告答辩后的审判员问答对
+                                question:"",
+                                answer:[{
+                                    name:"",
+                                    answer:"",
+                                }]
+                            }]
 
                             /*counterclaim_accuser_claim_item: courtTemp.counterclaim_accuser_claim_item,
                             counterclaim_accuser_fact_reason: courtTemp.counterclaim_accuser_fact_reason,
@@ -131,7 +143,7 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                         myLocalStorage["accuserShowInfo"] = accuserShowInfo
 
                         courtTemp.defendant_evidence.forEach(e => {
-                            e.name = e.name ? e.name.split("**") : []
+                            e.defendant = e.defendant ? e.defendant.split("**") : []
                         })
                         courtTemp.accuser_and_other_defendant_query.forEach(e => {
                             e.name = e.name ? e.name.split("**") : [], e.evidence = e.evidence ? e.evidence.split("**") : []
@@ -218,9 +230,19 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
 
                     //审判员最后陈述
                     if ("summarize" in wholeItem) {
-                        let summarize={}
+                        let summarize={
+                            summarize_inquiry:[{
+                                question: "",
+                                answer: [{
+                                    name:"",
+                                    answer:"",
+                                }
+                                ]
+                            }],
+                        }
                         summarize["summarize"]=wholeItem.summarize
-                        summarize["summarize_inquiry"] = wholeItem.judge_inquiry_before_summarize
+                        // summarize["summarize_inquiry"] = wholeItem.judge_inquiry_before_summarize
+
                         myLocalStorage["summarize"] = summarize
                     }
 
@@ -288,9 +310,9 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
         } else if (layEvent == 'delete') {
             Record.onDeleteItem(data);
         } else if (layEvent == 'generate') {
-             $.get('/record/list?courtNumber='+data.courtNumber,function(result){
-                 recordList(result.data);
-             })
+            $.get('/record/list?courtNumber='+data.courtNumber,function(result){
+                recordList(result.data);
+            })
         }
     });
 
@@ -298,21 +320,21 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
     table.on('tool(templateTable)', function (obj) {
         var data = obj.data;
         var layEvent = obj.event;
-       if(layEvent == 'download'){
+        if(layEvent == 'download'){
             $(location).attr('href', '/record/download?recordPath='+encodeURI(data.recordPath));
         }else if(layEvent == 'delete'){
-           var operation = function () {
-               var httpRequest = new HttpRequest(Feng.ctxPath + "/record/word/delete", 'post', function (data) {
-                   Feng.success("删除成功!");
-                   location.reload();
-               }, function (data) {
-                   Feng.error("删除失败!" + data.message + "!");
-               });
-               httpRequest.set(data);
-               httpRequest.start(true);
-           };
-           Feng.confirm("确定删除笔录【" + data.recordName + "】?", operation);
-       }
+            var operation = function () {
+                var httpRequest = new HttpRequest(Feng.ctxPath + "/record/word/delete", 'post', function (data) {
+                    Feng.success("删除成功!");
+                    location.reload();
+                }, function (data) {
+                    Feng.error("删除失败!" + data.message + "!");
+                });
+                httpRequest.set(data);
+                httpRequest.start(true);
+            };
+            Feng.confirm("确定删除笔录【" + data.recordName + "】?", operation);
+        }
     });
 
     function recordList(result) {
