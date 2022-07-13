@@ -112,6 +112,8 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                             counterclaim_accuser_fact_reason: courtTemp.counterclaim_accuser_fact_reason,
                             counterclaim_defendant_reply: courtTemp.counterclaim_defendant_reply,
                             counterclaim_defendant_today_is_reply: courtTemp.counterclaim_defendant_today_is_reply,
+                            judge_inquiry_after_accuser_claim_show: wholeItem.judge_inquiry_after_accuser_claim,
+                            judge_inquiry_after_defendant_reply: wholeItem.judge_inquiry_after_defendant_reply,
                         }
                         myLocalStorage["CourtInves"] = courtInves
 
@@ -217,6 +219,7 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                     if ("summarize" in wholeItem) {
                         let summarize={}
                         summarize["summarize"]=wholeItem.summarize
+                        summarize["summarize_inquiry"] = wholeItem.judge_inquiry_before_summarize
                         myLocalStorage["summarize"] = summarize
                     }
 
