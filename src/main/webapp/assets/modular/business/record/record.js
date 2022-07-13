@@ -108,6 +108,9 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                             accuser_claim_fact_reason: courtTemp.accuser_claim_fact_reason,// 原告诉讼请求的事实及理由
                             is_counterclaim: courtTemp.is_counterclaim,
                             defendant_reply: courtTemp.defendant_reply,
+                            judge_inquiry_after_accuser_claim: wholeItem.judge_inquiry_after_accuser_claim,
+                            judge_inquiry_after_defendant_reply: wholeItem.judge_inquiry_after_defendant_reply,
+
                             /*counterclaim_accuser_claim_item: courtTemp.counterclaim_accuser_claim_item,
                             counterclaim_accuser_fact_reason: courtTemp.counterclaim_accuser_fact_reason,
                             counterclaim_defendant_reply: courtTemp.counterclaim_defendant_reply,
@@ -217,6 +220,7 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                     if ("summarize" in wholeItem) {
                         let summarize={}
                         summarize["summarize"]=wholeItem.summarize
+                        summarize["summarize_inquiry"] = wholeItem.judge_inquiry_before_summarize
                         myLocalStorage["summarize"] = summarize
                     }
 
