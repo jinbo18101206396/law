@@ -131,7 +131,7 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                         myLocalStorage["accuserShowInfo"] = accuserShowInfo
 
                         courtTemp.defendant_evidence.forEach(e => {
-                            e.defendant = e.defendant ? e.defendant.split("**") : []
+                            e.name = e.name ? e.name.split("**") : []
                         })
                         courtTemp.accuser_and_other_defendant_query.forEach(e => {
                             e.name = e.name ? e.name.split("**") : [], e.evidence = e.evidence ? e.evidence.split("**") : []
