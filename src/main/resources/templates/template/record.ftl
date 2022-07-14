@@ -755,7 +755,7 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>审判员：被告对原告提交的证据进行质证。</w:t>
+                            <w:t>审判员：被告及其他原告对原告提交的证据进行质证。</w:t>
                         </w:r>
                     </w:p>
                     <#list defendantQueryList as defendantQuery>
@@ -846,6 +846,7 @@
                             <w:t>被告：没有</w:t>
                         </w:r>
                     </w:p>
+                    <#list inquiryList as inquiry>
                     <w:p w14:paraId="3C94FD3E" w14:textId="3D3A3AA0" w:rsidR="00096FDA" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -867,7 +868,6 @@
                             <w:t>审判员：举证质证结束，下面进入法庭询问。</w:t>
                         </w:r>
                     </w:p>
-                    <#list inquiryList as inquiry>
                     <w:p w14:paraId="6248BCFE" w14:textId="0680E81B" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>

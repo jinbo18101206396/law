@@ -939,6 +939,39 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 }
             }
         }
+        if(judgeInquiryAfterAccuserClaimArray == null || judgeInquiryAfterAccuserClaimArray.size() <= 0){
+            JSONObject inquiryInfoObject = new JSONObject();
+            inquiryInfoObject.put("question", "");
+            JSONArray inquiryAnswerArray = new JSONArray();
+            JSONObject inquiryAnswerObject = new JSONObject();
+            inquiryAnswerObject.put("name", "");
+            inquiryAnswerObject.put("answer", "");
+            inquiryAnswerArray.add(inquiryAnswerObject);
+            inquiryInfoObject.put("answer", inquiryAnswerArray);
+            judgeInquiryAfterAccuserClaimArray.add(inquiryInfoObject);
+        }
+        if(judgeInquiryAfterDefendantReplyArray == null || judgeInquiryAfterDefendantReplyArray.size() <= 0){
+            JSONObject inquiryInfoObject = new JSONObject();
+            inquiryInfoObject.put("question", "");
+            JSONArray inquiryAnswerArray = new JSONArray();
+            JSONObject inquiryAnswerObject = new JSONObject();
+            inquiryAnswerObject.put("name", "");
+            inquiryAnswerObject.put("answer", "");
+            inquiryAnswerArray.add(inquiryAnswerObject);
+            inquiryInfoObject.put("answer", inquiryAnswerArray);
+            judgeInquiryAfterDefendantReplyArray.add(inquiryInfoObject);
+        }
+        if(judgeInquiryBeforeSummarize == null || judgeInquiryBeforeSummarize.size() <= 0){
+            JSONObject inquiryInfoObject = new JSONObject();
+            inquiryInfoObject.put("question", "");
+            JSONArray inquiryAnswerArray = new JSONArray();
+            JSONObject inquiryAnswerObject = new JSONObject();
+            inquiryAnswerObject.put("name", "");
+            inquiryAnswerObject.put("answer", "");
+            inquiryAnswerArray.add(inquiryAnswerObject);
+            inquiryInfoObject.put("answer", inquiryAnswerArray);
+            judgeInquiryBeforeSummarize.add(inquiryInfoObject);
+        }
         courtInvestigateObject.put("judge_inquiry_after_accuser_claim", judgeInquiryAfterAccuserClaimArray);
         courtInvestigateObject.put("judge_inquiry_after_defendant_reply", judgeInquiryAfterDefendantReplyArray);
         courtInvestigateObject.put("judge_inquiry_before_summarize", judgeInquiryBeforeSummarize);
