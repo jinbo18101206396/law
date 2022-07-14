@@ -694,15 +694,15 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
     public List<Query> getDefendantQuery(String courtNumber) {
         List<Query> defendantQueryList = new ArrayList<>();
         JSONObject courtInvestigateObject = this.getCourtInvestigateObject(courtNumber);
-        JSONArray defendantQueryArray = courtInvestigateObject.getJSONArray("defendant_query");
+        JSONArray defendantQueryArray = courtInvestigateObject.getJSONArray("defendant_and_other_accuser_query");
         for (int i = 0; i < defendantQueryArray.size(); i++) {
             JSONObject defendantQueryObject = defendantQueryArray.getJSONObject(i);
-            String defendant = defendantQueryObject.getString("defendant");
+            String defendant = defendantQueryObject.getString("name");
             String evidence = defendantQueryObject.getString("evidence");
             String facticity = defendantQueryObject.getString("facticity");
             String legality = defendantQueryObject.getString("legality");
             String relevance = defendantQueryObject.getString("relevance");
-            String defendantQueryFactReason = defendantQueryObject.getString("defendant_query_fact_reason");
+            String defendantQueryFactReason = defendantQueryObject.getString("fact_reason");
             if (!ObjectUtils.isEmpty(defendant) && !ObjectUtils.isEmpty(evidence) && !ObjectUtils.isEmpty(defendantQueryFactReason)) {
                 if (defendant.contains("**")) {
                     defendant = defendant.replace("**", "、");
