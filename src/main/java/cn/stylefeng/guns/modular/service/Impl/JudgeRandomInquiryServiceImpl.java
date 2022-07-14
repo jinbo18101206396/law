@@ -1,17 +1,20 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
+import cn.stylefeng.guns.modular.entity.Inquiry;
 import cn.stylefeng.guns.modular.entity.JudgeRandomInquiry;
 import cn.stylefeng.guns.modular.mapper.JudgeRandomInquiryMapper;
 import cn.stylefeng.guns.modular.service.JudgeRandomInquiryService;
 import cn.stylefeng.roses.kernel.rule.enums.YesOrNotEnum;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -86,7 +89,63 @@ public class JudgeRandomInquiryServiceImpl extends ServiceImpl<JudgeRandomInquir
 
     @Override
     public JSONArray getJudgeRandomInquiryInfoArray(String courtNumber) {
-        return null;
+        JSONArray judgeInquiryBeforeSummarize = new JSONArray();
+
+        LambdaQueryWrapper<JudgeRandomInquiry> judgeRandomInquiryWrapper = new LambdaQueryWrapper<>();
+        judgeRandomInquiryWrapper.eq(JudgeRandomInquiry::getCourtNumber, courtNumber);
+        judgeRandomInquiryWrapper.eq(JudgeRandomInquiry::getType,"3");
+        judgeRandomInquiryWrapper.eq(JudgeRandomInquiry::getDelFlag, YesOrNotEnum.N.getCode());
+        List<JudgeRandomInquiry> judgeRandomInquiries = judgeRandomInquiryService.list(judgeRandomInquiryWrapper);
+
+        if (judgeRandomInquiries == null || judgeRandomInquiries.size() <= 0) {
+            JSONObject inquiryInfoObject = new JSONObject();
+            inquiryInfoObject.put("question", "");
+            JSONArray inquiryAnswerArray = new JSONArray();
+            JSONObject inquiryAnswerObject = new JSONObject();
+            inquiryAnswerObject.put("name", "");
+            inquiryAnswerObject.put("answer", "");
+            inquiryAnswerArray.add(inquiryAnswerObject);
+            inquiryInfoObject.put("answer", inquiryAnswerArray);
+            judgeInquiryBeforeSummarize.add(inquiryInfoObject);
+        } else {
+            String lastQuestion = "";
+            JSONArray inquiryAnswerArray = null;
+            JSONObject inquiryInfoObject = null;
+
+            for (int i = 0; i < judgeRandomInquiries.size(); i++) {
+                JudgeRandomInquiry judgeRandomInquiry = judgeRandomInquiries.get(i);
+                String question = judgeRandomInquiry.getQuestion();
+                if (ObjectUtils.isEmpty(question)) {
+                    continue;
+                }
+                String answer = judgeRandomInquiry.getAnswer();
+                String name = judgeRandomInquiry.getName();
+
+                JSONObject inquiryAnswerObject = new JSONObject();
+                if (!lastQuestion.equals(question)) {
+                    if (inquiryAnswerArray != null && inquiryAnswerArray.size() > 0) {
+                        inquiryInfoObject.put("answer", inquiryAnswerArray);
+                        judgeInquiryBeforeSummarize.add(inquiryInfoObject);
+                    }
+                    lastQuestion = question;
+                    inquiryInfoObject = new JSONObject();
+                    inquiryInfoObject.put("question", question);
+                    inquiryAnswerArray = new JSONArray();
+                    inquiryAnswerObject.put("name", name);
+                    inquiryAnswerObject.put("answer", answer);
+                    inquiryAnswerArray.add(inquiryAnswerObject);
+                } else {
+                    inquiryAnswerObject.put("name", name);
+                    inquiryAnswerObject.put("answer", answer);
+                    inquiryAnswerArray.add(inquiryAnswerObject);
+                }
+            }
+            if (inquiryAnswerArray != null && inquiryAnswerArray.size() > 0) {
+                inquiryInfoObject.put("answer", inquiryAnswerArray);
+                judgeInquiryBeforeSummarize.add(inquiryInfoObject);
+            }
+        }
+        return judgeInquiryBeforeSummarize;
     }
 
     @Override

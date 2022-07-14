@@ -169,6 +169,7 @@ public class RecordController {
             proofService.deleteProofInfo(courtNumber);
             replyService.deleteReplyInfo(courtNumber);
             allegeService.deleteAllegeInfo(courtNumber);
+            judgeRandomInquiryService.deleteJudgeRandomInquiryInfo(courtNumber);
         }
         //基本信息
         basicInfoService.saveBasicInfo(courtNumber, recordJsonObject);
@@ -288,8 +289,6 @@ public class RecordController {
         //法庭调查
         JSONObject courtInvestigateObject = basicInfoService.getCourtInvestigateObject(courtNumber);
         recordJson.put("courtInvestigate", courtInvestigateObject);
-        JSONArray judgeInquiryBeforeSummarize = courtInvestigateObject.getJSONArray("judge_inquiry_before_summarize");
-        recordJson.put("judge_inquiry_before_summarize",judgeInquiryBeforeSummarize);
 
         //法庭询问
         JSONArray inquiryInfoArray = inquiryService.getInquiryInfoArray(courtNumber);
@@ -310,6 +309,10 @@ public class RecordController {
         //电子裁判文书送达
         JSONArray deliveryInfoArray = basicInfoService.getDiliveryInfoArray(courtNumber);
         recordJson.put("deliveryInfo", deliveryInfoArray);
+
+        //审判员随机提问
+        JSONArray judgeRandomInquiryInfoArray = judgeRandomInquiryService.getJudgeRandomInquiryInfoArray(courtNumber);
+        recordJson.put("judge_inquiry_before_summarize", judgeRandomInquiryInfoArray);
 
         //审判员最终总结
         String summarize = basicInfoService.getSummarize(courtNumber);
