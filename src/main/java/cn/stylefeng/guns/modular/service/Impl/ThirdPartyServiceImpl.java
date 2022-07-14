@@ -45,6 +45,11 @@ public class ThirdPartyServiceImpl extends ServiceImpl<ThirdPartyMapper, ThirdPa
             String thirdPartyName = thirdPartyInfoObject.getString("third_party");
             String thirdPartyShort = thirdPartyInfoObject.getString("third_party_short");
             String thirdPartyType = thirdPartyInfoObject.getString("third_party_type");
+
+            if("2".equals(thirdPartyType)){
+                thirdPartyShort = thirdPartyName;
+            }
+
             String thirdPartyInfo = thirdPartyInfoObject.getString("third_party_info");
             String thirdPartyAddress = thirdPartyInfoObject.getString("third_party_address");
             String thirdPartyRepresent = thirdPartyInfoObject.getString("third_party_represent");
@@ -54,13 +59,14 @@ public class ThirdPartyServiceImpl extends ServiceImpl<ThirdPartyMapper, ThirdPa
             thirdParty.setThirdParty(thirdPartyName);
             thirdParty.setThirdPartyShort(thirdPartyShort);
             thirdParty.setThirdPartyType(thirdPartyType);
-            thirdParty.setThirdPartyInfo(thirdPartyInfo);
-            thirdParty.setThirdPartyAddress(thirdPartyAddress);
             thirdParty.setCourtNumber(courtNumber);
             //第三人（机构）
             if ("1".equals(thirdPartyType)) {
                 thirdParty.setThirdPartyRepresent(thirdPartyRepresent);
                 thirdParty.setThirdPartyDuty(thirdPartyDuty);
+                thirdParty.setThirdPartyAddress(thirdPartyAddress);
+            }else if("2".equals(thirdPartyType)){
+                thirdParty.setThirdPartyInfo(thirdPartyInfo);
             }
             //是否听清诉讼权利和义务（1-听清，2-没听清）、是否申请回避(1-回避，2-不回避)
             if (recordJsonObject.containsKey("rightInfo")) {

@@ -291,6 +291,13 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 }
             }
         }
+        if(accuserRightDutyArray == null || accuserRightDutyArray.size() <= 0){
+            JSONObject accuserRightDutyObject = new JSONObject();
+            accuserRightDutyObject.put("accuser", "");
+            accuserRightDutyObject.put("right_duty", "");
+            accuserRightDutyObject.put("avoid", "");
+            accuserRightDutyArray.add(accuserRightDutyObject);
+        }
         rightInfoObject.put("accuser_right_duty", accuserRightDutyArray);
         //被告
         JSONArray defendantRightDutyArray = new JSONArray();
@@ -319,6 +326,13 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 }
             }
         }
+        if(defendantRightDutyArray == null || defendantRightDutyArray.size() <= 0){
+            JSONObject defendantRightDutyObject = new JSONObject();
+            defendantRightDutyObject.put("defendant", "");
+            defendantRightDutyObject.put("right_duty", "");
+            defendantRightDutyObject.put("avoid", "");
+            defendantRightDutyArray.add(defendantRightDutyObject);
+        }
         rightInfoObject.put("defendant_right_duty", defendantRightDutyArray);
         //第三人
         JSONArray thirdRightDutyArray = new JSONArray();
@@ -330,7 +344,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
             JSONObject thirdRightDutyObject = new JSONObject();
             thirdRightDutyObject.put("third_party", "");
             thirdRightDutyObject.put("right_duty", "");
-            thirdRightDutyObject.put("avoid", "");
+            thirdRightDutyObject.put("avoid", "2");
             thirdRightDutyArray.add(thirdRightDutyObject);
         } else {
             for (int i = 0; i < thirdParties.size(); i++) {
@@ -346,6 +360,13 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                     thirdRightDutyArray.add(thirdRightDutyObject);
                 }
             }
+        }
+        if(thirdRightDutyArray == null || thirdRightDutyArray.size() <= 0){
+            JSONObject thirdRightDutyObject = new JSONObject();
+            thirdRightDutyObject.put("third_party", "");
+            thirdRightDutyObject.put("right_duty", "");
+            thirdRightDutyObject.put("avoid", "");
+            thirdRightDutyArray.add(thirdRightDutyObject);
         }
         rightInfoObject.put("third_party_right_duty", thirdRightDutyArray);
         return rightInfoObject;
