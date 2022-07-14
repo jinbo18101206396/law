@@ -866,9 +866,11 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
             judgeInquiryBeforeSummarize.add(inquiryInfoObject);
         } else {
             String lastQuestion = "";
+            String type = "";
+            String lastType = "";
             JSONArray inquiryAnswerArray = null;
             JSONObject inquiryInfoObject = null;
-            String type = "";
+
             for (int i = 0; i < judgeRandomInquiries.size(); i++) {
                 JudgeRandomInquiry judgeRandomInquiry = judgeRandomInquiries.get(i);
                 String question = judgeRandomInquiry.getQuestion();
@@ -883,18 +885,18 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 if (!lastQuestion.equals(question)) {
                     if (inquiryAnswerArray != null && inquiryAnswerArray.size() > 0) {
                         inquiryInfoObject.put("answer", inquiryAnswerArray);
-                        if ("1".equals(type)) {
+                        if ("1".equals(lastType)) {
                             judgeInquiryAfterAccuserClaimArray.add(inquiryInfoObject);
-                        } else if ("2".equals(type)) {
+                        } else if ("2".equals(lastType)) {
                             judgeInquiryAfterDefendantReplyArray.add(inquiryInfoObject);
-                        } else if ("3".equals(type)) {
+                        } else if ("3".equals(lastType)) {
                             judgeInquiryBeforeSummarize.add(inquiryInfoObject);
                         }
                     }
-                    inquiryInfoObject = new JSONObject();
+                    lastType = type;
                     lastQuestion = question;
+                    inquiryInfoObject = new JSONObject();
                     inquiryInfoObject.put("question", question);
-
                     inquiryAnswerArray = new JSONArray();
                     inquiryAnswerObject.put("name", name);
                     inquiryAnswerObject.put("answer", answer);
