@@ -64,6 +64,8 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
     @Resource
     private InquiryService inquiryService;
     @Resource
+    private JudgeRandomInquiryService judgeRandomInquiryService;
+    @Resource
     private CacheOperatorApi<SysUserDTO> sysUserCacheOperatorApi;
 
     @Override
@@ -652,6 +654,8 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         JSONObject courtInvestigateObject = new JSONObject();
         //诉称内容
         courtInvesAllege(courtNumber, courtInvestigateObject);
+        //法官随机提问(原告诉称后，被告答辩后)
+        judgeRandomInquiry(courtNumber, courtInvestigateObject);
         //答辩内容
         courtInvesReply(courtNumber, courtInvestigateObject);
         //举证内容
@@ -756,34 +760,37 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         //原告诉讼请求
         String accuserClaimItem = courtInvestigateObject.getString("accuser_claim_item");
         String accuserClaimFactReason = courtInvestigateObject.getString("accuser_claim_fact_reason");
-
         //原告举证
         String accuserEvidence = "";
         JSONArray accuserEvidenceArray = courtInvestigateObject.getJSONArray("accuser_evidence");
-        for (int i = 0; i < accuserEvidenceArray.size(); i++) {
-            JSONObject accuserEvidenceObject = accuserEvidenceArray.getJSONObject(i);
-            String serial = accuserEvidenceObject.getString("serial");
-            String evidenceType = accuserEvidenceObject.getString("evidence_type");
-            String evidence = accuserEvidenceObject.getString("evidence");
-            String content = accuserEvidenceObject.getString("content");
-            accuserEvidence += serial + "." + evidence + "(" + evidenceType + "),证明事项：" + content;
+        if (accuserEvidenceArray != null && accuserEvidenceArray.size() > 0) {
+            for (int i = 0; i < accuserEvidenceArray.size(); i++) {
+                JSONObject accuserEvidenceObject = accuserEvidenceArray.getJSONObject(i);
+                String serial = accuserEvidenceObject.getString("serial");
+                String evidenceType = accuserEvidenceObject.getString("evidence_type");
+                String evidence = accuserEvidenceObject.getString("evidence");
+                String content = accuserEvidenceObject.getString("content");
+                accuserEvidence += serial + "." + evidence + "(" + evidenceType + "),证明事项：" + content;
+            }
         }
         //被告质证
         String defendantQuery = "";
         JSONArray defendantQueryArray = courtInvestigateObject.getJSONArray("defendant_query");
-        for (int i = 0; i < defendantQueryArray.size(); i++) {
-            JSONObject defendantQueryObject = defendantQueryArray.getJSONObject(i);
-            String defendant = defendantQueryObject.getString("defendant");
-            String evidence = defendantQueryObject.getString("evidence");
-            String defendantQueryFactReason = defendantQueryObject.getString("defendant_query_fact_reason");
-            if (!ObjectUtils.isEmpty(defendant) && !ObjectUtils.isEmpty(evidence) && !ObjectUtils.isEmpty(defendantQueryFactReason)) {
-                if (defendant.contains("**")) {
-                    defendant = defendant.replace("**", "、");
+        if (defendantQueryArray != null && defendantQueryArray.size() > 0) {
+            for (int i = 0; i < defendantQueryArray.size(); i++) {
+                JSONObject defendantQueryObject = defendantQueryArray.getJSONObject(i);
+                String defendant = defendantQueryObject.getString("defendant");
+                String evidence = defendantQueryObject.getString("evidence");
+                String defendantQueryFactReason = defendantQueryObject.getString("defendant_query_fact_reason");
+                if (!ObjectUtils.isEmpty(defendant) && !ObjectUtils.isEmpty(evidence) && !ObjectUtils.isEmpty(defendantQueryFactReason)) {
+                    if (defendant.contains("**")) {
+                        defendant = defendant.replace("**", "、");
+                    }
+                    if (evidence.contains("**")) {
+                        evidence = evidence.replace("**", "、");
+                    }
+                    defendantQuery += defendant + "质证（" + evidence + "）；事实和理由：" + defendantQueryFactReason;
                 }
-                if (evidence.contains("**")) {
-                    evidence = evidence.replace("**", "、");
-                }
-                defendantQuery += defendant + "质证（" + evidence + "）；事实和理由：" + defendantQueryFactReason;
             }
         }
         CourtInvestigate courtInvestigate = new CourtInvestigate();
@@ -830,6 +837,88 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 courtInvestigateObject.put("is_counterclaim", allege.getIsCounterClaim());
             }
         }
+    }
+
+    /**
+     * 法庭调查-法官随机提问
+     */
+    public void judgeRandomInquiry(String courtNumber, JSONObject courtInvestigateObject) {
+        JSONArray judgeInquiryAfterAccuserClaimArray = new JSONArray();
+        JSONArray judgeInquiryAfterDefendantReplyArray = new JSONArray();
+        JSONArray judgeInquiryBeforeSummarize = new JSONArray();
+
+        LambdaQueryWrapper<JudgeRandomInquiry> judgeRandomInquiryWrapper = new LambdaQueryWrapper<>();
+        judgeRandomInquiryWrapper.eq(JudgeRandomInquiry::getCourtNumber, courtNumber);
+        judgeRandomInquiryWrapper.eq(JudgeRandomInquiry::getDelFlag, YesOrNotEnum.N.getCode());
+        List<JudgeRandomInquiry> judgeRandomInquiries = judgeRandomInquiryService.list(judgeRandomInquiryWrapper);
+
+        if (judgeRandomInquiries == null || judgeRandomInquiries.size() <= 0) {
+            JSONObject inquiryInfoObject = new JSONObject();
+            inquiryInfoObject.put("question", "");
+            JSONArray inquiryAnswerArray = new JSONArray();
+            JSONObject inquiryAnswerObject = new JSONObject();
+            inquiryAnswerObject.put("name", "");
+            inquiryAnswerObject.put("answer", "");
+            inquiryAnswerArray.add(inquiryAnswerObject);
+            inquiryInfoObject.put("answer", inquiryAnswerArray);
+            judgeInquiryAfterAccuserClaimArray.add(inquiryInfoObject);
+            judgeInquiryAfterDefendantReplyArray.add(inquiryInfoObject);
+            judgeInquiryBeforeSummarize.add(inquiryInfoObject);
+        } else {
+            String lastQuestion = "";
+            JSONArray inquiryAnswerArray = null;
+            JSONObject inquiryInfoObject = null;
+            String type = "";
+            for (int i = 0; i < judgeRandomInquiries.size(); i++) {
+                JudgeRandomInquiry judgeRandomInquiry = judgeRandomInquiries.get(i);
+                String question = judgeRandomInquiry.getQuestion();
+                if (ObjectUtils.isEmpty(question)) {
+                    continue;
+                }
+                String answer = judgeRandomInquiry.getAnswer();
+                String name = judgeRandomInquiry.getName();
+                type = judgeRandomInquiry.getType();
+
+                JSONObject inquiryAnswerObject = new JSONObject();
+                if (!lastQuestion.equals(question)) {
+                    if (inquiryAnswerArray != null && inquiryAnswerArray.size() > 0) {
+                        inquiryInfoObject.put("answer", inquiryAnswerArray);
+                        if ("1".equals(type)) {
+                            judgeInquiryAfterAccuserClaimArray.add(inquiryInfoObject);
+                        } else if ("2".equals(type)) {
+                            judgeInquiryAfterDefendantReplyArray.add(inquiryInfoObject);
+                        } else if ("3".equals(type)) {
+                            judgeInquiryBeforeSummarize.add(inquiryInfoObject);
+                        }
+                    }
+                    inquiryInfoObject = new JSONObject();
+                    lastQuestion = question;
+                    inquiryInfoObject.put("question", question);
+
+                    inquiryAnswerArray = new JSONArray();
+                    inquiryAnswerObject.put("name", name);
+                    inquiryAnswerObject.put("answer", answer);
+                    inquiryAnswerArray.add(inquiryAnswerObject);
+                } else {
+                    inquiryAnswerObject.put("name", name);
+                    inquiryAnswerObject.put("answer", answer);
+                    inquiryAnswerArray.add(inquiryAnswerObject);
+                }
+            }
+            if (inquiryAnswerArray != null && inquiryAnswerArray.size() > 0) {
+                inquiryInfoObject.put("answer", inquiryAnswerArray);
+                if ("1".equals(type)) {
+                    judgeInquiryAfterAccuserClaimArray.add(inquiryInfoObject);
+                } else if ("2".equals(type)) {
+                    judgeInquiryAfterDefendantReplyArray.add(inquiryInfoObject);
+                } else if ("3".equals(type)) {
+                    judgeInquiryBeforeSummarize.add(inquiryInfoObject);
+                }
+            }
+        }
+        courtInvestigateObject.put("judge_inquiry_after_accuser_claim", judgeInquiryAfterAccuserClaimArray);
+        courtInvestigateObject.put("judge_inquiry_after_defendant_reply", judgeInquiryAfterDefendantReplyArray);
+        courtInvestigateObject.put("judge_inquiry_before_summarize", judgeInquiryBeforeSummarize);
     }
 
     /**
@@ -931,7 +1020,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
 
         if (defendantEvidenceArray.size() <= 0) {
             JSONObject defendantEvidenceObject = new JSONObject();
-            defendantEvidenceObject.put("name","");
+            defendantEvidenceObject.put("name", "");
             defendantEvidenceObject.put("serial", "1");
             defendantEvidenceObject.put("evidence", "");
             defendantEvidenceObject.put("evidence_type", "");

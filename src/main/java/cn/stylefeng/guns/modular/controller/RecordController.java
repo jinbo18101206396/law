@@ -98,6 +98,8 @@ public class RecordController {
     private ClerkRelationService clerkRelationService;
     @Resource
     private JudgeSpeakService judgeSpeakService;
+    @Resource
+    private JudgeRandomInquiryService judgeRandomInquiryService;
 
     @Value("${record.backup.path}")
     private String backupPath;
@@ -182,6 +184,8 @@ public class RecordController {
         stateService.saveStateInfo(courtNumber, recordJsonObject);
         //原告诉讼请求项和事实与理由
         allegeService.saveAccuserClaimItem(courtNumber, "2", recordJsonObject);
+        //法官随机提问（原告诉称后，被告答辩后，审判员最后陈述前）
+        judgeRandomInquiryService.saveJudgeRandomInquiryInfo(courtNumber, "2", recordJsonObject);
         //被告答辩
         replyService.saveDefendantReply(courtNumber, "2", recordJsonObject);
 
@@ -198,7 +202,7 @@ public class RecordController {
         //是否反诉
         String counterClaim = "";
         if (courtInvestigateObject != null && courtInvestigateObject.containsKey("is_counterclaim")) {
-            counterClaim = courtInvestigateObject.get("is_counterclaim").toString();
+            counterClaim = courtInvestigateObject.getString("is_counterclaim");
         }
         //反诉原告诉讼请求项
         if (!"".equals(counterClaim) && "1".equals(counterClaim)) {
@@ -284,6 +288,8 @@ public class RecordController {
         //法庭调查
         JSONObject courtInvestigateObject = basicInfoService.getCourtInvestigateObject(courtNumber);
         recordJson.put("courtInvestigate", courtInvestigateObject);
+        JSONArray judgeInquiryBeforeSummarize = courtInvestigateObject.getJSONArray("judge_inquiry_before_summarize");
+        recordJson.put("judge_inquiry_before_summarize",judgeInquiryBeforeSummarize);
 
         //法庭询问
         JSONArray inquiryInfoArray = inquiryService.getInquiryInfoArray(courtNumber);
