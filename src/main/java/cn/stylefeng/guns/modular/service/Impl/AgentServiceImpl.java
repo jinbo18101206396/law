@@ -76,6 +76,10 @@ public class AgentServiceImpl extends ServiceImpl<AgentMapper, Agent> implements
             JSONObject thirdPartyInfoObject = thirdPartyInfoArray.getJSONObject(m);
             String thirdPartyShortName = thirdPartyInfoObject.getString("third_party_short");
             JSONArray thirdPartyAgentArray = thirdPartyInfoObject.getJSONArray("third_party_agent");
+            String thirdPartyType = thirdPartyInfoObject.getString("third_party_type");
+            if("2".equals(thirdPartyType)){
+                thirdPartyShortName = thirdPartyInfoObject.getString("third_party");
+            }
             saveAgent(courtNumber, thirdPartyShortName, "3", thirdPartyAgentArray);
         }
     }

@@ -939,6 +939,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 }
             }
         }
+        //TODO 简化代码
         if(judgeInquiryAfterAccuserClaimArray == null || judgeInquiryAfterAccuserClaimArray.size() <= 0){
             JSONObject inquiryInfoObject = new JSONObject();
             inquiryInfoObject.put("question", "");
