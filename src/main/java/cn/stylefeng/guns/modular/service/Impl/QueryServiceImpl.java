@@ -9,6 +9,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
@@ -31,6 +32,7 @@ public class QueryServiceImpl extends ServiceImpl<QueryMapper, Query> implements
      * 被告及其他原告质证
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void saveDefendantAndOtherAccuserQuery(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
         JSONObject courtInvestigateObject = recordJsonObject.getJSONObject("courtInvestigate");
         if (courtInvestigateObject.containsKey("defendant_and_other_accuser_query")) {

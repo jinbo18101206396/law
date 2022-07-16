@@ -142,32 +142,26 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
     public JSONArray getDefendantInfoArray(String courtNumber) {
         //被告信息
         JSONArray defendantInfoArray = new JSONArray();
-        LambdaQueryWrapper<Defendant> defendantQueryWrapper = new LambdaQueryWrapper<>();
-        defendantQueryWrapper.eq(Defendant::getCourtNumber, courtNumber);
-        defendantQueryWrapper.eq(Defendant::getDelFlag, YesOrNotEnum.N.getCode());
-        List<Defendant> defendants = defendantService.list(defendantQueryWrapper);
-        //委托诉讼代理人
-        LambdaQueryWrapper<Agent> agentQueryWrapper = new LambdaQueryWrapper<>();
-        agentQueryWrapper.eq(Agent::getCourtNumber, courtNumber);
-        agentQueryWrapper.eq(Agent::getDelFlag, YesOrNotEnum.N.getCode());
-        agentQueryWrapper.eq(Agent::getAgentType, "2");
-        List<Agent> agents = agentService.list(agentQueryWrapper);
+        List<Defendant> defendants = getDefendants(courtNumber);
+        List<Agent> agents = getAgents(courtNumber);
 
         for (int i = 0; i < defendants.size(); i++) {
             Defendant defendant = defendants.get(i);
-            String defendantType = defendant.getDefendantType();
             String defendantName = defendant.getDefendant();
-            String defendantShort = defendant.getDefendantShort();
+            String defendantShort = "";
+            String defendantType = defendant.getDefendantType();
+            if("1".equals(defendantType)){
+                defendantShort = defendant.getDefendantShort();
+            }else{
+                defendantShort = defendantName;
+            }
             String defendantInfo = defendant.getDefendantInfo();
             String defendantAddress = defendant.getDefendantAddress();
             String defendantRepresent = defendant.getDefendantRepresent();
             String defendantDuty = defendant.getDefendantDuty();
             JSONArray defendantAgentArray = new JSONArray();
             if (null == agents || agents.size() <= 0) {
-                JSONObject defendantAgentObject = new JSONObject();
-                defendantAgentObject.put("agent", "");
-                defendantAgentObject.put("agent_address", "");
-                defendantAgentArray.add(defendantAgentObject);
+                defendantAgentArray.add(blankAgent());
             } else {
                 for (int j = 0; j < agents.size(); j++) {
                     Agent agent = agents.get(j);
@@ -192,55 +186,72 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
             defendantInfoObject.put("defendant_represent", defendantRepresent);
             defendantInfoObject.put("defendant_duty", defendantDuty);
             if (defendantAgentArray.size() <= 0) {
-                JSONObject agentObject = new JSONObject();
-                agentObject.put("agent", "");
-                agentObject.put("agent_address", "");
-                defendantAgentArray.add(agentObject);
+                defendantAgentArray.add(blankAgent());
             }
             defendantInfoObject.put("defendant_agent", defendantAgentArray);
             defendantInfoArray.add(defendantInfoObject);
         }
-        if (defendantInfoArray.size() <= 0) {
-            JSONObject defendantInfoObject = new JSONObject();
-            defendantInfoObject.put("defendant_type", "1");
-            defendantInfoObject.put("defendant", "");
-            defendantInfoObject.put("defendant_short", "");
-            defendantInfoObject.put("defendant_info", "");
-            defendantInfoObject.put("defendant_address", "");
-            defendantInfoObject.put("defendant_represent", "");
-            defendantInfoObject.put("defendant_duty", "");
-            JSONArray defendantAgentArray = new JSONArray();
-            JSONObject defendantAgentObject = new JSONObject();
-            defendantAgentObject.put("agent", "");
-            defendantAgentObject.put("agent_address", "");
-            defendantAgentArray.add(defendantAgentObject);
-            defendantInfoObject.put("defendant_agent", defendantAgentArray);
-            defendantInfoArray.add(defendantInfoObject);
+        if (defendantInfoArray == null || defendantInfoArray.size() <= 0) {
+            defendantInfoArray.add(blankDefendant());
         }
         return defendantInfoArray;
     }
 
-
-    @Override
-    public List<Defendant> getDefendantInfoList(String courtNumber) {
-        //原告
+    public List<Defendant> getDefendants(String courtNumber){
         LambdaQueryWrapper<Defendant> defendantQueryWrapper = new LambdaQueryWrapper<>();
         defendantQueryWrapper.eq(Defendant::getCourtNumber, courtNumber);
         defendantQueryWrapper.eq(Defendant::getDelFlag, YesOrNotEnum.N.getCode());
-        List<Defendant> defendantList = defendantService.list(defendantQueryWrapper);
-        //委托诉讼代理人
+        return defendantService.list(defendantQueryWrapper);
+    }
+
+    public List<Agent> getAgents(String courtNumber){
         LambdaQueryWrapper<Agent> agentQueryWrapper = new LambdaQueryWrapper<>();
         agentQueryWrapper.eq(Agent::getCourtNumber, courtNumber);
         agentQueryWrapper.eq(Agent::getDelFlag, YesOrNotEnum.N.getCode());
         agentQueryWrapper.eq(Agent::getAgentType, "2");
-        List<Agent> agents = agentService.list(agentQueryWrapper);
+        return agentService.list(agentQueryWrapper);
+    }
+
+    public JSONObject blankAgent(){
+        JSONObject agentObject = new JSONObject();
+        agentObject.put("agent", "");
+        agentObject.put("agent_address", "");
+        return agentObject;
+    }
+
+    public JSONObject blankDefendant(){
+        JSONObject defendantInfoObject = new JSONObject();
+        defendantInfoObject.put("defendant_type", "1");
+        defendantInfoObject.put("defendant", "");
+        defendantInfoObject.put("defendant_short", "");
+        defendantInfoObject.put("defendant_info", "");
+        defendantInfoObject.put("defendant_address", "");
+        defendantInfoObject.put("defendant_represent", "");
+        defendantInfoObject.put("defendant_duty", "");
+        JSONArray defendantAgentArray = new JSONArray();
+        JSONObject defendantAgentObject = new JSONObject();
+        defendantAgentObject.put("agent", "");
+        defendantAgentObject.put("agent_address", "");
+        defendantAgentArray.add(defendantAgentObject);
+        defendantInfoObject.put("defendant_agent", defendantAgentArray);
+        return defendantInfoObject;
+    }
+
+    @Override
+    public List<Defendant> getDefendantInfoList(String courtNumber) {
+        List<Defendant> defendantList = getDefendants(courtNumber);
+        List<Agent> agents = getAgents(courtNumber);
         for (int i = 0; i < defendantList.size(); i++) {
             Defendant defendant = defendantList.get(i);
             String defendantName = defendant.getDefendant();
-            String defendantShort = defendant.getDefendantShort();
+            String defendantShort = "";
             String defendantAddress = defendant.getDefendantAddress();
-
             String defendantType = defendant.getDefendantType();
+            if("1".equals(defendantType)){
+                defendantShort = defendant.getDefendantShort();
+            }else{
+                defendantShort = defendantName;
+            }
             String defendantInfo = defendant.getDefendantInfo();
             if("1".equals(defendantType)){
                 defendant.setDefendant(defendantName+"（简称："+defendantShort+"），地址："+defendantAddress);

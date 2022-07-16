@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
@@ -31,16 +32,15 @@ public class InquiryServiceImpl extends ServiceImpl<InquiryMapper, Inquiry> impl
     private InquiryService inquiryService;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void saveInquiryInfo(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
         //法庭询问
 
         if (recordJsonObject.containsKey("inquiryInfo")) {
             JSONArray inquiryInfoArray = recordJsonObject.getJSONArray("inquiryInfo");
-
             for (int i = 0; i < inquiryInfoArray.size(); i++) {
                 JSONObject inquiryInfoObject = inquiryInfoArray.getJSONObject(i);
                 String question = inquiryInfoObject.getString("inquiry_question");
-
                 JSONArray inquiryAnswerArray = inquiryInfoObject.getJSONArray("inquiry_answer");
                 for (int j = 0; j < inquiryAnswerArray.size(); j++) {
                     JSONObject inquiryAnswerObject = inquiryAnswerArray.getJSONObject(j);
@@ -65,25 +65,32 @@ public class InquiryServiceImpl extends ServiceImpl<InquiryMapper, Inquiry> impl
         }
     }
 
+    public List<Inquiry> getInquiries(String courtNumber){
+        LambdaQueryWrapper<Inquiry> inquiryQueryWrapper = new LambdaQueryWrapper<>();
+        inquiryQueryWrapper.eq(Inquiry::getCourtNumber, courtNumber);
+        inquiryQueryWrapper.eq(Inquiry::getDelFlag, YesOrNotEnum.N.getCode());
+        return inquiryService.list(inquiryQueryWrapper);
+    }
+
+    public JSONObject blankInquiry(){
+        JSONObject inquiryInfoObject = new JSONObject();
+        inquiryInfoObject.put("inquiry_question", "");
+        JSONArray inquiryAnswerArray = new JSONArray();
+        JSONObject inquiryAnswerObject = new JSONObject();
+        inquiryAnswerObject.put("name", "");
+        inquiryAnswerObject.put("answer", "");
+        inquiryAnswerArray.add(inquiryAnswerObject);
+        inquiryInfoObject.put("inquiry_answer", inquiryAnswerArray);
+        return inquiryInfoObject;
+    }
+
     @Override
     public JSONArray getInquiryInfoArray(String courtNumber) {
         //法庭询问
         JSONArray inquiryInfoArray = new JSONArray();
-        LambdaQueryWrapper<Inquiry> inquiryQueryWrapper = new LambdaQueryWrapper<>();
-        inquiryQueryWrapper.eq(Inquiry::getCourtNumber, courtNumber);
-        inquiryQueryWrapper.eq(Inquiry::getDelFlag, YesOrNotEnum.N.getCode());
-        List<Inquiry> inquiries = inquiryService.list(inquiryQueryWrapper);
-
+        List<Inquiry> inquiries = getInquiries(courtNumber);
         if (null == inquiries || inquiries.size() == 0) {
-            JSONObject inquiryInfoObject = new JSONObject();
-            inquiryInfoObject.put("inquiry_question", "");
-            JSONArray inquiryAnswerArray = new JSONArray();
-            JSONObject inquiryAnswerObject = new JSONObject();
-            inquiryAnswerObject.put("name", "");
-            inquiryAnswerObject.put("answer", "");
-            inquiryAnswerArray.add(inquiryAnswerObject);
-            inquiryInfoObject.put("inquiry_answer", inquiryAnswerArray);
-            inquiryInfoArray.add(inquiryInfoObject);
+            inquiryInfoArray.add(blankInquiry());
         } else {
             String lastInquiryQuestion = "";
             JSONArray inquiryAnswerArray = null;

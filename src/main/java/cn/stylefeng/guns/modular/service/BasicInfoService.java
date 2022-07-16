@@ -10,7 +10,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -27,7 +26,7 @@ public interface BasicInfoService extends IService<BasicInfo> {
      * @author jinbo
      * @Date 2022-05-23
      */
-    void saveBasicInfo(String courtNumber,JSONObject recordJsonObject);
+    void saveBasicInfo(String courtNumber, JSONObject recordJsonObject);
 
     /**
      * 获取笔录基本信息详情

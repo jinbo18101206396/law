@@ -12,6 +12,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
@@ -34,6 +35,7 @@ public class ThirdPartyServiceImpl extends ServiceImpl<ThirdPartyMapper, ThirdPa
     private AgentService agentService;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void saveThirdPartyInfo(String courtNumber, JSONObject recordJsonObject) {
         //第三人信息
         JSONArray thirdPartyInfoArray = recordJsonObject.getJSONArray("thirdPartyInfo");
@@ -46,7 +48,7 @@ public class ThirdPartyServiceImpl extends ServiceImpl<ThirdPartyMapper, ThirdPa
             String thirdPartyShort = thirdPartyInfoObject.getString("third_party_short");
             String thirdPartyType = thirdPartyInfoObject.getString("third_party_type");
 
-            if("2".equals(thirdPartyType)){
+            if ("2".equals(thirdPartyType)) {
                 thirdPartyShort = thirdPartyName;
             }
 
@@ -65,7 +67,7 @@ public class ThirdPartyServiceImpl extends ServiceImpl<ThirdPartyMapper, ThirdPa
                 thirdParty.setThirdPartyRepresent(thirdPartyRepresent);
                 thirdParty.setThirdPartyDuty(thirdPartyDuty);
                 thirdParty.setThirdPartyAddress(thirdPartyAddress);
-            }else if("2".equals(thirdPartyType)){
+            } else if ("2".equals(thirdPartyType)) {
                 thirdParty.setThirdPartyInfo(thirdPartyInfo);
             }
             //是否听清诉讼权利和义务（1-听清，2-没听清）、是否申请回避(1-回避，2-不回避)
@@ -146,31 +148,27 @@ public class ThirdPartyServiceImpl extends ServiceImpl<ThirdPartyMapper, ThirdPa
 
     @Override
     public JSONArray getThirdPartyInfoArray(String courtNumber) {
-        //委托诉讼代理人
-        LambdaQueryWrapper<Agent> agentQueryWrapper = new LambdaQueryWrapper<>();
-        agentQueryWrapper.eq(Agent::getCourtNumber, courtNumber);
-        agentQueryWrapper.eq(Agent::getDelFlag, YesOrNotEnum.N.getCode());
-        agentQueryWrapper.eq(Agent::getAgentType, "3");
-        List<Agent> agents = agentService.list(agentQueryWrapper);
-        //第三人信息
         JSONArray thirdPartyInfoArray = new JSONArray();
-        LambdaQueryWrapper<ThirdParty> thirdPartyQueryWrapper = new LambdaQueryWrapper<>();
-        thirdPartyQueryWrapper.eq(ThirdParty::getCourtNumber, courtNumber);
-        thirdPartyQueryWrapper.eq(ThirdParty::getDelFlag, YesOrNotEnum.N.getCode());
-        List<ThirdParty> thirdParties = thirdPartyService.list(thirdPartyQueryWrapper);
-
+        List<Agent> agents = getAgents(courtNumber);
+        List<ThirdParty> thirdParties = getThirdParts(courtNumber);
         for (int i = 0; i < thirdParties.size(); i++) {
             ThirdParty thirdParty = thirdParties.get(i);
-            String thirdPartyType = thirdParty.getThirdPartyType();
             String thirdPartyName = thirdParty.getThirdParty();
-            String thirdPartyShort = thirdParty.getThirdPartyShort();
+            String thirdPartyShort = "";
+            String thirdPartyType = thirdParty.getThirdPartyType();
+            if ("1".equals(thirdPartyType)) {
+                thirdPartyShort = thirdParty.getThirdPartyShort();
+            } else {
+                thirdPartyShort = thirdPartyName;
+            }
             String thirdPartyInfo = thirdParty.getThirdPartyInfo();
             String thirdPartyAddress = thirdParty.getThirdPartyAddress();
             String thirdPartyRepresent = thirdParty.getThirdPartyRepresent();
             String thirdPartyDuty = thirdParty.getThirdPartyDuty();
-
             JSONArray thirdPartyAgentArray = new JSONArray();
-            if (agents != null && agents.size() > 0) {
+            if (agents == null || agents.size() <= 0) {
+                thirdPartyAgentArray.add(blankAgent());
+            } else {
                 for (int j = 0; j < agents.size(); j++) {
                     Agent agent = agents.get(j);
                     String agentName = agent.getAgentName();
@@ -191,33 +189,56 @@ public class ThirdPartyServiceImpl extends ServiceImpl<ThirdPartyMapper, ThirdPa
             thirdPartyInfoObject.put("third_party_address", thirdPartyAddress);
             thirdPartyInfoObject.put("third_party_represent", thirdPartyRepresent);
             thirdPartyInfoObject.put("third_party_duty", thirdPartyDuty);
-            if (thirdPartyAgentArray.size() <= 0) {
-                JSONObject agentObject = new JSONObject();
-                agentObject.put("agent", "");
-                agentObject.put("agent_address", "");
-                thirdPartyAgentArray.add(agentObject);
+            if (thirdPartyAgentArray == null || thirdPartyAgentArray.size() <= 0) {
+                thirdPartyAgentArray.add(blankAgent());
             }
             thirdPartyInfoObject.put("third_party_agent", thirdPartyAgentArray);
             thirdPartyInfoArray.add(thirdPartyInfoObject);
         }
-        if (thirdPartyInfoArray.size() <= 0) {
-            JSONObject thirdPartyInfoObject = new JSONObject();
-            thirdPartyInfoObject.put("third_party_type", "1");
-            thirdPartyInfoObject.put("third_party", "");
-            thirdPartyInfoObject.put("third_party_short", "");
-            thirdPartyInfoObject.put("third_party_info", "");
-            thirdPartyInfoObject.put("third_party_address", "");
-            thirdPartyInfoObject.put("third_party_represent", "");
-            thirdPartyInfoObject.put("third_party_duty", "");
-            JSONArray thirdPartyAgentArray = new JSONArray();
-            JSONObject thirdPartyAgentObject = new JSONObject();
-            thirdPartyAgentObject.put("agent", "");
-            thirdPartyAgentObject.put("agent_address", "");
-            thirdPartyAgentArray.add(thirdPartyAgentObject);
-            thirdPartyInfoObject.put("third_party_agent", thirdPartyAgentArray);
-            thirdPartyInfoArray.add(thirdPartyInfoObject);
+        if (thirdPartyInfoArray == null || thirdPartyInfoArray.size() <= 0) {
+            thirdPartyInfoArray.add(blankThirdParty());
         }
         return thirdPartyInfoArray;
+    }
+
+    public List<ThirdParty> getThirdParts(String courtNumber) {
+        LambdaQueryWrapper<ThirdParty> thirdPartyQueryWrapper = new LambdaQueryWrapper<>();
+        thirdPartyQueryWrapper.eq(ThirdParty::getCourtNumber, courtNumber);
+        thirdPartyQueryWrapper.eq(ThirdParty::getDelFlag, YesOrNotEnum.N.getCode());
+        return thirdPartyService.list(thirdPartyQueryWrapper);
+    }
+
+    public List<Agent> getAgents(String courtNumber) {
+        LambdaQueryWrapper<Agent> agentQueryWrapper = new LambdaQueryWrapper<>();
+        agentQueryWrapper.eq(Agent::getCourtNumber, courtNumber);
+        agentQueryWrapper.eq(Agent::getDelFlag, YesOrNotEnum.N.getCode());
+        agentQueryWrapper.eq(Agent::getAgentType, "3");
+        return agentService.list(agentQueryWrapper);
+    }
+
+    public JSONObject blankAgent() {
+        JSONObject agentObject = new JSONObject();
+        agentObject.put("agent", "");
+        agentObject.put("agent_address", "");
+        return agentObject;
+    }
+
+    public JSONObject blankThirdParty() {
+        JSONObject thirdPartyInfoObject = new JSONObject();
+        thirdPartyInfoObject.put("third_party_type", "1");
+        thirdPartyInfoObject.put("third_party", "");
+        thirdPartyInfoObject.put("third_party_short", "");
+        thirdPartyInfoObject.put("third_party_info", "");
+        thirdPartyInfoObject.put("third_party_address", "");
+        thirdPartyInfoObject.put("third_party_represent", "");
+        thirdPartyInfoObject.put("third_party_duty", "");
+        JSONArray thirdPartyAgentArray = new JSONArray();
+        JSONObject thirdPartyAgentObject = new JSONObject();
+        thirdPartyAgentObject.put("agent", "");
+        thirdPartyAgentObject.put("agent_address", "");
+        thirdPartyAgentArray.add(thirdPartyAgentObject);
+        thirdPartyInfoObject.put("third_party_agent", thirdPartyAgentArray);
+        return thirdPartyInfoObject;
     }
 
     @Override

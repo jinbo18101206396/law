@@ -175,10 +175,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
     public JSONObject getBasicInfoObject(String courtNumber) {
         //笔录基本信息
         JSONObject basicInfoObject = new JSONObject();
-        LambdaQueryWrapper<BasicInfo> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(BasicInfo::getCourtNumber, courtNumber);
-        queryWrapper.eq(BasicInfo::getDelFlag, YesOrNotEnum.N.getCode());
-        BasicInfo basicInfo = this.getOne(queryWrapper);
+        BasicInfo basicInfo = this.getBasicInfo(courtNumber);
         if (!ObjectUtils.isEmpty(basicInfo)) {
             basicInfoObject.put("filing_time", basicInfo.getFilingTime());
             basicInfoObject.put("court_time", basicInfo.getCourtTime());
@@ -234,8 +231,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         LambdaQueryWrapper<BasicInfo> basicInfoQueryWrapper = new LambdaQueryWrapper<>();
         basicInfoQueryWrapper.eq(BasicInfo::getCourtNumber, courtNumber);
         basicInfoQueryWrapper.eq(BasicInfo::getDelFlag, YesOrNotEnum.N.getCode());
-        BasicInfo basicInfo = basicInfoService.getOne(basicInfoQueryWrapper);
-        return basicInfo;
+        return basicInfoService.getOne(basicInfoQueryWrapper);
     }
 
     @Override
@@ -250,9 +246,53 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         LambdaQueryWrapper<BasicInfo> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(BasicInfo::getCourtNumber, courtNumber);
         queryWrapper.eq(BasicInfo::getDelFlag, YesOrNotEnum.N.getCode());
+        return basicInfoService.list(queryWrapper);
+    }
 
-        List<BasicInfo> basicInfos = basicInfoService.list(queryWrapper);
-        return basicInfos;
+    public List<Accuser> getAccusers(String courtNumber) {
+        LambdaQueryWrapper<Accuser> accuserQueryWrapper = new LambdaQueryWrapper<>();
+        accuserQueryWrapper.eq(Accuser::getCourtNumber, courtNumber);
+        accuserQueryWrapper.eq(Accuser::getDelFlag, YesOrNotEnum.N.getCode());
+        return accuserService.list(accuserQueryWrapper);
+    }
+
+    public List<Defendant> getDefendants(String courtNumber) {
+        LambdaQueryWrapper<Defendant> defendentQueryWrapper = new LambdaQueryWrapper<>();
+        defendentQueryWrapper.eq(Defendant::getCourtNumber, courtNumber);
+        defendentQueryWrapper.eq(Defendant::getDelFlag, YesOrNotEnum.N.getCode());
+        return defendantService.list(defendentQueryWrapper);
+    }
+
+    public List<ThirdParty> getThirdParties(String courtNumber) {
+        LambdaQueryWrapper<ThirdParty> thirdPartyQueryWrapper = new LambdaQueryWrapper<>();
+        thirdPartyQueryWrapper.eq(ThirdParty::getCourtNumber, courtNumber);
+        thirdPartyQueryWrapper.eq(ThirdParty::getDelFlag, YesOrNotEnum.N.getCode());
+        return thirdPartyService.list(thirdPartyQueryWrapper);
+    }
+
+
+    public JSONObject blankAccuserRightDutyObject() {
+        JSONObject accuserRightDutyObject = new JSONObject();
+        accuserRightDutyObject.put("accuser", "");
+        accuserRightDutyObject.put("right_duty", "");
+        accuserRightDutyObject.put("avoid", "");
+        return accuserRightDutyObject;
+    }
+
+    public JSONObject blankDefendantRightDutyObject() {
+        JSONObject defendantRightDutyObject = new JSONObject();
+        defendantRightDutyObject.put("defendant", "");
+        defendantRightDutyObject.put("right_duty", "");
+        defendantRightDutyObject.put("avoid", "");
+        return defendantRightDutyObject;
+    }
+
+    public JSONObject blankThirdPartyRightDutyObject() {
+        JSONObject thirdPartyRightDutyObject = new JSONObject();
+        thirdPartyRightDutyObject.put("third_party", "");
+        thirdPartyRightDutyObject.put("right_duty", "");
+        thirdPartyRightDutyObject.put("avoid", "");
+        return thirdPartyRightDutyObject;
     }
 
     /**
@@ -265,16 +305,9 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         rightInfoObject.put("judge_avoid", "审判员：当事人对审判员和书记是否申请回避？");
         //原告
         JSONArray accuserRightDutyArray = new JSONArray();
-        LambdaQueryWrapper<Accuser> accuserQueryWrapper = new LambdaQueryWrapper<>();
-        accuserQueryWrapper.eq(Accuser::getCourtNumber, courtNumber);
-        accuserQueryWrapper.eq(Accuser::getDelFlag, YesOrNotEnum.N.getCode());
-        List<Accuser> accusers = accuserService.list(accuserQueryWrapper);
+        List<Accuser> accusers = getAccusers(courtNumber);
         if (null == accusers || accusers.size() == 0) {
-            JSONObject accuserRightDutyObject = new JSONObject();
-            accuserRightDutyObject.put("accuser", "");
-            accuserRightDutyObject.put("right_duty", "");
-            accuserRightDutyObject.put("avoid", "");
-            accuserRightDutyArray.add(accuserRightDutyObject);
+            accuserRightDutyArray.add(blankAccuserRightDutyObject());
         } else {
             for (int i = 0; i < accusers.size(); i++) {
                 Accuser accuser = accusers.get(i);
@@ -291,26 +324,15 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 }
             }
         }
-        if(accuserRightDutyArray == null || accuserRightDutyArray.size() <= 0){
-            JSONObject accuserRightDutyObject = new JSONObject();
-            accuserRightDutyObject.put("accuser", "");
-            accuserRightDutyObject.put("right_duty", "");
-            accuserRightDutyObject.put("avoid", "");
-            accuserRightDutyArray.add(accuserRightDutyObject);
+        if (accuserRightDutyArray == null || accuserRightDutyArray.size() <= 0) {
+            accuserRightDutyArray.add(blankAccuserRightDutyObject());
         }
         rightInfoObject.put("accuser_right_duty", accuserRightDutyArray);
         //被告
         JSONArray defendantRightDutyArray = new JSONArray();
-        LambdaQueryWrapper<Defendant> defendentQueryWrapper = new LambdaQueryWrapper<>();
-        defendentQueryWrapper.eq(Defendant::getCourtNumber, courtNumber);
-        defendentQueryWrapper.eq(Defendant::getDelFlag, YesOrNotEnum.N.getCode());
-        List<Defendant> defendants = defendantService.list(defendentQueryWrapper);
+        List<Defendant> defendants = getDefendants(courtNumber);
         if (null == defendants || defendants.size() == 0) {
-            JSONObject defendantRightDutyObject = new JSONObject();
-            defendantRightDutyObject.put("defendant", "");
-            defendantRightDutyObject.put("right_duty", "");
-            defendantRightDutyObject.put("avoid", "");
-            defendantRightDutyArray.add(defendantRightDutyObject);
+            defendantRightDutyArray.add(blankDefendantRightDutyObject());
         } else {
             for (int i = 0; i < defendants.size(); i++) {
                 Defendant defendant = defendants.get(i);
@@ -326,26 +348,15 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 }
             }
         }
-        if(defendantRightDutyArray == null || defendantRightDutyArray.size() <= 0){
-            JSONObject defendantRightDutyObject = new JSONObject();
-            defendantRightDutyObject.put("defendant", "");
-            defendantRightDutyObject.put("right_duty", "");
-            defendantRightDutyObject.put("avoid", "");
-            defendantRightDutyArray.add(defendantRightDutyObject);
+        if (defendantRightDutyArray == null || defendantRightDutyArray.size() <= 0) {
+            defendantRightDutyArray.add(blankDefendantRightDutyObject());
         }
         rightInfoObject.put("defendant_right_duty", defendantRightDutyArray);
         //第三人
         JSONArray thirdRightDutyArray = new JSONArray();
-        LambdaQueryWrapper<ThirdParty> thirdQueryWrapper = new LambdaQueryWrapper<>();
-        thirdQueryWrapper.eq(ThirdParty::getCourtNumber, courtNumber);
-        thirdQueryWrapper.eq(ThirdParty::getDelFlag, YesOrNotEnum.N.getCode());
-        List<ThirdParty> thirdParties = thirdPartyService.list(thirdQueryWrapper);
+        List<ThirdParty> thirdParties = getThirdParties(courtNumber);
         if (null == thirdParties || thirdParties.size() <= 0) {
-            JSONObject thirdRightDutyObject = new JSONObject();
-            thirdRightDutyObject.put("third_party", "");
-            thirdRightDutyObject.put("right_duty", "");
-            thirdRightDutyObject.put("avoid", "2");
-            thirdRightDutyArray.add(thirdRightDutyObject);
+            thirdRightDutyArray.add(blankThirdPartyRightDutyObject());
         } else {
             for (int i = 0; i < thirdParties.size(); i++) {
                 ThirdParty thirdParty = thirdParties.get(i);
@@ -361,12 +372,8 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 }
             }
         }
-        if(thirdRightDutyArray == null || thirdRightDutyArray.size() <= 0){
-            JSONObject thirdRightDutyObject = new JSONObject();
-            thirdRightDutyObject.put("third_party", "");
-            thirdRightDutyObject.put("right_duty", "");
-            thirdRightDutyObject.put("avoid", "");
-            thirdRightDutyArray.add(thirdRightDutyObject);
+        if (thirdRightDutyArray == null || thirdRightDutyArray.size() <= 0) {
+            thirdRightDutyArray.add(blankThirdPartyRightDutyObject());
         }
         rightInfoObject.put("third_party_right_duty", thirdRightDutyArray);
         return rightInfoObject;
@@ -379,18 +386,9 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
     public JSONArray getDiliveryInfoArray(String courtNumber) {
         JSONArray diliveryInfoArray = new JSONArray();
         //原告
-        LambdaQueryWrapper<Accuser> accuserQueryWrapper = new LambdaQueryWrapper<>();
-        accuserQueryWrapper.eq(Accuser::getCourtNumber, courtNumber);
-        accuserQueryWrapper.eq(Accuser::getDelFlag, YesOrNotEnum.N.getCode());
-        List<Accuser> accusers = accuserService.list(accuserQueryWrapper);
-
-        //若原告为空
+        List<Accuser> accusers = getAccusers(courtNumber);
         if (null == accusers || accusers.size() == 0) {
-            JSONObject accuserDeliveryObject = new JSONObject();
-            accuserDeliveryObject.put("name", "");
-            accuserDeliveryObject.put("is_delivery", "1");
-            accuserDeliveryObject.put("email", "");
-            diliveryInfoArray.add(accuserDeliveryObject);
+            diliveryInfoArray.add(blankDelivery());
         } else {
             for (int i = 0; i < accusers.size(); i++) {
                 JSONObject accuserDeliveryObject = new JSONObject();
@@ -400,27 +398,16 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 if (ObjectUtils.isEmpty(isDelivery)) {
                     isDelivery = "1";
                 }
-                String email = accuser.getEmail();
-
                 accuserDeliveryObject.put("name", accuserShortName + "（原告）");
                 accuserDeliveryObject.put("is_delivery", isDelivery);
-                accuserDeliveryObject.put("email", email);
+                accuserDeliveryObject.put("email", accuser.getEmail());
                 diliveryInfoArray.add(accuserDeliveryObject);
             }
         }
-
         //被告
-        LambdaQueryWrapper<Defendant> defendantQueryWrapper = new LambdaQueryWrapper<>();
-        defendantQueryWrapper.eq(Defendant::getCourtNumber, courtNumber);
-        defendantQueryWrapper.eq(Defendant::getDelFlag, YesOrNotEnum.N.getCode());
-        List<Defendant> defendants = defendantService.list(defendantQueryWrapper);
-        //若被告为空
+        List<Defendant> defendants = getDefendants(courtNumber);
         if (null == defendants || defendants.size() == 0) {
-            JSONObject defendantDeliveryObject = new JSONObject();
-            defendantDeliveryObject.put("name", "");
-            defendantDeliveryObject.put("is_delivery", "1");
-            defendantDeliveryObject.put("email", "");
-            diliveryInfoArray.add(defendantDeliveryObject);
+            diliveryInfoArray.add(blankDelivery());
         } else {
             for (int i = 0; i < defendants.size(); i++) {
                 JSONObject defendantDeliveryObject = new JSONObject();
@@ -438,16 +425,9 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         }
 
         //第三人
-        LambdaQueryWrapper<ThirdParty> thirdPartyQueryWrapper = new LambdaQueryWrapper<>();
-        thirdPartyQueryWrapper.eq(ThirdParty::getCourtNumber, courtNumber);
-        thirdPartyQueryWrapper.eq(ThirdParty::getDelFlag, YesOrNotEnum.N.getCode());
-        List<ThirdParty> thirdParties = thirdPartyService.list(thirdPartyQueryWrapper);
+        List<ThirdParty> thirdParties = getThirdParties(courtNumber);
         if (null == thirdParties || thirdParties.size() <= 0) {
-            JSONObject thirdPartyDeliveryObject = new JSONObject();
-            thirdPartyDeliveryObject.put("name", "");
-            thirdPartyDeliveryObject.put("is_delivery", "1");
-            thirdPartyDeliveryObject.put("email", "");
-            diliveryInfoArray.add(thirdPartyDeliveryObject);
+            diliveryInfoArray.add(blankDelivery());
         } else {
             for (int i = 0; i < thirdParties.size(); i++) {
                 JSONObject thirdPartyDeliveryObject = new JSONObject();
@@ -464,6 +444,14 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
             }
         }
         return diliveryInfoArray;
+    }
+
+    public JSONObject blankDelivery() {
+        JSONObject deliveryObject = new JSONObject();
+        deliveryObject.put("name", "");
+        deliveryObject.put("is_delivery", "1");
+        deliveryObject.put("email", "");
+        return deliveryObject;
     }
 
     /**
@@ -868,20 +856,9 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         JSONArray judgeInquiryAfterDefendantReplyArray = new JSONArray();
         JSONArray judgeInquiryBeforeSummarize = new JSONArray();
 
-        LambdaQueryWrapper<JudgeRandomInquiry> judgeRandomInquiryWrapper = new LambdaQueryWrapper<>();
-        judgeRandomInquiryWrapper.eq(JudgeRandomInquiry::getCourtNumber, courtNumber);
-        judgeRandomInquiryWrapper.eq(JudgeRandomInquiry::getDelFlag, YesOrNotEnum.N.getCode());
-        List<JudgeRandomInquiry> judgeRandomInquiries = judgeRandomInquiryService.list(judgeRandomInquiryWrapper);
-
+        List<JudgeRandomInquiry> judgeRandomInquiries = getJudgeRandomInquiries(courtNumber);
         if (judgeRandomInquiries == null || judgeRandomInquiries.size() <= 0) {
-            JSONObject inquiryInfoObject = new JSONObject();
-            inquiryInfoObject.put("question", "");
-            JSONArray inquiryAnswerArray = new JSONArray();
-            JSONObject inquiryAnswerObject = new JSONObject();
-            inquiryAnswerObject.put("name", "");
-            inquiryAnswerObject.put("answer", "");
-            inquiryAnswerArray.add(inquiryAnswerObject);
-            inquiryInfoObject.put("answer", inquiryAnswerArray);
+            JSONObject inquiryInfoObject = blankJudgeInquiry();
             judgeInquiryAfterAccuserClaimArray.add(inquiryInfoObject);
             judgeInquiryAfterDefendantReplyArray.add(inquiryInfoObject);
             judgeInquiryBeforeSummarize.add(inquiryInfoObject);
@@ -939,63 +916,51 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 }
             }
         }
-        //TODO 简化代码
-        if(judgeInquiryAfterAccuserClaimArray == null || judgeInquiryAfterAccuserClaimArray.size() <= 0){
-            JSONObject inquiryInfoObject = new JSONObject();
-            inquiryInfoObject.put("question", "");
-            JSONArray inquiryAnswerArray = new JSONArray();
-            JSONObject inquiryAnswerObject = new JSONObject();
-            inquiryAnswerObject.put("name", "");
-            inquiryAnswerObject.put("answer", "");
-            inquiryAnswerArray.add(inquiryAnswerObject);
-            inquiryInfoObject.put("answer", inquiryAnswerArray);
-            judgeInquiryAfterAccuserClaimArray.add(inquiryInfoObject);
+        if (judgeInquiryAfterAccuserClaimArray == null || judgeInquiryAfterAccuserClaimArray.size() <= 0) {
+            judgeInquiryAfterAccuserClaimArray.add(blankJudgeInquiry());
         }
-        if(judgeInquiryAfterDefendantReplyArray == null || judgeInquiryAfterDefendantReplyArray.size() <= 0){
-            JSONObject inquiryInfoObject = new JSONObject();
-            inquiryInfoObject.put("question", "");
-            JSONArray inquiryAnswerArray = new JSONArray();
-            JSONObject inquiryAnswerObject = new JSONObject();
-            inquiryAnswerObject.put("name", "");
-            inquiryAnswerObject.put("answer", "");
-            inquiryAnswerArray.add(inquiryAnswerObject);
-            inquiryInfoObject.put("answer", inquiryAnswerArray);
-            judgeInquiryAfterDefendantReplyArray.add(inquiryInfoObject);
+        if (judgeInquiryAfterDefendantReplyArray == null || judgeInquiryAfterDefendantReplyArray.size() <= 0) {
+            judgeInquiryAfterDefendantReplyArray.add(blankJudgeInquiry());
         }
-        if(judgeInquiryBeforeSummarize == null || judgeInquiryBeforeSummarize.size() <= 0){
-            JSONObject inquiryInfoObject = new JSONObject();
-            inquiryInfoObject.put("question", "");
-            JSONArray inquiryAnswerArray = new JSONArray();
-            JSONObject inquiryAnswerObject = new JSONObject();
-            inquiryAnswerObject.put("name", "");
-            inquiryAnswerObject.put("answer", "");
-            inquiryAnswerArray.add(inquiryAnswerObject);
-            inquiryInfoObject.put("answer", inquiryAnswerArray);
-            judgeInquiryBeforeSummarize.add(inquiryInfoObject);
+        if (judgeInquiryBeforeSummarize == null || judgeInquiryBeforeSummarize.size() <= 0) {
+            judgeInquiryBeforeSummarize.add(blankJudgeInquiry());
         }
         courtInvestigateObject.put("judge_inquiry_after_accuser_claim", judgeInquiryAfterAccuserClaimArray);
         courtInvestigateObject.put("judge_inquiry_after_defendant_reply", judgeInquiryAfterDefendantReplyArray);
         courtInvestigateObject.put("judge_inquiry_before_summarize", judgeInquiryBeforeSummarize);
     }
 
+    public List<JudgeRandomInquiry> getJudgeRandomInquiries(String courtNumber) {
+        LambdaQueryWrapper<JudgeRandomInquiry> judgeRandomInquiryWrapper = new LambdaQueryWrapper<>();
+        judgeRandomInquiryWrapper.eq(JudgeRandomInquiry::getCourtNumber, courtNumber);
+        judgeRandomInquiryWrapper.eq(JudgeRandomInquiry::getDelFlag, YesOrNotEnum.N.getCode());
+        return judgeRandomInquiryService.list(judgeRandomInquiryWrapper);
+    }
+
+    public JSONObject blankJudgeInquiry() {
+        JSONObject inquiryInfoObject = new JSONObject();
+        inquiryInfoObject.put("question", "");
+        JSONArray inquiryAnswerArray = new JSONArray();
+        JSONObject inquiryAnswerObject = new JSONObject();
+        inquiryAnswerObject.put("name", "");
+        inquiryAnswerObject.put("answer", "");
+        inquiryAnswerArray.add(inquiryAnswerObject);
+        inquiryInfoObject.put("answer", inquiryAnswerArray);
+        return inquiryInfoObject;
+    }
+
     /**
      * 法庭调查-答辩内容
      */
     public void courtInvesReply(String courtNumber, JSONObject courtInvestigateObject) {
-        LambdaQueryWrapper<Reply> replyQueryWrapper = new LambdaQueryWrapper<>();
-        replyQueryWrapper.eq(Reply::getCourtNumber, courtNumber);
-        replyQueryWrapper.eq(Reply::getDelFlag, YesOrNotEnum.N.getCode());
-        List<Reply> replies = replyService.list(replyQueryWrapper);
         JSONArray defendantReplyArray = new JSONArray();
         JSONArray counterClaimDefendantReplyArray = new JSONArray();
 
-        LambdaQueryWrapper<BasicInfo> basicInfoQueryWrapper = new LambdaQueryWrapper<>();
-        basicInfoQueryWrapper.eq(BasicInfo::getCourtNumber, courtNumber);
-        basicInfoQueryWrapper.eq(BasicInfo::getDelFlag, YesOrNotEnum.N.getCode());
-        BasicInfo basicInfo = basicInfoService.getOne(basicInfoQueryWrapper);
+        BasicInfo basicInfo = getBasicInfo(courtNumber);
         String counterClaimDefendantTodayIsReply = basicInfo.getCounterClaimDefendantTodayIsReply();
+        courtInvestigateObject.put("counterclaim_defendant_today_is_reply", counterClaimDefendantTodayIsReply);
 
-        //若答辩内容为空
+        List<Reply> replies = getReplies(courtNumber);
         for (int i = 0; i < replies.size(); i++) {
             Reply reply = replies.get(i);
             String name = reply.getName();
@@ -1013,38 +978,58 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 counterClaimDefendantReplyArray.add(counterClaimReplyObject);
             }
         }
-        courtInvestigateObject.put("counterclaim_defendant_today_is_reply", counterClaimDefendantTodayIsReply);
-
         if (defendantReplyArray == null || defendantReplyArray.size() <= 0) {
-            JSONObject defendantReplyObject = new JSONObject();
-            defendantReplyObject.put("name", "");
-            defendantReplyObject.put("content", "");
-            defendantReplyArray.add(defendantReplyObject);
+            defendantReplyArray.add(blankReply());
         }
         courtInvestigateObject.put("defendant_reply", defendantReplyArray);
 
         if (counterClaimDefendantReplyArray == null || counterClaimDefendantReplyArray.size() <= 0) {
-            JSONObject counterClaimDefendantReplyObject = new JSONObject();
-            counterClaimDefendantReplyObject.put("name", "");
-            counterClaimDefendantReplyObject.put("content", "");
-            counterClaimDefendantReplyArray.add(counterClaimDefendantReplyObject);
+            counterClaimDefendantReplyArray.add(blankReply());
         }
         courtInvestigateObject.put("counterclaim_defendant_reply", counterClaimDefendantReplyArray);
+    }
+
+    public JSONObject blankReply() {
+        JSONObject replyObject = new JSONObject();
+        replyObject.put("name", "");
+        replyObject.put("content", "");
+        return replyObject;
+    }
+
+    public List<Reply> getReplies(String courtNumber) {
+        LambdaQueryWrapper<Reply> replyQueryWrapper = new LambdaQueryWrapper<>();
+        replyQueryWrapper.eq(Reply::getCourtNumber, courtNumber);
+        replyQueryWrapper.eq(Reply::getDelFlag, YesOrNotEnum.N.getCode());
+        return replyService.list(replyQueryWrapper);
+    }
+
+    public List<Proof> getProofs(String courtNumber) {
+        LambdaQueryWrapper<Proof> proofQueryWrapper = new LambdaQueryWrapper<>();
+        proofQueryWrapper.eq(Proof::getCourtNumber, courtNumber);
+        proofQueryWrapper.eq(Proof::getDelFlag, YesOrNotEnum.N.getCode());
+        return proofService.list(proofQueryWrapper);
+    }
+
+    public JSONObject blankEvidence() {
+        JSONObject evidenceObject = new JSONObject();
+        evidenceObject.put("name", "");
+        evidenceObject.put("serial", "1");
+        evidenceObject.put("evidence", "");
+        evidenceObject.put("evidence_type", "");
+        evidenceObject.put("content", "");
+        return evidenceObject;
     }
 
     /**
      * 法庭调查-举证内容
      */
     public void courtInvesProof(String courtNumber, JSONObject courtInvestigateObject) {
-        LambdaQueryWrapper<Proof> proofQueryWrapper = new LambdaQueryWrapper<>();
-        proofQueryWrapper.eq(Proof::getCourtNumber, courtNumber);
-        proofQueryWrapper.eq(Proof::getDelFlag, YesOrNotEnum.N.getCode());
-        List<Proof> proofs = proofService.list(proofQueryWrapper);
         JSONArray accuserEvidenceArray = new JSONArray();
         JSONArray defendantEvidenceArray = new JSONArray();
         JSONArray counterClaimAccuserEvidenceArray = new JSONArray();
         JSONArray counterClaimDefendantEvidenceArray = new JSONArray();
 
+        List<Proof> proofs = getProofs(courtNumber);
         for (int i = 0; i < proofs.size(); i++) {
             Proof proof = proofs.get(i);
             JSONObject evidenceObject = new JSONObject();
@@ -1065,44 +1050,23 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
             }
         }
 
-        if (accuserEvidenceArray.size() <= 0) {
-            JSONObject accuserEvidenceObject = new JSONObject();
-            accuserEvidenceObject.put("serial", "1");
-            accuserEvidenceObject.put("evidence", "");
-            accuserEvidenceObject.put("evidence_type", "");
-            accuserEvidenceObject.put("content", "");
-            accuserEvidenceArray.add(accuserEvidenceObject);
+        if (accuserEvidenceArray == null || accuserEvidenceArray.size() <= 0) {
+            accuserEvidenceArray.add(blankEvidence());
         }
         courtInvestigateObject.put("accuser_evidence", accuserEvidenceArray);
 
-        if (defendantEvidenceArray.size() <= 0) {
-            JSONObject defendantEvidenceObject = new JSONObject();
-            defendantEvidenceObject.put("name", "");
-            defendantEvidenceObject.put("serial", "1");
-            defendantEvidenceObject.put("evidence", "");
-            defendantEvidenceObject.put("evidence_type", "");
-            defendantEvidenceObject.put("content", "");
-            defendantEvidenceArray.add(defendantEvidenceObject);
+        if (defendantEvidenceArray == null || defendantEvidenceArray.size() <= 0) {
+            defendantEvidenceArray.add(blankEvidence());
         }
         courtInvestigateObject.put("defendant_evidence", defendantEvidenceArray);
 
-        if (counterClaimAccuserEvidenceArray.size() <= 0) {
-            JSONObject counterClaimAccuserEvidenceObject = new JSONObject();
-            counterClaimAccuserEvidenceObject.put("serial", "1");
-            counterClaimAccuserEvidenceObject.put("evidence", "");
-            counterClaimAccuserEvidenceObject.put("evidence_type", "");
-            counterClaimAccuserEvidenceObject.put("content", "");
-            counterClaimAccuserEvidenceArray.add(counterClaimAccuserEvidenceObject);
+        if (counterClaimAccuserEvidenceArray == null || counterClaimAccuserEvidenceArray.size() <= 0) {
+            counterClaimAccuserEvidenceArray.add(blankEvidence());
         }
         courtInvestigateObject.put("counterclaim_accuser_evidence", counterClaimAccuserEvidenceArray);
 
-        if (counterClaimDefendantEvidenceArray.size() <= 0) {
-            JSONObject counterClaimDefendantEvidenceObject = new JSONObject();
-            counterClaimDefendantEvidenceObject.put("serial", "1");
-            counterClaimDefendantEvidenceObject.put("evidence", "");
-            counterClaimDefendantEvidenceObject.put("evidence_type", "");
-            counterClaimDefendantEvidenceObject.put("content", "");
-            counterClaimDefendantEvidenceArray.add(counterClaimDefendantEvidenceObject);
+        if (counterClaimDefendantEvidenceArray == null || counterClaimDefendantEvidenceArray.size() <= 0) {
+            counterClaimDefendantEvidenceArray.add(blankEvidence());
         }
         courtInvestigateObject.put("counterclaim_defendant_evidence", counterClaimDefendantEvidenceArray);
     }
@@ -1114,71 +1078,57 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         JSONArray defendantAndOtherAccuserQueryArray = new JSONArray();
         JSONArray accuserAndOtherDefendantQueryArray = new JSONArray();
 
-        LambdaQueryWrapper<Query> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Query::getCourtNumber, courtNumber);
-        queryWrapper.eq(Query::getDelFlag, YesOrNotEnum.N.getCode());
-        List<Query> queries = queryService.list(queryWrapper);
+        List<Query> queries = getQueries(courtNumber);
         for (int i = 0; i < queries.size(); i++) {
             Query query = queries.get(i);
             String name = query.getName();
             if (ObjectUtils.isEmpty(name)) {
                 continue;
             }
-            String reason = query.getReason();
-            String queryType = query.getQueryType().toString();
-            String evidence = query.getEvidence();
-            String facticity = query.getFacticity();
-            String legality = query.getLegality();
-            String relevance = query.getRelevance();
+            JSONObject queryObject = new JSONObject();
+            queryObject.put("name", name);
+            queryObject.put("evidence", query.getEvidence());
+            queryObject.put("facticity", query.getFacticity());
+            queryObject.put("legality", query.getLegality());
+            queryObject.put("relevance", query.getRelevance());
+            queryObject.put("fact_reason", query.getReason());
             //质证类型：1-被告及其他原告质证，2-原告及其他被告质证，3-反诉被告质证，4-反诉原告及其他反诉被告质证
+            String queryType = query.getQueryType().toString();
             if ("1".equals(queryType)) {
-                JSONObject defendantAndOtherAccuserQueryObject = new JSONObject();
-                defendantAndOtherAccuserQueryObject.put("name", name);
-                defendantAndOtherAccuserQueryObject.put("evidence", evidence);
-                defendantAndOtherAccuserQueryObject.put("facticity", facticity);
-                defendantAndOtherAccuserQueryObject.put("legality", legality);
-                defendantAndOtherAccuserQueryObject.put("relevance", relevance);
-                defendantAndOtherAccuserQueryObject.put("fact_reason", reason);
-                defendantAndOtherAccuserQueryArray.add(defendantAndOtherAccuserQueryObject);
+                defendantAndOtherAccuserQueryArray.add(queryObject);
             } else if ("2".equals(queryType)) {
-                JSONObject accuserAndOtherDefendantQueryObject = new JSONObject();
-                accuserAndOtherDefendantQueryObject.put("name", name);
-                accuserAndOtherDefendantQueryObject.put("evidence", evidence);
-                accuserAndOtherDefendantQueryObject.put("facticity", facticity);
-                accuserAndOtherDefendantQueryObject.put("legality", legality);
-                accuserAndOtherDefendantQueryObject.put("relevance", relevance);
-                accuserAndOtherDefendantQueryObject.put("fact_reason", reason);
-                accuserAndOtherDefendantQueryArray.add(accuserAndOtherDefendantQueryObject);
+                accuserAndOtherDefendantQueryArray.add(queryObject);
             }
         }
         if (defendantAndOtherAccuserQueryArray == null || defendantAndOtherAccuserQueryArray.size() <= 0) {
-            JSONObject defendantAndOtherAccuserQueryObject = new JSONObject();
-            defendantAndOtherAccuserQueryObject.put("name", "");
-            defendantAndOtherAccuserQueryObject.put("evidence", "");
-            defendantAndOtherAccuserQueryObject.put("facticity", "1");
-            defendantAndOtherAccuserQueryObject.put("legality", "1");
-            defendantAndOtherAccuserQueryObject.put("relevance", "1");
-            defendantAndOtherAccuserQueryObject.put("fact_reason", "");
-            defendantAndOtherAccuserQueryArray.add(defendantAndOtherAccuserQueryObject);
+            defendantAndOtherAccuserQueryArray.add(blankQueryObject());
         }
         if (accuserAndOtherDefendantQueryArray == null || accuserAndOtherDefendantQueryArray.size() <= 0) {
-            JSONObject accuserAndOtherDefendantQueryObject = new JSONObject();
-            accuserAndOtherDefendantQueryObject.put("name", "");
-            accuserAndOtherDefendantQueryObject.put("evidence", "");
-            accuserAndOtherDefendantQueryObject.put("facticity", "1");
-            accuserAndOtherDefendantQueryObject.put("legality", "1");
-            accuserAndOtherDefendantQueryObject.put("relevance", "1");
-            accuserAndOtherDefendantQueryObject.put("fact_reason", "");
-            accuserAndOtherDefendantQueryArray.add(accuserAndOtherDefendantQueryObject);
+            accuserAndOtherDefendantQueryArray.add(blankQueryObject());
         }
         courtInvestigateObject.put("defendant_and_other_accuser_query", defendantAndOtherAccuserQueryArray);
         courtInvestigateObject.put("accuser_and_other_defendant_query", accuserAndOtherDefendantQueryArray);
 
-        LambdaQueryWrapper<BasicInfo> basicInfoWrapper = new LambdaQueryWrapper<>();
-        basicInfoWrapper.eq(BasicInfo::getCourtNumber, courtNumber);
-        basicInfoWrapper.eq(BasicInfo::getDelFlag, YesOrNotEnum.N.getCode());
-        BasicInfo basicInfo = basicInfoService.getOne(basicInfoWrapper);
+        BasicInfo basicInfo = getBasicInfo(courtNumber);
         courtInvestigateObject.put("is_defendant_evidence", basicInfo.getIsDefendantEvidence());
+    }
+
+    public List<Query> getQueries(String courtNumber) {
+        LambdaQueryWrapper<Query> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Query::getCourtNumber, courtNumber);
+        queryWrapper.eq(Query::getDelFlag, YesOrNotEnum.N.getCode());
+        return queryService.list(queryWrapper);
+    }
+
+    public JSONObject blankQueryObject() {
+        JSONObject queryObject = new JSONObject();
+        queryObject.put("name", "");
+        queryObject.put("evidence", "");
+        queryObject.put("facticity", "1");
+        queryObject.put("legality", "1");
+        queryObject.put("relevance", "1");
+        queryObject.put("fact_reason", "");
+        return queryObject;
     }
 
 

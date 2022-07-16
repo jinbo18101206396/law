@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
@@ -31,17 +32,20 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
     private ArgueService argueService;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void saveArgueInfo(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
-        //法庭辩论
         if (recordJsonObject.containsKey("argueInfo")) {
-            String argueInfo = recordJsonObject.getString("argueInfo");
-            JSONObject argueInfoObject = JSONObject.parseObject(argueInfo);
-            JSONArray argueArray = argueInfoObject.getJSONArray("argue");
-            saveArgue(argueArray, counterClaim, courtNumber);
-
-            if (!"".equals(counterClaim) && "1".equals(counterClaim)) {
+            JSONObject argueInfoObject = recordJsonObject.getJSONObject("argueInfo");
+            if ("1".equals(counterClaim)) {
                 JSONArray counterClaimArgueArray = argueInfoObject.getJSONArray("counterclaim_argue");
-                saveCounterClaimArgue(counterClaimArgueArray, counterClaim, courtNumber);
+                if (counterClaimArgueArray != null && counterClaimArgueArray.size() > 0) {
+                    saveArgue(counterClaimArgueArray, counterClaim, courtNumber);
+                }
+            } else {
+                JSONArray argueArray = argueInfoObject.getJSONArray("argue");
+                if (argueArray != null && argueArray.size() > 0) {
+                    saveArgue(argueArray, counterClaim, courtNumber);
+                }
             }
         }
     }
@@ -66,48 +70,19 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
         }
     }
 
-    public void saveCounterClaimArgue(JSONArray counterClaimArgueArray, String counterClaim, String courtNumber) {
-        for (int i = 0; i < counterClaimArgueArray.size(); i++) {
-            JSONObject cointerClaimArgueObject = counterClaimArgueArray.getJSONObject(i);
-            //姓名格式，例如：张三（反诉被告）
-            String argueName = cointerClaimArgueObject.getString("name");
-            String argueContent = cointerClaimArgueObject.getString("argue");
-            if (!ObjectUtils.isEmpty(argueName) && argueName.contains("（") && !ObjectUtils.isEmpty(argueContent)) {
-                String name = argueName.split("（")[0];
-                String type = argueName.split("（")[1];
-                Argue argue = new Argue();
-                argue.setName(name);
-                argue.setType(type.substring(0, type.length() - 1));
-                argue.setArgueContent(argueContent);
-                argue.setIsCounterClaim(counterClaim);
-                argue.setCourtNumber(courtNumber);
-                this.save(argue);
-            }
-        }
-    }
-
     /**
      * 获取法庭辩论信息
      */
     @Override
     public JSONObject getArgueInfoObject(String courtNumber) {
-        LambdaQueryWrapper<Argue> argueQueryWrapper = new LambdaQueryWrapper<>();
-        argueQueryWrapper.eq(Argue::getCourtNumber, courtNumber);
-        argueQueryWrapper.eq(Argue::getDelFlag, YesOrNotEnum.N.getCode());
-        List<Argue> argues = argueService.list(argueQueryWrapper);
+        List<Argue> argues = getArgues(courtNumber);
         JSONArray argueArray = new JSONArray();
         JSONArray counterClaimArgueArray = new JSONArray();
         //若辩论为空
-        if (null == argues || argues.size() == 0) {
-            JSONObject argueObject = new JSONObject();
-            argueObject.put("name", "");
-            argueObject.put("argue", "");
+        if (null == argues || argues.size() <= 0) {
+            JSONObject argueObject = blankArgue();
             argueArray.add(argueObject);
-
-            JSONObject counterClaimArgueObject = new JSONObject();
-            counterClaimArgueObject.put("name", "");
-            counterClaimArgueObject.put("argue", "");
-            counterClaimArgueArray.add(counterClaimArgueObject);
+            counterClaimArgueArray.add(argueObject);
         } else {
             for (int i = 0; i < argues.size(); i++) {
                 Argue argue = argues.get(i);
@@ -126,10 +101,30 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
                 }
             }
         }
+        if (argueArray == null || argueArray.size() <= 0) {
+            argueArray.add(blankArgue());
+        }
+        if (counterClaimArgueArray == null || counterClaimArgueArray.size() <= 0) {
+            counterClaimArgueArray.add(blankArgue());
+        }
         JSONObject argueInfoObject = new JSONObject();
         argueInfoObject.put("argue", argueArray);
         argueInfoObject.put("counterclaim_argue", counterClaimArgueArray);
         return argueInfoObject;
+    }
+
+    public List<Argue> getArgues(String courtNumber) {
+        LambdaQueryWrapper<Argue> argueQueryWrapper = new LambdaQueryWrapper<>();
+        argueQueryWrapper.eq(Argue::getCourtNumber, courtNumber);
+        argueQueryWrapper.eq(Argue::getDelFlag, YesOrNotEnum.N.getCode());
+        return argueService.list(argueQueryWrapper);
+    }
+
+    public JSONObject blankArgue() {
+        JSONObject argueObject = new JSONObject();
+        argueObject.put("name", "");
+        argueObject.put("argue", "");
+        return argueObject;
     }
 
     /**

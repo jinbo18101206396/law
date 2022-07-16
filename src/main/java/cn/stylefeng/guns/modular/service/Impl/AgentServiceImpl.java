@@ -9,6 +9,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
@@ -28,6 +29,7 @@ public class AgentServiceImpl extends ServiceImpl<AgentMapper, Agent> implements
     private AgentService agentService;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void saveAgentInfo(String courtNumber, JSONObject recordJsonObject) {
         //原告信息
         JSONArray accuserInfoArray = recordJsonObject.getJSONArray("accuserInfo");
@@ -58,7 +60,13 @@ public class AgentServiceImpl extends ServiceImpl<AgentMapper, Agent> implements
             JSONObject accuserInfoObject = accuserInfoArray.getJSONObject(i);
             String accuserShortName = accuserInfoObject.getString("accuser_short");
             JSONArray accuserAgentArray = accuserInfoObject.getJSONArray("accuser_agent");
-            saveAgent(courtNumber, accuserShortName, "1", accuserAgentArray);
+            String accuserType = accuserInfoObject.getString("accuser_type");
+            if (!ObjectUtils.isEmpty(accuserType) && "2".equals(accuserType)) {
+                accuserShortName = accuserInfoObject.getString("accuser");
+            }
+            if (!ObjectUtils.isEmpty(accuserAgentArray)) {
+                saveAgent(courtNumber, accuserShortName, "1", accuserAgentArray);
+            }
         }
     }
 
@@ -67,7 +75,13 @@ public class AgentServiceImpl extends ServiceImpl<AgentMapper, Agent> implements
             JSONObject defendantInfoObject = defendantInfoArray.getJSONObject(m);
             String defendantShortName = defendantInfoObject.getString("defendant_short");
             JSONArray defendantAgentArray = defendantInfoObject.getJSONArray("defendant_agent");
-            saveAgent(courtNumber, defendantShortName, "2", defendantAgentArray);
+            String defendantType = defendantInfoObject.getString("defendant_type");
+            if (!ObjectUtils.isEmpty(defendantType) && "2".equals(defendantType)) {
+                defendantShortName = defendantInfoObject.getString("defendant");
+            }
+            if (!ObjectUtils.isEmpty(defendantAgentArray)) {
+                saveAgent(courtNumber, defendantShortName, "2", defendantAgentArray);
+            }
         }
     }
 
@@ -77,13 +91,14 @@ public class AgentServiceImpl extends ServiceImpl<AgentMapper, Agent> implements
             String thirdPartyShortName = thirdPartyInfoObject.getString("third_party_short");
             JSONArray thirdPartyAgentArray = thirdPartyInfoObject.getJSONArray("third_party_agent");
             String thirdPartyType = thirdPartyInfoObject.getString("third_party_type");
-            if("2".equals(thirdPartyType)){
+            if ("2".equals(thirdPartyType)) {
                 thirdPartyShortName = thirdPartyInfoObject.getString("third_party");
             }
-            saveAgent(courtNumber, thirdPartyShortName, "3", thirdPartyAgentArray);
+            if (!ObjectUtils.isEmpty(thirdPartyAgentArray)) {
+                saveAgent(courtNumber, thirdPartyShortName, "3", thirdPartyAgentArray);
+            }
         }
     }
-
 
     public void saveAgent(String courtNumber, String shortName, String agentType, JSONArray agentArray) {
         for (int n = 0; n < agentArray.size(); n++) {

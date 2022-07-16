@@ -1,6 +1,5 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
-import cn.stylefeng.guns.modular.entity.Inquiry;
 import cn.stylefeng.guns.modular.entity.JudgeRandomInquiry;
 import cn.stylefeng.guns.modular.mapper.JudgeRandomInquiryMapper;
 import cn.stylefeng.guns.modular.service.JudgeRandomInquiryService;
@@ -11,6 +10,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
@@ -31,6 +31,7 @@ public class JudgeRandomInquiryServiceImpl extends ServiceImpl<JudgeRandomInquir
     private JudgeRandomInquiryService judgeRandomInquiryService;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void saveJudgeRandomInquiryInfo(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
 
         JSONObject courtInvestigateObject = recordJsonObject.getJSONObject("courtInvestigate");
@@ -93,7 +94,7 @@ public class JudgeRandomInquiryServiceImpl extends ServiceImpl<JudgeRandomInquir
 
         LambdaQueryWrapper<JudgeRandomInquiry> judgeRandomInquiryWrapper = new LambdaQueryWrapper<>();
         judgeRandomInquiryWrapper.eq(JudgeRandomInquiry::getCourtNumber, courtNumber);
-        judgeRandomInquiryWrapper.eq(JudgeRandomInquiry::getType,"3");
+        judgeRandomInquiryWrapper.eq(JudgeRandomInquiry::getType, "3");
         judgeRandomInquiryWrapper.eq(JudgeRandomInquiry::getDelFlag, YesOrNotEnum.N.getCode());
         List<JudgeRandomInquiry> judgeRandomInquiries = judgeRandomInquiryService.list(judgeRandomInquiryWrapper);
 

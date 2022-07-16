@@ -10,6 +10,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
@@ -34,6 +35,7 @@ public class ProofServiceImpl extends ServiceImpl<ProofMapper, Proof> implements
      * 原告举证
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void saveAccuserEvidence(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
         //拼接所有原告的姓名(原告是一个整体)
         JSONArray accuserInfoArray = recordJsonObject.getJSONArray("accuserInfo");
@@ -71,6 +73,36 @@ public class ProofServiceImpl extends ServiceImpl<ProofMapper, Proof> implements
         }
     }
 
+    /**
+     * 反诉原告举证
+     */
+    @Override
+    public void saveCounterClaimAccuserEvidence(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
+        if (recordJsonObject.containsKey("courtInvestigate")) {
+            JSONObject courtInvestigateObject = recordJsonObject.getJSONObject("courtInvestigate");
+            //反诉原告举证
+            if (courtInvestigateObject.containsKey("counterclaim_accuser_evidence")) {
+                JSONArray counterClaimAccuserEvidenceArray = courtInvestigateObject.getJSONArray("counterclaim_accuser_evidence");
+                saveProof(courtNumber, counterClaim, "反诉原告", counterClaimAccuserEvidenceArray);
+            }
+        }
+    }
+
+    /**
+     * 反诉被告举证
+     */
+    @Override
+    public void saveCounterClaimDefendantEvidence(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
+        if (recordJsonObject.containsKey("courtInvestigate")) {
+            JSONObject courtInvestigateObject = recordJsonObject.getJSONObject("courtInvestigate");
+            //反诉被告举证
+            if (courtInvestigateObject.containsKey("counterclaim_defendant_evidence")) {
+                JSONArray counterClaimDefendantEvidenceArray = courtInvestigateObject.getJSONArray("counterclaim_defendant_evidence");
+                saveProof(courtNumber, counterClaim, "反诉被告", counterClaimDefendantEvidenceArray);
+            }
+        }
+    }
+
     public void saveProof(String courtNumber, String counterClaim, String type, JSONArray evidenceArray) {
         for (int i = 0; i < evidenceArray.size(); i++) {
             JSONObject evidenceObject = evidenceArray.getJSONObject(i);
@@ -97,76 +129,10 @@ public class ProofServiceImpl extends ServiceImpl<ProofMapper, Proof> implements
         }
     }
 
-    /**
-     * 反诉原告举证
-     */
-    @Override
-    public void saveCounterClaimAccuserEvidence(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
-        if (recordJsonObject.containsKey("courtInvestigate")) {
-            JSONObject courtInvestigateObject = recordJsonObject.getJSONObject("courtInvestigate");
-            //反诉原告举证
-            if (courtInvestigateObject.containsKey("counterclaim_accuser_evidence")) {
-                JSONArray counterClaimAccuserEvidenceArray = courtInvestigateObject.getJSONArray("counterclaim_accuser_evidence");
-                for (int i = 0; i < counterClaimAccuserEvidenceArray.size(); i++) {
-                    JSONObject counterClaimAccuserEvidenceObject = counterClaimAccuserEvidenceArray.getJSONObject(i);
-                    String serial = counterClaimAccuserEvidenceObject.getString("serial");
-                    String evidence = counterClaimAccuserEvidenceObject.getString("evidence");
-                    String evidenceType = counterClaimAccuserEvidenceObject.getString("evidence_type");
-                    String content = counterClaimAccuserEvidenceObject.getString("content");
-                    if (!ObjectUtils.isEmpty(evidence) && !ObjectUtils.isEmpty(evidenceType)) {
-                        Proof proof = new Proof();
-                        proof.setName("反诉原告");
-                        proof.setType("反诉原告");
-                        proof.setSerial(serial);
-                        proof.setEvidence(evidence);
-                        proof.setEvidenceType(evidenceType);
-                        proof.setContent(content);
-                        proof.setIsCounterClaim(counterClaim);
-                        proof.setCourtNumber(courtNumber);
-                        this.save(proof);
-                    }
-                }
-            }
-        }
-    }
-
-    /**
-     * 反诉被告举证
-     */
-    @Override
-    public void saveCounterClaimDefendantEvidence(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
-        if (recordJsonObject.containsKey("courtInvestigate")) {
-            JSONObject courtInvestigateObject = recordJsonObject.getJSONObject("courtInvestigate");
-            //反诉被告举证
-            if (courtInvestigateObject.containsKey("counterclaim_defendant_evidence")) {
-                JSONArray counterClaimDefendantEvidenceArray = courtInvestigateObject.getJSONArray("counterclaim_defendant_evidence");
-                for (int i = 0; i < counterClaimDefendantEvidenceArray.size(); i++) {
-                    JSONObject counterClaimDefendantEvidenceObject = counterClaimDefendantEvidenceArray.getJSONObject(i);
-                    String serial = counterClaimDefendantEvidenceObject.getString("serial");
-                    String evidence = counterClaimDefendantEvidenceObject.getString("evidence");
-                    String evidenceType = counterClaimDefendantEvidenceObject.getString("evidence_type");
-                    String content = counterClaimDefendantEvidenceObject.getString("content");
-                    if (!ObjectUtils.isEmpty(evidence) && !ObjectUtils.isEmpty(evidenceType)) {
-                        Proof proof = new Proof();
-                        proof.setType("反诉被告");
-                        proof.setSerial(serial);
-                        proof.setEvidence(evidence);
-                        proof.setEvidenceType(evidenceType);
-                        proof.setContent(content);
-                        proof.setIsCounterClaim(counterClaim);
-                        proof.setCourtNumber(courtNumber);
-                        this.save(proof);
-                    }
-                }
-            }
-        }
-    }
-
     @Override
     public Boolean deleteProofInfo(String courtNumber) {
         LambdaUpdateWrapper<Proof> proofWrapper = new LambdaUpdateWrapper<>();
         proofWrapper.set(Proof::getDelFlag, YesOrNotEnum.Y.getCode()).eq(Proof::getCourtNumber, courtNumber);
         return proofService.update(proofWrapper);
     }
-
 }
