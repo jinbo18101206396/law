@@ -157,19 +157,19 @@ public class RecordController {
                 return new SuccessResponseData("案号不能重复");
             }
             //编辑笔录，若案号已存在，则清空库中当前案号的信息，重新插入最新数据
-            basicInfoService.deleteBasicInfo(courtNumber);
-            accuserService.deleteAccuserInfo(courtNumber);
-            defendantService.deleteDefendantInfo(courtNumber);
-            thirdPartyService.deleteThirdPartyInfo(courtNumber);
-            agentService.deleteAgentInfo(courtNumber);
-            stateService.deleteStateInfo(courtNumber);
-            argueService.deleteArgueInfo(courtNumber);
-            inquiryService.deleteInquiryInfo(courtNumber);
-            queryService.deleteQueryInfo(courtNumber);
-            proofService.deleteProofInfo(courtNumber);
-            replyService.deleteReplyInfo(courtNumber);
-            allegeService.deleteAllegeInfo(courtNumber);
-            judgeRandomInquiryService.deleteJudgeRandomInquiryInfo(courtNumber);
+            basicInfoService.delete(courtNumber);
+            accuserService.delete(courtNumber);
+            defendantService.delete(courtNumber);
+            thirdPartyService.delete(courtNumber);
+            agentService.delete(courtNumber);
+            stateService.delete(courtNumber);
+            argueService.delete(courtNumber);
+            inquiryService.delete(courtNumber);
+            queryService.delete(courtNumber);
+            proofService.delete(courtNumber);
+            replyService.delete(courtNumber);
+            allegeService.delete(courtNumber);
+            judgeRandomInquiryService.delete(courtNumber);
         }
         //基本信息
         basicInfoService.saveBasicInfo(courtNumber, recordJsonObject);
@@ -320,7 +320,7 @@ public class RecordController {
 
         System.out.println("回显的数据：" + recordJson.toString());
 
-        return new SuccessResponseData(recordJson.toString());
+        return new SuccessResponseData(recordJson);
     }
 
     /**

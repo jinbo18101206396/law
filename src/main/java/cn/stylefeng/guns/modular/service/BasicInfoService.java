@@ -50,7 +50,7 @@ public interface BasicInfoService extends IService<BasicInfo> {
     BasicInfo getBasicInfo(String courtNumber);
 
     /**
-     * 删除笔录基本信息
+     * 删除笔录基本信息（修改删除标记）
      *
      * @param courtNumber 查看参数
      * @return 详情结果
@@ -58,6 +58,16 @@ public interface BasicInfoService extends IService<BasicInfo> {
      * @date 2022/06/02
      */
     Boolean deleteBasicInfo(String courtNumber);
+
+    /**
+     * 删除笔录基本信息(彻底删除)
+     *
+     * @param courtNumber 查看参数
+     * @return 详情结果
+     * @author 金波
+     * @date 2022/07/16
+     */
+    void delete(String courtNumber);
 
     /**
      * 获取笔录基本信息列表

@@ -1,6 +1,7 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
 import cn.stylefeng.guns.modular.entity.Argue;
+import cn.stylefeng.guns.modular.entity.ThirdParty;
 import cn.stylefeng.guns.modular.mapper.ArgueMapper;
 import cn.stylefeng.guns.modular.service.ArgueService;
 import cn.stylefeng.roses.kernel.rule.enums.YesOrNotEnum;
@@ -187,5 +188,13 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
         LambdaUpdateWrapper<Argue> argueWrapper = new LambdaUpdateWrapper<>();
         argueWrapper.set(Argue::getDelFlag, YesOrNotEnum.Y.getCode()).eq(Argue::getCourtNumber, courtNumber);
         return argueService.update(argueWrapper);
+    }
+
+    @Override
+    public void delete(String courtNumber) {
+        LambdaQueryWrapper<Argue> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(Argue::getCourtNumber,courtNumber);
+        lambdaQueryWrapper.eq(Argue::getDelFlag, YesOrNotEnum.N.getCode());
+        baseMapper.delete(lambdaQueryWrapper);
     }
 }

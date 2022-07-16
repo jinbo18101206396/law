@@ -82,15 +82,15 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
 
         //立案时间
         if (basicInfoObject.containsKey("filing_time")) {
-            basicInfo.setFilingTime(basicInfoObject.get("filing_time").toString());
+            basicInfo.setFilingTime(basicInfoObject.getString("filing_time"));
         }
         //开庭时间
         if (basicInfoObject.containsKey("court_time")) {
-            basicInfo.setCourtTime(basicInfoObject.get("court_time").toString());
+            basicInfo.setCourtTime(basicInfoObject.getString("court_time"));
         }
         //开庭地点
         if (basicInfoObject.containsKey("court_place")) {
-            basicInfo.setCourtPlace(basicInfoObject.get("court_place").toString());
+            basicInfo.setCourtPlace(basicInfoObject.getString("court_place"));
         }
         //审判长（可多位，用逗号分隔）
         if (basicInfoObject.containsKey("chief_judge")) {
@@ -130,11 +130,11 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         }
         //书记员
         if (basicInfoObject.containsKey("court_clerk")) {
-            basicInfo.setCourtClerk(basicInfoObject.get("court_clerk").toString());
+            basicInfo.setCourtClerk(basicInfoObject.getString("court_clerk"));
         }
         //案由
         if (basicInfoObject.containsKey("court_cause")) {
-            basicInfo.setCourtCause(basicInfoObject.get("court_cause").toString());
+            basicInfo.setCourtCause(basicInfoObject.getString("court_cause"));
         }
 
         if (recordJsonObject.containsKey("courtInvestigate")) {
@@ -146,7 +146,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
             }
             //反诉被告今日是否答辩
             if (courtInvestigateObject.containsKey("counterclaim_defendant_today_is_reply")) {
-                String counterClaimDefendantTodayIsReply = courtInvestigateObject.get("counterclaim_defendant_today_is_reply").toString();
+                String counterClaimDefendantTodayIsReply = courtInvestigateObject.getString("counterclaim_defendant_today_is_reply");
                 basicInfo.setCounterClaimDefendantTodayIsReply(counterClaimDefendantTodayIsReply);
             }
         }
@@ -155,7 +155,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
             JSONObject mediateInfoObject = recordJsonObject.getJSONObject("mediateInfo");
             String finalMediatePlan = "";
             if (mediateInfoObject.containsKey("final_mediate_plan")) {
-                finalMediatePlan = mediateInfoObject.get("final_mediate_plan").toString();
+                finalMediatePlan = mediateInfoObject.getString("final_mediate_plan");
             }
             basicInfo.setFinalMediatePlan(finalMediatePlan);
         }
@@ -239,6 +239,14 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         LambdaUpdateWrapper<BasicInfo> basicUpdateWrapper = new LambdaUpdateWrapper<>();
         basicUpdateWrapper.set(BasicInfo::getDelFlag, YesOrNotEnum.Y.getCode()).eq(BasicInfo::getCourtNumber, courtNumber);
         return basicInfoService.update(basicUpdateWrapper);
+    }
+
+    @Override
+    public void delete(String courtNumber) {
+        LambdaQueryWrapper<BasicInfo> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(BasicInfo::getCourtNumber,courtNumber);
+        lambdaQueryWrapper.eq(BasicInfo::getDelFlag, YesOrNotEnum.N.getCode());
+        baseMapper.delete(lambdaQueryWrapper);
     }
 
     @Override

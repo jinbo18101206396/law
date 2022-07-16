@@ -43,13 +43,20 @@ public interface StateService extends IService<State> {
      */
     State getStateInfo(String courtNumber);
 
-
     /**
-     * 删除基本信息陈述
+     * 删除基本信息陈述（修改删除标记）
      *
      * @author jinbo
      * @Date 2022-06-02
      */
     Boolean deleteStateInfo(String courtNumber);
+
+    /**
+     * 删除基本信息陈述（彻底删除）
+     *
+     * @author jinbo
+     * @Date 2022-07-16
+     */
+    void delete(String courtNumber);
 
 }

@@ -28,9 +28,8 @@ public interface AgentService extends IService<Agent> {
      */
     void saveAgentInfo(String courtNumber, JSONObject recordJsonObject);
 
-
     /**
-     * 删除委托诉讼代理人
+     * 删除委托诉讼代理人（修改删除标记）
      *
      * @param courtNumber 查看参数
      * @return
@@ -38,5 +37,15 @@ public interface AgentService extends IService<Agent> {
      * @date 2022/06/02
      */
     Boolean deleteAgentInfo(String courtNumber);
+
+    /**
+     * 删除委托诉讼代理人（彻底删除）
+     *
+     * @param courtNumber 查看参数
+     * @return
+     * @author 金波
+     * @date 2022/07/16
+     */
+    void delete(String courtNumber);
 
 }

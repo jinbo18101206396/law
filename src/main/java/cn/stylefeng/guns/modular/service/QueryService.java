@@ -104,7 +104,7 @@ public interface QueryService extends IService<Query> {
 
 
     /**
-     * 删除质证信息
+     * 删除质证信息（修改删除标记）
      *
      * @param courtNumber 请求参数
      * @return
@@ -112,4 +112,14 @@ public interface QueryService extends IService<Query> {
      * @Date 2022-06-02
      */
     Boolean deleteQueryInfo(String courtNumber);
+
+    /**
+     * 删除质证信息（彻底删除）
+     *
+     * @param courtNumber 请求参数
+     * @return
+     * @author 金波
+     * @Date 2022-07-16
+     */
+    void delete(String courtNumber);
 }

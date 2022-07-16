@@ -1,11 +1,13 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
 import cn.stylefeng.guns.modular.entity.Allege;
+import cn.stylefeng.guns.modular.entity.ThirdParty;
 import cn.stylefeng.guns.modular.mapper.AllegeMapper;
 import cn.stylefeng.guns.modular.service.AllegeService;
 import cn.stylefeng.roses.kernel.rule.enums.YesOrNotEnum;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
@@ -102,5 +104,13 @@ public class AllegeServiceImpl extends ServiceImpl<AllegeMapper, Allege> impleme
         LambdaUpdateWrapper<Allege> allegeWrapper = new LambdaUpdateWrapper<>();
         allegeWrapper.set(Allege::getDelFlag, YesOrNotEnum.Y.getCode()).eq(Allege::getCourtNumber, courtNumber);
         return allegeService.update(allegeWrapper);
+    }
+
+    @Override
+    public void delete(String courtNumber) {
+        LambdaQueryWrapper<Allege> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(Allege::getCourtNumber,courtNumber);
+        lambdaQueryWrapper.eq(Allege::getDelFlag, YesOrNotEnum.N.getCode());
+        baseMapper.delete(lambdaQueryWrapper);
     }
 }

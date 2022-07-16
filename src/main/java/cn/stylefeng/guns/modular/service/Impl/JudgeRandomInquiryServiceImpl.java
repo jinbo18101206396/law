@@ -1,6 +1,7 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
 import cn.stylefeng.guns.modular.entity.JudgeRandomInquiry;
+import cn.stylefeng.guns.modular.entity.ThirdParty;
 import cn.stylefeng.guns.modular.mapper.JudgeRandomInquiryMapper;
 import cn.stylefeng.guns.modular.service.JudgeRandomInquiryService;
 import cn.stylefeng.roses.kernel.rule.enums.YesOrNotEnum;
@@ -154,5 +155,13 @@ public class JudgeRandomInquiryServiceImpl extends ServiceImpl<JudgeRandomInquir
         LambdaUpdateWrapper<JudgeRandomInquiry> judgeRandomInquiryWrapper = new LambdaUpdateWrapper<>();
         judgeRandomInquiryWrapper.set(JudgeRandomInquiry::getDelFlag, YesOrNotEnum.Y.getCode()).eq(JudgeRandomInquiry::getCourtNumber, courtNumber);
         return judgeRandomInquiryService.update(judgeRandomInquiryWrapper);
+    }
+
+    @Override
+    public void delete(String courtNumber) {
+        LambdaQueryWrapper<JudgeRandomInquiry> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(JudgeRandomInquiry::getCourtNumber,courtNumber);
+        lambdaQueryWrapper.eq(JudgeRandomInquiry::getDelFlag, YesOrNotEnum.N.getCode());
+        baseMapper.delete(lambdaQueryWrapper);
     }
 }

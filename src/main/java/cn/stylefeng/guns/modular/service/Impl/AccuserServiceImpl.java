@@ -2,6 +2,7 @@ package cn.stylefeng.guns.modular.service.Impl;
 
 import cn.stylefeng.guns.modular.entity.Accuser;
 import cn.stylefeng.guns.modular.entity.Agent;
+import cn.stylefeng.guns.modular.entity.ThirdParty;
 import cn.stylefeng.guns.modular.mapper.AccuserMapper;
 import cn.stylefeng.guns.modular.service.AccuserService;
 import cn.stylefeng.guns.modular.service.AgentService;
@@ -330,9 +331,11 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
         return accuserService.update(accuserWrapper);
     }
 
-    public void deleteAccusers(String courtNumber) {
-        LambdaQueryWrapper<Accuser> accuserWrapper = new LambdaQueryWrapper<>();
-        accuserWrapper.eq(Accuser::getCourtNumber, courtNumber);
-        baseMapper.delete(accuserWrapper);
+    @Override
+    public void delete(String courtNumber) {
+        LambdaQueryWrapper<Accuser> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(Accuser::getCourtNumber,courtNumber);
+        lambdaQueryWrapper.eq(Accuser::getDelFlag, YesOrNotEnum.N.getCode());
+        baseMapper.delete(lambdaQueryWrapper);
     }
 }

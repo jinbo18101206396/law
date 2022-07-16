@@ -48,7 +48,7 @@ public interface ThirdPartyService extends IService<ThirdParty> {
     List<ThirdParty> getThirdPartyInfoList(String courtNumber);
 
     /**
-     * 删除第三人信息
+     * 删除第三人信息（修改删除标记）
      *
      * @param courtNumber 查看参数
      * @return
@@ -56,5 +56,15 @@ public interface ThirdPartyService extends IService<ThirdParty> {
      * @date 2022-07-12
      */
     Boolean deleteThirdPartyInfo(String courtNumber);
+
+    /**
+     * 删除第三人信息（彻底删除）
+     *
+     * @param courtNumber 查看参数
+     * @return
+     * @author 金波
+     * @date 2022-07-16
+     */
+    void delete(String courtNumber);
 
 }

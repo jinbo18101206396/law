@@ -1,6 +1,7 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
 import cn.stylefeng.guns.modular.entity.Inquiry;
+import cn.stylefeng.guns.modular.entity.ThirdParty;
 import cn.stylefeng.guns.modular.mapper.InquiryMapper;
 import cn.stylefeng.guns.modular.service.InquiryService;
 import cn.stylefeng.roses.kernel.rule.enums.YesOrNotEnum;
@@ -174,5 +175,13 @@ public class InquiryServiceImpl extends ServiceImpl<InquiryMapper, Inquiry> impl
         LambdaUpdateWrapper<Inquiry> inquiryWrapper = new LambdaUpdateWrapper<>();
         inquiryWrapper.set(Inquiry::getDelFlag, YesOrNotEnum.Y.getCode()).eq(Inquiry::getCourtNumber, courtNumber);
         return inquiryService.update(inquiryWrapper);
+    }
+
+    @Override
+    public void delete(String courtNumber) {
+        LambdaQueryWrapper<Inquiry> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(Inquiry::getCourtNumber,courtNumber);
+        lambdaQueryWrapper.eq(Inquiry::getDelFlag, YesOrNotEnum.N.getCode());
+        baseMapper.delete(lambdaQueryWrapper);
     }
 }

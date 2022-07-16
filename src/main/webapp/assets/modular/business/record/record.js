@@ -55,7 +55,7 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
             "/record/detail",
             {courtNumber: data.courtNumber},
             (result) => {
-                let wholeItem = JSON.parse(result.data)
+                let wholeItem = result.data
                 let myLocalStorage = {}
                 if (wholeItem != null) {
                     //组织数据

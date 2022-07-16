@@ -253,4 +253,11 @@ public class ThirdPartyServiceImpl extends ServiceImpl<ThirdPartyMapper, ThirdPa
         return thirdPartyService.update(thirdPartyWrapper);
     }
 
+    @Override
+    public void delete(String courtNumber){
+        LambdaQueryWrapper<ThirdParty> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(ThirdParty::getCourtNumber,courtNumber);
+        lambdaQueryWrapper.eq(ThirdParty::getDelFlag, YesOrNotEnum.N.getCode());
+        baseMapper.delete(lambdaQueryWrapper);
+    }
 }

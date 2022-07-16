@@ -56,7 +56,7 @@ public interface ProofService extends IService<Proof> {
 
 
     /**
-     * 删除举证信息
+     * 删除举证信息（修改删除标记）
      *
      * @param courtNumber 请求参数
      * @return
@@ -64,5 +64,15 @@ public interface ProofService extends IService<Proof> {
      * @Date 2022-06-02
      */
     Boolean deleteProofInfo(String courtNumber);
+
+    /**
+     * 删除举证信息（彻底删除）
+     *
+     * @param courtNumber 请求参数
+     * @return
+     * @author 金波
+     * @Date 2022-06-02
+     */
+    void delete(String courtNumber);
 
 }
