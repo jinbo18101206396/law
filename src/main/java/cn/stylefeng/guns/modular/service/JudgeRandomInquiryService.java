@@ -26,14 +26,24 @@ public interface JudgeRandomInquiryService extends IService<JudgeRandomInquiry> 
     void saveJudgeRandomInquiryInfo(String courtNumber, String counterClaim, JSONObject recordJsonObject);
 
     /**
-     * 获取法庭询问信息
+     * 获取法官随机提问信息（所有）
      *
      * @param courtNumber 请求参数
      * @return
      * @author 金波
      * @Date 2022-07-13
      */
-    JSONArray getJudgeRandomInquiryInfoArray(String courtNumber);
+    JSONObject getJudgeRandomInquiry(String courtNumber);
+
+    /**
+     * 获取法官随机提问信息（审判员最终陈述前）
+     *
+     * @param courtNumber 请求参数
+     * @return
+     * @author 金波
+     * @Date 2022-07-13
+     */
+    JSONArray getJudgeRandomInquiryBeforeSummarize(String courtNumber);
 
 
     /**

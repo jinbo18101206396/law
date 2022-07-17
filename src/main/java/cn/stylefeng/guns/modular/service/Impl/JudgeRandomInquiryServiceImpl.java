@@ -88,29 +88,46 @@ public class JudgeRandomInquiryServiceImpl extends ServiceImpl<JudgeRandomInquir
         }
     }
 
-
-    @Override
-    public JSONArray getJudgeRandomInquiryInfoArray(String courtNumber) {
-        JSONArray judgeInquiryBeforeSummarize = new JSONArray();
-
+    public List<JudgeRandomInquiry> getJudgeRandomInquires(String courtNumber){
         LambdaQueryWrapper<JudgeRandomInquiry> judgeRandomInquiryWrapper = new LambdaQueryWrapper<>();
         judgeRandomInquiryWrapper.eq(JudgeRandomInquiry::getCourtNumber, courtNumber);
-        judgeRandomInquiryWrapper.eq(JudgeRandomInquiry::getType, "3");
         judgeRandomInquiryWrapper.eq(JudgeRandomInquiry::getDelFlag, YesOrNotEnum.N.getCode());
-        List<JudgeRandomInquiry> judgeRandomInquiries = judgeRandomInquiryService.list(judgeRandomInquiryWrapper);
+        return judgeRandomInquiryService.list(judgeRandomInquiryWrapper);
+    }
 
+    public JSONObject blankJudgeRandomInquiry(){
+        JSONObject inquiryInfoObject = new JSONObject();
+        inquiryInfoObject.put("question", "");
+        JSONArray inquiryAnswerArray = new JSONArray();
+        JSONObject inquiryAnswerObject = new JSONObject();
+        inquiryAnswerObject.put("name", "");
+        inquiryAnswerObject.put("answer", "");
+        inquiryAnswerArray.add(inquiryAnswerObject);
+        inquiryInfoObject.put("answer", inquiryAnswerArray);
+        return inquiryInfoObject;
+    }
+
+    /**
+     * 法庭调查-法官随机提问
+     */
+    @Override
+    public JSONObject getJudgeRandomInquiry(String courtNumber) {
+        JSONObject judgeRandomInquiryObject = new JSONObject();
+
+        JSONArray judgeInquiryAfterAccuserClaimArray = new JSONArray();
+        JSONArray judgeInquiryAfterDefendantReplyArray = new JSONArray();
+        JSONArray judgeInquiryBeforeSummarize = new JSONArray();
+
+        List<JudgeRandomInquiry> judgeRandomInquiries = getJudgeRandomInquires(courtNumber);
         if (judgeRandomInquiries == null || judgeRandomInquiries.size() <= 0) {
-            JSONObject inquiryInfoObject = new JSONObject();
-            inquiryInfoObject.put("question", "");
-            JSONArray inquiryAnswerArray = new JSONArray();
-            JSONObject inquiryAnswerObject = new JSONObject();
-            inquiryAnswerObject.put("name", "");
-            inquiryAnswerObject.put("answer", "");
-            inquiryAnswerArray.add(inquiryAnswerObject);
-            inquiryInfoObject.put("answer", inquiryAnswerArray);
+            JSONObject inquiryInfoObject = blankJudgeRandomInquiry();
+            judgeInquiryAfterAccuserClaimArray.add(inquiryInfoObject);
+            judgeInquiryAfterDefendantReplyArray.add(inquiryInfoObject);
             judgeInquiryBeforeSummarize.add(inquiryInfoObject);
         } else {
             String lastQuestion = "";
+            String type = "";
+            String lastType = "";
             JSONArray inquiryAnswerArray = null;
             JSONObject inquiryInfoObject = null;
 
@@ -122,13 +139,21 @@ public class JudgeRandomInquiryServiceImpl extends ServiceImpl<JudgeRandomInquir
                 }
                 String answer = judgeRandomInquiry.getAnswer();
                 String name = judgeRandomInquiry.getName();
+                type = judgeRandomInquiry.getType();
 
                 JSONObject inquiryAnswerObject = new JSONObject();
                 if (!lastQuestion.equals(question)) {
                     if (inquiryAnswerArray != null && inquiryAnswerArray.size() > 0) {
                         inquiryInfoObject.put("answer", inquiryAnswerArray);
-                        judgeInquiryBeforeSummarize.add(inquiryInfoObject);
+                        if ("1".equals(lastType)) {
+                            judgeInquiryAfterAccuserClaimArray.add(inquiryInfoObject);
+                        } else if ("2".equals(lastType)) {
+                            judgeInquiryAfterDefendantReplyArray.add(inquiryInfoObject);
+                        } else if ("3".equals(lastType)) {
+                            judgeInquiryBeforeSummarize.add(inquiryInfoObject);
+                        }
                     }
+                    lastType = type;
                     lastQuestion = question;
                     inquiryInfoObject = new JSONObject();
                     inquiryInfoObject.put("question", question);
@@ -144,10 +169,34 @@ public class JudgeRandomInquiryServiceImpl extends ServiceImpl<JudgeRandomInquir
             }
             if (inquiryAnswerArray != null && inquiryAnswerArray.size() > 0) {
                 inquiryInfoObject.put("answer", inquiryAnswerArray);
-                judgeInquiryBeforeSummarize.add(inquiryInfoObject);
+                if ("1".equals(type)) {
+                    judgeInquiryAfterAccuserClaimArray.add(inquiryInfoObject);
+                } else if ("2".equals(type)) {
+                    judgeInquiryAfterDefendantReplyArray.add(inquiryInfoObject);
+                } else if ("3".equals(type)) {
+                    judgeInquiryBeforeSummarize.add(inquiryInfoObject);
+                }
             }
         }
-        return judgeInquiryBeforeSummarize;
+        if (judgeInquiryAfterAccuserClaimArray == null || judgeInquiryAfterAccuserClaimArray.size() <= 0) {
+            judgeInquiryAfterAccuserClaimArray.add(blankJudgeRandomInquiry());
+        }
+        if (judgeInquiryAfterDefendantReplyArray == null || judgeInquiryAfterDefendantReplyArray.size() <= 0) {
+            judgeInquiryAfterDefendantReplyArray.add(blankJudgeRandomInquiry());
+        }
+        if (judgeInquiryBeforeSummarize == null || judgeInquiryBeforeSummarize.size() <= 0) {
+            judgeInquiryBeforeSummarize.add(blankJudgeRandomInquiry());
+        }
+        judgeRandomInquiryObject.put("judge_inquiry_after_accuser_claim", judgeInquiryAfterAccuserClaimArray);
+        judgeRandomInquiryObject.put("judge_inquiry_after_defendant_reply", judgeInquiryAfterDefendantReplyArray);
+        judgeRandomInquiryObject.put("judge_inquiry_before_summarize", judgeInquiryBeforeSummarize);
+        return judgeRandomInquiryObject;
+    }
+
+    @Override
+    public JSONArray getJudgeRandomInquiryBeforeSummarize(String courtNumber) {
+        JSONObject judgeRandomInquiry = getJudgeRandomInquiry(courtNumber);
+        return judgeRandomInquiry.getJSONArray("judge_inquiry_before_summarize");
     }
 
     @Override

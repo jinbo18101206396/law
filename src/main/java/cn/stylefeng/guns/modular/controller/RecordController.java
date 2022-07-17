@@ -133,7 +133,7 @@ public class RecordController {
      * @date 2022/05/22
      */
     @PostResource(name = "保存笔录信息", path = "/record/add")
-    public ResponseData add(@RequestBody String recordJsonStr) {
+    public ResponseData saveRecord(@RequestBody String recordJsonStr) {
         System.out.println("提交的数据：" + recordJsonStr);
         //每次提交的recordJson保存一份在本地
         FileUtils.writerFile(recordJsonStr, backupPath);
@@ -185,7 +185,7 @@ public class RecordController {
         stateService.saveStateInfo(courtNumber, recordJsonObject);
         //原告诉讼请求项和事实与理由
         allegeService.saveAccuserClaimItem(courtNumber, "2", recordJsonObject);
-        //法官随机提问（原告诉称后，被告答辩后，审判员最后陈述前）
+        //法官随机提问（审判员最后陈述前）
         judgeRandomInquiryService.saveJudgeRandomInquiryInfo(courtNumber, "2", recordJsonObject);
         //被告答辩
         replyService.saveDefendantReply(courtNumber, "2", recordJsonObject);
@@ -310,9 +310,9 @@ public class RecordController {
         JSONArray deliveryInfoArray = basicInfoService.getDiliveryInfoArray(courtNumber);
         recordJson.put("deliveryInfo", deliveryInfoArray);
 
-        //审判员随机提问
-        JSONArray judgeRandomInquiryInfoArray = judgeRandomInquiryService.getJudgeRandomInquiryInfoArray(courtNumber);
-        recordJson.put("judge_inquiry_before_summarize", judgeRandomInquiryInfoArray);
+        //审判员随机提问（审判员最终陈述前）
+        JSONArray judgeRandomInquiryBeforeSummarize = judgeRandomInquiryService.getJudgeRandomInquiryBeforeSummarize(courtNumber);
+        recordJson.put("judge_inquiry_before_summarize", judgeRandomInquiryBeforeSummarize);
 
         //审判员最终总结
         String summarize = basicInfoService.getSummarize(courtNumber);
@@ -501,5 +501,4 @@ public class RecordController {
         }
         return new SuccessResponseData(deleteFlag);
     }
-
 }
