@@ -41,7 +41,7 @@ public interface AllegeService extends IService<Allege> {
 
 
     /**
-     * 删除诉讼请求项信息
+     * 删除诉讼请求项信息（修改删除标记）
      *
      * @param courtNumber 请求参数
      * @return
@@ -49,5 +49,15 @@ public interface AllegeService extends IService<Allege> {
      * @Date 2022-06-02
      */
     Boolean deleteAllegeInfo(String courtNumber);
+
+    /**
+     * 删除诉讼请求项信息（彻底删除）
+     *
+     * @param courtNumber 请求参数
+     * @return
+     * @author 金波
+     * @Date 2022-07-16
+     */
+    void delete(String courtNumber);
 
 }

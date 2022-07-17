@@ -51,7 +51,7 @@ public interface InquiryService extends IService<Inquiry> {
     List<Inquiry> getInquiryInfoList(String courtNumber);
 
     /**
-     * 删除法庭询问信息
+     * 删除法庭询问信息（修改删除标记）
      *
      * @param courtNumber 请求参数
      * @return
@@ -59,5 +59,15 @@ public interface InquiryService extends IService<Inquiry> {
      * @Date 2022-06-02
      */
     Boolean deleteInquiryInfo(String courtNumber);
+
+    /**
+     * 删除法庭询问信息（彻底删除）
+     *
+     * @param courtNumber 请求参数
+     * @return
+     * @author 金波
+     * @Date 2022-07-16
+     */
+    void delete(String courtNumber);
 
 }

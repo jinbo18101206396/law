@@ -48,7 +48,7 @@ public interface DefendantService extends IService<Defendant> {
     List<Defendant> getDefendantInfoList(String courtNumber);
 
     /**
-     * 删除被告信息
+     * 删除被告信息（修改删除标记）
      *
      * @param courtNumber 查看参数
      * @return
@@ -56,5 +56,15 @@ public interface DefendantService extends IService<Defendant> {
      * @date 2022/06/02
      */
     Boolean deleteDefendantInfo(String courtNumber);
+
+    /**
+     * 删除被告信息（彻底删除）
+     *
+     * @param courtNumber 查看参数
+     * @return
+     * @author 金波
+     * @date 2022/07/16
+     */
+    void delete(String courtNumber);
 
 }

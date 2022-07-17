@@ -10,7 +10,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -27,7 +26,7 @@ public interface BasicInfoService extends IService<BasicInfo> {
      * @author jinbo
      * @Date 2022-05-23
      */
-    void saveBasicInfo(String courtNumber,JSONObject recordJsonObject);
+    void saveBasicInfo(String courtNumber, JSONObject recordJsonObject);
 
     /**
      * 获取笔录基本信息详情
@@ -51,7 +50,7 @@ public interface BasicInfoService extends IService<BasicInfo> {
     BasicInfo getBasicInfo(String courtNumber);
 
     /**
-     * 删除笔录基本信息
+     * 删除笔录基本信息（修改删除标记）
      *
      * @param courtNumber 查看参数
      * @return 详情结果
@@ -59,6 +58,16 @@ public interface BasicInfoService extends IService<BasicInfo> {
      * @date 2022/06/02
      */
     Boolean deleteBasicInfo(String courtNumber);
+
+    /**
+     * 删除笔录基本信息(彻底删除)
+     *
+     * @param courtNumber 查看参数
+     * @return 详情结果
+     * @author 金波
+     * @date 2022/07/16
+     */
+    void delete(String courtNumber);
 
     /**
      * 获取笔录基本信息列表

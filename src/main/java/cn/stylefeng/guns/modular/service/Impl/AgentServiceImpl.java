@@ -1,14 +1,17 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
 import cn.stylefeng.guns.modular.entity.Agent;
+import cn.stylefeng.guns.modular.entity.ThirdParty;
 import cn.stylefeng.guns.modular.mapper.AgentMapper;
 import cn.stylefeng.guns.modular.service.AgentService;
 import cn.stylefeng.roses.kernel.rule.enums.YesOrNotEnum;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
@@ -28,6 +31,7 @@ public class AgentServiceImpl extends ServiceImpl<AgentMapper, Agent> implements
     private AgentService agentService;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void saveAgentInfo(String courtNumber, JSONObject recordJsonObject) {
         //原告信息
         JSONArray accuserInfoArray = recordJsonObject.getJSONArray("accuserInfo");
@@ -53,12 +57,26 @@ public class AgentServiceImpl extends ServiceImpl<AgentMapper, Agent> implements
         return agentService.update(agentWrapper);
     }
 
+    @Override
+    public void delete(String courtNumber) {
+        LambdaQueryWrapper<Agent> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(Agent::getCourtNumber,courtNumber);
+        lambdaQueryWrapper.eq(Agent::getDelFlag, YesOrNotEnum.N.getCode());
+        baseMapper.delete(lambdaQueryWrapper);
+    }
+
     public void saveAccuserAgent(String courtNumber, JSONArray accuserInfoArray) {
         for (int i = 0; i < accuserInfoArray.size(); i++) {
             JSONObject accuserInfoObject = accuserInfoArray.getJSONObject(i);
             String accuserShortName = accuserInfoObject.getString("accuser_short");
             JSONArray accuserAgentArray = accuserInfoObject.getJSONArray("accuser_agent");
-            saveAgent(courtNumber, accuserShortName, "1", accuserAgentArray);
+            String accuserType = accuserInfoObject.getString("accuser_type");
+            if (!ObjectUtils.isEmpty(accuserType) && "2".equals(accuserType)) {
+                accuserShortName = accuserInfoObject.getString("accuser");
+            }
+            if (!ObjectUtils.isEmpty(accuserAgentArray)) {
+                saveAgent(courtNumber, accuserShortName, "1", accuserAgentArray);
+            }
         }
     }
 
@@ -67,7 +85,13 @@ public class AgentServiceImpl extends ServiceImpl<AgentMapper, Agent> implements
             JSONObject defendantInfoObject = defendantInfoArray.getJSONObject(m);
             String defendantShortName = defendantInfoObject.getString("defendant_short");
             JSONArray defendantAgentArray = defendantInfoObject.getJSONArray("defendant_agent");
-            saveAgent(courtNumber, defendantShortName, "2", defendantAgentArray);
+            String defendantType = defendantInfoObject.getString("defendant_type");
+            if (!ObjectUtils.isEmpty(defendantType) && "2".equals(defendantType)) {
+                defendantShortName = defendantInfoObject.getString("defendant");
+            }
+            if (!ObjectUtils.isEmpty(defendantAgentArray)) {
+                saveAgent(courtNumber, defendantShortName, "2", defendantAgentArray);
+            }
         }
     }
 
@@ -76,10 +100,15 @@ public class AgentServiceImpl extends ServiceImpl<AgentMapper, Agent> implements
             JSONObject thirdPartyInfoObject = thirdPartyInfoArray.getJSONObject(m);
             String thirdPartyShortName = thirdPartyInfoObject.getString("third_party_short");
             JSONArray thirdPartyAgentArray = thirdPartyInfoObject.getJSONArray("third_party_agent");
-            saveAgent(courtNumber, thirdPartyShortName, "3", thirdPartyAgentArray);
+            String thirdPartyType = thirdPartyInfoObject.getString("third_party_type");
+            if ("2".equals(thirdPartyType)) {
+                thirdPartyShortName = thirdPartyInfoObject.getString("third_party");
+            }
+            if (!ObjectUtils.isEmpty(thirdPartyAgentArray)) {
+                saveAgent(courtNumber, thirdPartyShortName, "3", thirdPartyAgentArray);
+            }
         }
     }
-
 
     public void saveAgent(String courtNumber, String shortName, String agentType, JSONArray agentArray) {
         for (int n = 0; n < agentArray.size(); n++) {

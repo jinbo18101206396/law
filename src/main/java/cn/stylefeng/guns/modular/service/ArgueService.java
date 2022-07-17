@@ -49,13 +49,20 @@ public interface ArgueService extends IService<Argue> {
      */
     List<Argue> getArgueList(String courtNumber);
 
-
     /**
-     * 删除法庭辩论信息
+     * 删除法庭辩论信息（修改删除标记）
      *
      * @author jinbo
      * @Date 2022-05-25
      */
     Boolean deleteArgueInfo(String courtNumber);
+
+    /**
+     * 删除法庭辩论信息（彻底删除）
+     *
+     * @author jinbo
+     * @Date 2022-07-16
+     */
+    void delete(String courtNumber);
 
 }
