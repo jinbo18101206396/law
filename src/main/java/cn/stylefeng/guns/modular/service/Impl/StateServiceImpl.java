@@ -1,7 +1,6 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
 import cn.stylefeng.guns.modular.entity.State;
-import cn.stylefeng.guns.modular.entity.ThirdParty;
 import cn.stylefeng.guns.modular.mapper.StateMapper;
 import cn.stylefeng.guns.modular.service.StateService;
 import cn.stylefeng.roses.kernel.rule.enums.YesOrNotEnum;
@@ -89,7 +88,7 @@ public class StateServiceImpl extends ServiceImpl<StateMapper, State> implements
     @Override
     public void delete(String courtNumber) {
         LambdaQueryWrapper<State> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.eq(State::getCourtNumber,courtNumber);
+        lambdaQueryWrapper.eq(State::getCourtNumber, courtNumber);
         lambdaQueryWrapper.eq(State::getDelFlag, YesOrNotEnum.N.getCode());
         baseMapper.delete(lambdaQueryWrapper);
     }

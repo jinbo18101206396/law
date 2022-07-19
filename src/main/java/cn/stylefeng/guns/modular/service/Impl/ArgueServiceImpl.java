@@ -1,7 +1,7 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
 import cn.stylefeng.guns.modular.entity.Argue;
-import cn.stylefeng.guns.modular.entity.ThirdParty;
+import cn.stylefeng.guns.modular.enums.CounterClaimEnum;
 import cn.stylefeng.guns.modular.mapper.ArgueMapper;
 import cn.stylefeng.guns.modular.service.ArgueService;
 import cn.stylefeng.roses.kernel.rule.enums.YesOrNotEnum;
@@ -37,7 +37,7 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
     public void saveArgueInfo(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
         if (recordJsonObject.containsKey("argueInfo")) {
             JSONObject argueInfoObject = recordJsonObject.getJSONObject("argueInfo");
-            if ("1".equals(counterClaim)) {
+            if (counterClaim.equals(CounterClaimEnum.COUNTER_CLAIM.getCode())) {
                 JSONArray counterClaimArgueArray = argueInfoObject.getJSONArray("counterclaim_argue");
                 if (counterClaimArgueArray != null && counterClaimArgueArray.size() > 0) {
                     saveArgue(counterClaimArgueArray, counterClaim, courtNumber);
@@ -193,7 +193,7 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
     @Override
     public void delete(String courtNumber) {
         LambdaQueryWrapper<Argue> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.eq(Argue::getCourtNumber,courtNumber);
+        lambdaQueryWrapper.eq(Argue::getCourtNumber, courtNumber);
         lambdaQueryWrapper.eq(Argue::getDelFlag, YesOrNotEnum.N.getCode());
         baseMapper.delete(lambdaQueryWrapper);
     }

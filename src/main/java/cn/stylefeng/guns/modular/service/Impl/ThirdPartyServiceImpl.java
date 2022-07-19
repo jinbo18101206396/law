@@ -2,6 +2,8 @@ package cn.stylefeng.guns.modular.service.Impl;
 
 import cn.stylefeng.guns.modular.entity.Agent;
 import cn.stylefeng.guns.modular.entity.ThirdParty;
+import cn.stylefeng.guns.modular.enums.AccuserDefendantTypeEnum;
+import cn.stylefeng.guns.modular.enums.AgentTypeEnum;
 import cn.stylefeng.guns.modular.mapper.ThirdPartyMapper;
 import cn.stylefeng.guns.modular.service.AgentService;
 import cn.stylefeng.guns.modular.service.ThirdPartyService;
@@ -45,29 +47,28 @@ public class ThirdPartyServiceImpl extends ServiceImpl<ThirdPartyMapper, ThirdPa
         for (int i = 0; i < thirdPartyInfoArray.size(); i++) {
             JSONObject thirdPartyInfoObject = thirdPartyInfoArray.getJSONObject(i);
             String thirdPartyName = thirdPartyInfoObject.getString("third_party");
-            String thirdPartyShort = thirdPartyInfoObject.getString("third_party_short");
+            String thirdPartyShort = "";
             String thirdPartyType = thirdPartyInfoObject.getString("third_party_type");
-
-            if ("2".equals(thirdPartyType)) {
+            if (thirdPartyType.equals(AccuserDefendantTypeEnum.PERSON.getCode())) {
                 thirdPartyShort = thirdPartyName;
+            } else if (thirdPartyType.equals(AccuserDefendantTypeEnum.DEPARTMENT.getCode())) {
+                thirdPartyShort = thirdPartyInfoObject.getString("third_party_short");
             }
-
             String thirdPartyInfo = thirdPartyInfoObject.getString("third_party_info");
             String thirdPartyAddress = thirdPartyInfoObject.getString("third_party_address");
             String thirdPartyRepresent = thirdPartyInfoObject.getString("third_party_represent");
             String thirdPartyDuty = thirdPartyInfoObject.getString("third_party_duty");
-
             ThirdParty thirdParty = new ThirdParty();
             thirdParty.setThirdParty(thirdPartyName);
             thirdParty.setThirdPartyShort(thirdPartyShort);
             thirdParty.setThirdPartyType(thirdPartyType);
             thirdParty.setCourtNumber(courtNumber);
             //第三人（机构）
-            if ("1".equals(thirdPartyType)) {
+            if (thirdPartyType.equals(AccuserDefendantTypeEnum.DEPARTMENT.getCode())) {
                 thirdParty.setThirdPartyRepresent(thirdPartyRepresent);
                 thirdParty.setThirdPartyDuty(thirdPartyDuty);
                 thirdParty.setThirdPartyAddress(thirdPartyAddress);
-            } else if ("2".equals(thirdPartyType)) {
+            } else if (thirdPartyType.equals(AccuserDefendantTypeEnum.PERSON.getCode())) {
                 thirdParty.setThirdPartyInfo(thirdPartyInfo);
             }
             //是否听清诉讼权利和义务（1-听清，2-没听清）、是否申请回避(1-回避，2-不回避)
@@ -156,9 +157,9 @@ public class ThirdPartyServiceImpl extends ServiceImpl<ThirdPartyMapper, ThirdPa
             String thirdPartyName = thirdParty.getThirdParty();
             String thirdPartyShort = "";
             String thirdPartyType = thirdParty.getThirdPartyType();
-            if ("1".equals(thirdPartyType)) {
+            if (thirdPartyType.equals(AccuserDefendantTypeEnum.DEPARTMENT.getCode())) {
                 thirdPartyShort = thirdParty.getThirdPartyShort();
-            } else {
+            } else if (thirdPartyType.equals(AccuserDefendantTypeEnum.PERSON.getCode())) {
                 thirdPartyShort = thirdPartyName;
             }
             String thirdPartyInfo = thirdParty.getThirdPartyInfo();
@@ -174,7 +175,7 @@ public class ThirdPartyServiceImpl extends ServiceImpl<ThirdPartyMapper, ThirdPa
                     String agentName = agent.getAgentName();
                     String agentType = agent.getAgentType();
                     JSONObject thirdPartyAgentObject = new JSONObject();
-                    if (agentName.equals(thirdPartyShort) && agentType.equals("3")) {
+                    if (agentName.equals(thirdPartyShort) && agentType.equals(AgentTypeEnum.THIRD.getCode())) {
                         thirdPartyAgentObject.put("agent", agent.getAgent());
                         thirdPartyAgentObject.put("agent_address", agent.getAgentAddress());
                         thirdPartyAgentArray.add(thirdPartyAgentObject);
@@ -212,7 +213,7 @@ public class ThirdPartyServiceImpl extends ServiceImpl<ThirdPartyMapper, ThirdPa
         LambdaQueryWrapper<Agent> agentQueryWrapper = new LambdaQueryWrapper<>();
         agentQueryWrapper.eq(Agent::getCourtNumber, courtNumber);
         agentQueryWrapper.eq(Agent::getDelFlag, YesOrNotEnum.N.getCode());
-        agentQueryWrapper.eq(Agent::getAgentType, "3");
+        agentQueryWrapper.eq(Agent::getAgentType, AgentTypeEnum.THIRD.getCode());
         return agentService.list(agentQueryWrapper);
     }
 
@@ -225,7 +226,7 @@ public class ThirdPartyServiceImpl extends ServiceImpl<ThirdPartyMapper, ThirdPa
 
     public JSONObject blankThirdParty() {
         JSONObject thirdPartyInfoObject = new JSONObject();
-        thirdPartyInfoObject.put("third_party_type", "1");
+        thirdPartyInfoObject.put("third_party_type", AccuserDefendantTypeEnum.DEPARTMENT.getCode());
         thirdPartyInfoObject.put("third_party", "");
         thirdPartyInfoObject.put("third_party_short", "");
         thirdPartyInfoObject.put("third_party_info", "");
@@ -254,9 +255,9 @@ public class ThirdPartyServiceImpl extends ServiceImpl<ThirdPartyMapper, ThirdPa
     }
 
     @Override
-    public void delete(String courtNumber){
+    public void delete(String courtNumber) {
         LambdaQueryWrapper<ThirdParty> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.eq(ThirdParty::getCourtNumber,courtNumber);
+        lambdaQueryWrapper.eq(ThirdParty::getCourtNumber, courtNumber);
         lambdaQueryWrapper.eq(ThirdParty::getDelFlag, YesOrNotEnum.N.getCode());
         baseMapper.delete(lambdaQueryWrapper);
     }

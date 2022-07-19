@@ -1,7 +1,7 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
 import cn.stylefeng.guns.modular.entity.Allege;
-import cn.stylefeng.guns.modular.entity.ThirdParty;
+import cn.stylefeng.guns.modular.enums.AccuserDefendantTypeEnum;
 import cn.stylefeng.guns.modular.mapper.AllegeMapper;
 import cn.stylefeng.guns.modular.service.AllegeService;
 import cn.stylefeng.roses.kernel.rule.enums.YesOrNotEnum;
@@ -62,9 +62,9 @@ public class AllegeServiceImpl extends ServiceImpl<AllegeMapper, Allege> impleme
                 String accuser = accuserInfoObject.getString("accuser");
                 String accuserShort = "";
                 String accuserType = accuserInfoObject.getString("accuser_type");
-                if("1".equals(accuserType)){
+                if(accuserType.equals(AccuserDefendantTypeEnum.DEPARTMENT.getCode())){
                     accuserShort = accuserInfoObject.getString("accuser_short");
-                }else if("2".equals(accuserType)){
+                }else if(accuserType.equals(AccuserDefendantTypeEnum.PERSON.getCode())){
                     accuserShort = accuser;
                 }
                 accuserName.append(accuserShort);

@@ -2,6 +2,7 @@ package cn.stylefeng.guns.modular.service.Impl;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.stylefeng.guns.modular.entity.*;
+import cn.stylefeng.guns.modular.enums.FactLegalReleEnum;
 import cn.stylefeng.guns.modular.mapper.BasicInfoMapper;
 import cn.stylefeng.guns.modular.model.request.BasicInfoRequest;
 import cn.stylefeng.guns.modular.service.*;
@@ -23,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
+import sun.security.smartcardio.SunPCSC;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -457,7 +459,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
     public JSONObject blankDelivery() {
         JSONObject deliveryObject = new JSONObject();
         deliveryObject.put("name", "");
-        deliveryObject.put("is_delivery", "1");
+        deliveryObject.put("is_delivery", FactLegalReleEnum.AGREE.getCode());
         deliveryObject.put("email", "");
         return deliveryObject;
     }
@@ -739,31 +741,15 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                     String evidenceNum = evidence.split(":")[0];
                     evidenceNumber += evidenceNum;
                 }
-                //TODO 做枚举
-                if ("1".equals(facticity)) {
-                    facticity = "认可";
-                } else {
-                    facticity = "不认可";
-                }
-                if ("1".equals(legality)) {
-                    legality = "认可";
-                } else {
-                    facticity = "不认可";
-                }
-                if ("1".equals(relevance)) {
-                    relevance = "认可";
-                } else {
-                    facticity = "不认可";
-                }
                 Query query = new Query();
                 query.setName(defendant);
                 if (!ObjectUtils.isEmpty(evidenceNumber) && evidenceNumber.contains("、")) {
                     evidenceNumber = evidenceNumber.substring(0, evidenceNumber.length() - 1);
                 }
                 query.setEvidence(evidenceNumber);
-                query.setFacticity(facticity);
-                query.setLegality(legality);
-                query.setRelevance(relevance);
+                query.setFacticity(FactLegalReleEnum.getMessage(facticity));
+                query.setLegality(FactLegalReleEnum.getMessage(legality));
+                query.setRelevance(FactLegalReleEnum.getMessage(relevance));
                 query.setReason(defendantQueryFactReason);
                 defendantQueryList.add(query);
             }

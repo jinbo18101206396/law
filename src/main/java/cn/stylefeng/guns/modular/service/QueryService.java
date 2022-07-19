@@ -1,13 +1,8 @@
 package cn.stylefeng.guns.modular.service;
 
 import cn.stylefeng.guns.modular.entity.Query;
-import cn.stylefeng.guns.modular.model.request.ProofRequest;
-import cn.stylefeng.guns.modular.model.request.QueryRequest;
-import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
-
-import java.util.List;
 
 /**
  * <p>
@@ -38,39 +33,6 @@ public interface QueryService extends IService<Query> {
      * @Date 2022-07-12
      */
     void saveAccuserAndOtherDefendantQuery(String courtNumber, String counterClaim, JSONObject recordJsonObject);
-
-    /**
-     * 保存被告质证信息
-     *
-     * @param recordJsonObject 请求参数
-     * @return
-     * @author 金波
-     * @Date 2022-05-24
-     */
-    void saveDefendantQuery(String courtNumber, String counterClaim, JSONObject recordJsonObject);
-
-
-
-
-    /**
-     * 保存原告质证信息
-     *
-     * @param recordJsonObject 请求参数
-     * @return
-     * @author 金波
-     * @Date 2022-05-24
-     */
-    void saveAccuserQuery(String courtNumber, String counterClaim, JSONObject recordJsonObject);
-
-    /**
-     * 保存其他被告质证信息
-     *
-     * @param recordJsonObject 请求参数
-     * @return
-     * @author 金波
-     * @Date 2022-05-24
-     */
-    void saveOtherDefendantQuery(String courtNumber, String counterClaim, JSONObject recordJsonObject);
 
     /**
      * 保存反诉被告质证信息

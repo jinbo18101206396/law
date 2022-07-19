@@ -2,7 +2,7 @@ package cn.stylefeng.guns.modular.service.Impl;
 
 import cn.stylefeng.guns.modular.entity.Agent;
 import cn.stylefeng.guns.modular.entity.Defendant;
-import cn.stylefeng.guns.modular.entity.ThirdParty;
+import cn.stylefeng.guns.modular.enums.*;
 import cn.stylefeng.guns.modular.mapper.DefendantMapper;
 import cn.stylefeng.guns.modular.service.AgentService;
 import cn.stylefeng.guns.modular.service.DefendantService;
@@ -46,21 +46,25 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
         for (int i = 0; i < defendantInfoArray.size(); i++) {
             Defendant defendant = new Defendant();
             JSONObject defendantInfoObject = defendantInfoArray.getJSONObject(i);
-            defendant.setDefendant(defendantInfoObject.getString("defendant"));
-            String defendantShortName = defendantInfoObject.getString("defendant_short");
-            String defendantInfo = defendantInfoObject.getString("defendant_info");
-            //被告类型（1-机构，2-个人）
+            String defendantLongName = defendantInfoObject.getString("defendant");
+            String defendantShortName = "";
             String defendantType = defendantInfoObject.getString("defendant_type");
-            defendant.setDefendantType(defendantType);
+            if (defendantType.equals(AccuserDefendantTypeEnum.DEPARTMENT.getCode())) {
+                defendantShortName = defendantInfoObject.getString("defendant_short");
+            } else if (defendantType.equals(AccuserDefendantTypeEnum.PERSON.getCode())) {
+                defendantShortName = defendantLongName;
+            }
+            String defendantInfo = defendantInfoObject.getString("defendant_info");
+            defendant.setDefendant(defendantLongName);
             defendant.setDefendantShort(defendantShortName);
+            defendant.setDefendantType(defendantType);
             defendant.setDefendantInfo(defendantInfo);
             defendant.setDefendantAddress(defendantInfoObject.getString("defendant_address"));
-            //被告（机构）
-            if ("1".equals(defendantType)) {
+            defendant.setCourtNumber(courtNumber);
+            if (defendantType.equals(AccuserDefendantTypeEnum.DEPARTMENT.getCode())) {
                 defendant.setDefendantRepresent(defendantInfoObject.getString("defendant_represent"));
                 defendant.setDefendantDuty(defendantInfoObject.getString("defendant_duty"));
             }
-            defendant.setCourtNumber(courtNumber);
 
             if (recordJsonObject.containsKey("rightInfo")) {
                 //是否听清诉讼权利和义务（1-听清，2-没听清）、是否申请回避(1-回避，2-不回避)
@@ -151,9 +155,9 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
             String defendantName = defendant.getDefendant();
             String defendantShort = "";
             String defendantType = defendant.getDefendantType();
-            if("1".equals(defendantType)){
+            if (defendantType.equals(AccuserDefendantTypeEnum.DEPARTMENT.getCode())) {
                 defendantShort = defendant.getDefendantShort();
-            }else{
+            } else if (defendantType.equals(AccuserDefendantTypeEnum.PERSON.getCode())) {
                 defendantShort = defendantName;
             }
             String defendantInfo = defendant.getDefendantInfo();
@@ -186,7 +190,7 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
             defendantInfoObject.put("defendant_address", defendantAddress);
             defendantInfoObject.put("defendant_represent", defendantRepresent);
             defendantInfoObject.put("defendant_duty", defendantDuty);
-            if (defendantAgentArray.size() <= 0) {
+            if (defendantAgentArray == null || defendantAgentArray.size() <= 0) {
                 defendantAgentArray.add(blankAgent());
             }
             defendantInfoObject.put("defendant_agent", defendantAgentArray);
@@ -198,31 +202,31 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
         return defendantInfoArray;
     }
 
-    public List<Defendant> getDefendants(String courtNumber){
+    public List<Defendant> getDefendants(String courtNumber) {
         LambdaQueryWrapper<Defendant> defendantQueryWrapper = new LambdaQueryWrapper<>();
         defendantQueryWrapper.eq(Defendant::getCourtNumber, courtNumber);
         defendantQueryWrapper.eq(Defendant::getDelFlag, YesOrNotEnum.N.getCode());
         return defendantService.list(defendantQueryWrapper);
     }
 
-    public List<Agent> getAgents(String courtNumber){
+    public List<Agent> getAgents(String courtNumber) {
         LambdaQueryWrapper<Agent> agentQueryWrapper = new LambdaQueryWrapper<>();
         agentQueryWrapper.eq(Agent::getCourtNumber, courtNumber);
         agentQueryWrapper.eq(Agent::getDelFlag, YesOrNotEnum.N.getCode());
-        agentQueryWrapper.eq(Agent::getAgentType, "2");
+        agentQueryWrapper.eq(Agent::getAgentType, AgentTypeEnum.DEFENDANT.getCode());
         return agentService.list(agentQueryWrapper);
     }
 
-    public JSONObject blankAgent(){
+    public JSONObject blankAgent() {
         JSONObject agentObject = new JSONObject();
         agentObject.put("agent", "");
         agentObject.put("agent_address", "");
         return agentObject;
     }
 
-    public JSONObject blankDefendant(){
+    public JSONObject blankDefendant() {
         JSONObject defendantInfoObject = new JSONObject();
-        defendantInfoObject.put("defendant_type", "1");
+        defendantInfoObject.put("defendant_type", AccuserDefendantTypeEnum.DEPARTMENT.getCode());
         defendantInfoObject.put("defendant", "");
         defendantInfoObject.put("defendant_short", "");
         defendantInfoObject.put("defendant_info", "");
@@ -248,48 +252,38 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
             String defendantShort = "";
             String defendantAddress = defendant.getDefendantAddress();
             String defendantType = defendant.getDefendantType();
-            if("1".equals(defendantType)){
+            if (defendantType.equals(AccuserDefendantTypeEnum.DEPARTMENT.getCode())) {
                 defendantShort = defendant.getDefendantShort();
-            }else{
+            } else if (defendantType.equals(AccuserDefendantTypeEnum.PERSON.getCode())) {
                 defendantShort = defendantName;
             }
             String defendantInfo = defendant.getDefendantInfo();
-            if("1".equals(defendantType)){
-                defendant.setDefendant(defendantName+"（简称："+defendantShort+"），地址："+defendantAddress);
+            if (defendantType.equals(AccuserDefendantTypeEnum.DEPARTMENT.getCode())) {
+                defendant.setDefendant(defendantName + "（简称：" + defendantShort + "），地址：" + defendantAddress);
                 defendant.setDefendantType("机构");
-            }else if("2".equals(defendantType)){
-                defendant.setDefendant(defendantName+"，"+defendantInfo);
+            } else if (defendantType.equals(AccuserDefendantTypeEnum.PERSON.getCode())) {
+                defendant.setDefendant(defendantName + "，" + defendantInfo);
                 defendant.setDefendantType("个人");
             }
             String defendantRepresent = defendant.getDefendantRepresent();
             String defendantDuty = defendant.getDefendantDuty();
-            if(!ObjectUtils.isEmpty(defendantRepresent) && !ObjectUtils.isEmpty(defendantDuty)){
-                defendant.setDefendantRepresent(defendantRepresent+"，"+defendantDuty);
+            if (!ObjectUtils.isEmpty(defendantRepresent) && !ObjectUtils.isEmpty(defendantDuty)) {
+                defendant.setDefendantRepresent(defendantRepresent + "，" + defendantDuty);
             }
             String defendantRightDuty = defendant.getDefendantRightDuty();
             if (!ObjectUtils.isEmpty(defendantRightDuty)) {
-                if ("1".equals(defendantRightDuty)) {
-                    defendantRightDuty = "听清楚了";
-                } else {
-                    defendantRightDuty = "没听清楚";
-                }
-                defendant.setDefendantRightDuty(defendantRightDuty);
+                defendant.setDefendantRightDuty(RightDutyEnum.getMessage(defendantRightDuty));
             }
             String defendantAvoid = defendant.getDefendantAvoid();
             if (!ObjectUtils.isEmpty(defendantAvoid)) {
-                if ("1".equals(defendantAvoid)) {
-                    defendantAvoid = "申请回避";
-                } else {
-                    defendantAvoid = "不申请回避";
-                }
-                defendant.setDefendantAvoid(defendantAvoid);
+                defendant.setDefendantAvoid(AvoidEnum.getMessage(defendantAvoid));
             }
             String mediate = defendant.getIsMediate();
             String mediatePlan = defendant.getMediatePlan();
             if (!ObjectUtils.isEmpty(mediate)) {
-                if ("1".equals(mediate)) {
+                if (mediate.equals(MediateEnum.Y.getCode())) {
                     mediate = "能，调解方案：" + mediatePlan;
-                } else {
+                } else if (mediate.equals(MediateEnum.N.getCode())) {
                     mediate = "不能";
                 }
                 defendant.setIsMediate(mediate);
@@ -297,9 +291,9 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
             String delivery = defendant.getIsDelivery();
             String email = defendant.getEmail();
             if (!ObjectUtils.isEmpty(delivery)) {
-                if ("1".equals(delivery)) {
+                if (delivery.equals(DeliveryEnum.Y.getCode())) {
                     delivery = "同意，邮箱：" + email;
-                } else {
+                } else if (delivery.equals(DeliveryEnum.N.getCode())) {
                     delivery = "不同意，邮寄地址：" + email;
                 }
                 defendant.setIsDelivery(delivery);
@@ -330,7 +324,7 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
     @Override
     public void delete(String courtNumber) {
         LambdaQueryWrapper<Defendant> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.eq(Defendant::getCourtNumber,courtNumber);
+        lambdaQueryWrapper.eq(Defendant::getCourtNumber, courtNumber);
         lambdaQueryWrapper.eq(Defendant::getDelFlag, YesOrNotEnum.N.getCode());
         baseMapper.delete(lambdaQueryWrapper);
     }

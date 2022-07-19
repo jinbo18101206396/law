@@ -1,7 +1,6 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
 import cn.stylefeng.guns.modular.entity.Proof;
-import cn.stylefeng.guns.modular.entity.ThirdParty;
 import cn.stylefeng.guns.modular.mapper.ProofMapper;
 import cn.stylefeng.guns.modular.service.AccuserService;
 import cn.stylefeng.guns.modular.service.ProofService;
@@ -109,7 +108,7 @@ public class ProofServiceImpl extends ServiceImpl<ProofMapper, Proof> implements
         for (int i = 0; i < evidenceArray.size(); i++) {
             JSONObject evidenceObject = evidenceArray.getJSONObject(i);
             String name = "";
-            if(evidenceObject.containsKey("name")){
+            if (evidenceObject.containsKey("name")) {
                 name = evidenceObject.getString("name");
             }
             String serial = evidenceObject.getString("serial");
@@ -141,7 +140,7 @@ public class ProofServiceImpl extends ServiceImpl<ProofMapper, Proof> implements
     @Override
     public void delete(String courtNumber) {
         LambdaQueryWrapper<Proof> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.eq(Proof::getCourtNumber,courtNumber);
+        lambdaQueryWrapper.eq(Proof::getCourtNumber, courtNumber);
         lambdaQueryWrapper.eq(Proof::getDelFlag, YesOrNotEnum.N.getCode());
         baseMapper.delete(lambdaQueryWrapper);
     }

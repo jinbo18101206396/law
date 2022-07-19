@@ -1,7 +1,7 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
 import cn.stylefeng.guns.modular.entity.JudgeRandomInquiry;
-import cn.stylefeng.guns.modular.entity.ThirdParty;
+import cn.stylefeng.guns.modular.enums.JudgeRandomInquiryEnum;
 import cn.stylefeng.guns.modular.mapper.JudgeRandomInquiryMapper;
 import cn.stylefeng.guns.modular.service.JudgeRandomInquiryService;
 import cn.stylefeng.roses.kernel.rule.enums.YesOrNotEnum;
@@ -40,21 +40,21 @@ public class JudgeRandomInquiryServiceImpl extends ServiceImpl<JudgeRandomInquir
         if (courtInvestigateObject.containsKey("judge_inquiry_after_accuser_claim")) {
             JSONArray judgeInquiryAfterAccuserClaim = courtInvestigateObject.getJSONArray("judge_inquiry_after_accuser_claim");
             if (judgeInquiryAfterAccuserClaim != null && judgeInquiryAfterAccuserClaim.size() > 0) {
-                saveJudgeRandomInquiry(judgeInquiryAfterAccuserClaim, courtNumber, "1");
+                saveJudgeRandomInquiry(judgeInquiryAfterAccuserClaim, courtNumber, JudgeRandomInquiryEnum.AFTER_ACCUSER_CLAIM.getCode());
             }
         }
 
         if (courtInvestigateObject.containsKey("judge_inquiry_after_defendant_reply")) {
             JSONArray judgeInquiryAfterDefendantReply = courtInvestigateObject.getJSONArray("judge_inquiry_after_defendant_reply");
             if (judgeInquiryAfterDefendantReply != null && judgeInquiryAfterDefendantReply.size() > 0) {
-                saveJudgeRandomInquiry(judgeInquiryAfterDefendantReply, courtNumber, "2");
+                saveJudgeRandomInquiry(judgeInquiryAfterDefendantReply, courtNumber, JudgeRandomInquiryEnum.AFTER_DEFENDANT_REPLY.getCode());
             }
         }
 
         if (recordJsonObject.containsKey("judge_inquiry_before_summarize")) {
             JSONArray judgeInquiryBeforeSummarize = recordJsonObject.getJSONArray("judge_inquiry_before_summarize");
             if (judgeInquiryBeforeSummarize != null && judgeInquiryBeforeSummarize.size() > 0) {
-                saveJudgeRandomInquiry(judgeInquiryBeforeSummarize, courtNumber, "3");
+                saveJudgeRandomInquiry(judgeInquiryBeforeSummarize, courtNumber, JudgeRandomInquiryEnum.BEFORE_SUMMARIZE.getCode());
             }
         }
     }
@@ -88,14 +88,14 @@ public class JudgeRandomInquiryServiceImpl extends ServiceImpl<JudgeRandomInquir
         }
     }
 
-    public List<JudgeRandomInquiry> getJudgeRandomInquires(String courtNumber){
+    public List<JudgeRandomInquiry> getJudgeRandomInquires(String courtNumber) {
         LambdaQueryWrapper<JudgeRandomInquiry> judgeRandomInquiryWrapper = new LambdaQueryWrapper<>();
         judgeRandomInquiryWrapper.eq(JudgeRandomInquiry::getCourtNumber, courtNumber);
         judgeRandomInquiryWrapper.eq(JudgeRandomInquiry::getDelFlag, YesOrNotEnum.N.getCode());
         return judgeRandomInquiryService.list(judgeRandomInquiryWrapper);
     }
 
-    public JSONObject blankJudgeRandomInquiry(){
+    public JSONObject blankJudgeRandomInquiry() {
         JSONObject inquiryInfoObject = new JSONObject();
         inquiryInfoObject.put("question", "");
         JSONArray inquiryAnswerArray = new JSONArray();
@@ -145,11 +145,11 @@ public class JudgeRandomInquiryServiceImpl extends ServiceImpl<JudgeRandomInquir
                 if (!lastQuestion.equals(question)) {
                     if (inquiryAnswerArray != null && inquiryAnswerArray.size() > 0) {
                         inquiryInfoObject.put("answer", inquiryAnswerArray);
-                        if ("1".equals(lastType)) {
+                        if (lastType.equals(JudgeRandomInquiryEnum.AFTER_ACCUSER_CLAIM.getCode())) {
                             judgeInquiryAfterAccuserClaimArray.add(inquiryInfoObject);
-                        } else if ("2".equals(lastType)) {
+                        } else if (lastType.equals(JudgeRandomInquiryEnum.AFTER_DEFENDANT_REPLY.getCode())) {
                             judgeInquiryAfterDefendantReplyArray.add(inquiryInfoObject);
-                        } else if ("3".equals(lastType)) {
+                        } else if (lastType.equals(JudgeRandomInquiryEnum.BEFORE_SUMMARIZE.getCode())) {
                             judgeInquiryBeforeSummarize.add(inquiryInfoObject);
                         }
                     }
@@ -169,11 +169,11 @@ public class JudgeRandomInquiryServiceImpl extends ServiceImpl<JudgeRandomInquir
             }
             if (inquiryAnswerArray != null && inquiryAnswerArray.size() > 0) {
                 inquiryInfoObject.put("answer", inquiryAnswerArray);
-                if ("1".equals(type)) {
+                if (type.equals(JudgeRandomInquiryEnum.AFTER_ACCUSER_CLAIM.getCode())) {
                     judgeInquiryAfterAccuserClaimArray.add(inquiryInfoObject);
-                } else if ("2".equals(type)) {
+                } else if (type.equals(JudgeRandomInquiryEnum.AFTER_DEFENDANT_REPLY.getCode())) {
                     judgeInquiryAfterDefendantReplyArray.add(inquiryInfoObject);
-                } else if ("3".equals(type)) {
+                } else if (type.equals(JudgeRandomInquiryEnum.BEFORE_SUMMARIZE.getCode())) {
                     judgeInquiryBeforeSummarize.add(inquiryInfoObject);
                 }
             }
@@ -209,7 +209,7 @@ public class JudgeRandomInquiryServiceImpl extends ServiceImpl<JudgeRandomInquir
     @Override
     public void delete(String courtNumber) {
         LambdaQueryWrapper<JudgeRandomInquiry> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.eq(JudgeRandomInquiry::getCourtNumber,courtNumber);
+        lambdaQueryWrapper.eq(JudgeRandomInquiry::getCourtNumber, courtNumber);
         lambdaQueryWrapper.eq(JudgeRandomInquiry::getDelFlag, YesOrNotEnum.N.getCode());
         baseMapper.delete(lambdaQueryWrapper);
     }

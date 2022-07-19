@@ -1,7 +1,8 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
 import cn.stylefeng.guns.modular.entity.Agent;
-import cn.stylefeng.guns.modular.entity.ThirdParty;
+import cn.stylefeng.guns.modular.enums.AccuserDefendantTypeEnum;
+import cn.stylefeng.guns.modular.enums.AgentTypeEnum;
 import cn.stylefeng.guns.modular.mapper.AgentMapper;
 import cn.stylefeng.guns.modular.service.AgentService;
 import cn.stylefeng.roses.kernel.rule.enums.YesOrNotEnum;
@@ -60,7 +61,7 @@ public class AgentServiceImpl extends ServiceImpl<AgentMapper, Agent> implements
     @Override
     public void delete(String courtNumber) {
         LambdaQueryWrapper<Agent> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.eq(Agent::getCourtNumber,courtNumber);
+        lambdaQueryWrapper.eq(Agent::getCourtNumber, courtNumber);
         lambdaQueryWrapper.eq(Agent::getDelFlag, YesOrNotEnum.N.getCode());
         baseMapper.delete(lambdaQueryWrapper);
     }
@@ -71,11 +72,11 @@ public class AgentServiceImpl extends ServiceImpl<AgentMapper, Agent> implements
             String accuserShortName = accuserInfoObject.getString("accuser_short");
             JSONArray accuserAgentArray = accuserInfoObject.getJSONArray("accuser_agent");
             String accuserType = accuserInfoObject.getString("accuser_type");
-            if (!ObjectUtils.isEmpty(accuserType) && "2".equals(accuserType)) {
+            if (!ObjectUtils.isEmpty(accuserType) && accuserType.equals(AccuserDefendantTypeEnum.PERSON.getCode())) {
                 accuserShortName = accuserInfoObject.getString("accuser");
             }
             if (!ObjectUtils.isEmpty(accuserAgentArray)) {
-                saveAgent(courtNumber, accuserShortName, "1", accuserAgentArray);
+                saveAgent(courtNumber, accuserShortName, AgentTypeEnum.ACCUSER.getCode(), accuserAgentArray);
             }
         }
     }
@@ -90,7 +91,7 @@ public class AgentServiceImpl extends ServiceImpl<AgentMapper, Agent> implements
                 defendantShortName = defendantInfoObject.getString("defendant");
             }
             if (!ObjectUtils.isEmpty(defendantAgentArray)) {
-                saveAgent(courtNumber, defendantShortName, "2", defendantAgentArray);
+                saveAgent(courtNumber, defendantShortName, AgentTypeEnum.DEFENDANT.getCode(), defendantAgentArray);
             }
         }
     }
@@ -98,14 +99,17 @@ public class AgentServiceImpl extends ServiceImpl<AgentMapper, Agent> implements
     public void saveThirdPartyAgent(String courtNumber, JSONArray thirdPartyInfoArray) {
         for (int m = 0; m < thirdPartyInfoArray.size(); m++) {
             JSONObject thirdPartyInfoObject = thirdPartyInfoArray.getJSONObject(m);
-            String thirdPartyShortName = thirdPartyInfoObject.getString("third_party_short");
+            String thirdPartyName = thirdPartyInfoObject.getString("third_party");
+            String thirdPartyShortName = "";
             JSONArray thirdPartyAgentArray = thirdPartyInfoObject.getJSONArray("third_party_agent");
             String thirdPartyType = thirdPartyInfoObject.getString("third_party_type");
-            if ("2".equals(thirdPartyType)) {
-                thirdPartyShortName = thirdPartyInfoObject.getString("third_party");
+            if (thirdPartyType.equals(AccuserDefendantTypeEnum.PERSON.getCode())) {
+                thirdPartyShortName = thirdPartyName;
+            } else if (thirdPartyType.equals(AccuserDefendantTypeEnum.DEPARTMENT.getCode())) {
+                thirdPartyShortName = thirdPartyInfoObject.getString("third_party_short");
             }
             if (!ObjectUtils.isEmpty(thirdPartyAgentArray)) {
-                saveAgent(courtNumber, thirdPartyShortName, "3", thirdPartyAgentArray);
+                saveAgent(courtNumber, thirdPartyShortName, AgentTypeEnum.THIRD.getCode(), thirdPartyAgentArray);
             }
         }
     }
