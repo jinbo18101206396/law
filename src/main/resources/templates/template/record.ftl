@@ -1266,7 +1266,7 @@
                                 <w:szCs w:val="24"/>
                             </w:rPr>
                             <w:lastRenderedPageBreak/>
-                            <w:t>被告（${defendant.defendantShort}）：${defendant.isDelivery} 。</w:t>
+                            <w:t>被告（${defendant.defendantShort}）：${defendant.isDelivery} </w:t>
                         </w:r>
                     </w:p>
                     </#if>

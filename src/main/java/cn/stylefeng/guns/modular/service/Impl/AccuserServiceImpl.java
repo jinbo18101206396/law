@@ -275,7 +275,7 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
             String mediate = accuser.getIsMediate();
             String mediatePlan = accuser.getMediatePlan();
             if (!ObjectUtils.isEmpty(mediate)) {
-                if (mediate.equals(MediateEnum.Y.getCode())) {
+                if (mediate.equals(MediateEnum.Y.getCode()) && !ObjectUtils.isEmpty(mediatePlan)) {
                     mediate = "能，调解方案：" + mediatePlan;
                 } else if (mediate.equals(MediateEnum.N.getCode())) {
                     mediate = "不能";
@@ -284,14 +284,17 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
             }
             String delivery = accuser.getIsDelivery();
             String email = accuser.getEmail();
+            if(delivery.equals(DeliveryEnum.N.getCode()) && ObjectUtils.isEmpty(email)){
+                email = accuser.getAccuserAddress();
+            }
             if (!ObjectUtils.isEmpty(delivery)) {
                 if (delivery.equals(DeliveryEnum.Y.getCode())) {
-                    delivery = "同意，邮箱：" + email;
+                    delivery = "同意，邮箱地址：" + email;
                 } else if (delivery.equals(DeliveryEnum.N.getCode())) {
                     delivery = "不同意，邮寄地址：" + email;
                 }
+                accuser.setIsDelivery(delivery);
             }
-            accuser.setIsDelivery(delivery);
             String accuserAgent = "";
             for (int j = 0; j < agents.size(); j++) {
                 Agent agent = agents.get(j);

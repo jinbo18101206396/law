@@ -281,7 +281,7 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
             String mediate = defendant.getIsMediate();
             String mediatePlan = defendant.getMediatePlan();
             if (!ObjectUtils.isEmpty(mediate)) {
-                if (mediate.equals(MediateEnum.Y.getCode())) {
+                if (mediate.equals(MediateEnum.Y.getCode()) && !ObjectUtils.isEmpty(mediatePlan)) {
                     mediate = "能，调解方案：" + mediatePlan;
                 } else if (mediate.equals(MediateEnum.N.getCode())) {
                     mediate = "不能";
@@ -290,14 +290,17 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
             }
             String delivery = defendant.getIsDelivery();
             String email = defendant.getEmail();
+            if(delivery.equals(DeliveryEnum.N.getCode()) && ObjectUtils.isEmpty(email)){
+                email = defendant.getDefendantAddress();
+            }
             if (!ObjectUtils.isEmpty(delivery)) {
                 if (delivery.equals(DeliveryEnum.Y.getCode())) {
-                    delivery = "同意，邮箱：" + email;
+                    delivery = "同意，邮箱地址：" + email;
                 } else if (delivery.equals(DeliveryEnum.N.getCode())) {
                     delivery = "不同意，邮寄地址：" + email;
                 }
+                defendant.setIsDelivery(delivery);
             }
-            defendant.setIsDelivery(delivery);
             String defendantAgent = "";
             for (int j = 0; j < agents.size(); j++) {
                 Agent agent = agents.get(j);
@@ -306,14 +309,13 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
                 String agentAddress = agent.getAgentAddress();
                 if (agentName.equals(defendantShort) && !ObjectUtils.isEmpty(agent1) && !ObjectUtils.isEmpty(agentAddress)) {
                     String defendantAndAddress = agent1 + "," + agentAddress;
-                    defendantAgent +=  defendantAndAddress + "。";
+                    defendantAgent += defendantAndAddress + "。";
                 }
             }
             defendant.setDefendantAgent(defendantAgent);
         }
         return defendantList;
     }
-
 
     @Override
     public Boolean deleteDefendantInfo(String courtNumber) {
