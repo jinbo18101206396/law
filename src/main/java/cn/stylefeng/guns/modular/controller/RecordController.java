@@ -27,6 +27,8 @@ package cn.stylefeng.guns.modular.controller;
 import cn.stylefeng.guns.modular.FileUtils;
 import cn.stylefeng.guns.modular.entity.*;
 import cn.stylefeng.guns.modular.enums.CounterClaimEnum;
+import cn.stylefeng.guns.modular.enums.DefendantEvidenceEnum;
+import cn.stylefeng.guns.modular.enums.RequestTypeEnum;
 import cn.stylefeng.guns.modular.model.request.BasicInfoRequest;
 import cn.stylefeng.guns.modular.service.*;
 import cn.stylefeng.guns.utils.WordUtil;
@@ -142,19 +144,20 @@ public class RecordController {
         JSONObject recordJson = JSONObject.parseObject(recordJsonStr);
         JSONObject recordJsonObject = recordJson.getJSONObject("recordJson");
         String courtNumber = "";
+        String courtCause = "";
         if (recordJsonObject.containsKey("basicInfo")) {
             String basicInfo = recordJsonObject.getString("basicInfo");
             JSONObject basicInfoObject = JSONObject.parseObject(basicInfo);
             courtNumber = basicInfoObject.getString("court_number");
+            courtCause = basicInfoObject.getString("court_cause");
         }
         if (ObjectUtils.isEmpty(courtNumber)) {
             return new SuccessResponseData("案号不能为空");
         }
-        // requestType: 1-新建笔录，2-继续开庭
         String requestType = recordJson.getString("requestType");
         List<BasicInfo> basicInfoList = basicInfoService.getBasicInfoList(courtNumber);
         if (basicInfoList != null && basicInfoList.size() > 0) {
-            if (!ObjectUtils.isEmpty(requestType) && "1".equals(requestType)) {
+            if (!ObjectUtils.isEmpty(requestType) && requestType.equals(RequestTypeEnum.NEW.getCode())) {
                 return new SuccessResponseData("案号不能重复");
             }
             //编辑笔录，若案号已存在，则清空库中当前案号的信息，重新插入最新数据
@@ -171,6 +174,7 @@ public class RecordController {
             replyService.delete(courtNumber);
             allegeService.delete(courtNumber);
             judgeRandomInquiryService.delete(courtNumber);
+            judgeSpeakService.delete(courtNumber);
         }
         //基本信息
         basicInfoService.saveBasicInfo(courtNumber, recordJsonObject);
@@ -229,13 +233,12 @@ public class RecordController {
         //被告及其他原告质证
         queryService.saveDefendantAndOtherAccuserQuery(courtNumber, CounterClaimEnum.NOT_COUNTER_CLAIM.getCode(), recordJsonObject);
 
-        if (!"".equals(defendantEvidence) && "1".equals(defendantEvidence)) {
+        if (!"".equals(defendantEvidence) && defendantEvidence.equals(DefendantEvidenceEnum.Y.getCode())) {
             //被告举证
             proofService.saveDefendantEvidence(courtNumber, CounterClaimEnum.NOT_COUNTER_CLAIM.getCode(), recordJsonObject);
             //原告及其他被告质证
             queryService.saveAccuserAndOtherDefendantQuery(courtNumber, CounterClaimEnum.NOT_COUNTER_CLAIM.getCode(), recordJsonObject);
         }
-
 
         if (!"".equals(counterClaim) && counterClaim.equals(CounterClaimEnum.COUNTER_CLAIM.getCode())) {
             //反诉被告答辩
@@ -251,6 +254,8 @@ public class RecordController {
             //其他反诉被告质证
             queryService.saveOtherCounterClaimDefendantQuery(courtNumber, CounterClaimEnum.COUNTER_CLAIM.getCode(), recordJsonObject);
         }
+        //保存所有审判员说的话
+        judgeSpeakService.saveJudgeSpeaks(courtNumber,courtCause,recordJsonObject);
         return new SuccessResponseData();
     }
 
@@ -320,6 +325,9 @@ public class RecordController {
         String summarize = basicInfoService.getSummarize(courtNumber);
         recordJson.put("summarize", summarize);
 
+        //审判员说的话
+        judgeSpeakService.getJudgeSpeaks(courtNumber,recordJson);
+
         System.out.println("回显的数据：" + recordJson.toString());
 
         return new SuccessResponseData(recordJson);
@@ -359,35 +367,6 @@ public class RecordController {
     public ResponseData getClerkJudgePlaceRelation() {
         JSONObject clerkJudgePlaceRelation = clerkRelationService.getClerkJudgePlaceRelation();
         return new SuccessResponseData(clerkJudgePlaceRelation);
-    }
-
-    /**
-     * 获取各模块审判员说话内容
-     *
-     * @param courtCause
-     * @return {"所属模块":"审判员说话内容"}，例如：{"法庭询问":"举证质证结束，下面进入法庭询问。"}
-     * @author 金波
-     * @date 2022/07/11
-     */
-    @GetResource(name = "获取各模块审判员说话内容", path = "/record/judge/speak")
-    public ResponseData getJudgeSpeak(String courtCause) {
-        JSONObject judgeSpeak = judgeSpeakService.getJudgeSpeak(courtCause);
-        return new SuccessResponseData(judgeSpeak);
-    }
-
-    /**
-     * 编辑各模块审判员说话内容
-     *
-     * @param courtCause：案由
-     * @param module：所属模块
-     * @param content：审判员说话内容
-     * @author 金波
-     * @date 2022/07/11
-     */
-    @PostResource(name = "编辑各模块审判员说话内容", path = "/record/judge/speak/edit")
-    public ResponseData editJudgeSpeak(String courtCause, String module, String content) {
-        Boolean editJudgeSpeak = judgeSpeakService.editJudgeSpeak(courtCause, module, content);
-        return new SuccessResponseData(editJudgeSpeak);
     }
 
     /**
@@ -434,6 +413,11 @@ public class RecordController {
 
         List<Defendant> defendantList = defendantService.getDefendantInfoList(courtNumber);
         recordMap.put("defendantList", defendantList);
+
+        JSONObject judgeRandomInquiry = judgeRandomInquiryService.getJudgeRandomInquiry(courtNumber);
+        recordMap.put("judgeInquiryAfterAccuserClaimArray", judgeRandomInquiry.getJSONArray("judge_inquiry_after_accuser_claim"));
+        recordMap.put("judgeInquiryAfterDefendantReplyArray", judgeRandomInquiry.getJSONArray("judge_inquiry_after_defendant_reply"));
+        recordMap.put("judgeInquiryBeforeSummarizeArray", judgeRandomInquiry.getJSONArray("judge_inquiry_before_summarize"));
 
         List<ThirdParty> thirdPartyList = thirdPartyService.getThirdPartyInfoList(courtNumber);
         recordMap.put("thirdPartyList", thirdPartyList);

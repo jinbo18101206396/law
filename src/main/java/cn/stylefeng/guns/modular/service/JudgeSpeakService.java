@@ -14,21 +14,30 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface JudgeSpeakService extends IService<JudgeSpeak> {
 
-
     /**
      * 获取审判员说的话
      *
      * @author jinbo
-     * @Date 2022-07-11
+     * @Date 2022-07-19
      */
-    JSONObject getJudgeSpeak(String courtCause);
+    JSONObject getJudgeSpeaks(String courtNumber,JSONObject recordJson);
 
     /**
-     * 编辑审判员说的话
+     * 保存审判员说的话
      *
      * @author jinbo
-     * @Date 2022-07-11
+     * @Date 2022-07-19
      */
-    Boolean editJudgeSpeak(String courtCause, String module, String content);
+    Boolean saveJudgeSpeaks(String courtNumber, String courtCause, JSONObject recordJsonObject);
+
+    /**
+     * 删除审判员说话（彻底删除）
+     *
+     * @param courtNumber 请求参数
+     * @return
+     * @author 金波
+     * @Date 2022-07-19
+     */
+    void delete(String courtNumber);
 
 }

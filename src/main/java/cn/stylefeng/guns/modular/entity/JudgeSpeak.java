@@ -31,6 +31,12 @@ public class JudgeSpeak implements Serializable {
     private Long userId;
 
     /**
+     * 案号
+     */
+    @TableField("court_number")
+    private String courtNumber;
+
+    /**
      * 案由
      */
     @TableField("court_cause")
@@ -86,6 +92,14 @@ public class JudgeSpeak implements Serializable {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public String getCourtNumber() {
+        return courtNumber;
+    }
+
+    public void setCourtNumber(String courtNumber) {
+        this.courtNumber = courtNumber;
     }
 
     public String getCourtCause() {
@@ -149,6 +163,7 @@ public class JudgeSpeak implements Serializable {
         return "JudgeSpeak{" +
                 "speakId=" + speakId +
                 ", userId=" + userId +
+                ", courtNumber='" + courtNumber + '\'' +
                 ", courtCause='" + courtCause + '\'' +
                 ", module='" + module + '\'' +
                 ", content='" + content + '\'' +

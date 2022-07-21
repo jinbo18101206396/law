@@ -296,8 +296,8 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
                 } else if (delivery.equals(DeliveryEnum.N.getCode())) {
                     delivery = "不同意，邮寄地址：" + email;
                 }
-                defendant.setIsDelivery(delivery);
             }
+            defendant.setIsDelivery(delivery);
             String defendantAgent = "";
             for (int j = 0; j < agents.size(); j++) {
                 Agent agent = agents.get(j);
@@ -305,7 +305,8 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
                 String agent1 = agent.getAgent();
                 String agentAddress = agent.getAgentAddress();
                 if (agentName.equals(defendantShort) && !ObjectUtils.isEmpty(agent1) && !ObjectUtils.isEmpty(agentAddress)) {
-                    defendantAgent += agent1 + "," + agentAddress + "；";
+                    String defendantAndAddress = agent1 + "," + agentAddress;
+                    defendantAgent +=  defendantAndAddress + "。";
                 }
             }
             defendant.setDefendantAgent(defendantAgent);

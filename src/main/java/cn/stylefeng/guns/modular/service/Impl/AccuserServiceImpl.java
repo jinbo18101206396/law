@@ -284,14 +284,14 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
             }
             String delivery = accuser.getIsDelivery();
             String email = accuser.getEmail();
-            if (!ObjectUtils.isEmpty(delivery) && !ObjectUtils.isEmpty(email)) {
+            if (!ObjectUtils.isEmpty(delivery)) {
                 if (delivery.equals(DeliveryEnum.Y.getCode())) {
                     delivery = "同意，邮箱：" + email;
                 } else if (delivery.equals(DeliveryEnum.N.getCode())) {
                     delivery = "不同意，邮寄地址：" + email;
                 }
-                accuser.setIsDelivery(delivery);
             }
+            accuser.setIsDelivery(delivery);
             String accuserAgent = "";
             for (int j = 0; j < agents.size(); j++) {
                 Agent agent = agents.get(j);
@@ -299,7 +299,8 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
                 String agent1 = agent.getAgent();
                 String agentAddress = agent.getAgentAddress();
                 if (agentName.equals(accuserShort) && !ObjectUtils.isEmpty(agent1) && !ObjectUtils.isEmpty(agentAddress)) {
-                    accuserAgent += agent1 + "," + agentAddress + "；";
+                    String agentAndAddress = agent1 + "，" + agentAddress;
+                    accuserAgent += agentAndAddress + "。";
                 }
             }
             accuser.setAccuserAgent(accuserAgent);
