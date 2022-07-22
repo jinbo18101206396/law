@@ -53,6 +53,7 @@ public class JudgeSpeakServiceImpl extends ServiceImpl<JudgeSpeakMapper, JudgeSp
         recordJson.put("judge_defendant_reply", "对于原告的诉讼请求及事实理由，被告进行答辩。");
         recordJson.put("judge_accuser_evidence", "下面进行举证质证，首先原告进行举证。");
         recordJson.put("judge_defendant_and_other_accuser_query", "被告及其他原告对原告提交的证据进行质证。");
+        recordJson.put("judge_defendant_evidence", "被告进行举证。");
         recordJson.put("judge_accuser_and_other_defendant_query", "原告及其他被告对被告提交的证据进行质证。");
         recordJson.put("judge_inquiry", "举证质证结束，下面进入法庭询问。");
         recordJson.put("judge_argue", "法庭询问结束，下面进行法庭辩论，首先原告发表辩论意见。");
@@ -88,6 +89,10 @@ public class JudgeSpeakServiceImpl extends ServiceImpl<JudgeSpeakMapper, JudgeSp
         if (recordJsonObject.containsKey("judge_defendant_and_other_accuser_query")) {
             String judgeDefendantAndOtherAccuserQuery = recordJsonObject.getString("judge_defendant_and_other_accuser_query");
             judgeSpeakList.add(judgeSpeak(courtNumber, courtCause, "judge_defendant_and_other_accuser_query", judgeDefendantAndOtherAccuserQuery));
+        }
+        if (recordJsonObject.containsKey("judge_defendant_evidence")) {
+            String judgeDefendantEvidence = recordJsonObject.getString("judge_defendant_evidence");
+            judgeSpeakList.add(judgeSpeak(courtNumber, courtCause, "judge_defendant_evidence", judgeDefendantEvidence));
         }
         if (recordJsonObject.containsKey("judge_accuser_and_other_defendant_query")) {
             String judgeAccuserAndOtherDefendantQuery = recordJsonObject.getString("judge_accuser_and_other_defendant_query");
