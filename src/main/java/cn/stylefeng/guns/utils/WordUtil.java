@@ -78,6 +78,7 @@ public class WordUtil {
             response.setContentType("application/octet-stream");
             outputStream.write(buffer);
             outputStream.flush();
+//            outputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -97,6 +97,8 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
 
                     if ("rightInfo" in wholeItem) {
                         let rightInfo = wholeItem.rightInfo
+                        rightInfo["judge_right_duty"]=wholeItem.judge_right_duty
+                        rightInfo["judge_avoid"]=wholeItem.judge_avoid
                         myLocalStorage["rightInfo"] = rightInfo
                     }
 
@@ -104,6 +106,8 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                     if ("courtInvestigate" in wholeItem) {
                         let courtTemp = wholeItem.courtInvestigate // 临时存储数据
                         let courtInves = {
+                            judge_accuser_claim_item:wholeItem.judge_accuser_claim_item,
+                            judge_defendant_reply:wholeItem.judge_defendant_reply,
                             accuser_claim_item: courtTemp.accuser_claim_item,// 原告诉讼请求
                             accuser_claim_fact_reason: courtTemp.accuser_claim_fact_reason,// 原告诉讼请求的事实及理由
                             is_counterclaim: courtTemp.is_counterclaim,
@@ -111,10 +115,6 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                             judge_inquiry_after_accuser_claim: courtTemp.judge_inquiry_after_accuser_claim,
                             judge_inquiry_after_defendant_reply: courtTemp.judge_inquiry_after_defendant_reply
 
-                            /*counterclaim_accuser_claim_item: courtTemp.counterclaim_accuser_claim_item,
-                            counterclaim_accuser_fact_reason: courtTemp.counterclaim_accuser_fact_reason,
-                            counterclaim_defendant_reply: courtTemp.counterclaim_defendant_reply,
-                            counterclaim_defendant_today_is_reply: courtTemp.counterclaim_defendant_today_is_reply,*/
                         }
                         myLocalStorage["CourtInves"] = courtInves
 
@@ -126,8 +126,11 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                             accuser_evidence: courtTemp.accuser_evidence,
                             //处理空值.forEach( i => {i.defendant=i.defendant==[""]?[]:i.defendant, i.evidence= i.evidence==[""]?[]:i.evidence})
                             defendant_and_other_accuser_query: courtTemp.defendant_and_other_accuser_query,
-                            is_defendant_evidence : courtTemp.is_defendant_evidence
+                            is_defendant_evidence : courtTemp.is_defendant_evidence,
+                            judge_accuser_evidence:wholeItem.judge_accuser_evidence,
+                            judge_defendant_and_other_accuser_query:wholeItem.judge_defendant_and_other_accuser_query,
                         }
+
                         myLocalStorage["accuserShowInfo"] = accuserShowInfo
 
                         courtTemp.defendant_evidence.forEach(e => {
@@ -154,6 +157,9 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                             //第二个动态生成的json accuser_query 包含以下6个信息
                             //原告及其他被告质证
                             accuser_and_other_defendant_query: courtTemp.accuser_and_other_defendant_query,
+                            judge_defendant_evidence:wholeItem.judge_defendant_evidence,
+
+                            judge_accuser_and_other_defendant_query:wholeItem.judge_accuser_and_other_defendant_query
                             //反诉后的答辩情况
                             //反诉后第一个部分 反诉被告（原告）进行举证
                             /*counterclaim_defendant_evidence: courtTemp.counterclaim_defendant_evidence,
@@ -167,6 +173,7 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                             //反诉后第四个生成部分 反诉被告 (原告) 进行质证
                             counterclaim_defendant_query: courtTemp.counterclaim_defendant_query,*/
                         }
+
                         myLocalStorage["defendantShowInfo"] = defendantShowInfo
                     }
 
@@ -175,8 +182,10 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                     // let inquiryInfo=[]
                     if ("inquiryInfo" in wholeItem) {
                         let inquiryInfoItem = wholeItem.inquiryInfo
+
                         myLocalStorage["inquiryInfo"] = {}
                         myLocalStorage["inquiryInfo"]["inquiry_info"] = inquiryInfoItem
+                        myLocalStorage["inquiryInfo"]["judge_inquiry"]=wholeItem.judge_inquiry
 
                         //临时添加
                         myLocalStorage["inquiryInfo"]["question_list"] = ["问题列表项1", "问题列表项2"]
@@ -185,6 +194,7 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                     //法庭辩论表
                     if ("argueInfo" in wholeItem) {
                         let argueInfo = wholeItem.argueInfo
+                        argueInfo["judge_argue"]=wholeItem.judge_argue
                         myLocalStorage["argueInfo"] = argueInfo
                     }
 
@@ -192,6 +202,7 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                     if ("finalStatementInfo" in wholeItem) {
                         let finalStatementInfoItem = wholeItem.finalStatementInfo
                         myLocalStorage["finalStatementInfo"] = {}
+                        myLocalStorage["finalStatementInfo"]["judge_finalstatement"] = wholeItem.judge_finalstatement
                         myLocalStorage["finalStatementInfo"]["final_statement_info"] = finalStatementInfoItem
                     }
 
@@ -199,6 +210,7 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                     let mediateInfo = {}
                     if ("mediateInfo" in wholeItem) {
                         mediateInfo = wholeItem.mediateInfo
+                        mediateInfo["judge_mediate"]=wholeItem.judge_mediate
                         myLocalStorage["mediateInfo"] = mediateInfo
                     }
 
@@ -213,6 +225,8 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                             }
                         }
                         myLocalStorage["deliveryInfo"] = {}
+                        myLocalStorage["deliveryInfo"]["judge_delivery"] = wholeItem.judge_delivery
+
                         myLocalStorage["deliveryInfo"]["delivery_info"] = delivery_info
                     }
 
