@@ -33,7 +33,7 @@ public class JudgeSpeakServiceImpl extends ServiceImpl<JudgeSpeakMapper, JudgeSp
         judgeSpeakWrapper.eq(JudgeSpeak::getCourtNumber, courtNumber);
         List<JudgeSpeak> judgeSpeakList = judgeSpeakService.list(judgeSpeakWrapper);
         if (judgeSpeakList == null || judgeSpeakList.size() <= 0) {
-            return defaultJudgeSpeak(recordJson);
+            return supplyJudgeSpeak(recordJson);
         }
         for (int i = 0; i < judgeSpeakList.size(); i++) {
             JudgeSpeak judgeSpeak = judgeSpeakList.get(i);
@@ -43,24 +43,50 @@ public class JudgeSpeakServiceImpl extends ServiceImpl<JudgeSpeakMapper, JudgeSp
                 recordJson.put(module, content);
             }
         }
-        return recordJson;
+        return supplyJudgeSpeak(recordJson);
     }
 
-    public JSONObject defaultJudgeSpeak(JSONObject recordJson) {
-        recordJson.put("judge_right_duty", "审判员：依据《中华人民共和国民事诉讼法》的规定，当事人在法庭上享有下列权利：1.原告有权承认、变更、放弃自己的诉讼请求，被告有权反驳原告的诉讼请求或提起反诉；2.当事人有权申请回避；3.当事人有权举证；4.当事人有权辩论、有权请求法庭调解,当事人在享有上述权利的同时，负有以下义务：1.当事人有依法行使诉讼权利的义务；2.当事人有听从法庭指挥、遵守法庭纪律的义务；3.当事人有如实陈述事实、如实举证的义务。上述诉讼权利和义务双方是否听清？");
-        recordJson.put("judge_avoid", "审判员：当事人对审判员和书记是否申请回避？");
-        recordJson.put("judge_accuser_claim_item", "下面进行法庭调查，原告陈述诉讼请求和事实理由。");
-        recordJson.put("judge_defendant_reply", "对于原告的诉讼请求及事实理由，被告进行答辩。");
-        recordJson.put("judge_accuser_evidence", "下面进行举证质证，首先原告进行举证。");
-        recordJson.put("judge_defendant_and_other_accuser_query", "被告及其他原告对原告提交的证据进行质证。");
-        recordJson.put("judge_defendant_evidence", "被告进行举证。");
-        recordJson.put("judge_accuser_and_other_defendant_query", "原告及其他被告对被告提交的证据进行质证。");
-        recordJson.put("judge_inquiry", "举证质证结束，下面进入法庭询问。");
-        recordJson.put("judge_argue", "法庭询问结束，下面进行法庭辩论，首先原告发表辩论意见。");
-        recordJson.put("judge_finalstatement", "双方发表最后陈述意见。");
-        recordJson.put("judge_mediate", "当事人是否能够调解。");
-        recordJson.put("judge_delivery", "当事人是否同意电子送达裁判文书？");
-        return recordJson;
+    public JSONObject supplyJudgeSpeak(JSONObject recordJson){
+        if(!recordJson.containsKey("judge_right_duty")){
+            recordJson.put("judge_right_duty", "审判员：依据《中华人民共和国民事诉讼法》的规定，当事人在法庭上享有下列权利：1.原告有权承认、变更、放弃自己的诉讼请求，被告有权反驳原告的诉讼请求或提起反诉；2.当事人有权申请回避；3.当事人有权举证；4.当事人有权辩论、有权请求法庭调解,当事人在享有上述权利的同时，负有以下义务：1.当事人有依法行使诉讼权利的义务；2.当事人有听从法庭指挥、遵守法庭纪律的义务；3.当事人有如实陈述事实、如实举证的义务。上述诉讼权利和义务双方是否听清？");
+        }
+        if(!recordJson.containsKey("judge_avoid")){
+            recordJson.put("judge_avoid", "审判员：当事人对审判员和书记是否申请回避？");
+        }
+        if(!recordJson.containsKey("judge_accuser_claim_item")){
+            recordJson.put("judge_accuser_claim_item", "下面进行法庭调查，原告陈述诉讼请求和事实理由。");
+        }
+        if(!recordJson.containsKey("judge_defendant_reply")){
+            recordJson.put("judge_defendant_reply", "对于原告的诉讼请求及事实理由，被告进行答辩。");
+        }
+        if(!recordJson.containsKey("judge_accuser_evidence")){
+            recordJson.put("judge_accuser_evidence", "下面进行举证质证，首先原告进行举证。");
+        }
+        if(!recordJson.containsKey("judge_defendant_and_other_accuser_query")){
+            recordJson.put("judge_defendant_and_other_accuser_query", "被告及其他原告对原告提交的证据进行质证。");
+        }
+        if(!recordJson.containsKey("judge_defendant_evidence")){
+            recordJson.put("judge_defendant_evidence", "被告进行举证。");
+        }
+        if(!recordJson.containsKey("judge_accuser_and_other_defendant_query")){
+            recordJson.put("judge_accuser_and_other_defendant_query", "原告及其他被告对被告提交的证据进行质证。");
+        }
+        if(!recordJson.containsKey("judge_inquiry")){
+            recordJson.put("judge_inquiry", "举证质证结束，下面进入法庭询问。");
+        }
+        if(!recordJson.containsKey("judge_argue")){
+            recordJson.put("judge_argue", "法庭询问结束，下面进行法庭辩论，首先原告发表辩论意见。");
+        }
+        if(!recordJson.containsKey("judge_finalstatement")){
+            recordJson.put("judge_finalstatement", "双方发表最后陈述意见。");
+        }
+        if(!recordJson.containsKey("judge_mediate")){
+            recordJson.put("judge_mediate", "当事人是否能够调解。");
+        }
+        if(!recordJson.containsKey("judge_delivery")){
+            recordJson.put("judge_delivery", "当事人是否同意电子送达裁判文书。");
+        }
+        return  recordJson;
     }
 
     @Override
