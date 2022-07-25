@@ -164,15 +164,24 @@ public interface BasicInfoService extends IService<BasicInfo> {
     List<Reply> getDefendantReply(String courtNumber);
 
     /**
-     * 获取法庭调查-被告质证
+     * 获取法庭调查-被告及其他原告质证
      *
      * @param courtNumber 查看参数
      * @return 详情结果
      * @author 金波
      * @date 2022/07/07
      */
-    List<Query> getDefendantQuery(String courtNumber);
+    List<Query> getDefendantAndOtherAccuserQuery(String courtNumber);
 
+    /**
+     * 获取法庭调查-原告及其他被告质证
+     *
+     * @param courtNumber 查看参数
+     * @return 详情结果
+     * @author 金波
+     * @date 2022/07/25
+     */
+    List<Query> getAccuserAndOtherDefendantQuery(String courtNumber);
 
     /**
      * 分页查询笔录列表

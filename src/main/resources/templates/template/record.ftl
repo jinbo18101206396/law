@@ -895,6 +895,101 @@
                     </w:p>
                     </#if>
                     </#list>
+                    <#if (judge_defendant_evidence)?? && (judge_defendant_evidence) != "" && (courtInvestigate.isDefendantEvidence) == "1">
+                        <w:p w14:paraId="3C86C047" w14:textId="2C0113E9" w:rsidR="00DB47D8" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
+                            <w:pPr>
+                                <w:spacing w:line="360" w:lineRule="auto"/>
+                                <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                <w:rPr>
+                                    <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                    <w:color w:val="000000" w:themeColor="text1"/>
+                                    <w:sz w:val="24"/>
+                                    <w:szCs w:val="24"/>
+                                </w:rPr>
+                            </w:pPr>
+                            <w:r w:rsidRPr="001822B7">
+                                <w:rPr>
+                                    <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                    <w:color w:val="000000" w:themeColor="text1"/>
+                                    <w:sz w:val="24"/>
+                                    <w:szCs w:val="24"/>
+                                </w:rPr>
+                                <w:t>审判员：${judge_defendant_evidence}</w:t>
+                            </w:r>
+                        </w:p>
+                    </#if>
+                    <#if (courtInvestigate.defendantEvidence)?? && (courtInvestigate.defendantEvidence) != "">
+                        <w:p w14:paraId="762DB4BE" w14:textId="1334C620" w:rsidR="001D7536" w:rsidRPr="001822B7" w:rsidRDefault="002F2BE6" w:rsidP="001D7536">
+                            <w:pPr>
+                                <w:spacing w:line="360" w:lineRule="auto"/>
+                                <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                <w:rPr>
+                                    <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                    <w:color w:val="000000" w:themeColor="text1"/>
+                                    <w:sz w:val="24"/>
+                                    <w:szCs w:val="24"/>
+                                </w:rPr>
+                            </w:pPr>
+                            <w:r w:rsidRPr="001822B7">
+                                <w:rPr>
+                                    <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                    <w:color w:val="000000" w:themeColor="text1"/>
+                                    <w:sz w:val="24"/>
+                                    <w:szCs w:val="24"/>
+                                </w:rPr>
+                                <w:t>被告举证：${courtInvestigate.defendantEvidence}</w:t>
+                            </w:r>
+                        </w:p>
+                    </#if>
+                    <#if (judge_accuser_and_other_defendant_query)?? && (judge_accuser_and_other_defendant_query) != "" && (courtInvestigate.isDefendantEvidence) == "1">
+                        <w:p w14:paraId="302EEF76" w14:textId="379A541D" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
+                            <w:pPr>
+                                <w:spacing w:line="360" w:lineRule="auto"/>
+                                <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                <w:rPr>
+                                    <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                    <w:color w:val="000000" w:themeColor="text1"/>
+                                    <w:sz w:val="24"/>
+                                    <w:szCs w:val="24"/>
+                                </w:rPr>
+                            </w:pPr>
+                            <w:r w:rsidRPr="001822B7">
+                                <w:rPr>
+                                    <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                    <w:color w:val="000000" w:themeColor="text1"/>
+                                    <w:sz w:val="24"/>
+                                    <w:szCs w:val="24"/>
+                                </w:rPr>
+                                <w:t>审判员：${judge_accuser_and_other_defendant_query}</w:t>
+                            </w:r>
+                        </w:p>
+                    </#if>
+                    <#list accuserQueryList as accuserQuery>
+                        <#if (accuserQuery.name)?? && (accuserQuery.evidence)?? && (accuserQuery.reason)??>
+                            <w:p w14:paraId="51A2FEDD" w14:textId="60A913D5" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="00B76C03" w:rsidP="00B517E9">
+                                <w:pPr>
+                                    <w:spacing w:line="360" w:lineRule="auto"/>
+                                    <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                    <w:rPr>
+                                        <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                        <w:color w:val="000000" w:themeColor="text1"/>
+                                        <w:sz w:val="24"/>
+                                        <w:szCs w:val="24"/>
+                                    </w:rPr>
+                                </w:pPr>
+                                <w:r w:rsidRPr="001822B7">
+                                    <w:rPr>
+                                        <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                        <w:color w:val="000000" w:themeColor="text1"/>
+                                        <w:sz w:val="24"/>
+                                        <w:szCs w:val="24"/>
+                                    </w:rPr>
+                                    <w:t>${accuserQuery.name}：针对原告提出的${accuserQuery.evidence}进行质证，真实性：${accuserQuery.facticity}，合法性：${accuserQuery.legality}，关联性：${accuserQuery.relevance}，${accuserQuery.reason}</w:t>
+                                </w:r>
+                            </w:p>
+                        </#if>
+                    </#list>
+
                     <w:p w14:paraId="3C94FD3E" w14:textId="3D3A3AA0" w:rsidR="00096FDA" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>

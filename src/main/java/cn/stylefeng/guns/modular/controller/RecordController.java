@@ -161,20 +161,7 @@ public class RecordController {
                 return new SuccessResponseData("案号不能重复");
             }
             //编辑笔录，若案号已存在，则清空库中当前案号的信息，重新插入最新数据
-            basicInfoService.delete(courtNumber);
-            accuserService.delete(courtNumber);
-            defendantService.delete(courtNumber);
-            thirdPartyService.delete(courtNumber);
-            agentService.delete(courtNumber);
-            stateService.delete(courtNumber);
-            argueService.delete(courtNumber);
-            inquiryService.delete(courtNumber);
-            queryService.delete(courtNumber);
-            proofService.delete(courtNumber);
-            replyService.delete(courtNumber);
-            allegeService.delete(courtNumber);
-            judgeRandomInquiryService.delete(courtNumber);
-            judgeSpeakService.delete(courtNumber);
+            deleteOldInfo(courtNumber);
         }
         //基本信息
         basicInfoService.saveBasicInfo(courtNumber, recordJsonObject);
@@ -257,6 +244,23 @@ public class RecordController {
         //保存所有审判员说的话
         judgeSpeakService.saveJudgeSpeaks(courtNumber,courtCause,recordJsonObject);
         return new SuccessResponseData();
+    }
+
+    private void deleteOldInfo(String courtNumber){
+        basicInfoService.delete(courtNumber);
+        accuserService.delete(courtNumber);
+        defendantService.delete(courtNumber);
+        thirdPartyService.delete(courtNumber);
+        agentService.delete(courtNumber);
+        stateService.delete(courtNumber);
+        argueService.delete(courtNumber);
+        inquiryService.delete(courtNumber);
+        queryService.delete(courtNumber);
+        proofService.delete(courtNumber);
+        replyService.delete(courtNumber);
+        allegeService.delete(courtNumber);
+        judgeRandomInquiryService.delete(courtNumber);
+        judgeSpeakService.delete(courtNumber);
     }
 
     /**
@@ -431,8 +435,11 @@ public class RecordController {
         List<Reply> defendantReplyList = basicInfoService.getDefendantReply(courtNumber);
         recordMap.put("defendantReplyList", defendantReplyList);
 
-        List<Query> defendantQueryList = basicInfoService.getDefendantQuery(courtNumber);
-        recordMap.put("defendantQueryList", defendantQueryList);
+        List<Query> defendantAndOtherAccuerQueryList = basicInfoService.getDefendantAndOtherAccuserQuery(courtNumber);
+        recordMap.put("defendantQueryList", defendantAndOtherAccuerQueryList);
+
+        List<Query> accuserAndOtherDefendantQueryList = basicInfoService.getAccuserAndOtherDefendantQuery(courtNumber);
+        recordMap.put("accuserQueryList", accuserAndOtherDefendantQueryList);
 
         List<Inquiry> inquiryInfoList = inquiryService.getInquiryInfoList(courtNumber);
         recordMap.put("inquiryList", inquiryInfoList);

@@ -115,7 +115,7 @@ public class ProofServiceImpl extends ServiceImpl<ProofMapper, Proof> implements
             String evidence = evidenceObject.getString("evidence");
             String evidenceType = evidenceObject.getString("evidence_type");
             String content = evidenceObject.getString("content");
-            if (!ObjectUtils.isEmpty(evidence) && !ObjectUtils.isEmpty(evidenceType)) {
+            if (!ObjectUtils.isEmpty(evidence) && !ObjectUtils.isEmpty(evidenceType) && !ObjectUtils.isEmpty(content)) {
                 Proof proof = new Proof();
                 proof.setType(type);
                 proof.setName(name);

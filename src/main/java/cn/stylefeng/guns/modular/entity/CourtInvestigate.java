@@ -38,10 +38,29 @@ public class CourtInvestigate implements Serializable {
     private String accuserEvidenceFactReason;
 
     /**
-     * 被告质证
+     * 被告及其他原告质证
      */
-    private String defendantQuery;
+    private String defendantAndOtherAccuserQuery;
 
+    /**
+     * 被告举证
+     */
+    private String defendantEvidence;
+
+    /**
+     * 被告是否举证
+     */
+    private String isDefendantEvidence;
+
+    /**
+     * 被告举证的事实和理由
+     */
+    private String defendantEvidenceFactReason;
+
+    /**
+     * 原告及其他被告质证质证
+     */
+    private String accuserAndOtherDefendantQuery;
 
     public String getAccuserClaimItem() {
         return accuserClaimItem;
@@ -83,12 +102,44 @@ public class CourtInvestigate implements Serializable {
         this.accuserEvidenceFactReason = accuserEvidenceFactReason;
     }
 
-    public String getDefendantQuery() {
-        return defendantQuery;
+    public String getDefendantAndOtherAccuserQuery() {
+        return defendantAndOtherAccuserQuery;
     }
 
-    public void setDefendantQuery(String defendantQuery) {
-        this.defendantQuery = defendantQuery;
+    public void setDefendantAndOtherAccuserQuery(String defendantAndOtherAccuserQuery) {
+        this.defendantAndOtherAccuserQuery = defendantAndOtherAccuserQuery;
+    }
+
+    public String getDefendantEvidence() {
+        return defendantEvidence;
+    }
+
+    public void setDefendantEvidence(String defendantEvidence) {
+        this.defendantEvidence = defendantEvidence;
+    }
+
+    public String getDefendantEvidenceFactReason() {
+        return defendantEvidenceFactReason;
+    }
+
+    public void setDefendantEvidenceFactReason(String defendantEvidenceFactReason) {
+        this.defendantEvidenceFactReason = defendantEvidenceFactReason;
+    }
+
+    public String getAccuserAndOtherDefendantQuery() {
+        return accuserAndOtherDefendantQuery;
+    }
+
+    public void setAccuserAndOtherDefendantQuery(String accuserAndOtherDefendantQuery) {
+        this.accuserAndOtherDefendantQuery = accuserAndOtherDefendantQuery;
+    }
+
+    public String getIsDefendantEvidence() {
+        return isDefendantEvidence;
+    }
+
+    public void setIsDefendantEvidence(String isDefendantEvidence) {
+        this.isDefendantEvidence = isDefendantEvidence;
     }
 
     @Override
@@ -99,7 +150,11 @@ public class CourtInvestigate implements Serializable {
                 ", defendantReply='" + defendantReply + '\'' +
                 ", accuserEvidence='" + accuserEvidence + '\'' +
                 ", accuserEvidenceFactReason='" + accuserEvidenceFactReason + '\'' +
-                ", defendantQuery='" + defendantQuery + '\'' +
+                ", defendantAndOtherAccuserQuery='" + defendantAndOtherAccuserQuery + '\'' +
+                ", defendantEvidence='" + defendantEvidence + '\'' +
+                ", isDefendantEvidence='" + isDefendantEvidence + '\'' +
+                ", defendantEvidenceFactReason='" + defendantEvidenceFactReason + '\'' +
+                ", accuserAndOtherDefendantQuery='" + accuserAndOtherDefendantQuery + '\'' +
                 '}';
     }
 }
