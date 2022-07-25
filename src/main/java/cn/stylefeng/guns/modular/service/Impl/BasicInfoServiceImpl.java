@@ -773,6 +773,9 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 String evidenceType = accuserEvidenceObject.getString("evidence_type");
                 String evidence = accuserEvidenceObject.getString("evidence");
                 String content = accuserEvidenceObject.getString("content");
+                if(ObjectUtils.isEmpty(evidence) || ObjectUtils.isEmpty(evidenceType) || ObjectUtils.isEmpty(content)){
+                    continue;
+                }
                 String evidenceAndReason = "证据"+ serial + "." + evidence + "（" + evidenceType + "），" + content+"。";
                 accuserEvidence += evidenceAndReason + "\r\n";
             }

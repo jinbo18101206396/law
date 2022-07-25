@@ -437,6 +437,7 @@
                         </w:r>
                     </w:p>
                     </#if>
+                    <#if (judge_right_duty)?? && (judge_right_duty) != "">
                     <w:p w14:paraId="7EDFB622" w14:textId="26720F2D" w:rsidR="00FA3401" w:rsidRPr="001822B7" w:rsidRDefault="00A66D3A" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -455,9 +456,10 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>审判员：依据《中华人民共和国民事诉讼法》的规定，当事人在法庭上享有下列权利：1、原告有权承认、变更、放弃自己的诉讼请求，被告有权反驳原告的诉讼请求或提起反诉；2、当事人有权申请回避；3、当事人有权举证；4、当事人有权辩论、有权请求法庭调解。当事人在享有上述诉讼权利的同时，负有下列义务：1、当事人有依法行使诉讼权利的义务；2、当事人有听从法庭指挥、遵守法庭纪律的义务；3、当事人如实陈述事实、如实举证的义务。上述诉讼权利和义务双方是否听清？</w:t>
+                            <w:t>审判员：${judge_right_duty}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
                     <#list accuserList as accuser>
                     <#if (accuser.accuserRightDuty)?? && (accuser.accuserRightDuty) != "">
                     <w:p w14:paraId="451059A4" w14:textId="68FC53EF" w:rsidR="006278D3" w:rsidRPr="001822B7" w:rsidRDefault="006278D3" w:rsidP="00B517E9">
@@ -509,6 +511,7 @@
                     </w:p>
                     </#if>
                     </#list>
+                    <#if (judge_avoid)?? && (judge_avoid) != "">
                     <w:p w14:paraId="0B398919" w14:textId="3543E166" w:rsidR="006278D3" w:rsidRPr="001822B7" w:rsidRDefault="005144A9" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -527,9 +530,10 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>审判员：当事人对审判员和书记员是否申请回避？</w:t>
+                            <w:t>审判员：${judge_avoid}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
                     <#list accuserList as accuser>
                     <#if (accuser.accuserAvoid)?? && (accuser.accuserAvoid) != "">
                     <w:p w14:paraId="1D1AB803" w14:textId="64D2BAF5" w:rsidR="006278D3" w:rsidRPr="001822B7" w:rsidRDefault="005144A9" w:rsidP="00B517E9">
@@ -580,6 +584,7 @@
                     </w:p>
                     </#if>
                     </#list>
+                    <#if (judge_accuser_claim_item)?? && (judge_accuser_claim_item) != "">
                     <w:p w14:paraId="0F432B0C" w14:textId="0177E0C8" w:rsidR="007F7DBD" w:rsidRPr="001822B7" w:rsidRDefault="00D755CA" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -598,9 +603,10 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>审判员：现在开庭，进行法庭调查，原告陈述诉讼请求和事实理由。</w:t>
+                            <w:t>审判员：${judge_accuser_claim_item}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
                     <#if (courtInvestigate.accuserClaimItem)?? && (courtInvestigate.accuserClaimItem) != "">
                     <w:p w14:paraId="7289FD74" w14:textId="255C28E6" w:rsidR="00F45410" w:rsidRPr="001822B7" w:rsidRDefault="00E45642" w:rsidP="00B517E9">
                         <w:pPr>
@@ -648,6 +654,7 @@
                     </w:p>
                     </#if>
                     <#list judgeInquiryAfterAccuserClaimArray as judgeInquiryAfterAccuserClaim>
+                        <#if (judgeInquiryAfterAccuserClaim.question)?? && (judgeInquiryAfterAccuserClaim.question) != "">
                         <w:p w14:paraId="6248BCFE" w14:textId="0680E81B" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                             <w:pPr>
                                 <w:spacing w:line="360" w:lineRule="auto"/>
@@ -669,6 +676,7 @@
                                 <w:t>审判员：${judgeInquiryAfterAccuserClaim.question}</w:t>
                             </w:r>
                         </w:p>
+                        </#if>
                         <#list judgeInquiryAfterAccuserClaim.answer as ans>
                             <#if ans.answer?? && ans.answer != "">
                                 <w:p w14:paraId="05517C8C" w14:textId="0FB197AB" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="005F657E" w:rsidP="00B517E9">
@@ -695,6 +703,7 @@
                             </#if>
                         </#list>
                     </#list>
+                    <#if (judge_defendant_reply)?? && (judge_defendant_reply) != "">
                     <w:p w14:paraId="595F2B84" w14:textId="73669482" w:rsidR="007F7DBD" w:rsidRPr="001822B7" w:rsidRDefault="00D755CA" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -713,9 +722,10 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>审判员：对于原告的诉讼请求及事实理由，被告进行答辩。</w:t>
+                            <w:t>审判员：${judge_defendant_reply}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
                     <#list defendantReplyList as defendantReply>
                     <#if (defendantReply.name)?? && (defendantReply.content) != "">
                     <w:p w14:paraId="1B64BA13" w14:textId="61AB1231" w:rsidR="007F7DBD" w:rsidRPr="001822B7" w:rsidRDefault="00D755CA" w:rsidP="00B517E9">
@@ -742,6 +752,7 @@
                     </#if>
                     </#list>
                     <#list judgeInquiryAfterDefendantReplyArray as judgeInquiryAfterDefendantReply>
+                        <#if (judgeInquiryAfterDefendantReply.question)?? && (judgeInquiryAfterDefendantReply.question) != "">
                         <w:p w14:paraId="6248BCFE" w14:textId="0680E81B" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                             <w:pPr>
                                 <w:spacing w:line="360" w:lineRule="auto"/>
@@ -763,6 +774,7 @@
                                 <w:t>审判员：${judgeInquiryAfterDefendantReply.question}</w:t>
                             </w:r>
                         </w:p>
+                        </#if>
                         <#list judgeInquiryAfterDefendantReply.answer as ans>
                             <#if ans.answer?? && ans.answer != "">
                                 <w:p w14:paraId="05517C8C" w14:textId="0FB197AB" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="005F657E" w:rsidP="00B517E9">
@@ -789,6 +801,7 @@
                             </#if>
                         </#list>
                     </#list>
+                    <#if (judge_accuser_evidence)?? && (judge_accuser_evidence) != "">
                     <w:p w14:paraId="3C86C047" w14:textId="2C0113E9" w:rsidR="00DB47D8" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -807,9 +820,10 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>审判员：下面进入举证质证，首先原告进行举证。</w:t>
+                            <w:t>审判员：${judge_accuser_evidence}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
                     <#if (courtInvestigate.accuserEvidence)?? && (courtInvestigate.accuserEvidence) != "">
                     <w:p w14:paraId="762DB4BE" w14:textId="1334C620" w:rsidR="001D7536" w:rsidRPr="001822B7" w:rsidRDefault="002F2BE6" w:rsidP="001D7536">
                         <w:pPr>
@@ -833,6 +847,7 @@
                         </w:r>
                     </w:p>
                     </#if>
+                    <#if (judge_defendant_and_other_accuser_query)?? && (judge_defendant_and_other_accuser_query) != "">
                     <w:p w14:paraId="302EEF76" w14:textId="379A541D" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -851,9 +866,10 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>审判员：被告及其他原告对原告提交的证据进行质证。</w:t>
+                            <w:t>审判员：${judge_defendant_and_other_accuser_query}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
                     <#list defendantQueryList as defendantQuery>
                     <#if (defendantQuery.name)?? && (defendantQuery.evidence)?? && (defendantQuery.reason)??>
                     <w:p w14:paraId="51A2FEDD" w14:textId="60A913D5" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="00B76C03" w:rsidP="00B517E9">
@@ -942,6 +958,7 @@
                             <w:t>被告：没有</w:t>
                         </w:r>
                     </w:p>
+                    <#if (judge_inquiry)?? && (judge_inquiry) != "">
                     <w:p w14:paraId="3C94FD3E" w14:textId="3D3A3AA0" w:rsidR="00096FDA" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -960,10 +977,12 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>审判员：举证质证结束，下面进入法庭询问。</w:t>
+                            <w:t>审判员：${judge_inquiry}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
                     <#list inquiryList as inquiry>
+                    <#if (inquiry.question)?? && (inquiry.question) != "">
                     <w:p w14:paraId="6248BCFE" w14:textId="0680E81B" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -985,6 +1004,7 @@
                             <w:t>审判员：${inquiry.question}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
                     <#list inquiry.answerList as answer>
                     <#if answer?? && answer != "">
                     <w:p w14:paraId="05517C8C" w14:textId="0FB197AB" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="005F657E" w:rsidP="00B517E9">
@@ -1011,6 +1031,7 @@
                     </#if>
                     </#list>
                     </#list>
+                    <#if judge_argue?? && judge_argue != "">
                     <w:p w14:paraId="13D9E9C1" w14:textId="5CB74E63" w:rsidR="00125693" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -1029,9 +1050,10 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>审判员：法庭调查结束，下面进行法庭辩论，首先由原告发表辩论意见。</w:t>
+                            <w:t>审判员：${judge_argue}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
                     <#list argueList as argue>
                     <#if (argue.name)?? && (argue.type)?? && (argue.argueContent)??>
                     <w:p w14:paraId="336AA18B" w14:textId="5B383F1E" w:rsidR="00300833" w:rsidRPr="001822B7" w:rsidRDefault="00A9433D" w:rsidP="00B517E9">
@@ -1057,6 +1079,7 @@
                     </w:p>
                     </#if>
                     </#list>
+                    <#if judge_finalstatement?? && judge_finalstatement != "">
                     <w:p w14:paraId="0248C834" w14:textId="631CDCE2" w:rsidR="00300833" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -1075,9 +1098,10 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>审判员：双方发表最后陈述意见。</w:t>
+                            <w:t>审判员：${judge_finalstatement}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
                     <#list accuserList as accuser>
                     <#if (accuser.finalStatement)?? && (accuser.finalStatement) != "">
                     <w:p w14:paraId="125FBC4A" w14:textId="3DC39794" w:rsidR="00300833" w:rsidRPr="001822B7" w:rsidRDefault="00300833" w:rsidP="00B517E9">
@@ -1128,6 +1152,7 @@
                     </w:p>
                     </#if>
                     </#list>
+                    <#if (judge_mediate)?? && (judge_mediate) != "">
                     <w:p w14:paraId="2CE1A4C6" w14:textId="379507AD" w:rsidR="00300833" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -1146,9 +1171,10 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>审判员：当事人是否能够调解？</w:t>
+                            <w:t>审判员：${judge_mediate}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
                     <#list accuserList as accuser>
                     <#if (accuser.isMediate)?? && (accuser.isMediate) != "">
                     <w:p w14:paraId="4FDC9A37" w14:textId="4D215636" w:rsidR="00300833" w:rsidRPr="001822B7" w:rsidRDefault="00300833" w:rsidP="00B517E9">
@@ -1199,6 +1225,7 @@
                     </w:p>
                     </#if>
                     </#list>
+                    <#if (judge_delivery)?? && (judge_delivery) != "">
                     <w:p w14:paraId="3215EE91" w14:textId="431B9DA5" w:rsidR="00300833" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -1217,9 +1244,10 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>审判员：当事人是否同意电子送达判决书？</w:t>
+                            <w:t>审判员：${judge_delivery}</w:t>
                         </w:r>
                     </w:p>
+                    </#if>
                     <#list accuserList as accuser>
                     <#if (accuser.isDelivery)?? && (accuser.isDelivery) != "">
                     <w:p w14:paraId="1A40FAD8" w14:textId="627DFB70" w:rsidR="00300833" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
@@ -1272,6 +1300,7 @@
                     </#if>
                     </#list>
                     <#list judgeInquiryBeforeSummarizeArray as judgeInquiryBeforeSummarize>
+                        <#if (judgeInquiryBeforeSummarize.question)?? && (judgeInquiryBeforeSummarize.question) != "">
                         <w:p w14:paraId="6248BCFE" w14:textId="0680E81B" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                             <w:pPr>
                                 <w:spacing w:line="360" w:lineRule="auto"/>
@@ -1293,6 +1322,7 @@
                                 <w:t>审判员：${judgeInquiryBeforeSummarize.question}</w:t>
                             </w:r>
                         </w:p>
+                        </#if>
                         <#list judgeInquiryBeforeSummarize.answer as ans>
                             <#if ans.answer?? && ans.answer != "">
                                 <w:p w14:paraId="05517C8C" w14:textId="0FB197AB" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="005F657E" w:rsidP="00B517E9">

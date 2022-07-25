@@ -4,6 +4,8 @@ import cn.stylefeng.guns.modular.entity.JudgeSpeak;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.Map;
+
 /**
  * <p>
  * 审判员说话内容 服务类
@@ -15,12 +17,21 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface JudgeSpeakService extends IService<JudgeSpeak> {
 
     /**
-     * 获取审判员说的话
+     * 获取审判员说的话（回显数据）
      *
      * @author jinbo
      * @Date 2022-07-19
      */
     JSONObject getJudgeSpeaks(String courtNumber,JSONObject recordJson);
+
+
+    /**
+     * 获取审判员说的话(生成笔录)
+     *
+     * @author jinbo
+     * @Date 2022-07-19
+     */
+    Map<String, Object> getJudgeSpeaks(String courtNumber, Map<String, Object> recordMap);
 
     /**
      * 保存审判员说的话

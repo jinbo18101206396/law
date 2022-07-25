@@ -12,6 +12,7 @@ import org.springframework.util.ObjectUtils;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -28,22 +29,84 @@ public class JudgeSpeakServiceImpl extends ServiceImpl<JudgeSpeakMapper, JudgeSp
     private JudgeSpeakService judgeSpeakService;
 
     @Override
-    public JSONObject getJudgeSpeaks(String courtNumber, JSONObject recordJson) {
-        LambdaQueryWrapper<JudgeSpeak> judgeSpeakWrapper = new LambdaQueryWrapper<>();
-        judgeSpeakWrapper.eq(JudgeSpeak::getCourtNumber, courtNumber);
-        List<JudgeSpeak> judgeSpeakList = judgeSpeakService.list(judgeSpeakWrapper);
-        if (judgeSpeakList == null || judgeSpeakList.size() <= 0) {
-            return supplyJudgeSpeak(recordJson);
+    public Map<String, Object> getJudgeSpeaks(String courtNumber, Map<String, Object> recordMap){
+        List<JudgeSpeak> judgeSpeakList = getJudgeList(courtNumber);
+        if (judgeSpeakList != null && judgeSpeakList.size() > 0) {
+            for (int i = 0; i < judgeSpeakList.size(); i++) {
+                JudgeSpeak judgeSpeak = judgeSpeakList.get(i);
+                String module = judgeSpeak.getModule();
+                String content = judgeSpeak.getContent();
+                if (!ObjectUtils.isEmpty(module) && !ObjectUtils.isEmpty(content)) {
+                    recordMap.put(module, content);
+                }
+            }
         }
-        for (int i = 0; i < judgeSpeakList.size(); i++) {
-            JudgeSpeak judgeSpeak = judgeSpeakList.get(i);
-            String module = judgeSpeak.getModule();
-            String content = judgeSpeak.getContent();
-            if (!ObjectUtils.isEmpty(module) && !ObjectUtils.isEmpty(content)) {
-                recordJson.put(module, content);
+        return supplyBlankSpeak(recordMap);
+    }
+
+    @Override
+    public JSONObject getJudgeSpeaks(String courtNumber, JSONObject recordJson) {
+        List<JudgeSpeak> judgeSpeakList = getJudgeList(courtNumber);
+        if (judgeSpeakList != null || judgeSpeakList.size() > 0) {
+            for (int i = 0; i < judgeSpeakList.size(); i++) {
+                JudgeSpeak judgeSpeak = judgeSpeakList.get(i);
+                String module = judgeSpeak.getModule();
+                String content = judgeSpeak.getContent();
+                if (!ObjectUtils.isEmpty(module) && !ObjectUtils.isEmpty(content)) {
+                    recordJson.put(module, content);
+                }
             }
         }
         return supplyJudgeSpeak(recordJson);
+    }
+
+    public List<JudgeSpeak> getJudgeList(String courtNumber){
+        LambdaQueryWrapper<JudgeSpeak> judgeSpeakWrapper = new LambdaQueryWrapper<>();
+        judgeSpeakWrapper.eq(JudgeSpeak::getCourtNumber, courtNumber);
+        return judgeSpeakService.list(judgeSpeakWrapper);
+    }
+
+    public Map<String, Object> supplyBlankSpeak(Map<String, Object> recordMap){
+        if(!recordMap.containsKey("judge_right_duty")){
+            recordMap.put("judge_right_duty", "");
+        }
+        if(!recordMap.containsKey("judge_avoid")){
+            recordMap.put("judge_avoid", "");
+        }
+        if(!recordMap.containsKey("judge_accuser_claim_item")){
+            recordMap.put("judge_accuser_claim_item", "");
+        }
+        if(!recordMap.containsKey("judge_defendant_reply")){
+            recordMap.put("judge_defendant_reply", "");
+        }
+        if(!recordMap.containsKey("judge_accuser_evidence")){
+            recordMap.put("judge_accuser_evidence", "");
+        }
+        if(!recordMap.containsKey("judge_defendant_and_other_accuser_query")){
+            recordMap.put("judge_defendant_and_other_accuser_query", "");
+        }
+        if(!recordMap.containsKey("judge_defendant_evidence")){
+            recordMap.put("judge_defendant_evidence", "");
+        }
+        if(!recordMap.containsKey("judge_accuser_and_other_defendant_query")){
+            recordMap.put("judge_accuser_and_other_defendant_query", "");
+        }
+        if(!recordMap.containsKey("judge_inquiry")){
+            recordMap.put("judge_inquiry", "");
+        }
+        if(!recordMap.containsKey("judge_argue")){
+            recordMap.put("judge_argue", "");
+        }
+        if(!recordMap.containsKey("judge_finalstatement")){
+            recordMap.put("judge_finalstatement", "");
+        }
+        if(!recordMap.containsKey("judge_mediate")){
+            recordMap.put("judge_mediate", "当事人是否能够调解。");
+        }
+        if(!recordMap.containsKey("judge_delivery")){
+            recordMap.put("judge_delivery", "当事人是否同意电子送达裁判文书。");
+        }
+        return  recordMap;
     }
 
     public JSONObject supplyJudgeSpeak(JSONObject recordJson){

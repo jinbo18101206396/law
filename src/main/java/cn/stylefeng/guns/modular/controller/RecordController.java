@@ -440,6 +440,8 @@ public class RecordController {
         List<Argue> argueList = argueService.getArgueList(courtNumber);
         recordMap.put("argueList", argueList);
 
+        judgeSpeakService.getJudgeSpeaks(courtNumber,recordMap);
+
         WordUtil.generateWord(recordMap, templatePath, templateName, generateFile);
         return new SuccessResponseData();
     }

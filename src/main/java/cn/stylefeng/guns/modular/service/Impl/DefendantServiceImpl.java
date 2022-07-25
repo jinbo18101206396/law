@@ -281,7 +281,7 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
             String mediate = defendant.getIsMediate();
             String mediatePlan = defendant.getMediatePlan();
             if (!ObjectUtils.isEmpty(mediate)) {
-                if (mediate.equals(MediateEnum.Y.getCode()) && !ObjectUtils.isEmpty(mediatePlan)) {
+                if (mediate.equals(MediateEnum.Y.getCode())) {
                     mediate = "能，调解方案：" + mediatePlan;
                 } else if (mediate.equals(MediateEnum.N.getCode())) {
                     mediate = "不能";
