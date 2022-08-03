@@ -112,6 +112,7 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                             accuser_claim_fact_reason: courtTemp.accuser_claim_fact_reason,// 原告诉讼请求的事实及理由
                             is_counterclaim: courtTemp.is_counterclaim,
                             defendant_reply: courtTemp.defendant_reply,
+                            third_party_state:courtTemp.third_party_state,
                             judge_inquiry_after_accuser_claim: courtTemp.judge_inquiry_after_accuser_claim,
                             judge_inquiry_after_defendant_reply: courtTemp.judge_inquiry_after_defendant_reply
 
