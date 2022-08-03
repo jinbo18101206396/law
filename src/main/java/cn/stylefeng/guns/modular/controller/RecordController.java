@@ -78,6 +78,8 @@ public class RecordController {
     @Resource
     private ThirdPartyService thirdPartyService;
     @Resource
+    private ThirdPartyStateService thirdPartyStateService;
+    @Resource
     private StateService stateService;
     @Resource
     private AgentService agentService;
@@ -211,6 +213,8 @@ public class RecordController {
             return new SuccessResponseData("反诉被告今日不答辩，提前结束！");
         }
 
+        //第三人述称
+        thirdPartyStateService.saveThirdPartyStateInfo(courtNumber,courtInvestigateObject);
         //法庭辩论信息
         argueService.saveArgueInfo(courtNumber, counterClaim, recordJsonObject);
         //法庭询问信息
@@ -251,6 +255,7 @@ public class RecordController {
         accuserService.delete(courtNumber);
         defendantService.delete(courtNumber);
         thirdPartyService.delete(courtNumber);
+        thirdPartyStateService.delete(courtNumber);
         agentService.delete(courtNumber);
         stateService.delete(courtNumber);
         argueService.delete(courtNumber);
@@ -264,7 +269,7 @@ public class RecordController {
     }
 
     /**
-     * 查看笔录详情
+     * 笔录回显
      *
      * @author 金波
      * @date 2022/05/25

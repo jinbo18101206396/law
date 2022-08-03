@@ -24,7 +24,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
-import sun.security.smartcardio.SunPCSC;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -49,6 +48,8 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
     private DefendantService defendantService;
     @Resource
     private ThirdPartyService thirdPartyService;
+    @Resource
+    private ThirdPartyStateService thirdPartyStateService;
     @Resource
     private ProofService proofService;
     @Resource
@@ -246,7 +247,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
     @Override
     public void delete(String courtNumber) {
         LambdaQueryWrapper<BasicInfo> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.eq(BasicInfo::getCourtNumber,courtNumber);
+        lambdaQueryWrapper.eq(BasicInfo::getCourtNumber, courtNumber);
         lambdaQueryWrapper.eq(BasicInfo::getDelFlag, YesOrNotEnum.N.getCode());
         baseMapper.delete(lambdaQueryWrapper);
     }
@@ -677,11 +678,40 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         judgeRandomInquiry(courtNumber, courtInvestigateObject);
         //答辩内容
         courtInvesReply(courtNumber, courtInvestigateObject);
+        //第三人述称
+        thirdPartyState(courtNumber, courtInvestigateObject);
         //举证内容
         courtInvesProof(courtNumber, courtInvestigateObject);
         //质证内容
         courtInvesQuery(courtNumber, courtInvestigateObject);
         return courtInvestigateObject;
+    }
+
+    /**
+     * 第三人述称
+     */
+    public void thirdPartyState(String courtNumber, JSONObject courtInvestigateObject) {
+        JSONArray stateArray = new JSONArray();
+        LambdaQueryWrapper<ThirdPartyState> stateQueryWrapper = new LambdaQueryWrapper<>();
+        stateQueryWrapper.eq(ThirdPartyState::getCourtNumber, courtNumber);
+        stateQueryWrapper.eq(ThirdPartyState::getDelFlag, YesOrNotEnum.N.getCode());
+        List<ThirdPartyState> thirdPartyStateList = thirdPartyStateService.list(stateQueryWrapper);
+        if (thirdPartyStateList != null && thirdPartyStateList.size() > 0) {
+            for (ThirdPartyState thirdPartyState : thirdPartyStateList) {
+                String name = thirdPartyState.getName();
+                String state = thirdPartyState.getState();
+                JSONObject stateObject = new JSONObject();
+                stateObject.put("name", name);
+                stateObject.put("state", state);
+                stateArray.add(stateObject);
+            }
+        } else {
+            JSONObject stateObject = new JSONObject();
+            stateObject.put("name", "");
+            stateObject.put("state", "");
+            stateArray.add(stateObject);
+        }
+        courtInvestigateObject.put("third_party_state", stateArray);
     }
 
     /**
@@ -726,9 +756,9 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         return getQueryList(accuserQueryArray);
     }
 
-    private List<Query> getQueryList(JSONArray queryArray){
+    private List<Query> getQueryList(JSONArray queryArray) {
         List<Query> queryList = new ArrayList();
-        if(queryArray != null && queryArray.size() > 0){
+        if (queryArray != null && queryArray.size() > 0) {
             for (int i = 0; i < queryArray.size(); i++) {
                 JSONObject queryObject = queryArray.getJSONObject(i);
                 String name = queryObject.getString("name");
@@ -755,7 +785,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                     } else if (evidence.contains("：")) {
                         String evidenceNum = evidence.split("：")[0];
                         evidenceNumber += evidenceNum;
-                    }else if (evidence.contains(":")) {
+                    } else if (evidence.contains(":")) {
                         String evidenceNum = evidence.split(":")[0];
                         evidenceNumber += evidenceNum;
                     }
@@ -776,7 +806,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         return queryList;
     }
 
-    private String  getEvidenceContent(JSONArray evidenceArray){
+    private String getEvidenceContent(JSONArray evidenceArray) {
         String evidenceContent = "";
         if (evidenceArray != null && evidenceArray.size() > 0) {
             for (int i = 0; i < evidenceArray.size(); i++) {
@@ -785,16 +815,16 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 String evidenceType = evidenceObject.getString("evidence_type");
                 String evidence = evidenceObject.getString("evidence");
                 String content = evidenceObject.getString("content");
-                if(ObjectUtils.isEmpty(evidence) || ObjectUtils.isEmpty(evidenceType) || ObjectUtils.isEmpty(content)){
+                if (ObjectUtils.isEmpty(evidence) || ObjectUtils.isEmpty(evidenceType) || ObjectUtils.isEmpty(content)) {
                     continue;
                 }
-                evidenceContent += "证据"+ serial + "." + evidence + "（" + evidenceType + "），" + content+"。";
+                evidenceContent += "证据" + serial + "." + evidence + "（" + evidenceType + "），" + content + "。";
             }
         }
         return evidenceContent;
     }
 
-    private String getQueryContent(JSONArray queryArray){
+    private String getQueryContent(JSONArray queryArray) {
         String queryContent = "";
         if (queryArray != null && queryArray.size() > 0) {
             for (int i = 0; i < queryArray.size(); i++) {
