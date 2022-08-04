@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -37,6 +38,10 @@ public class QueryServiceImpl extends ServiceImpl<QueryMapper, Query> implements
     @Transactional(rollbackFor = Exception.class)
     public void saveDefendantAndOtherAccuserQuery(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
         JSONObject courtInvestigateObject = recordJsonObject.getJSONObject("courtInvestigate");
+        List<Query> queries = getQueries(courtNumber);
+        if(queries != null && queries.size() > 0){
+            queryService.delete(courtNumber);
+        }
         if (courtInvestigateObject.containsKey("defendant_and_other_accuser_query")) {
             JSONArray defendantAndOtherAccuserQueryArray = courtInvestigateObject.getJSONArray("defendant_and_other_accuser_query");
             if (!ObjectUtils.isEmpty(defendantAndOtherAccuserQueryArray)) {
@@ -190,6 +195,13 @@ public class QueryServiceImpl extends ServiceImpl<QueryMapper, Query> implements
                 this.save(query);
             }
         }
+    }
+
+    public List<Query> getQueries(String courtNumber) {
+        LambdaQueryWrapper<Query> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(Query::getCourtNumber, courtNumber);
+        lambdaQueryWrapper.eq(Query::getDelFlag, YesOrNotEnum.N.getCode());
+        return queryService.list(lambdaQueryWrapper);
     }
 
     @Override

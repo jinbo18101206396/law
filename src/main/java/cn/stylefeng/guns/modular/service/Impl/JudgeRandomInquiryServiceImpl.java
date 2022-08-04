@@ -34,9 +34,12 @@ public class JudgeRandomInquiryServiceImpl extends ServiceImpl<JudgeRandomInquir
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void saveJudgeRandomInquiryInfo(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
+        List<JudgeRandomInquiry> judgeRandomInquires = getJudgeRandomInquires(courtNumber);
+        if(judgeRandomInquires != null && judgeRandomInquires.size() > 0){
+            judgeRandomInquiryService.delete(courtNumber);
+        }
 
         JSONObject courtInvestigateObject = recordJsonObject.getJSONObject("courtInvestigate");
-
         if (courtInvestigateObject.containsKey("judge_inquiry_after_accuser_claim")) {
             JSONArray judgeInquiryAfterAccuserClaim = courtInvestigateObject.getJSONArray("judge_inquiry_after_accuser_claim");
             if (judgeInquiryAfterAccuserClaim != null && judgeInquiryAfterAccuserClaim.size() > 0) {

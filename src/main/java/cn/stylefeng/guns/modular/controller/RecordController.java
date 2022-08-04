@@ -162,8 +162,6 @@ public class RecordController {
             if (!ObjectUtils.isEmpty(requestType) && requestType.equals(RequestTypeEnum.NEW.getCode())) {
                 return new SuccessResponseData("案号不能重复");
             }
-            //编辑笔录，若案号已存在，则清空库中当前案号的信息，重新插入最新数据
-            deleteOldInfo(courtNumber);
         }
         //基本信息
         basicInfoService.saveBasicInfo(courtNumber, recordJsonObject);
@@ -212,9 +210,8 @@ public class RecordController {
         if (!"".equals(counterClaim) && !"".equals(counterClaimDefendantTodayIsReply) && counterClaim.equals(CounterClaimEnum.COUNTER_CLAIM.getCode()) && "2".equals(counterClaimDefendantTodayIsReply)) {
             return new SuccessResponseData("反诉被告今日不答辩，提前结束！");
         }
-
         //第三人述称
-        thirdPartyStateService.saveThirdPartyStateInfo(courtNumber,courtInvestigateObject);
+        thirdPartyStateService.saveThirdPartyStateInfo(courtNumber, courtInvestigateObject);
         //法庭辩论信息
         argueService.saveArgueInfo(courtNumber, counterClaim, recordJsonObject);
         //法庭询问信息
@@ -225,7 +222,7 @@ public class RecordController {
         queryService.saveDefendantAndOtherAccuserQuery(courtNumber, CounterClaimEnum.NOT_COUNTER_CLAIM.getCode(), recordJsonObject);
 
         if (!"".equals(defendantEvidence) && defendantEvidence.equals(DefendantEvidenceEnum.Y.getCode())) {
-            //被告举证
+            //被告及第三人举证
             proofService.saveDefendantEvidence(courtNumber, CounterClaimEnum.NOT_COUNTER_CLAIM.getCode(), recordJsonObject);
             //原告及其他被告质证
             queryService.saveAccuserAndOtherDefendantQuery(courtNumber, CounterClaimEnum.NOT_COUNTER_CLAIM.getCode(), recordJsonObject);
@@ -246,26 +243,8 @@ public class RecordController {
             queryService.saveOtherCounterClaimDefendantQuery(courtNumber, CounterClaimEnum.COUNTER_CLAIM.getCode(), recordJsonObject);
         }
         //保存所有审判员说的话
-        judgeSpeakService.saveJudgeSpeaks(courtNumber,courtCause,recordJsonObject);
+        judgeSpeakService.saveJudgeSpeaks(courtNumber, courtCause, recordJsonObject);
         return new SuccessResponseData();
-    }
-
-    private void deleteOldInfo(String courtNumber){
-        basicInfoService.delete(courtNumber);
-        accuserService.delete(courtNumber);
-        defendantService.delete(courtNumber);
-        thirdPartyService.delete(courtNumber);
-        thirdPartyStateService.delete(courtNumber);
-        agentService.delete(courtNumber);
-        stateService.delete(courtNumber);
-        argueService.delete(courtNumber);
-        inquiryService.delete(courtNumber);
-        queryService.delete(courtNumber);
-        proofService.delete(courtNumber);
-        replyService.delete(courtNumber);
-        allegeService.delete(courtNumber);
-        judgeRandomInquiryService.delete(courtNumber);
-        judgeSpeakService.delete(courtNumber);
     }
 
     /**
@@ -335,7 +314,7 @@ public class RecordController {
         recordJson.put("summarize", summarize);
 
         //审判员说的话
-        judgeSpeakService.getJudgeSpeaks(courtNumber,recordJson);
+        judgeSpeakService.getJudgeSpeaks(courtNumber, recordJson);
 
         System.out.println("回显的数据：" + recordJson.toString());
 
@@ -452,7 +431,7 @@ public class RecordController {
         List<Argue> argueList = argueService.getArgueList(courtNumber);
         recordMap.put("argueList", argueList);
 
-        judgeSpeakService.getJudgeSpeaks(courtNumber,recordMap);
+        judgeSpeakService.getJudgeSpeaks(courtNumber, recordMap);
 
         WordUtil.generateWord(recordMap, templatePath, templateName, generateFile);
         return new SuccessResponseData();

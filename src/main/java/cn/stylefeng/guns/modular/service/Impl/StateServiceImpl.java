@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -35,6 +36,10 @@ public class StateServiceImpl extends ServiceImpl<StateMapper, State> implements
     @Transactional(rollbackFor = Exception.class)
     public void saveStateInfo(String courtNumber, JSONObject recordJsonObject) {
         if (recordJsonObject.containsKey("stateInfo")) {
+            List<State> states = getStates(courtNumber);
+            if(states != null && states.size() > 0){
+                stateService.delete(courtNumber);
+            }
             String stateInfo = recordJsonObject.getString("stateInfo");
             JSONObject stateInfoObject = JSONObject.parseObject(stateInfo);
             String stateType = stateInfoObject.getString("state_type");
@@ -67,6 +72,13 @@ public class StateServiceImpl extends ServiceImpl<StateMapper, State> implements
         stateObject.put("state_type", stateType);
         stateObject.put("state_content", stateContent);
         return stateObject;
+    }
+
+    public List<State> getStates(String courtNumber) {
+        LambdaQueryWrapper<State> stateQueryWrapper = new LambdaQueryWrapper<>();
+        stateQueryWrapper.eq(State::getCourtNumber, courtNumber);
+        stateQueryWrapper.eq(State::getDelFlag, YesOrNotEnum.N.getCode());
+        return stateService.list(stateQueryWrapper);
     }
 
     @Override

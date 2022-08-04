@@ -35,9 +35,11 @@ public class InquiryServiceImpl extends ServiceImpl<InquiryMapper, Inquiry> impl
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void saveInquiryInfo(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
-        //法庭询问
-
         if (recordJsonObject.containsKey("inquiryInfo")) {
+            List<Inquiry> inquiries = getInquiries(courtNumber);
+            if(inquiries != null && inquiries.size() > 0){
+                inquiryService.delete(courtNumber);
+            }
             JSONArray inquiryInfoArray = recordJsonObject.getJSONArray("inquiryInfo");
             for (int i = 0; i < inquiryInfoArray.size(); i++) {
                 JSONObject inquiryInfoObject = inquiryInfoArray.getJSONObject(i);
@@ -47,7 +49,6 @@ public class InquiryServiceImpl extends ServiceImpl<InquiryMapper, Inquiry> impl
                     JSONObject inquiryAnswerObject = inquiryAnswerArray.getJSONObject(j);
                     String answer = inquiryAnswerObject.getString("answer");
                     String answerName = inquiryAnswerObject.getString("name");
-
                     if (!ObjectUtils.isEmpty(answerName) && answerName.contains("（")) {
                         String name = answerName.split("（")[0];
                         //原告、被告、反诉原告、反诉被告

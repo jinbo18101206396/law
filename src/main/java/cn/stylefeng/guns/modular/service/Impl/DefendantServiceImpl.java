@@ -38,10 +38,13 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void saveDefendantInfo(String courtNumber, JSONObject recordJsonObject) {
-        //被告信息
         JSONArray defendantInfoArray = recordJsonObject.getJSONArray("defendantInfo");
         if (ObjectUtils.isEmpty(defendantInfoArray)) {
             return;
+        }
+        List<Defendant> defendants = getDefendants(courtNumber);
+        if (defendants != null && defendants.size() > 0) {
+            defendantService.delete(courtNumber);
         }
         for (int i = 0; i < defendantInfoArray.size(); i++) {
             Defendant defendant = new Defendant();
@@ -290,7 +293,7 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
             }
             String delivery = defendant.getIsDelivery();
             String email = defendant.getEmail();
-            if(delivery.equals(DeliveryEnum.N.getCode()) && ObjectUtils.isEmpty(email)){
+            if (delivery.equals(DeliveryEnum.N.getCode()) && ObjectUtils.isEmpty(email)) {
                 email = defendant.getDefendantAddress();
             }
             if (!ObjectUtils.isEmpty(delivery)) {

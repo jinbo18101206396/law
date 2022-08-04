@@ -208,9 +208,19 @@ public class JudgeSpeakServiceImpl extends ServiceImpl<JudgeSpeakMapper, JudgeSp
             judgeSpeakList.add(judgeSpeak(courtNumber, courtCause, "judge_delivery", judgeDelivery));
         }
         if (judgeSpeakList != null && judgeSpeakList.size() > 0) {
+            List<JudgeSpeak> judgeSpeaks = getJudgeSpeaks(courtNumber);
+            if(judgeSpeaks != null && judgeSpeaks.size() > 0){
+                judgeSpeakService.delete(courtNumber);
+            }
             return judgeSpeakService.saveOrUpdateBatch(judgeSpeakList);
         }
         return null;
+    }
+
+    public List<JudgeSpeak> getJudgeSpeaks(String courtNumber) {
+        LambdaQueryWrapper<JudgeSpeak> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(JudgeSpeak::getCourtNumber, courtNumber);
+        return judgeSpeakService.list(lambdaQueryWrapper);
     }
 
     @Override

@@ -40,11 +40,13 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
     public void saveAccuserInfo(String courtNumber, JSONObject recordJsonObject) {
         //原告信息
         JSONArray accuserInfoArray = recordJsonObject.getJSONArray("accuserInfo");
-
         if (ObjectUtils.isEmpty(accuserInfoArray)) {
             return;
         }
-
+        List<Accuser> accusers = getAccusers(courtNumber);
+        if (accusers != null && accusers.size() > 0) {
+            accuserService.delete(courtNumber);
+        }
         for (int i = 0; i < accuserInfoArray.size(); i++) {
             Accuser accuser = new Accuser();
             JSONObject accuserInfoObject = accuserInfoArray.getJSONObject(i);
@@ -284,7 +286,7 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
             }
             String delivery = accuser.getIsDelivery();
             String email = accuser.getEmail();
-            if(delivery.equals(DeliveryEnum.N.getCode()) && ObjectUtils.isEmpty(email)){
+            if (delivery.equals(DeliveryEnum.N.getCode()) && ObjectUtils.isEmpty(email)) {
                 email = accuser.getAccuserAddress();
             }
             if (!ObjectUtils.isEmpty(delivery)) {

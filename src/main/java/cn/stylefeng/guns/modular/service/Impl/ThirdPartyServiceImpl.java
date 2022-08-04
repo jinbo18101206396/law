@@ -39,10 +39,13 @@ public class ThirdPartyServiceImpl extends ServiceImpl<ThirdPartyMapper, ThirdPa
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void saveThirdPartyInfo(String courtNumber, JSONObject recordJsonObject) {
-        //第三人信息
         JSONArray thirdPartyInfoArray = recordJsonObject.getJSONArray("thirdPartyInfo");
         if (ObjectUtils.isEmpty(thirdPartyInfoArray)) {
             return;
+        }
+        List<ThirdParty> thirdParts = getThirdParts(courtNumber);
+        if (thirdParts != null && thirdParts.size() > 0) {
+            thirdPartyService.delete(courtNumber);
         }
         for (int i = 0; i < thirdPartyInfoArray.size(); i++) {
             JSONObject thirdPartyInfoObject = thirdPartyInfoArray.getJSONObject(i);

@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -38,6 +39,10 @@ public class ReplyServiceImpl extends ServiceImpl<ReplyMapper, Reply> implements
     public void saveDefendantReply(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
         JSONObject courtInvestigateObject = recordJsonObject.getJSONObject("courtInvestigate");
         if (courtInvestigateObject.containsKey("defendant_reply")) {
+            List<Reply> replies = getReplies(courtNumber);
+            if(replies != null && replies.size() > 0){
+                replyService.delete(courtNumber);
+            }
             JSONArray defendantReplyArray = courtInvestigateObject.getJSONArray("defendant_reply");
             saveReply(defendantReplyArray, "被告", courtNumber, counterClaim);
         }
@@ -78,6 +83,13 @@ public class ReplyServiceImpl extends ServiceImpl<ReplyMapper, Reply> implements
         LambdaUpdateWrapper<Reply> replyWrapper = new LambdaUpdateWrapper<>();
         replyWrapper.set(Reply::getDelFlag, YesOrNotEnum.Y.getCode()).eq(Reply::getCourtNumber, courtNumber);
         return replyService.update(replyWrapper);
+    }
+
+    public List<Reply> getReplies(String courtNumber) {
+        LambdaQueryWrapper<Reply> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(Reply::getCourtNumber,courtNumber);
+        lambdaQueryWrapper.eq(Reply::getDelFlag, YesOrNotEnum.N.getCode());
+        return replyService.list(lambdaQueryWrapper);
     }
 
     @Override

@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -38,6 +39,10 @@ public class AllegeServiceImpl extends ServiceImpl<AllegeMapper, Allege> impleme
         JSONObject courtInvestigateObject = recordJsonObject.getJSONObject("courtInvestigate");
         //原告的诉讼请求项和事实与理由
         if (courtInvestigateObject.containsKey("accuser_claim_item") && courtInvestigateObject.containsKey("accuser_claim_fact_reason")) {
+            List<Allege> alleges = getAlleges(courtNumber);
+            if(alleges != null && alleges.size() > 0){
+                allegeService.delete(courtNumber);
+            }
             String accuserClaimItem = courtInvestigateObject.getString("accuser_claim_item");
             String accuserClaimFactReason = courtInvestigateObject.getString("accuser_claim_fact_reason");
             Allege allege = new Allege();
@@ -97,6 +102,13 @@ public class AllegeServiceImpl extends ServiceImpl<AllegeMapper, Allege> impleme
             allege.setCourtNumber(courtNumber);
             this.save(allege);
         }
+    }
+
+    public List<Allege> getAlleges(String courtNumber) {
+        LambdaQueryWrapper<Allege> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(Allege::getCourtNumber,courtNumber);
+        lambdaQueryWrapper.eq(Allege::getDelFlag, YesOrNotEnum.N.getCode());
+        return allegeService.list(lambdaQueryWrapper);
     }
 
     @Override

@@ -73,6 +73,12 @@ public class WitnessTestimony implements Serializable {
     private String delFlag;
 
     /**
+     * 答案
+     */
+    @TableField("court_number")
+    private String courtNumber;
+
+    /**
      * 创建时间
      */
     @TableField(value = "create_time", fill = FieldFill.INSERT)
@@ -204,6 +210,14 @@ public class WitnessTestimony implements Serializable {
         this.updateUser = updateUser;
     }
 
+    public String getCourtNumber() {
+        return courtNumber;
+    }
+
+    public void setCourtNumber(String courtNumber) {
+        this.courtNumber = courtNumber;
+    }
+
     @Override
     public String toString() {
         return "WitnessTestimony{" +
@@ -216,6 +230,7 @@ public class WitnessTestimony implements Serializable {
                 ", responder='" + responder + '\'' +
                 ", answer='" + answer + '\'' +
                 ", delFlag='" + delFlag + '\'' +
+                ", courtNumber='" + courtNumber + '\'' +
                 ", createTime=" + createTime +
                 ", createUser=" + createUser +
                 ", updateTime=" + updateTime +

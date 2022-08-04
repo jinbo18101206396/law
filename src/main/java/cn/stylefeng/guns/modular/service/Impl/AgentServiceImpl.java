@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -34,6 +35,10 @@ public class AgentServiceImpl extends ServiceImpl<AgentMapper, Agent> implements
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void saveAgentInfo(String courtNumber, JSONObject recordJsonObject) {
+        List<Agent> agents = getAgents(courtNumber);
+        if(agents != null && agents.size() > 0){
+            agentService.delete(courtNumber);
+        }
         //原告信息
         JSONArray accuserInfoArray = recordJsonObject.getJSONArray("accuserInfo");
         if (!ObjectUtils.isEmpty(accuserInfoArray)) {
@@ -131,5 +136,12 @@ public class AgentServiceImpl extends ServiceImpl<AgentMapper, Agent> implements
             agent.setCourtNumber(courtNumber);
             this.save(agent);
         }
+    }
+
+    public List<Agent> getAgents(String courtNumber) {
+        LambdaQueryWrapper<Agent> agentQueryWrapper = new LambdaQueryWrapper<>();
+        agentQueryWrapper.eq(Agent::getCourtNumber, courtNumber);
+        agentQueryWrapper.eq(Agent::getDelFlag, YesOrNotEnum.N.getCode());
+        return agentService.list(agentQueryWrapper);
     }
 }

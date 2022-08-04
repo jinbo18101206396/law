@@ -36,6 +36,10 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
     @Transactional(rollbackFor = Exception.class)
     public void saveArgueInfo(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
         if (recordJsonObject.containsKey("argueInfo")) {
+            List<Argue> argues = getArgues(courtNumber);
+            if(argues != null && argues.size() > 0){
+                argueService.delete(courtNumber);
+            }
             JSONObject argueInfoObject = recordJsonObject.getJSONObject("argueInfo");
             if (counterClaim.equals(CounterClaimEnum.COUNTER_CLAIM.getCode())) {
                 JSONArray counterClaimArgueArray = argueInfoObject.getJSONArray("counterclaim_argue");

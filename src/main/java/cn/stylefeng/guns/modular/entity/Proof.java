@@ -67,6 +67,12 @@ public class Proof implements Serializable {
     private String factReason;
 
     /**
+     * 是否有人证
+     */
+    @TableField("is_witness")
+    private String isWitness;
+
+    /**
      * 是否反诉
      */
     @TableField("is_counter_claim")
@@ -176,6 +182,14 @@ public class Proof implements Serializable {
         this.factReason = factReason;
     }
 
+    public String getIsWitness() {
+        return isWitness;
+    }
+
+    public void setIsWitness(String isWitness) {
+        this.isWitness = isWitness;
+    }
+
     public String getIsCounterClaim() {
         return isCounterClaim;
     }
@@ -190,6 +204,14 @@ public class Proof implements Serializable {
 
     public void setCourtNumber(String courtNumber) {
         this.courtNumber = courtNumber;
+    }
+
+    public String getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(String delFlag) {
+        this.delFlag = delFlag;
     }
 
     public Date getCreateTime() {
@@ -224,17 +246,9 @@ public class Proof implements Serializable {
         this.updateUser = updateUser;
     }
 
-    public String getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(String delFlag) {
-        this.delFlag = delFlag;
-    }
-
     @Override
     public String toString() {
-        return "PProof{" +
+        return "Proof{" +
                 "proofId=" + proofId +
                 ", name='" + name + '\'' +
                 ", type='" + type + '\'' +
@@ -243,8 +257,10 @@ public class Proof implements Serializable {
                 ", evidenceType='" + evidenceType + '\'' +
                 ", content='" + content + '\'' +
                 ", factReason='" + factReason + '\'' +
+                ", isWitness='" + isWitness + '\'' +
                 ", isCounterClaim='" + isCounterClaim + '\'' +
                 ", courtNumber='" + courtNumber + '\'' +
+                ", delFlag='" + delFlag + '\'' +
                 ", createTime=" + createTime +
                 ", createUser=" + createUser +
                 ", updateTime=" + updateTime +
