@@ -22,7 +22,7 @@ public class WitnessTestimony implements Serializable {
      * 主键
      */
     @TableId(value = "witness_id", type = IdType.ID_WORKER)
-    private Long proofId;
+    private Long witnessId;
 
     /**
      * 证据名称
@@ -73,7 +73,7 @@ public class WitnessTestimony implements Serializable {
     private String delFlag;
 
     /**
-     * 答案
+     * 案号
      */
     @TableField("court_number")
     private String courtNumber;
@@ -106,12 +106,12 @@ public class WitnessTestimony implements Serializable {
         return serialVersionUID;
     }
 
-    public Long getProofId() {
-        return proofId;
+    public Long getWitnessId() {
+        return witnessId;
     }
 
-    public void setProofId(Long proofId) {
-        this.proofId = proofId;
+    public void setWitnessId(Long witnessId) {
+        this.witnessId = witnessId;
     }
 
     public String getEvidence() {
@@ -221,7 +221,7 @@ public class WitnessTestimony implements Serializable {
     @Override
     public String toString() {
         return "WitnessTestimony{" +
-                "proofId=" + proofId +
+                "witnessId=" + witnessId +
                 ", evidence='" + evidence + '\'' +
                 ", name='" + name + '\'' +
                 ", type='" + type + '\'' +
