@@ -43,16 +43,6 @@ public class ProofServiceImpl extends ServiceImpl<ProofMapper, Proof> implements
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void saveAccuserEvidence(String courtNumber, String counterClaim, JSONObject recordJsonObject) {
-        //拼接所有原告的姓名(原告是一个整体)
-        JSONArray accuserInfoArray = recordJsonObject.getJSONArray("accuserInfo");
-        StringBuffer accuserName = new StringBuffer();
-        if (!ObjectUtils.isEmpty(accuserInfoArray)) {
-            for (int i = 0; i < accuserInfoArray.size(); i++) {
-                JSONObject accuserInfoObject = accuserInfoArray.getJSONObject(i);
-                String accuserShort = accuserInfoObject.getString("accuser_short");
-                accuserName.append(accuserShort);
-            }
-        }
         if (recordJsonObject.containsKey("courtInvestigate")) {
             JSONObject courtInvestigateObject = recordJsonObject.getJSONObject("courtInvestigate");
             if (courtInvestigateObject.containsKey("accuser_evidence") && courtInvestigateObject.containsKey("accuser_is_witness") && courtInvestigateObject.containsKey("accuser_evidence_witness")) {
@@ -63,7 +53,7 @@ public class ProofServiceImpl extends ServiceImpl<ProofMapper, Proof> implements
                     proofService.delete(courtNumber);
                 }
                 JSONArray accuserEvidenceArray = courtInvestigateObject.getJSONArray("accuser_evidence");
-                saveProof(courtNumber,accuserIsWitness, counterClaim, "原告", accuserEvidenceArray);
+                saveProof(courtNumber, counterClaim, "原告", accuserEvidenceArray);
                 //人证
                 List<WitnessTestimony> witnessProofs = getWitnessProofs(courtNumber);
                 if(witnessProofs != null && witnessProofs.size() > 0){
@@ -86,10 +76,10 @@ public class ProofServiceImpl extends ServiceImpl<ProofMapper, Proof> implements
                 String defendantIsWitness = courtInvestigateObject.getString("defendant_is_witness");
                 //物证
                 JSONArray defendantAndThirdEvidenceArray = courtInvestigateObject.getJSONArray("defendant_and_third_evidence");
-                saveProof(courtNumber,defendantIsWitness, counterClaim, "被告及第三人", defendantAndThirdEvidenceArray);
+                saveProof(courtNumber, counterClaim, "被告及第三人", defendantAndThirdEvidenceArray);
                 //人证
                 JSONArray defendantAndThirdEvidenceWitnessArray = courtInvestigateObject.getJSONArray("defendant_and_third_evidence_witness");
-                saveWitnessProof(courtNumber,defendantIsWitness,"被告及第三人","被告及第三人",defendantAndThirdEvidenceWitnessArray);
+                saveWitnessProof(courtNumber,defendantIsWitness,"","被告及第三人",defendantAndThirdEvidenceWitnessArray);
             }
         }
     }
@@ -104,7 +94,7 @@ public class ProofServiceImpl extends ServiceImpl<ProofMapper, Proof> implements
             //反诉原告举证
             if (courtInvestigateObject.containsKey("counterclaim_accuser_evidence")) {
                 JSONArray counterClaimAccuserEvidenceArray = courtInvestigateObject.getJSONArray("counterclaim_accuser_evidence");
-                saveProof(courtNumber,"", counterClaim, "反诉原告", counterClaimAccuserEvidenceArray);
+                saveProof(courtNumber, counterClaim, "反诉原告", counterClaimAccuserEvidenceArray);
             }
         }
     }
@@ -119,7 +109,7 @@ public class ProofServiceImpl extends ServiceImpl<ProofMapper, Proof> implements
             //反诉被告举证
             if (courtInvestigateObject.containsKey("counterclaim_defendant_evidence")) {
                 JSONArray counterClaimDefendantEvidenceArray = courtInvestigateObject.getJSONArray("counterclaim_defendant_evidence");
-                saveProof(courtNumber, "",counterClaim, "反诉被告", counterClaimDefendantEvidenceArray);
+                saveProof(courtNumber, counterClaim, "反诉被告", counterClaimDefendantEvidenceArray);
             }
         }
     }
@@ -127,13 +117,10 @@ public class ProofServiceImpl extends ServiceImpl<ProofMapper, Proof> implements
     /**
      * 举证-物证
      */
-    public void saveProof(String courtNumber,String witness, String counterClaim, String type, JSONArray evidenceArray) {
+    public void saveProof(String courtNumber,String counterClaim, String type, JSONArray evidenceArray) {
         for (int i = 0; i < evidenceArray.size(); i++) {
             JSONObject evidenceObject = evidenceArray.getJSONObject(i);
-            String name = "";
-            if (evidenceObject.containsKey("name")) {
-                name = evidenceObject.getString("name");
-            }
+            String name = evidenceObject.getString("name");
             String serial = evidenceObject.getString("serial");
             String evidence = evidenceObject.getString("evidence");
             String evidenceType = evidenceObject.getString("evidence_type");
@@ -146,7 +133,6 @@ public class ProofServiceImpl extends ServiceImpl<ProofMapper, Proof> implements
                 proof.setEvidence(evidence);
                 proof.setEvidenceType(evidenceType);
                 proof.setContent(content);
-                proof.setIsWitness(witness);
                 proof.setIsCounterClaim(counterClaim);
                 proof.setCourtNumber(courtNumber);
                 this.save(proof);
@@ -164,7 +150,6 @@ public class ProofServiceImpl extends ServiceImpl<ProofMapper, Proof> implements
         for (int i = 0; i < witnessArray.size(); i++) {
             JSONObject witnessObject = witnessArray.getJSONObject(i);
             String serial = witnessObject.getString("serial");
-            String evidenceType = witnessObject.getString("evidence_type");
             String evidence = witnessObject.getString("evidence");
             String content = witnessObject.getString("content");
             String witnessName = witnessObject.getString("witness_name");
@@ -176,10 +161,11 @@ public class ProofServiceImpl extends ServiceImpl<ProofMapper, Proof> implements
             //举证人的类型（原告，被告，第三人）
             proof.setType(type);
             proof.setSerial(serial);
-            proof.setEvidenceType(evidenceType);
+            proof.setEvidenceType("证人证言");
             proof.setEvidence(evidence);
             proof.setContent(content);
             proof.setIsWitness(witness);
+            proof.setCourtNumber(courtNumber);
             proofService.save(proof);
 
             JSONArray witnessTestimonyArray = witnessObject.getJSONArray("witness_testimony");
@@ -199,7 +185,7 @@ public class ProofServiceImpl extends ServiceImpl<ProofMapper, Proof> implements
                 witnessTestimony.setQuestion(question);
                 witnessTestimony.setResponder(responder);
                 witnessTestimony.setAnswer(answer);
-                witnessTestimonyService.saveOrUpdate(witnessTestimony);
+                witnessTestimonyService.save(witnessTestimony);
             }
         }
     }

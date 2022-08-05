@@ -868,7 +868,6 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         String defendantAndOtherAccuserQuery = getQueryContent(defendantQueryArray);
         courtInvestigate.setDefendantAndOtherAccuserQuery(defendantAndOtherAccuserQuery);
         //被告举证
-
         JSONArray defendantEvidenceArray = courtInvestigateObject.getJSONArray("defendant_evidence");
         String defendantEvidenceAndReason = getEvidenceContent(defendantEvidenceArray);
         courtInvestigate.setDefendantEvidence(defendantEvidenceAndReason);
@@ -1081,7 +1080,6 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 witnessEvidenceObject.put("witness_name", witnessName);
                 witnessEvidenceObject.put("witness_type", witnessType);
                 witnessEvidenceObject.put("witness_testimony",witnessTestimonyArray);
-
                 if ("原告".equals(type)) {
                     accuserWitnessEvidenceArray.add(witnessEvidenceObject);
                 } else if ("被告及第三人".equals(type)) {
@@ -1106,13 +1104,13 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 }
             }
         }
-        //原告举证-物证
+        //原告举证（物证）
         if (accuserEvidenceArray == null || accuserEvidenceArray.size() <= 0) {
             accuserEvidenceArray.add(blankEvidence());
         }
         courtInvestigateObject.put("accuser_evidence", accuserEvidenceArray);
 
-        //原告举证-人证
+        //原告举证（人证）
         if(accuserWitnessEvidenceArray == null || accuserWitnessEvidenceArray.size() <= 0){
             accuserWitnessEvidenceArray.add(blankWitnessEvidence());
             courtInvestigateObject.put("accuser_is_witness", "2");
@@ -1121,13 +1119,13 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         }
         courtInvestigateObject.put("accuser_evidence_witness", accuserWitnessEvidenceArray);
 
-        //被告及第三人举证-物证
+        //被告及第三人举证（物证）
         if (defendantEvidenceArray == null || defendantEvidenceArray.size() <= 0) {
             defendantEvidenceArray.add(blankEvidence());
         }
         courtInvestigateObject.put("defendant_and_third_evidence", defendantEvidenceArray);
 
-        //被告及第三人举证-人证
+        //被告及第三人举证（人证）
         if(defendantAndThirdWitnessEvidenceArray == null || defendantAndThirdWitnessEvidenceArray.size() <= 0){
             defendantAndThirdWitnessEvidenceArray.add(blankWitnessEvidence());
             courtInvestigateObject.put("defendant_is_witness", "2");
