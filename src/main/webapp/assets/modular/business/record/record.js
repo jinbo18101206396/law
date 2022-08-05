@@ -130,6 +130,10 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                             is_defendant_evidence : courtTemp.is_defendant_evidence,
                             judge_accuser_evidence:wholeItem.judge_accuser_evidence,
                             judge_defendant_and_other_accuser_query:wholeItem.judge_defendant_and_other_accuser_query,
+                            accuser_evidence_witness:courtTemp.accuser_evidence_witness,
+                            accuser_is_witness:courtTemp.accuser_is_witness,
+                            question_list:["问题1","问题2"],
+                            witness_type:["证人","鉴定人","勘验人"],
                         }
 
                         myLocalStorage["accuserShowInfo"] = accuserShowInfo
@@ -153,26 +157,22 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
 
                         let defendantShowInfo = {
                             //第一个动态生成的json defendant_evidence 包含以下3个信息
-                            // defendant_evidence: courtTemp.defendant_evidence,
-                            // defendant_evidence_fact_reason: courtTemp.defendant_evidence_fact_reason,   //事实和理由(被告举证)
+                            defendant_and_third_evidence: courtTemp.defendant_evidence,
+                            defendant_evidence_fact_reason: courtTemp.defendant_evidence_fact_reason,   //事实和理由(被告举证)
                             //第二个动态生成的json accuser_query 包含以下6个信息
                             //原告及其他被告质证
                             accuser_and_other_defendant_query: courtTemp.accuser_and_other_defendant_query,
                             judge_defendant_evidence:wholeItem.judge_defendant_evidence,
 
-                            judge_accuser_and_other_defendant_query:wholeItem.judge_accuser_and_other_defendant_query
+
+                            judge_accuser_and_other_defendant_query:wholeItem.judge_accuser_and_other_defendant_query,
                             //反诉后的答辩情况
-                            //反诉后第一个部分 反诉被告（原告）进行举证
-                            /*counterclaim_defendant_evidence: courtTemp.counterclaim_defendant_evidence,
-                            counterclaim_defendant_evidence_fact_reason: courtTemp.counterclaim_defendant_evidence_fact_reason,  //事实和理由(反诉被告提出，事实和理由 不是动态添加的)
-                            //反诉后第二个动态生成的部分 反诉原告质证
-                            counterclaim_accuser_query: courtTemp.counterclaim_accuser_query,
-                            other_counterclaim_defendant_query: courtTemp.other_counterclaim_defendant_query,
-                            counterclaim_accuser_evidence_fact_reason: courtTemp.counterclaim_accuser_evidence_fact_reason, //反诉原告的事实与理由
-                            //反诉后第三个生成部分 反诉原告 (原告) 进行举证
-                            counterclaim_accuser_evidence: courtTemp.counterclaim_accuser_evidence,
-                            //反诉后第四个生成部分 反诉被告 (原告) 进行质证
-                            counterclaim_defendant_query: courtTemp.counterclaim_defendant_query,*/
+
+                            defendant_is_witness:courtTemp.defendant_is_witness,
+                            question_list:["问题1","问题2"],
+                            witness_type:["证人","鉴定人","勘验人"],
+                            defendant_and_third_evidence_witness:courtTemp.defendant_and_third_evidence_witness,
+
                         }
 
                         myLocalStorage["defendantShowInfo"] = defendantShowInfo
