@@ -38,19 +38,26 @@ public class AllegeServiceImpl extends ServiceImpl<AllegeMapper, Allege> impleme
         String allAccuserName = allAccuserNames(accuserInfoArray);
         JSONObject courtInvestigateObject = recordJsonObject.getJSONObject("courtInvestigate");
         //原告的诉讼请求项和事实与理由
-        if (courtInvestigateObject.containsKey("accuser_claim_item") && courtInvestigateObject.containsKey("accuser_claim_fact_reason")) {
+        if (courtInvestigateObject.containsKey("accuser_claim_item") && courtInvestigateObject.containsKey("accuser_claim_fact_reason") && courtInvestigateObject.containsKey("is_change_claim_item") && courtInvestigateObject.containsKey("claim_item_after_change") && courtInvestigateObject.containsKey("fact_reason_after_change")) {
             List<Allege> alleges = getAlleges(courtNumber);
             if(alleges != null && alleges.size() > 0){
                 allegeService.delete(courtNumber);
             }
             String accuserClaimItem = courtInvestigateObject.getString("accuser_claim_item");
             String accuserClaimFactReason = courtInvestigateObject.getString("accuser_claim_fact_reason");
+            String isChangeClaimItem = courtInvestigateObject.getString("is_change_claim_item");
+            String claimItemAfterChange = courtInvestigateObject.getString("claim_item_after_change");
+            String factReasonAfterChange = courtInvestigateObject.getString("fact_reason_after_change");
+
             Allege allege = new Allege();
             allege.setName(allAccuserName);
             allege.setType("原告");
             allege.setClaimItem(accuserClaimItem);
             allege.setFactReason(accuserClaimFactReason);
             allege.setIsCounterClaim(counterClaim);
+            allege.setIsChangeClaimItem(isChangeClaimItem);
+            allege.setClaimItemAfterChange(claimItemAfterChange);
+            allege.setFactReasonAfterChange(factReasonAfterChange);
             allege.setCourtNumber(courtNumber);
             this.save(allege);
         }

@@ -77,7 +77,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
     @Transactional(rollbackFor = Exception.class)
     public void saveBasicInfo(String courtNumber, JSONObject recordJsonObject) {
         List<BasicInfo> basicInfoList = getBasicInfoList(courtNumber);
-        if(basicInfoList != null || basicInfoList.size() > 0){
+        if (basicInfoList != null || basicInfoList.size() > 0) {
             basicInfoService.delete(courtNumber);
         }
 
@@ -895,25 +895,32 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
             courtInvestigateObject.put("counterclaim_accuser_claim_item", "");
             courtInvestigateObject.put("counterclaim_accuser_fact_reason", "");
             courtInvestigateObject.put("is_counterclaim", "2");
+            courtInvestigateObject.put("is_change_claim_item", "2");
+            courtInvestigateObject.put("claim_item_after_change", "");
+            courtInvestigateObject.put("fact_reason_after_change", "");
         } else {
             for (int i = 0; i < alleges.size(); i++) {
                 Allege allege = alleges.get(i);
                 String type = allege.getType();
                 String claimItem = allege.getClaimItem();
                 String factReason = allege.getFactReason();
+                String isCounterClaim = allege.getIsCounterClaim();
+
+                String isChangeClaimItem = allege.getIsChangeClaimItem();
+                String claimItemAfterChange = allege.getClaimItemAfterChange();
+                String factReasonAfterChange = allege.getFactReasonAfterChange();
+
                 if (type != "" && "原告".equals(type)) {
-                    //原告的诉讼请求项
                     courtInvestigateObject.put("accuser_claim_item", claimItem);
-                    //原告的事实和理由
                     courtInvestigateObject.put("accuser_claim_fact_reason", factReason);
+                    courtInvestigateObject.put("is_counterclaim", isCounterClaim);
+                    courtInvestigateObject.put("is_change_claim_item", isChangeClaimItem);
+                    courtInvestigateObject.put("claim_item_after_change", claimItemAfterChange);
+                    courtInvestigateObject.put("fact_reason_after_change", factReasonAfterChange);
                 } else if (type != "" && "反诉原告".equals(type)) {
-                    //反诉原告的诉讼请求项
                     courtInvestigateObject.put("counterclaim_accuser_claim_item", claimItem);
-                    //反诉原告的事实和理由
                     courtInvestigateObject.put("counterclaim_accuser_fact_reason", factReason);
                 }
-                //是否反诉
-                courtInvestigateObject.put("is_counterclaim", allege.getIsCounterClaim());
             }
         }
     }
@@ -983,7 +990,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
 
     /**
      * 物证
-     * */
+     */
     public List<Proof> getProofs(String courtNumber) {
         LambdaQueryWrapper<Proof> proofQueryWrapper = new LambdaQueryWrapper<>();
         proofQueryWrapper.eq(Proof::getCourtNumber, courtNumber);
@@ -993,10 +1000,10 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
 
     /**
      * 人证
-     * */
-    public List<WitnessTestimony> getWitnessProofs(String courtNumber,String evidence) {
+     */
+    public List<WitnessTestimony> getWitnessProofs(String courtNumber, String evidence) {
         LambdaQueryWrapper<WitnessTestimony> witnessQueryWrapper = new LambdaQueryWrapper<>();
-        witnessQueryWrapper.eq(WitnessTestimony::getEvidence,evidence);
+        witnessQueryWrapper.eq(WitnessTestimony::getEvidence, evidence);
         witnessQueryWrapper.eq(WitnessTestimony::getCourtNumber, courtNumber);
         witnessQueryWrapper.eq(WitnessTestimony::getDelFlag, YesOrNotEnum.N.getCode());
         return witnessTestimonyService.list(witnessQueryWrapper);
@@ -1017,18 +1024,18 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         witnessEvidenceObject.put("serial", "1");
         witnessEvidenceObject.put("evidence_type", "");
         witnessEvidenceObject.put("evidence", "");
-        witnessEvidenceObject.put("witness_name","");
-        witnessEvidenceObject.put("witness_type","");
+        witnessEvidenceObject.put("witness_name", "");
+        witnessEvidenceObject.put("witness_type", "");
 
         JSONArray witnessTestimonyArray = new JSONArray();
         JSONObject witnessTestimonyObject = new JSONObject();
-        witnessTestimonyObject.put("quizzer","");
-        witnessTestimonyObject.put("question","");
-        witnessTestimonyObject.put("responder","");
-        witnessTestimonyObject.put("answer","");
+        witnessTestimonyObject.put("quizzer", "");
+        witnessTestimonyObject.put("question", "");
+        witnessTestimonyObject.put("responder", "");
+        witnessTestimonyObject.put("answer", "");
         witnessTestimonyArray.add(witnessTestimonyObject);
 
-        witnessEvidenceObject.put("witness_testimony",witnessTestimonyArray);
+        witnessEvidenceObject.put("witness_testimony", witnessTestimonyArray);
         return witnessEvidenceObject;
     }
 
@@ -1054,21 +1061,21 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
             String content = proof.getContent();
             String type = proof.getType();
             //人证
-            if(!ObjectUtils.isEmpty(isWitness) && "1".equals(isWitness)){
+            if (!ObjectUtils.isEmpty(isWitness) && "1".equals(isWitness)) {
                 JSONArray witnessTestimonyArray = new JSONArray();
                 List<WitnessTestimony> witnessProofs = getWitnessProofs(courtNumber, evidence);
                 String witnessName = "";
                 String witnessType = "";
-                for(int j=0;j<witnessProofs.size();j++){
+                for (int j = 0; j < witnessProofs.size(); j++) {
                     WitnessTestimony witnessTestimony = witnessProofs.get(j);
                     witnessName = witnessTestimony.getName();
                     witnessType = witnessTestimony.getType();
 
                     JSONObject questionAndAnswerObject = new JSONObject();
-                    questionAndAnswerObject.put("quizzer",witnessTestimony.getQuizzer());
-                    questionAndAnswerObject.put("question",witnessTestimony.getQuestion());
-                    questionAndAnswerObject.put("responder",witnessTestimony.getResponder());
-                    questionAndAnswerObject.put("answer",witnessTestimony.getAnswer());
+                    questionAndAnswerObject.put("quizzer", witnessTestimony.getQuizzer());
+                    questionAndAnswerObject.put("question", witnessTestimony.getQuestion());
+                    questionAndAnswerObject.put("responder", witnessTestimony.getResponder());
+                    questionAndAnswerObject.put("answer", witnessTestimony.getAnswer());
 
                     witnessTestimonyArray.add(questionAndAnswerObject);
                 }
@@ -1079,13 +1086,13 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 witnessEvidenceObject.put("content", content);
                 witnessEvidenceObject.put("witness_name", witnessName);
                 witnessEvidenceObject.put("witness_type", witnessType);
-                witnessEvidenceObject.put("witness_testimony",witnessTestimonyArray);
+                witnessEvidenceObject.put("witness_testimony", witnessTestimonyArray);
                 if ("原告".equals(type)) {
                     accuserWitnessEvidenceArray.add(witnessEvidenceObject);
                 } else if ("被告及第三人".equals(type)) {
                     defendantAndThirdWitnessEvidenceArray.add(witnessEvidenceObject);
                 }
-            }else{
+            } else {
                 //物证
                 JSONObject evidenceObject = new JSONObject();
                 evidenceObject.put("name", name);
@@ -1111,10 +1118,10 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         courtInvestigateObject.put("accuser_evidence", accuserEvidenceArray);
 
         //原告举证（人证）
-        if(accuserWitnessEvidenceArray == null || accuserWitnessEvidenceArray.size() <= 0){
+        if (accuserWitnessEvidenceArray == null || accuserWitnessEvidenceArray.size() <= 0) {
             accuserWitnessEvidenceArray.add(blankWitnessEvidence());
             courtInvestigateObject.put("accuser_is_witness", "2");
-        }else{
+        } else {
             courtInvestigateObject.put("accuser_is_witness", "1");
         }
         courtInvestigateObject.put("accuser_evidence_witness", accuserWitnessEvidenceArray);
@@ -1126,10 +1133,10 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         courtInvestigateObject.put("defendant_and_third_evidence", defendantEvidenceArray);
 
         //被告及第三人举证（人证）
-        if(defendantAndThirdWitnessEvidenceArray == null || defendantAndThirdWitnessEvidenceArray.size() <= 0){
+        if (defendantAndThirdWitnessEvidenceArray == null || defendantAndThirdWitnessEvidenceArray.size() <= 0) {
             defendantAndThirdWitnessEvidenceArray.add(blankWitnessEvidence());
             courtInvestigateObject.put("defendant_is_witness", "2");
-        }else{
+        } else {
             courtInvestigateObject.put("defendant_is_witness", "1");
         }
         courtInvestigateObject.put("defendant_and_third_evidence_witness", defendantAndThirdWitnessEvidenceArray);
@@ -1229,7 +1236,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
 
     /**
      * 修改删除标记
-     * */
+     */
     @Override
     public void delete(BasicInfoRequest basicInfoRequest) {
         String courtNumber = basicInfoRequest.getCourtNumber();

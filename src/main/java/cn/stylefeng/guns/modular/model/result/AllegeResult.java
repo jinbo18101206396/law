@@ -42,7 +42,22 @@ public class AllegeResult implements Serializable {
     /**
      * 是否反诉
      */
-    private Boolean isCounterClaim;
+    private String isCounterClaim;
+
+    /**
+     * 是否变更诉讼请求
+     */
+    private String isChangeClaimItem;
+
+    /**
+     * 变更后的诉讼请求项
+     */
+    private String claimItemAfterChange;
+
+    /**
+     * 变更后的事实与理由
+     */
+    private String factReasonAfterChange;
 
     /**
      * 案号

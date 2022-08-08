@@ -9,6 +9,9 @@
         <result column="claim_item" property="claimItem"/>
         <result column="fact_reason" property="factReason"/>
         <result column="is_counter_claim" property="isCounterClaim"/>
+        <result column="is_change_claim_item" property="isChangeClaimItem"/>
+        <result column="claim_item_after_change" property="claimItemAfterChange"/>
+        <result column="fact_reason_after_change" property="factReasonAfterChange"/>
         <result column="court_number" property="courtNumber"/>
         <result column="create_time" property="createTime"/>
         <result column="create_user" property="createUser"/>
@@ -19,22 +22,7 @@
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         allege_id
-        AS "allegeId", name AS "name", claim_item AS "claimItem", fact_reason AS "factReason", is_counter_claim AS "isCounterClaim", court_number AS "courtNumber", create_time AS "createTime", create_user AS "createUser", update_time AS "updateTime", update_user AS "updateUser"
+        AS "allegeId", name AS "name", claim_item AS "claimItem", fact_reason AS "factReason",is_change_claim_item AS "isChangeClaimItem",claim_item_after_change AS "claimItemAfterChange",fact_reason_after_change AS "factReasonAfterChange",is_counter_claim AS "isCounterClaim", court_number AS "courtNumber", create_time AS "createTime", create_user AS "createUser", update_time AS "updateTime", update_user AS "updateUser"
     </sql>
-
-
-    <select id="findList" resultType="cn.stylefeng.guns.modular.model.result.AllegeResult"
-            parameterType="cn.stylefeng.guns.modular.model.request.AllegeRequest">
-        select
-        <include refid="Base_Column_List"/>
-        from allege where 1 = 1
-    </select>
-
-    <select id="findPage" resultType="cn.stylefeng.guns.modular.model.result.AllegeResult"
-            parameterType="cn.stylefeng.guns.modular.model.request.AllegeRequest">
-        select
-        <include refid="Base_Column_List"/>
-        from allege where 1 = 1
-    </select>
 
 </mapper>

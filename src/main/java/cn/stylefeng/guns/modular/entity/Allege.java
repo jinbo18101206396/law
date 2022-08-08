@@ -49,6 +49,24 @@ public class Allege implements Serializable {
     private String factReason;
 
     /**
+     * 是否变更诉讼请求
+     */
+    @TableField("is_change_claim_item")
+    private String isChangeClaimItem;
+
+    /**
+     * 变更后的诉讼请求项
+     */
+    @TableField("claim_item_after_change")
+    private String claimItemAfterChange;
+
+    /**
+     * 变更后的事实与理由
+     */
+    @TableField("fact_reason_after_change")
+    private String factReasonAfterChange;
+
+    /**
      * 是否反诉
      */
     @TableField("is_counter_claim")
@@ -91,6 +109,10 @@ public class Allege implements Serializable {
     private Long updateUser;
 
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
     public Long getAllegeId() {
         return allegeId;
     }
@@ -105,6 +127,14 @@ public class Allege implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getClaimItem() {
@@ -123,6 +153,30 @@ public class Allege implements Serializable {
         this.factReason = factReason;
     }
 
+    public String getIsChangeClaimItem() {
+        return isChangeClaimItem;
+    }
+
+    public void setIsChangeClaimItem(String isChangeClaimItem) {
+        this.isChangeClaimItem = isChangeClaimItem;
+    }
+
+    public String getClaimItemAfterChange() {
+        return claimItemAfterChange;
+    }
+
+    public void setClaimItemAfterChange(String claimItemAfterChange) {
+        this.claimItemAfterChange = claimItemAfterChange;
+    }
+
+    public String getFactReasonAfterChange() {
+        return factReasonAfterChange;
+    }
+
+    public void setFactReasonAfterChange(String factReasonAfterChange) {
+        this.factReasonAfterChange = factReasonAfterChange;
+    }
+
     public String getIsCounterClaim() {
         return isCounterClaim;
     }
@@ -137,6 +191,14 @@ public class Allege implements Serializable {
 
     public void setCourtNumber(String courtNumber) {
         this.courtNumber = courtNumber;
+    }
+
+    public String getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(String delFlag) {
+        this.delFlag = delFlag;
     }
 
     public Date getCreateTime() {
@@ -171,35 +233,24 @@ public class Allege implements Serializable {
         this.updateUser = updateUser;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(String delFlag) {
-        this.delFlag = delFlag;
-    }
-
     @Override
     public String toString() {
         return "Allege{" +
                 "allegeId=" + allegeId +
-                ", name=" + name +
-                ", claimItem=" + claimItem +
-                ", factReason=" + factReason +
-                ", isCounterClaim=" + isCounterClaim +
-                ", courtNumber=" + courtNumber +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", claimItem='" + claimItem + '\'' +
+                ", factReason='" + factReason + '\'' +
+                ", isChangeClaimItem='" + isChangeClaimItem + '\'' +
+                ", claimItemAfterChange='" + claimItemAfterChange + '\'' +
+                ", factReasonAfterChange='" + factReasonAfterChange + '\'' +
+                ", isCounterClaim='" + isCounterClaim + '\'' +
+                ", courtNumber='" + courtNumber + '\'' +
+                ", delFlag='" + delFlag + '\'' +
                 ", createTime=" + createTime +
                 ", createUser=" + createUser +
                 ", updateTime=" + updateTime +
                 ", updateUser=" + updateUser +
-                "}";
+                '}';
     }
 }
