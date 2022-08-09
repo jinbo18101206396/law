@@ -149,9 +149,12 @@ public class ArgueServiceImpl extends ServiceImpl<ArgueMapper, Argue> implements
                 if (name.contains("原告")) {
                     name = name.replace("（原告）", "");
                     argue.setType("原告");
-                } else {
+                } else if(name.contains("被告")) {
                     name = name.replace("（被告）", "");
                     argue.setType("被告");
+                }else if(name.contains("第三人")){
+                    name = name.replace("（第三人）", "");
+                    argue.setType("第三人");
                 }
                 argue.setName(name);
                 argue.setArgueContent(argueContent);

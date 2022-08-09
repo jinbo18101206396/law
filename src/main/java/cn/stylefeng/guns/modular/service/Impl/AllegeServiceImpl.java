@@ -48,7 +48,6 @@ public class AllegeServiceImpl extends ServiceImpl<AllegeMapper, Allege> impleme
             String isChangeClaimItem = courtInvestigateObject.getString("is_change_claim_item");
             String claimItemAfterChange = courtInvestigateObject.getString("claim_item_after_change");
             String factReasonAfterChange = courtInvestigateObject.getString("fact_reason_after_change");
-
             Allege allege = new Allege();
             allege.setName(allAccuserName);
             allege.setType("原告");
@@ -56,8 +55,10 @@ public class AllegeServiceImpl extends ServiceImpl<AllegeMapper, Allege> impleme
             allege.setFactReason(accuserClaimFactReason);
             allege.setIsCounterClaim(counterClaim);
             allege.setIsChangeClaimItem(isChangeClaimItem);
-            allege.setClaimItemAfterChange(claimItemAfterChange);
-            allege.setFactReasonAfterChange(factReasonAfterChange);
+            if(!ObjectUtils.isEmpty(isChangeClaimItem) && "1".equals(isChangeClaimItem)){
+                allege.setClaimItemAfterChange(claimItemAfterChange);
+                allege.setFactReasonAfterChange(factReasonAfterChange);
+            }
             allege.setCourtNumber(courtNumber);
             this.save(allege);
         }

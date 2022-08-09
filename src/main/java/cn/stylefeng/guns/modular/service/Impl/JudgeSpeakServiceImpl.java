@@ -126,13 +126,13 @@ public class JudgeSpeakServiceImpl extends ServiceImpl<JudgeSpeakMapper, JudgeSp
             recordJson.put("judge_accuser_evidence", "下面进行举证质证，首先原告进行举证。");
         }
         if(!recordJson.containsKey("judge_defendant_and_other_accuser_query")){
-            recordJson.put("judge_defendant_and_other_accuser_query", "被告及其他原告对原告提交的证据进行质证。");
+            recordJson.put("judge_defendant_and_other_accuser_query", "被告及其他当事人对原告提交的证据进行质证。");
         }
         if(!recordJson.containsKey("judge_defendant_evidence")){
             recordJson.put("judge_defendant_evidence", "被告进行举证。");
         }
         if(!recordJson.containsKey("judge_accuser_and_other_defendant_query")){
-            recordJson.put("judge_accuser_and_other_defendant_query", "原告及其他被告对被告提交的证据进行质证。");
+            recordJson.put("judge_accuser_and_other_defendant_query", "原告及其他当事人对被告提交的证据进行质证。");
         }
         if(!recordJson.containsKey("judge_inquiry")){
             recordJson.put("judge_inquiry", "举证质证结束，下面进入法庭询问。");

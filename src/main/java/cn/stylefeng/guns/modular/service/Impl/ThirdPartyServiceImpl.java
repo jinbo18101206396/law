@@ -1,9 +1,9 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
 import cn.stylefeng.guns.modular.entity.Agent;
+import cn.stylefeng.guns.modular.entity.Defendant;
 import cn.stylefeng.guns.modular.entity.ThirdParty;
-import cn.stylefeng.guns.modular.enums.AccuserDefendantTypeEnum;
-import cn.stylefeng.guns.modular.enums.AgentTypeEnum;
+import cn.stylefeng.guns.modular.enums.*;
 import cn.stylefeng.guns.modular.mapper.ThirdPartyMapper;
 import cn.stylefeng.guns.modular.service.AgentService;
 import cn.stylefeng.guns.modular.service.ThirdPartyService;
@@ -247,7 +247,78 @@ public class ThirdPartyServiceImpl extends ServiceImpl<ThirdPartyMapper, ThirdPa
 
     @Override
     public List<ThirdParty> getThirdPartyInfoList(String courtNumber) {
-        return null;
+        List<ThirdParty> thirdPartList = getThirdParts(courtNumber);
+        List<Agent> agents = getAgents(courtNumber);
+        for (int i = 0; i < thirdPartList.size(); i++) {
+            ThirdParty thirdParty = thirdPartList.get(i);
+            String thirdPartyName = thirdParty.getThirdParty();
+            String thirdPartyShort = "";
+            String thirdPartyAddress = thirdParty.getThirdPartyAddress();
+            String thirdPartyType = thirdParty.getThirdPartyType();
+            if (thirdPartyType.equals(AccuserDefendantTypeEnum.DEPARTMENT.getCode())) {
+                thirdPartyShort = thirdParty.getThirdPartyShort();
+            } else if (thirdPartyType.equals(AccuserDefendantTypeEnum.PERSON.getCode())) {
+                thirdPartyShort = thirdPartyName;
+            }
+            String thirdPartyInfo = thirdParty.getThirdPartyInfo();
+            if (thirdPartyType.equals(AccuserDefendantTypeEnum.DEPARTMENT.getCode())) {
+                thirdParty.setThirdParty(thirdPartyName + "（简称：" + thirdPartyShort + "），地址：" + thirdPartyAddress);
+                thirdParty.setThirdPartyType("机构");
+            } else if (thirdPartyType.equals(AccuserDefendantTypeEnum.PERSON.getCode())) {
+                thirdParty.setThirdParty(thirdPartyName+"，"+thirdPartyInfo);
+                thirdParty.setThirdPartyType("个人");
+            }
+            String thirdPartyRepresent = thirdParty.getThirdPartyRepresent();
+            String thirdPartyDuty = thirdParty.getThirdPartyDuty();
+            if (!ObjectUtils.isEmpty(thirdPartyRepresent) && !ObjectUtils.isEmpty(thirdPartyDuty)) {
+                thirdParty.setThirdPartyRepresent(thirdPartyRepresent+"，"+thirdPartyDuty);
+            }
+            String thirdPartyRightDuty = thirdParty.getThirdPartyRightDuty();
+            if (!ObjectUtils.isEmpty(thirdPartyRightDuty)) {
+                thirdParty.setThirdPartyRightDuty(RightDutyEnum.getMessage(thirdPartyRightDuty));
+            }
+            String thirdPartyAvoid = thirdParty.getThirdPartyAvoid();
+
+            if (!ObjectUtils.isEmpty(thirdPartyAvoid)) {
+                thirdParty.setThirdPartyAvoid(AvoidEnum.getMessage(thirdPartyAvoid));
+            }
+            String mediate = thirdParty.getIsMediate();
+            String mediatePlan = thirdParty.getMediatePlan();
+            if (!ObjectUtils.isEmpty(mediate)) {
+                if (mediate.equals(MediateEnum.Y.getCode())) {
+                    mediate = "能，调解方案：" + mediatePlan;
+                } else if (mediate.equals(MediateEnum.N.getCode())) {
+                    mediate = "不能";
+                }
+                thirdParty.setIsMediate(mediate);
+            }
+            String delivery = thirdParty.getIsDelivery();
+            String email = thirdParty.getEmail();
+            if (delivery.equals(DeliveryEnum.N.getCode()) && ObjectUtils.isEmpty(email)) {
+                email = thirdParty.getThirdPartyAddress();
+            }
+            if (!ObjectUtils.isEmpty(delivery)) {
+                if (delivery.equals(DeliveryEnum.Y.getCode())) {
+                    delivery = "同意，邮箱地址：" + email;
+                } else if (delivery.equals(DeliveryEnum.N.getCode())) {
+                    delivery = "不同意，邮寄地址：" + email;
+                }
+                thirdParty.setIsDelivery(delivery);
+            }
+            String thirdPartyAgent = "";
+            for (int j = 0; j < agents.size(); j++) {
+                Agent agent = agents.get(j);
+                String agentName = agent.getAgentName();
+                String agent1 = agent.getAgent();
+                String agentAddress = agent.getAgentAddress();
+                if (agentName.equals(thirdPartyShort) && !ObjectUtils.isEmpty(agent1) && !ObjectUtils.isEmpty(agentAddress)) {
+                    String thirdPartyAndAddress = agent1 + "," + agentAddress;
+                    thirdPartyAgent += thirdPartyAndAddress + "。";
+                }
+            }
+            thirdParty.setThirdPartyAgent(thirdPartyAgent);
+        }
+        return thirdPartList;
     }
 
     @Override

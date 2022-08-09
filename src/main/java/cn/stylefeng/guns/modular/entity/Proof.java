@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -71,6 +72,12 @@ public class Proof implements Serializable {
      */
     @TableField("is_witness")
     private String isWitness;
+
+    /**
+     * 人证问答组
+     */
+    @TableField(exist = false)
+    private List<WitnessTestimony> witnessProofs;
 
     /**
      * 是否反诉
@@ -244,6 +251,14 @@ public class Proof implements Serializable {
 
     public void setUpdateUser(Long updateUser) {
         this.updateUser = updateUser;
+    }
+
+    public List<WitnessTestimony> getWitnessProofs() {
+        return witnessProofs;
+    }
+
+    public void setWitnessProofs(List<WitnessTestimony> witnessProofs) {
+        this.witnessProofs = witnessProofs;
     }
 
     @Override

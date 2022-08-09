@@ -414,6 +414,77 @@
                     </w:p>
                     </#if>
                     </#list>
+                    <#list thirdPartyList as thirdParty>
+                        <#if (thirdParty.thirdParty)?? && (thirdParty.thirdParty) != "">
+                            <w:p w14:paraId="5FCF4497" w14:textId="730F091D" w:rsidR="00096FDA" w:rsidRPr="001822B7" w:rsidRDefault="00B31915" w:rsidP="00BF01D8">
+                                <w:pPr>
+                                    <w:spacing w:line="360" w:lineRule="auto"/>
+                                    <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                    <w:rPr>
+                                        <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                        <w:color w:val="000000" w:themeColor="text1"/>
+                                        <w:sz w:val="24"/>
+                                        <w:szCs w:val="24"/>
+                                    </w:rPr>
+                                </w:pPr>
+                                <w:r w:rsidRPr="001822B7">
+                                    <w:rPr>
+                                        <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                        <w:color w:val="000000" w:themeColor="text1"/>
+                                        <w:sz w:val="24"/>
+                                        <w:szCs w:val="24"/>
+                                    </w:rPr>
+                                    <w:t>第三人：${thirdParty.thirdParty}</w:t>
+                                </w:r>
+                            </w:p>
+                        </#if>
+                        <#if (thirdParty.thirdPartyRepresent)?? && (thirdParty.thirdPartyRepresent) != "">
+                            <w:p w14:paraId="403ADDA0" w14:textId="6DD85AE8" w:rsidR="00B31915" w:rsidRPr="001822B7" w:rsidRDefault="00B31915" w:rsidP="00B31915">
+                                <w:pPr>
+                                    <w:spacing w:line="360" w:lineRule="auto"/>
+                                    <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                    <w:rPr>
+                                        <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                        <w:color w:val="000000" w:themeColor="text1"/>
+                                        <w:sz w:val="24"/>
+                                        <w:szCs w:val="24"/>
+                                    </w:rPr>
+                                </w:pPr>
+                                <w:r w:rsidRPr="001822B7">
+                                    <w:rPr>
+                                        <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                        <w:color w:val="000000" w:themeColor="text1"/>
+                                        <w:sz w:val="24"/>
+                                        <w:szCs w:val="24"/>
+                                    </w:rPr>
+                                    <w:t>法定代表人：${thirdParty.thirdPartyRepresent}</w:t>
+                                </w:r>
+                            </w:p>
+                        </#if>
+                        <#if (thirdParty.thirdPartyAgent)?? && (thirdParty.thirdPartyAgent) != "">
+                            <w:p w14:paraId="36AF311C" w14:textId="52B8C7C4" w:rsidR="00B31915" w:rsidRPr="001822B7" w:rsidRDefault="00D4452B" w:rsidP="00190EC9">
+                                <w:pPr>
+                                    <w:spacing w:line="360" w:lineRule="auto"/>
+                                    <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                    <w:rPr>
+                                        <w:rFonts w:ascii="宋体" w:hAnsi="宋体"/>
+                                        <w:color w:val="000000" w:themeColor="text1"/>
+                                        <w:sz w:val="24"/>
+                                        <w:szCs w:val="24"/>
+                                    </w:rPr>
+                                </w:pPr>
+                                <w:r w:rsidRPr="001822B7">
+                                    <w:rPr>
+                                        <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                        <w:color w:val="000000" w:themeColor="text1"/>
+                                        <w:sz w:val="24"/>
+                                        <w:szCs w:val="24"/>
+                                    </w:rPr>
+                                    <w:t>委托诉讼代理人：${thirdParty.thirdPartyAgent}</w:t>
+                                </w:r>
+                            </w:p>
+                        </#if>
+                    </#list>
                     <#if (state.stateContent)?? && (state.stateContent) != "">
                     <w:p w14:paraId="5516D82E" w14:textId="4D31FEF7" w:rsidR="00E45642" w:rsidRPr="001822B7" w:rsidRDefault="00A66D3A" w:rsidP="00096FDA">
                         <w:pPr>
@@ -456,7 +527,7 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>审判员：${judge_right_duty}</w:t>
+                            <w:t>${judge_right_duty}</w:t>
                         </w:r>
                     </w:p>
                     </#if>
@@ -510,6 +581,31 @@
                         </w:r>
                     </w:p>
                     </#if>
+                    </#list>
+                    <#list thirdPartyList as thirdParty>
+                        <#if (thirdParty.thirdPartyRightDuty)?? && (thirdParty.thirdPartyRightDuty) != "">
+                            <w:p w14:paraId="5CCEE086" w14:textId="59FEEBDC" w:rsidR="006278D3" w:rsidRPr="001822B7" w:rsidRDefault="006278D3" w:rsidP="00B517E9">
+                                <w:pPr>
+                                    <w:spacing w:line="360" w:lineRule="auto"/>
+                                    <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                    <w:rPr>
+                                        <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                        <w:color w:val="000000" w:themeColor="text1"/>
+                                        <w:sz w:val="24"/>
+                                        <w:szCs w:val="24"/>
+                                    </w:rPr>
+                                </w:pPr>
+                                <w:r w:rsidRPr="001822B7">
+                                    <w:rPr>
+                                        <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                        <w:color w:val="000000" w:themeColor="text1"/>
+                                        <w:sz w:val="24"/>
+                                        <w:szCs w:val="24"/>
+                                    </w:rPr>
+                                    <w:t>第三人（${thirdParty.thirdPartyShort}）：${thirdParty.thirdPartyRightDuty}</w:t>
+                                </w:r>
+                            </w:p>
+                        </#if>
                     </#list>
                     <#if (judge_avoid)?? && (judge_avoid) != "">
                     <w:p w14:paraId="0B398919" w14:textId="3543E166" w:rsidR="006278D3" w:rsidRPr="001822B7" w:rsidRDefault="005144A9" w:rsidP="00B517E9">
@@ -584,7 +680,32 @@
                     </w:p>
                     </#if>
                     </#list>
-                    <#if (judge_accuser_claim_item)?? && (judge_accuser_claim_item) != "">
+                    <#list thirdPartyList as thirdParty>
+                        <#if (thirdParty.thirdPartyAvoid)?? && (thirdParty.thirdPartyAvoid) != "">
+                            <w:p w14:paraId="671224CF" w14:textId="4532661C" w:rsidR="006278D3" w:rsidRPr="001822B7" w:rsidRDefault="005144A9" w:rsidP="00B517E9">
+                                <w:pPr>
+                                    <w:spacing w:line="360" w:lineRule="auto"/>
+                                    <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                    <w:rPr>
+                                        <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                        <w:color w:val="000000" w:themeColor="text1"/>
+                                        <w:sz w:val="24"/>
+                                        <w:szCs w:val="24"/>
+                                    </w:rPr>
+                                </w:pPr>
+                                <w:r w:rsidRPr="001822B7">
+                                    <w:rPr>
+                                        <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                        <w:color w:val="000000" w:themeColor="text1"/>
+                                        <w:sz w:val="24"/>
+                                        <w:szCs w:val="24"/>
+                                    </w:rPr>
+                                    <w:t>第三人（${thirdParty.thirdPartyShort}）：${thirdParty.thirdPartyAvoid}</w:t>
+                                </w:r>
+                            </w:p>
+                        </#if>
+                    </#list>
+                    <#if (judge_accuser_claim_item)?? && (judge_accuser_claim_item) != "" && (courtInvestigate.accuserClaimItem)?? && (courtInvestigate.accuserClaimItem) != "">
                     <w:p w14:paraId="0F432B0C" w14:textId="0177E0C8" w:rsidR="007F7DBD" w:rsidRPr="001822B7" w:rsidRDefault="00D755CA" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -606,8 +727,6 @@
                             <w:t>审判员：${judge_accuser_claim_item}</w:t>
                         </w:r>
                     </w:p>
-                    </#if>
-                    <#if (courtInvestigate.accuserClaimItem)?? && (courtInvestigate.accuserClaimItem) != "">
                     <w:p w14:paraId="7289FD74" w14:textId="255C28E6" w:rsidR="00F45410" w:rsidRPr="001822B7" w:rsidRDefault="00E45642" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -626,32 +745,32 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>原告诉讼请求项：${courtInvestigate.accuserClaimItem}</w:t>
+                            <w:t>原告诉讼请求项：${courtInvestigate.accuserClaimItem}。事实与理由：${courtInvestigate.accuserClaimFactReason}</w:t>
                         </w:r>
                     </w:p>
                     </#if>
-                    <#if (courtInvestigate.accuserClaimFactReason)?? && (courtInvestigate.accuserClaimFactReason) != "">
-                    <w:p w14:paraId="16BE311D" w14:textId="7DB22D25" w:rsidR="007F7DBD" w:rsidRPr="001822B7" w:rsidRDefault="007F7DBD" w:rsidP="00B517E9">
-                        <w:pPr>
-                            <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
-                                <w:color w:val="000000" w:themeColor="text1"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                        </w:pPr>
-                        <w:r w:rsidRPr="001822B7">
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
-                                <w:color w:val="000000" w:themeColor="text1"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                            <w:t>事实与理由：${courtInvestigate.accuserClaimFactReason}</w:t>
-                        </w:r>
-                    </w:p>
+                    <#if (courtInvestigate.accuserClaimItemAfterChange)?? && (courtInvestigate.accuserClaimItemAfterChange) != "">
+                        <w:p w14:paraId="7289FD74" w14:textId="255C28E6" w:rsidR="00F45410" w:rsidRPr="001822B7" w:rsidRDefault="00E45642" w:rsidP="00B517E9">
+                            <w:pPr>
+                                <w:spacing w:line="360" w:lineRule="auto"/>
+                                <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                <w:rPr>
+                                    <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                    <w:color w:val="000000" w:themeColor="text1"/>
+                                    <w:sz w:val="24"/>
+                                    <w:szCs w:val="24"/>
+                                </w:rPr>
+                            </w:pPr>
+                            <w:r w:rsidRPr="001822B7">
+                                <w:rPr>
+                                    <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                    <w:color w:val="000000" w:themeColor="text1"/>
+                                    <w:sz w:val="24"/>
+                                    <w:szCs w:val="24"/>
+                                </w:rPr>
+                                <w:t>变更诉讼请求项：${courtInvestigate.accuserClaimItemAfterChange}。事实与理由：${courtInvestigate.accuserClaimFactReasonAfterChange}</w:t>
+                            </w:r>
+                        </w:p>
                     </#if>
                     <#list judgeInquiryAfterAccuserClaimArray as judgeInquiryAfterAccuserClaim>
                         <#if (judgeInquiryAfterAccuserClaim.question)?? && (judgeInquiryAfterAccuserClaim.question) != "">
@@ -703,7 +822,7 @@
                             </#if>
                         </#list>
                     </#list>
-                    <#if (judge_defendant_reply)?? && (judge_defendant_reply) != "">
+                    <#if (judge_defendant_reply)?? && (judge_defendant_reply) != "" && defendantReplyList?? && (defendantReplyList?size>0)>
                     <w:p w14:paraId="595F2B84" w14:textId="73669482" w:rsidR="007F7DBD" w:rsidRPr="001822B7" w:rsidRDefault="00D755CA" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -725,7 +844,6 @@
                             <w:t>审判员：${judge_defendant_reply}</w:t>
                         </w:r>
                     </w:p>
-                    </#if>
                     <#list defendantReplyList as defendantReply>
                     <#if (defendantReply.name)?? && (defendantReply.content) != "">
                     <w:p w14:paraId="1B64BA13" w14:textId="61AB1231" w:rsidR="007F7DBD" w:rsidRPr="001822B7" w:rsidRDefault="00D755CA" w:rsidP="00B517E9">
@@ -750,6 +868,55 @@
                         </w:r>
                     </w:p>
                     </#if>
+                    </#list>
+                    </#if>
+                    <#if (judge_third_party_state)?? && (judge_third_party_state) != "">
+                        <w:p w14:paraId="595F2B84" w14:textId="73669482" w:rsidR="007F7DBD" w:rsidRPr="001822B7" w:rsidRDefault="00D755CA" w:rsidP="00B517E9">
+                            <w:pPr>
+                                <w:spacing w:line="360" w:lineRule="auto"/>
+                                <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                <w:rPr>
+                                    <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                    <w:color w:val="000000" w:themeColor="text1"/>
+                                    <w:sz w:val="24"/>
+                                    <w:szCs w:val="24"/>
+                                </w:rPr>
+                            </w:pPr>
+                            <w:r w:rsidRPr="001822B7">
+                                <w:rPr>
+                                    <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                    <w:color w:val="000000" w:themeColor="text1"/>
+                                    <w:sz w:val="24"/>
+                                    <w:szCs w:val="24"/>
+                                </w:rPr>
+                                <w:t>审判员：${judge_third_party_state}</w:t>
+                            </w:r>
+                        </w:p>
+                    </#if>
+                    <#list thirdPartyStateList as thirdPartyState>
+                        <#if (thirdPartyState.name)?? && (thirdPartyState.state) != "">
+                            <w:p w14:paraId="1B64BA13" w14:textId="61AB1231" w:rsidR="007F7DBD" w:rsidRPr="001822B7" w:rsidRDefault="00D755CA" w:rsidP="00B517E9">
+                                <w:pPr>
+                                    <w:spacing w:line="360" w:lineRule="auto"/>
+                                    <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                    <w:rPr>
+                                        <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                        <w:color w:val="000000" w:themeColor="text1"/>
+                                        <w:sz w:val="24"/>
+                                        <w:szCs w:val="24"/>
+                                    </w:rPr>
+                                </w:pPr>
+                                <w:r w:rsidRPr="001822B7">
+                                    <w:rPr>
+                                        <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                        <w:color w:val="000000" w:themeColor="text1"/>
+                                        <w:sz w:val="24"/>
+                                        <w:szCs w:val="24"/>
+                                    </w:rPr>
+                                    <w:t>第三人（${thirdPartyState.name}）：${thirdPartyState.state}</w:t>
+                                </w:r>
+                            </w:p>
+                        </#if>
                     </#list>
                     <#list judgeInquiryAfterDefendantReplyArray as judgeInquiryAfterDefendantReply>
                         <#if (judgeInquiryAfterDefendantReply.question)?? && (judgeInquiryAfterDefendantReply.question) != "">
@@ -824,7 +991,7 @@
                         </w:r>
                     </w:p>
                     </#if>
-                    <#if (courtInvestigate.accuserEvidence)?? && (courtInvestigate.accuserEvidence) != "">
+                    <#list courtInvestigate.accuserEvidenceList as accuserEvidence>
                     <w:p w14:paraId="762DB4BE" w14:textId="1334C620" w:rsidR="001D7536" w:rsidRPr="001822B7" w:rsidRDefault="002F2BE6" w:rsidP="001D7536">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -843,10 +1010,56 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>原告举证：${courtInvestigate.accuserEvidence}</w:t>
+                            <w:t>证据${accuserEvidence.serial}：${accuserEvidence.evidence}，证据类型：${accuserEvidence.evidenceType}，证明事项：${accuserEvidence.content}。</w:t>
                         </w:r>
                     </w:p>
-                    </#if>
+                    <#list accuserEvidence.witnessProofs as witnessProof>
+                        <#if (witnessProof.quizzer)?? && (witnessProof.quizzer) != "" && (witnessProof.responder)?? && (witnessProof.responder) != "">
+                        <w:p w14:paraId="762DB4BE" w14:textId="1334C620" w:rsidR="001D7536" w:rsidRPr="001822B7" w:rsidRDefault="002F2BE6" w:rsidP="001D7536">
+                            <w:pPr>
+                                <w:spacing w:line="360" w:lineRule="auto"/>
+                                <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                <w:rPr>
+                                    <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                    <w:color w:val="000000" w:themeColor="text1"/>
+                                    <w:sz w:val="24"/>
+                                    <w:szCs w:val="24"/>
+                                </w:rPr>
+                            </w:pPr>
+                            <w:r w:rsidRPr="001822B7">
+                                <w:rPr>
+                                    <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                    <w:color w:val="000000" w:themeColor="text1"/>
+                                    <w:sz w:val="24"/>
+                                    <w:szCs w:val="24"/>
+                                </w:rPr>
+                                <w:t>${witnessProof.quizzer}：${witnessProof.question}</w:t>
+                            </w:r>
+                        </w:p>
+                        <w:p w14:paraId="762DB4BE" w14:textId="1334C620" w:rsidR="001D7536" w:rsidRPr="001822B7" w:rsidRDefault="002F2BE6" w:rsidP="001D7536">
+                            <w:pPr>
+                                <w:spacing w:line="360" w:lineRule="auto"/>
+                                <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                <w:rPr>
+                                    <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                    <w:color w:val="000000" w:themeColor="text1"/>
+                                    <w:sz w:val="24"/>
+                                    <w:szCs w:val="24"/>
+                                </w:rPr>
+                            </w:pPr>
+                            <w:r w:rsidRPr="001822B7">
+                                <w:rPr>
+                                    <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                    <w:color w:val="000000" w:themeColor="text1"/>
+                                    <w:sz w:val="24"/>
+                                    <w:szCs w:val="24"/>
+                                </w:rPr>
+                                <w:t>${witnessProof.responder}：${witnessProof.answer}</w:t>
+                            </w:r>
+                        </w:p>
+                        </#if>
+                    </#list>
+                    </#list>
                     <#if (judge_defendant_and_other_accuser_query)?? && (judge_defendant_and_other_accuser_query) != "">
                     <w:p w14:paraId="302EEF76" w14:textId="379A541D" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                         <w:pPr>
@@ -918,7 +1131,7 @@
                             </w:r>
                         </w:p>
                     </#if>
-                    <#if (courtInvestigate.defendantEvidence)?? && (courtInvestigate.defendantEvidence) != "">
+                    <#list courtInvestigate.defendantAndThirdEvidenceList as defendantAndThirdEvidence>
                         <w:p w14:paraId="762DB4BE" w14:textId="1334C620" w:rsidR="001D7536" w:rsidRPr="001822B7" w:rsidRDefault="002F2BE6" w:rsidP="001D7536">
                             <w:pPr>
                                 <w:spacing w:line="360" w:lineRule="auto"/>
@@ -937,10 +1150,56 @@
                                     <w:sz w:val="24"/>
                                     <w:szCs w:val="24"/>
                                 </w:rPr>
-                                <w:t>被告举证：${courtInvestigate.defendantEvidence}</w:t>
+                                <w:t>证据${defendantAndThirdEvidence.serial}：${defendantAndThirdEvidence.evidence}，证据类型：${defendantAndThirdEvidence.evidenceType}，证明事项：${defendantAndThirdEvidence.content}。</w:t>
                             </w:r>
                         </w:p>
-                    </#if>
+                        <#list defendantAndThirdEvidence.witnessProofs as witnessProof>
+                            <#if (witnessProof.quizzer)?? && (witnessProof.quizzer) != "" && (witnessProof.responder)?? && (witnessProof.responder) != "">
+                                <w:p w14:paraId="762DB4BE" w14:textId="1334C620" w:rsidR="001D7536" w:rsidRPr="001822B7" w:rsidRDefault="002F2BE6" w:rsidP="001D7536">
+                                    <w:pPr>
+                                        <w:spacing w:line="360" w:lineRule="auto"/>
+                                        <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                        <w:rPr>
+                                            <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                            <w:color w:val="000000" w:themeColor="text1"/>
+                                            <w:sz w:val="24"/>
+                                            <w:szCs w:val="24"/>
+                                        </w:rPr>
+                                    </w:pPr>
+                                    <w:r w:rsidRPr="001822B7">
+                                        <w:rPr>
+                                            <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                            <w:color w:val="000000" w:themeColor="text1"/>
+                                            <w:sz w:val="24"/>
+                                            <w:szCs w:val="24"/>
+                                        </w:rPr>
+                                        <w:t>${witnessProof.quizzer}：${witnessProof.question}</w:t>
+                                    </w:r>
+                                </w:p>
+                                <w:p w14:paraId="762DB4BE" w14:textId="1334C620" w:rsidR="001D7536" w:rsidRPr="001822B7" w:rsidRDefault="002F2BE6" w:rsidP="001D7536">
+                                    <w:pPr>
+                                        <w:spacing w:line="360" w:lineRule="auto"/>
+                                        <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                        <w:rPr>
+                                            <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                            <w:color w:val="000000" w:themeColor="text1"/>
+                                            <w:sz w:val="24"/>
+                                            <w:szCs w:val="24"/>
+                                        </w:rPr>
+                                    </w:pPr>
+                                    <w:r w:rsidRPr="001822B7">
+                                        <w:rPr>
+                                            <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                            <w:color w:val="000000" w:themeColor="text1"/>
+                                            <w:sz w:val="24"/>
+                                            <w:szCs w:val="24"/>
+                                        </w:rPr>
+                                        <w:t>${witnessProof.responder}：${witnessProof.answer}</w:t>
+                                    </w:r>
+                                </w:p>
+                            </#if>
+                        </#list>
+                    </#list>
                     <#if (judge_accuser_and_other_defendant_query)?? && (judge_accuser_and_other_defendant_query) != "" && (courtInvestigate.isDefendantEvidence) == "1">
                         <w:p w14:paraId="302EEF76" w14:textId="379A541D" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                             <w:pPr>
@@ -1247,6 +1506,31 @@
                     </w:p>
                     </#if>
                     </#list>
+                    <#list thirdPartyList as thirdParty>
+                        <#if (thirdParty.finalStatement)?? && (thirdParty.finalStatement) != "">
+                            <w:p w14:paraId="00E22EB0" w14:textId="28E1063D" w:rsidR="00300833" w:rsidRPr="001822B7" w:rsidRDefault="00300833" w:rsidP="00B517E9">
+                                <w:pPr>
+                                    <w:spacing w:line="360" w:lineRule="auto"/>
+                                    <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                    <w:rPr>
+                                        <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                        <w:color w:val="000000" w:themeColor="text1"/>
+                                        <w:sz w:val="24"/>
+                                        <w:szCs w:val="24"/>
+                                    </w:rPr>
+                                </w:pPr>
+                                <w:r w:rsidRPr="001822B7">
+                                    <w:rPr>
+                                        <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                        <w:color w:val="000000" w:themeColor="text1"/>
+                                        <w:sz w:val="24"/>
+                                        <w:szCs w:val="24"/>
+                                    </w:rPr>
+                                    <w:t>第三人（${thirdParty.thirdPartyShort}）：${thirdParty.finalStatement}</w:t>
+                                </w:r>
+                            </w:p>
+                        </#if>
+                    </#list>
                     <#if (judge_mediate)?? && (judge_mediate) != "">
                     <w:p w14:paraId="2CE1A4C6" w14:textId="379507AD" w:rsidR="00300833" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                         <w:pPr>
@@ -1319,6 +1603,31 @@
                         </w:r>
                     </w:p>
                     </#if>
+                    </#list>
+                    <#list thirdPartyList as thirdParty>
+                        <#if (thirdParty.isMediate)?? && (thirdParty.isMediate) != "">
+                            <w:p w14:paraId="48E3BB98" w14:textId="0BFA41F9" w:rsidR="002A5270" w:rsidRPr="001822B7" w:rsidRDefault="00300833" w:rsidP="007B1D07">
+                                <w:pPr>
+                                    <w:spacing w:line="360" w:lineRule="auto"/>
+                                    <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                    <w:rPr>
+                                        <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                        <w:color w:val="000000" w:themeColor="text1"/>
+                                        <w:sz w:val="24"/>
+                                        <w:szCs w:val="24"/>
+                                    </w:rPr>
+                                </w:pPr>
+                                <w:r w:rsidRPr="001822B7">
+                                    <w:rPr>
+                                        <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                        <w:color w:val="000000" w:themeColor="text1"/>
+                                        <w:sz w:val="24"/>
+                                        <w:szCs w:val="24"/>
+                                    </w:rPr>
+                                    <w:t>第三人（${thirdParty.thirdPartyShort}）：${thirdParty.isMediate}</w:t>
+                                </w:r>
+                            </w:p>
+                        </#if>
                     </#list>
                     <#if (judge_delivery)?? && (judge_delivery) != "">
                     <w:p w14:paraId="3215EE91" w14:textId="431B9DA5" w:rsidR="00300833" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
@@ -1393,6 +1702,32 @@
                         </w:r>
                     </w:p>
                     </#if>
+                    </#list>
+                    <#list thirdPartyList as thirdParty>
+                        <#if (thirdParty.isDelivery)?? && (thirdParty.isDelivery) != "">
+                            <w:p w14:paraId="33679BE2" w14:textId="7C90ABA1" w:rsidR="00643B3E" w:rsidRPr="001822B7" w:rsidRDefault="00300833" w:rsidP="007B1D07">
+                                <w:pPr>
+                                    <w:spacing w:line="360" w:lineRule="auto"/>
+                                    <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                    <w:rPr>
+                                        <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                        <w:color w:val="000000" w:themeColor="text1"/>
+                                        <w:sz w:val="24"/>
+                                        <w:szCs w:val="24"/>
+                                    </w:rPr>
+                                </w:pPr>
+                                <w:r w:rsidRPr="001822B7">
+                                    <w:rPr>
+                                        <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                        <w:color w:val="000000" w:themeColor="text1"/>
+                                        <w:sz w:val="24"/>
+                                        <w:szCs w:val="24"/>
+                                    </w:rPr>
+                                    <w:lastRenderedPageBreak/>
+                                    <w:t>第三人（${thirdParty.thirdPartyShort}）：${thirdParty.isDelivery} </w:t>
+                                </w:r>
+                            </w:p>
+                        </#if>
                     </#list>
                     <#list judgeInquiryBeforeSummarizeArray as judgeInquiryBeforeSummarize>
                         <#if (judgeInquiryBeforeSummarize.question)?? && (judgeInquiryBeforeSummarize.question) != "">

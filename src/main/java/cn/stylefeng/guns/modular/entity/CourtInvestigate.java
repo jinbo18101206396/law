@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -23,14 +24,29 @@ public class CourtInvestigate implements Serializable {
     private String accuserClaimFactReason;
 
     /**
+     * 原告诉讼请求项（变更后）
+     */
+    private String accuserClaimItemAfterChange;
+
+    /**
+     * 原告诉讼请求项的事实与理由（变更后）
+     */
+    private String accuserClaimFactReasonAfterChange;
+
+    /**
      * 被告答辩
      */
     private String defendantReply;
 
     /**
-     * 原告举证
+     * 原告举证（物证）
      */
     private String accuserEvidence;
+
+    /**
+     * 原告举证（物证 & 人证）
+     */
+    private List<Proof> accuserEvidenceList;
 
     /**
      * 原告举证的事实和理由
@@ -46,6 +62,11 @@ public class CourtInvestigate implements Serializable {
      * 被告举证
      */
     private String defendantEvidence;
+
+    /**
+     * 被告及第三人举证（物证 & 人证）
+     */
+    private List<Proof> defendantAndThirdEvidenceList;
 
     /**
      * 被告是否举证
@@ -78,6 +99,22 @@ public class CourtInvestigate implements Serializable {
         this.accuserClaimFactReason = accuserClaimFactReason;
     }
 
+    public String getAccuserClaimItemAfterChange() {
+        return accuserClaimItemAfterChange;
+    }
+
+    public void setAccuserClaimItemAfterChange(String accuserClaimItemAfterChange) {
+        this.accuserClaimItemAfterChange = accuserClaimItemAfterChange;
+    }
+
+    public String getAccuserClaimFactReasonAfterChange() {
+        return accuserClaimFactReasonAfterChange;
+    }
+
+    public void setAccuserClaimFactReasonAfterChange(String accuserClaimFactReasonAfterChange) {
+        this.accuserClaimFactReasonAfterChange = accuserClaimFactReasonAfterChange;
+    }
+
     public String getDefendantReply() {
         return defendantReply;
     }
@@ -92,6 +129,14 @@ public class CourtInvestigate implements Serializable {
 
     public void setAccuserEvidence(String accuserEvidence) {
         this.accuserEvidence = accuserEvidence;
+    }
+
+    public List<Proof> getAccuserEvidenceList() {
+        return accuserEvidenceList;
+    }
+
+    public void setAccuserEvidenceList(List<Proof> accuserEvidenceList) {
+        this.accuserEvidenceList = accuserEvidenceList;
     }
 
     public String getAccuserEvidenceFactReason() {
@@ -118,6 +163,14 @@ public class CourtInvestigate implements Serializable {
         this.defendantEvidence = defendantEvidence;
     }
 
+    public String getIsDefendantEvidence() {
+        return isDefendantEvidence;
+    }
+
+    public void setIsDefendantEvidence(String isDefendantEvidence) {
+        this.isDefendantEvidence = isDefendantEvidence;
+    }
+
     public String getDefendantEvidenceFactReason() {
         return defendantEvidenceFactReason;
     }
@@ -134,12 +187,12 @@ public class CourtInvestigate implements Serializable {
         this.accuserAndOtherDefendantQuery = accuserAndOtherDefendantQuery;
     }
 
-    public String getIsDefendantEvidence() {
-        return isDefendantEvidence;
+    public List<Proof> getDefendantAndThirdEvidenceList() {
+        return defendantAndThirdEvidenceList;
     }
 
-    public void setIsDefendantEvidence(String isDefendantEvidence) {
-        this.isDefendantEvidence = isDefendantEvidence;
+    public void setDefendantAndThirdEvidenceList(List<Proof> defendantAndThirdEvidenceList) {
+        this.defendantAndThirdEvidenceList = defendantAndThirdEvidenceList;
     }
 
     @Override
@@ -147,6 +200,8 @@ public class CourtInvestigate implements Serializable {
         return "CourtInvestigate{" +
                 "accuserClaimItem='" + accuserClaimItem + '\'' +
                 ", accuserClaimFactReason='" + accuserClaimFactReason + '\'' +
+                ", accuserClaimItemAfterChange='" + accuserClaimItemAfterChange + '\'' +
+                ", accuserClaimFactReasonAfterChange='" + accuserClaimFactReasonAfterChange + '\'' +
                 ", defendantReply='" + defendantReply + '\'' +
                 ", accuserEvidence='" + accuserEvidence + '\'' +
                 ", accuserEvidenceFactReason='" + accuserEvidenceFactReason + '\'' +

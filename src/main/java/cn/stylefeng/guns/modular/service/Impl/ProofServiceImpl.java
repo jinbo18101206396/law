@@ -60,7 +60,9 @@ public class ProofServiceImpl extends ServiceImpl<ProofMapper, Proof> implements
                     witnessTestimonyService.delete(courtNumber);
                 }
                 JSONArray accuserWitnessEvidenceArray = courtInvestigateObject.getJSONArray("accuser_evidence_witness");
-                saveWitnessProof(courtNumber,accuserIsWitness,"原告","原告",accuserWitnessEvidenceArray);
+                if(!ObjectUtils.isEmpty(accuserIsWitness) && "1".equals(accuserIsWitness)){
+                    saveWitnessProof(courtNumber,accuserIsWitness,"原告","原告",accuserWitnessEvidenceArray);
+                }
             }
         }
     }
@@ -79,7 +81,9 @@ public class ProofServiceImpl extends ServiceImpl<ProofMapper, Proof> implements
                 saveProof(courtNumber, counterClaim, "被告及第三人", defendantAndThirdEvidenceArray);
                 //人证
                 JSONArray defendantAndThirdEvidenceWitnessArray = courtInvestigateObject.getJSONArray("defendant_and_third_evidence_witness");
-                saveWitnessProof(courtNumber,defendantIsWitness,"","被告及第三人",defendantAndThirdEvidenceWitnessArray);
+                if(!ObjectUtils.isEmpty(defendantIsWitness) && "1".equals(defendantIsWitness)){
+                    saveWitnessProof(courtNumber,defendantIsWitness,"","被告及第三人",defendantAndThirdEvidenceWitnessArray);
+                }
             }
         }
     }

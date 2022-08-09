@@ -741,6 +741,28 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
     }
 
     /**
+     * 第三人述称
+     */
+    @Override
+    public List<ThirdPartyState> getThirdPartyState(String courtNumber) {
+        List<ThirdPartyState> thirdPartyStateList = new ArrayList<>();
+        JSONObject courtInvestigateObject = this.getCourtInvestigateObject(courtNumber);
+        JSONArray thirdPartyStateArray = courtInvestigateObject.getJSONArray("third_party_state");
+        for (int i = 0; i < thirdPartyStateArray.size(); i++) {
+            JSONObject thirdPartyStateObject = thirdPartyStateArray.getJSONObject(i);
+            String name = thirdPartyStateObject.getString("name");
+            String state = thirdPartyStateObject.getString("state");
+            if (!ObjectUtils.isEmpty(name) && !ObjectUtils.isEmpty(state)) {
+                ThirdPartyState thirdPartyState = new ThirdPartyState();
+                thirdPartyState.setName(name);
+                thirdPartyState.setState(state);
+                thirdPartyStateList.add(thirdPartyState);
+            }
+        }
+        return thirdPartyStateList;
+    }
+
+    /**
      * 被告及其他原告质证
      */
     @Override
@@ -810,6 +832,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         return queryList;
     }
 
+    //物证
     private String getEvidenceContent(JSONArray evidenceArray) {
         String evidenceContent = "";
         if (evidenceArray != null && evidenceArray.size() > 0) {
@@ -826,6 +849,20 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
             }
         }
         return evidenceContent;
+    }
+
+    private List<Proof> getEvidenceContent(String courtNumber,String type){
+        List<Proof> proofs = getProofs(courtNumber,type);
+        List<WitnessTestimony> witnessProofs = new ArrayList<>();
+        for (int i = 0; i < proofs.size(); i++) {
+            Proof proof = proofs.get(i);
+            String isWitness = proof.getIsWitness();
+            if (!ObjectUtils.isEmpty(isWitness) && "1".equals(isWitness)) {
+                witnessProofs = getWitnessProofs(courtNumber, proof.getEvidence());
+            }
+            proof.setWitnessProofs(witnessProofs);
+        }
+        return proofs;
     }
 
     private String getQueryContent(JSONArray queryArray) {
@@ -857,20 +894,22 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         //原告诉讼请求
         String accuserClaimItem = courtInvestigateObject.getString("accuser_claim_item");
         String accuserClaimFactReason = courtInvestigateObject.getString("accuser_claim_fact_reason");
+        String accuserClaimItemAfterChange = courtInvestigateObject.getString("accuser_claim_item_after_change");
+        String accuserClaimFactReasonAfterChange = courtInvestigateObject.getString("accuser_claim_fact_reason_after_change");
         courtInvestigate.setAccuserClaimItem(accuserClaimItem);
         courtInvestigate.setAccuserClaimFactReason(accuserClaimFactReason);
-        //原告举证
-        JSONArray accuserEvidenceArray = courtInvestigateObject.getJSONArray("accuser_evidence");
-        String accuserEvidenceAndReason = getEvidenceContent(accuserEvidenceArray);
-        courtInvestigate.setAccuserEvidence(accuserEvidenceAndReason);
+        courtInvestigate.setAccuserClaimItemAfterChange(accuserClaimItemAfterChange);
+        courtInvestigate.setAccuserClaimFactReasonAfterChange(accuserClaimFactReasonAfterChange);
+        //原告举证（物证/人证）
+        List<Proof> accuserEvidenceList = getEvidenceContent(courtNumber,"原告");
+        courtInvestigate.setAccuserEvidenceList(accuserEvidenceList);
         //被告及其他原告质证
         JSONArray defendantQueryArray = courtInvestigateObject.getJSONArray("defendant_and_other_accuser_query");
         String defendantAndOtherAccuserQuery = getQueryContent(defendantQueryArray);
         courtInvestigate.setDefendantAndOtherAccuserQuery(defendantAndOtherAccuserQuery);
-        //被告举证
-        JSONArray defendantEvidenceArray = courtInvestigateObject.getJSONArray("defendant_evidence");
-        String defendantEvidenceAndReason = getEvidenceContent(defendantEvidenceArray);
-        courtInvestigate.setDefendantEvidence(defendantEvidenceAndReason);
+        //被告及第三人举证
+        List<Proof> defendantAndThirdEvidenceList = getEvidenceContent(courtNumber, "被告及第三人");
+        courtInvestigate.setDefendantAndThirdEvidenceList(defendantAndThirdEvidenceList);
         BasicInfo basicInfo = getBasicInfo(courtNumber);
         courtInvestigate.setIsDefendantEvidence(basicInfo.getIsDefendantEvidence());
         //原告及其他被告质证
@@ -991,9 +1030,12 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
     /**
      * 物证
      */
-    public List<Proof> getProofs(String courtNumber) {
+    public List<Proof> getProofs(String courtNumber,String type) {
         LambdaQueryWrapper<Proof> proofQueryWrapper = new LambdaQueryWrapper<>();
         proofQueryWrapper.eq(Proof::getCourtNumber, courtNumber);
+        if(!ObjectUtils.isEmpty(type)){
+            proofQueryWrapper.eq(Proof::getType,type);
+        }
         proofQueryWrapper.eq(Proof::getDelFlag, YesOrNotEnum.N.getCode());
         return proofService.list(proofQueryWrapper);
     }
@@ -1050,7 +1092,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         JSONArray accuserWitnessEvidenceArray = new JSONArray();
         JSONArray defendantAndThirdWitnessEvidenceArray = new JSONArray();
 
-        List<Proof> proofs = getProofs(courtNumber);
+        List<Proof> proofs = getProofs(courtNumber,"");
         for (int i = 0; i < proofs.size(); i++) {
             Proof proof = proofs.get(i);
             String isWitness = proof.getIsWitness();

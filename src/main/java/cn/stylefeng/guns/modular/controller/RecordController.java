@@ -402,13 +402,13 @@ public class RecordController {
         List<Defendant> defendantList = defendantService.getDefendantInfoList(courtNumber);
         recordMap.put("defendantList", defendantList);
 
+        List<ThirdParty> thirdPartyList = thirdPartyService.getThirdPartyInfoList(courtNumber);
+        recordMap.put("thirdPartyList", thirdPartyList);
+
         JSONObject judgeRandomInquiry = judgeRandomInquiryService.getJudgeRandomInquiry(courtNumber);
         recordMap.put("judgeInquiryAfterAccuserClaimArray", judgeRandomInquiry.getJSONArray("judge_inquiry_after_accuser_claim"));
         recordMap.put("judgeInquiryAfterDefendantReplyArray", judgeRandomInquiry.getJSONArray("judge_inquiry_after_defendant_reply"));
         recordMap.put("judgeInquiryBeforeSummarizeArray", judgeRandomInquiry.getJSONArray("judge_inquiry_before_summarize"));
-
-        List<ThirdParty> thirdPartyList = thirdPartyService.getThirdPartyInfoList(courtNumber);
-        recordMap.put("thirdPartyList", thirdPartyList);
 
         State stateInfo = stateService.getStateInfo(courtNumber);
         recordMap.put("state", stateInfo);
@@ -418,6 +418,14 @@ public class RecordController {
 
         List<Reply> defendantReplyList = basicInfoService.getDefendantReply(courtNumber);
         recordMap.put("defendantReplyList", defendantReplyList);
+
+        List<ThirdPartyState> thirdPartyStateList = basicInfoService.getThirdPartyState(courtNumber);
+        if(thirdPartyStateList != null && thirdPartyStateList.size() > 0){
+            recordMap.put("judge_third_party_state", "请第三人进行述称。");
+        }else{
+            recordMap.put("judge_third_party_state", "");
+        }
+        recordMap.put("thirdPartyStateList", thirdPartyStateList);
 
         List<Query> defendantAndOtherAccuerQueryList = basicInfoService.getDefendantAndOtherAccuserQuery(courtNumber);
         recordMap.put("defendantQueryList", defendantAndOtherAccuerQueryList);

@@ -1,9 +1,6 @@
 package cn.stylefeng.guns.modular.service;
 
-import cn.stylefeng.guns.modular.entity.BasicInfo;
-import cn.stylefeng.guns.modular.entity.CourtInvestigate;
-import cn.stylefeng.guns.modular.entity.Query;
-import cn.stylefeng.guns.modular.entity.Reply;
+import cn.stylefeng.guns.modular.entity.*;
 import cn.stylefeng.guns.modular.model.request.BasicInfoRequest;
 import cn.stylefeng.roses.kernel.db.api.pojo.page.PageResult;
 import com.alibaba.fastjson.JSONArray;
@@ -162,6 +159,16 @@ public interface BasicInfoService extends IService<BasicInfo> {
      * @date 2022/07/07
      */
     List<Reply> getDefendantReply(String courtNumber);
+
+    /**
+     * 获取法庭调查-第三人述称
+     *
+     * @param courtNumber 查看参数
+     * @return 详情结果
+     * @author 金波
+     * @date 2022/08/08
+     */
+    List<ThirdPartyState> getThirdPartyState(String courtNumber);
 
     /**
      * 获取法庭调查-被告及其他原告质证
