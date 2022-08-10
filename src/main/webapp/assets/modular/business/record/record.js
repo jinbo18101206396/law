@@ -113,8 +113,10 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                             defendant_reply: courtTemp.defendant_reply,
                             third_party_state:courtTemp.third_party_state,
                             judge_inquiry_after_accuser_claim: courtTemp.judge_inquiry_after_accuser_claim,
-                            judge_inquiry_after_defendant_reply: courtTemp.judge_inquiry_after_defendant_reply
-
+                            judge_inquiry_after_defendant_reply: courtTemp.judge_inquiry_after_defendant_reply,
+                            is_change_claim_item: courtTemp.is_change_claim_item,
+                            accuser_claim_item_after_change:courtTemp.accuser_claim_item_after_change,
+                            accuser_claim_fact_reason_after_change: courtTemp.accuser_claim_fact_reason_after_change
                         }
                         myLocalStorage["CourtInves"] = courtInves
 
