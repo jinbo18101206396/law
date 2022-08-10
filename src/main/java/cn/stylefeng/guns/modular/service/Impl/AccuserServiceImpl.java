@@ -250,6 +250,9 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
         for (int i = 0; i < accuserList.size(); i++) {
             Accuser accuser = accuserList.get(i);
             String accuserName = accuser.getAccuser();
+            if(ObjectUtils.isEmpty(accuserName)){
+                continue;
+            }
             String accuserShort = accuser.getAccuserShort();
             String accuserAddress = accuser.getAccuserAddress();
             String accuserType = accuser.getAccuserType();

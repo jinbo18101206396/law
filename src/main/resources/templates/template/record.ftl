@@ -1014,7 +1014,7 @@
                         </w:r>
                     </w:p>
                     <#list accuserEvidence.witnessProofs as witnessProof>
-                        <#if (witnessProof.quizzer)?? && (witnessProof.quizzer) != "" && (witnessProof.responder)?? && (witnessProof.responder) != "">
+                        <#if (witnessProof.quizzer)?? && (witnessProof.quizzer) != "" && (witnessProof.question)?? && (witnessProof.question) != "">
                         <w:p w14:paraId="762DB4BE" w14:textId="1334C620" w:rsidR="001D7536" w:rsidRPr="001822B7" w:rsidRDefault="002F2BE6" w:rsidP="001D7536">
                             <w:pPr>
                                 <w:spacing w:line="360" w:lineRule="auto"/>
@@ -1036,6 +1036,8 @@
                                 <w:t>${witnessProof.quizzer}：${witnessProof.question}</w:t>
                             </w:r>
                         </w:p>
+                        </#if>
+                        <#if (witnessProof.responder)?? && (witnessProof.responder) != "" && (witnessProof.answer)?? && (witnessProof.answer) != "">
                         <w:p w14:paraId="762DB4BE" w14:textId="1334C620" w:rsidR="001D7536" w:rsidRPr="001822B7" w:rsidRDefault="002F2BE6" w:rsidP="001D7536">
                             <w:pPr>
                                 <w:spacing w:line="360" w:lineRule="auto"/>
@@ -1154,7 +1156,7 @@
                             </w:r>
                         </w:p>
                         <#list defendantAndThirdEvidence.witnessProofs as witnessProof>
-                            <#if (witnessProof.quizzer)?? && (witnessProof.quizzer) != "" && (witnessProof.responder)?? && (witnessProof.responder) != "">
+                            <#if (witnessProof.quizzer)?? && (witnessProof.quizzer) != "" && (witnessProof.question)?? && (witnessProof.question) != "">
                                 <w:p w14:paraId="762DB4BE" w14:textId="1334C620" w:rsidR="001D7536" w:rsidRPr="001822B7" w:rsidRDefault="002F2BE6" w:rsidP="001D7536">
                                     <w:pPr>
                                         <w:spacing w:line="360" w:lineRule="auto"/>
@@ -1176,6 +1178,8 @@
                                         <w:t>${witnessProof.quizzer}：${witnessProof.question}</w:t>
                                     </w:r>
                                 </w:p>
+                                </#if>
+                                <#if (witnessProof.responder)?? && (witnessProof.responder) != "" && (witnessProof.answer)?? && (witnessProof.answer) != "">
                                 <w:p w14:paraId="762DB4BE" w14:textId="1334C620" w:rsidR="001D7536" w:rsidRPr="001822B7" w:rsidRDefault="002F2BE6" w:rsidP="001D7536">
                                     <w:pPr>
                                         <w:spacing w:line="360" w:lineRule="auto"/>

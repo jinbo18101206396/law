@@ -252,6 +252,9 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
         for (int i = 0; i < defendantList.size(); i++) {
             Defendant defendant = defendantList.get(i);
             String defendantName = defendant.getDefendant();
+            if(ObjectUtils.isEmpty(defendantName)){
+                continue;
+            }
             String defendantShort = "";
             String defendantAddress = defendant.getDefendantAddress();
             String defendantType = defendant.getDefendantType();

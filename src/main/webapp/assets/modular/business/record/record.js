@@ -6,7 +6,7 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
     var form = layui.form;
 
     /**
-     * 初始化参数
+     * 初始化参数re
      */
     var Record = {
         tableId: "recordTable"
@@ -19,10 +19,9 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
         return [[
             {type: 'checkbox'},
             {field: 'basicId', hide: true, title: '主键'},
-            {field: 'courtNumber', align: "center", sort: true, title: '案号'},
+            {field: 'courtNumber', align: "center", sort: true, title: '案号',minWidth: 250},
             {field: 'courtCause', align: "center", sort: true, title: '案由'},
             {field: 'judge', align: "center", sort: true, title: '审判员'},
-            {field: 'courtClerk', align: "center", sort: true, title: '书记员'},
             {field: 'courtTime', align: "center", sort: true, title: '开庭时间'},
             {field: 'status', align: "center", sort: true, templet: '#statusTpl', title: '案件状态'},
             {align: 'center', toolbar: '#tableBar', title: '操作', minWidth: 250}

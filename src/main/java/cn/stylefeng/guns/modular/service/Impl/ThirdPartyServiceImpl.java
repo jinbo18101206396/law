@@ -252,6 +252,9 @@ public class ThirdPartyServiceImpl extends ServiceImpl<ThirdPartyMapper, ThirdPa
         for (int i = 0; i < thirdPartList.size(); i++) {
             ThirdParty thirdParty = thirdPartList.get(i);
             String thirdPartyName = thirdParty.getThirdParty();
+            if(ObjectUtils.isEmpty(thirdPartyName)){
+                continue;
+            }
             String thirdPartyShort = "";
             String thirdPartyAddress = thirdParty.getThirdPartyAddress();
             String thirdPartyType = thirdParty.getThirdPartyType();
