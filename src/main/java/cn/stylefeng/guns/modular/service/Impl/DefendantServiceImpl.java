@@ -252,7 +252,7 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
         for (int i = 0; i < defendantList.size(); i++) {
             Defendant defendant = defendantList.get(i);
             String defendantName = defendant.getDefendant();
-            if(ObjectUtils.isEmpty(defendantName)){
+            if (ObjectUtils.isEmpty(defendantName)) {
                 continue;
             }
             String defendantShort = "";
@@ -285,33 +285,35 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
                 defendant.setDefendantAvoid(AvoidEnum.getMessage(defendantAvoid));
             }
             String finalStatement = defendant.getFinalStatement();
-            if(ObjectUtils.isEmpty(finalStatement)){
+            if (ObjectUtils.isEmpty(finalStatement)) {
                 finalStatement = "坚持答辩意见";
             }
             defendant.setFinalStatement(finalStatement);
             String mediate = defendant.getIsMediate();
             String mediatePlan = defendant.getMediatePlan();
-            if (!ObjectUtils.isEmpty(mediate)) {
-                if (mediate.equals(MediateEnum.Y.getCode())) {
-                    mediate = "能，调解方案：" + mediatePlan;
-                } else if (mediate.equals(MediateEnum.N.getCode())) {
-                    mediate = "不能";
+            if (mediate.equals(MediateEnum.Y.getCode())) {
+                mediate = "能";
+                if (!ObjectUtils.isEmpty(mediatePlan)) {
+                    mediate += "，调解方案：" + mediatePlan;
                 }
-                defendant.setIsMediate(mediate);
+            } else if (mediate.equals(MediateEnum.N.getCode())) {
+                mediate = "不能";
             }
+            defendant.setIsMediate(mediate);
             String delivery = defendant.getIsDelivery();
             String email = defendant.getEmail();
             if (delivery.equals(DeliveryEnum.N.getCode()) && ObjectUtils.isEmpty(email)) {
                 email = defendant.getDefendantAddress();
             }
-            if (!ObjectUtils.isEmpty(delivery)) {
-                if (delivery.equals(DeliveryEnum.Y.getCode())) {
-                    delivery = "同意，邮箱地址：" + email;
-                } else if (delivery.equals(DeliveryEnum.N.getCode())) {
-                    delivery = "不同意，邮寄地址：" + email;
-                }
-                defendant.setIsDelivery(delivery);
+            if (delivery.equals(DeliveryEnum.Y.getCode())) {
+                delivery = "同意";
+            } else if (delivery.equals(DeliveryEnum.N.getCode())) {
+                delivery = "不同意";
             }
+            if (!ObjectUtils.isEmpty(email)) {
+                delivery += "，地址：" + email;
+            }
+            defendant.setIsDelivery(delivery);
             String defendantAgent = "";
             for (int j = 0; j < agents.size(); j++) {
                 Agent agent = agents.get(j);
