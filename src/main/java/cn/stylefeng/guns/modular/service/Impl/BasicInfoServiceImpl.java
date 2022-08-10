@@ -832,25 +832,6 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         return queryList;
     }
 
-    //物证
-    private String getEvidenceContent(JSONArray evidenceArray) {
-        String evidenceContent = "";
-        if (evidenceArray != null && evidenceArray.size() > 0) {
-            for (int i = 0; i < evidenceArray.size(); i++) {
-                JSONObject evidenceObject = evidenceArray.getJSONObject(i);
-                String serial = evidenceObject.getString("serial");
-                String evidenceType = evidenceObject.getString("evidence_type");
-                String evidence = evidenceObject.getString("evidence");
-                String content = evidenceObject.getString("content");
-                if (ObjectUtils.isEmpty(evidence) || ObjectUtils.isEmpty(evidenceType) || ObjectUtils.isEmpty(content)) {
-                    continue;
-                }
-                evidenceContent += "证据" + serial + "." + evidence + "（" + evidenceType + "），" + content + "。";
-            }
-        }
-        return evidenceContent;
-    }
-
     private List<Proof> getEvidenceContent(String courtNumber,String type){
         List<Proof> proofs = getProofs(courtNumber,type);
         List<WitnessTestimony> witnessProofs = new ArrayList<>();
