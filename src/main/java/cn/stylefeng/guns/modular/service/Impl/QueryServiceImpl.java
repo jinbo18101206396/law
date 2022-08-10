@@ -76,7 +76,7 @@ public class QueryServiceImpl extends ServiceImpl<QueryMapper, Query> implements
             String legality = queryObject.getString("legality");
             String relevance = queryObject.getString("relevance");
             String factReason = queryObject.getString("fact_reason");
-            if (!ObjectUtils.isEmpty(name) && !ObjectUtils.isEmpty(evidence) && !ObjectUtils.isEmpty(factReason)) {
+            if (!ObjectUtils.isEmpty(name) && !ObjectUtils.isEmpty(evidence)) {
                 Query query = new Query();
                 query.setName(name);
                 query.setEvidence(evidence);

@@ -793,7 +793,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 String legality = queryObject.getString("legality");
                 String relevance = queryObject.getString("relevance");
                 String factReason = queryObject.getString("fact_reason");
-                if (!ObjectUtils.isEmpty(name) && !ObjectUtils.isEmpty(evidence) && !ObjectUtils.isEmpty(factReason)) {
+                if (!ObjectUtils.isEmpty(name) && !ObjectUtils.isEmpty(evidence)) {
                     if (name.contains("**")) {
                         name = name.replace("**", "、");
                     }
@@ -873,7 +873,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 String name = queryObject.getString("name");
                 String factReason = queryObject.getString("fact_reason");
                 String evidence = queryObject.getString("evidence");
-                if (!ObjectUtils.isEmpty(name) && !ObjectUtils.isEmpty(evidence) && !ObjectUtils.isEmpty(factReason)) {
+                if (!ObjectUtils.isEmpty(name) && !ObjectUtils.isEmpty(evidence)) {
                     if (name.contains("**")) {
                         name = name.replace("**", "、");
                     }
@@ -895,11 +895,9 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         String accuserClaimItem = courtInvestigateObject.getString("accuser_claim_item");
         String accuserClaimFactReason = courtInvestigateObject.getString("accuser_claim_fact_reason");
         String accuserClaimItemAfterChange = courtInvestigateObject.getString("accuser_claim_item_after_change");
-        String accuserClaimFactReasonAfterChange = courtInvestigateObject.getString("accuser_claim_fact_reason_after_change");
         courtInvestigate.setAccuserClaimItem(accuserClaimItem);
         courtInvestigate.setAccuserClaimFactReason(accuserClaimFactReason);
         courtInvestigate.setAccuserClaimItemAfterChange(accuserClaimItemAfterChange);
-        courtInvestigate.setAccuserClaimFactReasonAfterChange(accuserClaimFactReasonAfterChange);
         //原告举证（物证/人证）
         List<Proof> accuserEvidenceList = getEvidenceContent(courtNumber,"原告");
         courtInvestigate.setAccuserEvidenceList(accuserEvidenceList);
@@ -949,7 +947,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 String claimItemAfterChange = allege.getClaimItemAfterChange();
                 String factReasonAfterChange = allege.getFactReasonAfterChange();
 
-                if (type != "" && "原告".equals(type)) {
+                if (!ObjectUtils.isEmpty(type) && "原告".equals(type)) {
                     courtInvestigateObject.put("accuser_claim_item", claimItem);
                     courtInvestigateObject.put("accuser_claim_fact_reason", factReason);
                     courtInvestigateObject.put("is_counterclaim", isCounterClaim);

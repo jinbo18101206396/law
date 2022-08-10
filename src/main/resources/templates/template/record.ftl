@@ -768,7 +768,7 @@
                                     <w:sz w:val="24"/>
                                     <w:szCs w:val="24"/>
                                 </w:rPr>
-                                <w:t>变更诉讼请求项：${courtInvestigate.accuserClaimItemAfterChange}。事实与理由：${courtInvestigate.accuserClaimFactReasonAfterChange}</w:t>
+                                <w:t>变更诉讼请求项：${courtInvestigate.accuserClaimItemAfterChange}。</w:t>
                             </w:r>
                         </w:p>
                     </#if>
@@ -1082,9 +1082,8 @@
                             <w:t>审判员：${judge_defendant_and_other_accuser_query}</w:t>
                         </w:r>
                     </w:p>
-                    </#if>
                     <#list defendantQueryList as defendantQuery>
-                    <#if (defendantQuery.name)?? && (defendantQuery.evidence)?? && (defendantQuery.reason)??>
+                    <#if (defendantQuery.name)?? && (defendantQuery.evidence)??>
                     <w:p w14:paraId="51A2FEDD" w14:textId="60A913D5" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="00B76C03" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -1108,6 +1107,7 @@
                     </w:p>
                     </#if>
                     </#list>
+                    </#if>
                     <#if (judge_defendant_evidence)?? && (judge_defendant_evidence) != "" && (courtInvestigate.isDefendantEvidence) == "1">
                         <w:p w14:paraId="3C86C047" w14:textId="2C0113E9" w:rsidR="00DB47D8" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                             <w:pPr>
