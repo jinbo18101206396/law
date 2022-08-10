@@ -935,8 +935,8 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
             courtInvestigateObject.put("counterclaim_accuser_fact_reason", "");
             courtInvestigateObject.put("is_counterclaim", "2");
             courtInvestigateObject.put("is_change_claim_item", "2");
-            courtInvestigateObject.put("claim_item_after_change", "");
-            courtInvestigateObject.put("fact_reason_after_change", "");
+            courtInvestigateObject.put("accuser_claim_item_after_change", "");
+            courtInvestigateObject.put("accuser_claim_fact_reason_after_change", "");
         } else {
             for (int i = 0; i < alleges.size(); i++) {
                 Allege allege = alleges.get(i);
@@ -954,8 +954,8 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                     courtInvestigateObject.put("accuser_claim_fact_reason", factReason);
                     courtInvestigateObject.put("is_counterclaim", isCounterClaim);
                     courtInvestigateObject.put("is_change_claim_item", isChangeClaimItem);
-                    courtInvestigateObject.put("claim_item_after_change", claimItemAfterChange);
-                    courtInvestigateObject.put("fact_reason_after_change", factReasonAfterChange);
+                    courtInvestigateObject.put("accuser_claim_item_after_change", claimItemAfterChange);
+                    courtInvestigateObject.put("accuser_claim_fact_reason_after_change", factReasonAfterChange);
                 } else if (type != "" && "反诉原告".equals(type)) {
                     courtInvestigateObject.put("counterclaim_accuser_claim_item", claimItem);
                     courtInvestigateObject.put("counterclaim_accuser_fact_reason", factReason);
