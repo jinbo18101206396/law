@@ -284,6 +284,11 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
             if (!ObjectUtils.isEmpty(defendantAvoid)) {
                 defendant.setDefendantAvoid(AvoidEnum.getMessage(defendantAvoid));
             }
+            String finalStatement = defendant.getFinalStatement();
+            if(ObjectUtils.isEmpty(finalStatement)){
+                finalStatement = "坚持答辩意见";
+            }
+            defendant.setFinalStatement(finalStatement);
             String mediate = defendant.getIsMediate();
             String mediatePlan = defendant.getMediatePlan();
             if (!ObjectUtils.isEmpty(mediate)) {

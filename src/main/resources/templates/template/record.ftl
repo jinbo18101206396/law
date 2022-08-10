@@ -968,7 +968,7 @@
                             </#if>
                         </#list>
                     </#list>
-                    <#if (judge_accuser_evidence)?? && (judge_accuser_evidence) != "">
+                    <#if (judge_accuser_evidence)?? && (judge_accuser_evidence) != "" && (courtInvestigate.accuserEvidenceList)?? && (courtInvestigate.accuserEvidenceList?size>0)>
                     <w:p w14:paraId="3C86C047" w14:textId="2C0113E9" w:rsidR="00DB47D8" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -1062,7 +1062,7 @@
                         </#if>
                     </#list>
                     </#list>
-                    <#if (judge_defendant_and_other_accuser_query)?? && (judge_defendant_and_other_accuser_query) != "">
+                    <#if (judge_defendant_and_other_accuser_query)?? && (judge_defendant_and_other_accuser_query) != "" && defendantQueryList?? && (defendantQueryList?size>0)>
                     <w:p w14:paraId="302EEF76" w14:textId="379A541D" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -1252,7 +1252,6 @@
                             </w:p>
                         </#if>
                     </#list>
-
                     <w:p w14:paraId="3C94FD3E" w14:textId="3D3A3AA0" w:rsidR="00096FDA" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -1316,7 +1315,7 @@
                             <w:t>被告：没有</w:t>
                         </w:r>
                     </w:p>
-                    <#if (judge_inquiry)?? && (judge_inquiry) != "">
+                    <#if (judge_inquiry)?? && (judge_inquiry) != "" && inquiryList?? && (inquiryList?size > 0) >
                     <w:p w14:paraId="3C94FD3E" w14:textId="3D3A3AA0" w:rsidR="00096FDA" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -1389,7 +1388,7 @@
                     </#if>
                     </#list>
                     </#list>
-                    <#if judge_argue?? && judge_argue != "">
+                    <#if judge_argue?? && judge_argue != "" && argueList?? && (argueList?size > 0)>
                     <w:p w14:paraId="13D9E9C1" w14:textId="5CB74E63" w:rsidR="00125693" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -1461,7 +1460,7 @@
                     </w:p>
                     </#if>
                     <#list accuserList as accuser>
-                    <#if (accuser.finalStatement)?? && (accuser.finalStatement) != "">
+                    <#if (accuser.finalStatement)?? && (accuser.finalStatement) != "" && (accuser.accuserShort)?? && (accuser.accuserShort) != "">
                     <w:p w14:paraId="125FBC4A" w14:textId="3DC39794" w:rsidR="00300833" w:rsidRPr="001822B7" w:rsidRDefault="00300833" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -1486,7 +1485,7 @@
                     </#if>
                     </#list>
                     <#list defendantList as defendant>
-                    <#if (defendant.finalStatement)?? && (defendant.finalStatement) != "">
+                    <#if (defendant.finalStatement)?? && (defendant.finalStatement) != "" && (defendant.defendantShort)?? && (defendant.defendantShort) != "">
                     <w:p w14:paraId="00E22EB0" w14:textId="28E1063D" w:rsidR="00300833" w:rsidRPr="001822B7" w:rsidRDefault="00300833" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -1511,7 +1510,7 @@
                     </#if>
                     </#list>
                     <#list thirdPartyList as thirdParty>
-                        <#if (thirdParty.finalStatement)?? && (thirdParty.finalStatement) != "">
+                        <#if (thirdParty.finalStatement)?? && (thirdParty.finalStatement) != "" && (thirdParty.thirdPartyShort)?? && (thirdParty.thirdPartyShort) != "">
                             <w:p w14:paraId="00E22EB0" w14:textId="28E1063D" w:rsidR="00300833" w:rsidRPr="001822B7" w:rsidRDefault="00300833" w:rsidP="00B517E9">
                                 <w:pPr>
                                     <w:spacing w:line="360" w:lineRule="auto"/>
@@ -1559,7 +1558,7 @@
                     </w:p>
                     </#if>
                     <#list accuserList as accuser>
-                    <#if (accuser.isMediate)?? && (accuser.isMediate) != "">
+                    <#if (accuser.isMediate)?? && (accuser.isMediate) != "" && (accuser.accuserShort)?? && (accuser.accuserShort) != "">
                     <w:p w14:paraId="4FDC9A37" w14:textId="4D215636" w:rsidR="00300833" w:rsidRPr="001822B7" w:rsidRDefault="00300833" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -1584,7 +1583,7 @@
                     </#if>
                     </#list>
                     <#list defendantList as defendant>
-                    <#if (defendant.isMediate)?? && (defendant.isMediate) != "">
+                    <#if (defendant.isMediate)?? && (defendant.isMediate) != "" && (defendant.defendantShort)?? && (defendant.defendantShort) != "">
                     <w:p w14:paraId="48E3BB98" w14:textId="0BFA41F9" w:rsidR="002A5270" w:rsidRPr="001822B7" w:rsidRDefault="00300833" w:rsidP="007B1D07">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -1609,7 +1608,7 @@
                     </#if>
                     </#list>
                     <#list thirdPartyList as thirdParty>
-                        <#if (thirdParty.isMediate)?? && (thirdParty.isMediate) != "">
+                        <#if (thirdParty.isMediate)?? && (thirdParty.isMediate) != "" && (thirdParty.thirdPartyShort)?? && (thirdParty.thirdPartyShort) != "">
                             <w:p w14:paraId="48E3BB98" w14:textId="0BFA41F9" w:rsidR="002A5270" w:rsidRPr="001822B7" w:rsidRDefault="00300833" w:rsidP="007B1D07">
                                 <w:pPr>
                                     <w:spacing w:line="360" w:lineRule="auto"/>
@@ -1657,7 +1656,7 @@
                     </w:p>
                     </#if>
                     <#list accuserList as accuser>
-                    <#if (accuser.isDelivery)?? && (accuser.isDelivery) != "">
+                    <#if (accuser.isDelivery)?? && (accuser.isDelivery) != "" && (accuser.accuserShort)?? && (accuser.accuserShort) != "">
                     <w:p w14:paraId="1A40FAD8" w14:textId="627DFB70" w:rsidR="00300833" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -1682,7 +1681,7 @@
                     </#if>
                     </#list>
                     <#list defendantList as defendant>
-                    <#if (defendant.isDelivery)?? && (defendant.isDelivery) != "">
+                    <#if (defendant.isDelivery)?? && (defendant.isDelivery) != "" && (defendant.defendantShort)?? && (defendant.defendantShort) != "">
                     <w:p w14:paraId="33679BE2" w14:textId="7C90ABA1" w:rsidR="00643B3E" w:rsidRPr="001822B7" w:rsidRDefault="00300833" w:rsidP="007B1D07">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -1708,7 +1707,7 @@
                     </#if>
                     </#list>
                     <#list thirdPartyList as thirdParty>
-                        <#if (thirdParty.isDelivery)?? && (thirdParty.isDelivery) != "">
+                        <#if (thirdParty.isDelivery)?? && (thirdParty.isDelivery) != "" && (thirdParty.thirdPartyShort)?? && (thirdParty.thirdPartyShort) != "">
                             <w:p w14:paraId="33679BE2" w14:textId="7C90ABA1" w:rsidR="00643B3E" w:rsidRPr="001822B7" w:rsidRDefault="00300833" w:rsidP="007B1D07">
                                 <w:pPr>
                                     <w:spacing w:line="360" w:lineRule="auto"/>

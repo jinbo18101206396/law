@@ -142,6 +142,9 @@ public class InquiryServiceImpl extends ServiceImpl<InquiryMapper, Inquiry> impl
         for (int i = 0; i < inquiryInfoArray.size(); i++) {
             JSONObject inquiryObject = inquiryInfoArray.getJSONObject(i);
             String question = inquiryObject.getString("inquiry_question");
+            if(ObjectUtils.isEmpty(question)){
+                continue;
+            }
             List<String> answerList = new ArrayList<>();
             JSONArray answerArray = inquiryObject.getJSONArray("inquiry_answer");
             for (int j = 0; j < answerArray.size(); j++) {

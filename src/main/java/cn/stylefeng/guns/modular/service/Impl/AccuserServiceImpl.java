@@ -277,10 +277,17 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
             if (!ObjectUtils.isEmpty(accuserAvoid)) {
                 accuser.setAccuserAvoid(AvoidEnum.getMessage(accuserAvoid));
             }
+
+            String finalStatement = accuser.getFinalStatement();
+            if(ObjectUtils.isEmpty(finalStatement)){
+                finalStatement = "坚持诉讼请求";
+            }
+            accuser.setFinalStatement(finalStatement);
+
             String mediate = accuser.getIsMediate();
             String mediatePlan = accuser.getMediatePlan();
             if (!ObjectUtils.isEmpty(mediate)) {
-                if (mediate.equals(MediateEnum.Y.getCode()) && !ObjectUtils.isEmpty(mediatePlan)) {
+                if (mediate.equals(MediateEnum.Y.getCode())) {
                     mediate = "能，调解方案：" + mediatePlan;
                 } else if (mediate.equals(MediateEnum.N.getCode())) {
                     mediate = "不能";

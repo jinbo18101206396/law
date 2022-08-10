@@ -285,6 +285,11 @@ public class ThirdPartyServiceImpl extends ServiceImpl<ThirdPartyMapper, ThirdPa
             if (!ObjectUtils.isEmpty(thirdPartyAvoid)) {
                 thirdParty.setThirdPartyAvoid(AvoidEnum.getMessage(thirdPartyAvoid));
             }
+            String finalStatement = thirdParty.getFinalStatement();
+            if(ObjectUtils.isEmpty(finalStatement)){
+                finalStatement = "坚持答辩意见";
+            }
+            thirdParty.setFinalStatement(finalStatement);
             String mediate = thirdParty.getIsMediate();
             String mediatePlan = thirdParty.getMediatePlan();
             if (!ObjectUtils.isEmpty(mediate)) {
