@@ -204,8 +204,16 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                     if ("finalStatementInfo" in wholeItem) {
                         let finalStatementInfoItem = wholeItem.finalStatementInfo
                         myLocalStorage["finalStatementInfo"] = {}
+                        let finalstatement_info = []
+                        for (let i = 0; i < finalStatementInfoItem.length; i++) {
+                            let finalstate = finalStatementInfoItem[i]
+                            if ((JSON.stringify(finalstate) != '{}') && (finalstate['name'] != '')) {
+                                console.log(JSON.stringify(finalstate))
+                                finalstatement_info.push(finalstate)
+                            }
+                        }
                         myLocalStorage["finalStatementInfo"]["judge_finalstatement"] = wholeItem.judge_finalstatement
-                        myLocalStorage["finalStatementInfo"]["final_statement_info"] = finalStatementInfoItem
+                        myLocalStorage["finalStatementInfo"]["final_statement_info"] = finalstatement_info
                     }
 
                     //是否调解表
@@ -222,7 +230,7 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
                         let delivery_info = []
                         for (let i = 0; i < deliveryInfoItem.length; i++) {
                             let delivery = deliveryInfoItem[i]
-                            if (JSON.stringify(delivery) != '{}') {
+                            if ((JSON.stringify(delivery) != '{}') && (delivery['name'] != '') ) {
                                 delivery_info.push(delivery)
                             }
                         }
