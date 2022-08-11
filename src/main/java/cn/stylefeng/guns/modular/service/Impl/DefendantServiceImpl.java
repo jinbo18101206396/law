@@ -291,10 +291,14 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
             defendant.setFinalStatement(finalStatement);
             String mediate = defendant.getIsMediate();
             String mediatePlan = defendant.getMediatePlan();
+            String timeLimit = defendant.getTimeLimit();
             if (mediate.equals(MediateEnum.Y.getCode())) {
                 mediate = "能";
                 if (!ObjectUtils.isEmpty(mediatePlan)) {
                     mediate += "，调解方案：" + mediatePlan;
+                }
+                if(!ObjectUtils.isEmpty(timeLimit)){
+                    mediate += "，庭外和解时限：" + timeLimit;
                 }
             } else if (mediate.equals(MediateEnum.N.getCode())) {
                 mediate = "不能";

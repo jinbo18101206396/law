@@ -286,10 +286,14 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
 
             String mediate = accuser.getIsMediate();
             String mediatePlan = accuser.getMediatePlan();
+            String timeLimit = accuser.getTimeLimit();
             if (mediate.equals(MediateEnum.Y.getCode())) {
                 mediate = "能";
                 if (!ObjectUtils.isEmpty(mediatePlan)) {
                     mediate += "，调解方案：" + mediatePlan;
+                }
+                if(!ObjectUtils.isEmpty(timeLimit)){
+                    mediate += "，庭外和解时限：" + timeLimit;
                 }
             } else if (mediate.equals(MediateEnum.N.getCode())) {
                 mediate = "不能";

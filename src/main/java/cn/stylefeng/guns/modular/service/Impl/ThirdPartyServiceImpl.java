@@ -291,10 +291,14 @@ public class ThirdPartyServiceImpl extends ServiceImpl<ThirdPartyMapper, ThirdPa
             thirdParty.setFinalStatement(finalStatement);
             String mediate = thirdParty.getIsMediate();
             String mediatePlan = thirdParty.getMediatePlan();
+            String timeLimit = thirdParty.getTimeLimit();
             if (mediate.equals(MediateEnum.Y.getCode())) {
                 mediate = "能";
                 if (!ObjectUtils.isEmpty(mediatePlan)) {
                     mediate += "，调解方案：" + mediatePlan;
+                }
+                if(!ObjectUtils.isEmpty(timeLimit)){
+                    mediate += "，庭外和解时限：" + timeLimit;
                 }
             } else if (mediate.equals(MediateEnum.N.getCode())) {
                 mediate = "不能";

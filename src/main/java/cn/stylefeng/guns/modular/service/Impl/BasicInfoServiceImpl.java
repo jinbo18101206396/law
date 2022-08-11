@@ -1087,17 +1087,27 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 List<WitnessTestimony> witnessProofs = getWitnessProofs(courtNumber, evidence);
                 String witnessName = "";
                 String witnessType = "";
-                for (int j = 0; j < witnessProofs.size(); j++) {
-                    WitnessTestimony witnessTestimony = witnessProofs.get(j);
-                    witnessName = witnessTestimony.getName();
-                    witnessType = witnessTestimony.getType();
 
+                if(witnessProofs != null && witnessProofs.size() > 0){
+                    for (int j = 0; j < witnessProofs.size(); j++) {
+                        WitnessTestimony witnessTestimony = witnessProofs.get(j);
+                        witnessName = witnessTestimony.getName();
+                        witnessType = witnessTestimony.getType();
+
+                        JSONObject questionAndAnswerObject = new JSONObject();
+                        questionAndAnswerObject.put("quizzer", witnessTestimony.getQuizzer());
+                        questionAndAnswerObject.put("question", witnessTestimony.getQuestion());
+                        questionAndAnswerObject.put("responder", witnessTestimony.getResponder());
+                        questionAndAnswerObject.put("answer", witnessTestimony.getAnswer());
+
+                        witnessTestimonyArray.add(questionAndAnswerObject);
+                    }
+                }else{
                     JSONObject questionAndAnswerObject = new JSONObject();
-                    questionAndAnswerObject.put("quizzer", witnessTestimony.getQuizzer());
-                    questionAndAnswerObject.put("question", witnessTestimony.getQuestion());
-                    questionAndAnswerObject.put("responder", witnessTestimony.getResponder());
-                    questionAndAnswerObject.put("answer", witnessTestimony.getAnswer());
-
+                    questionAndAnswerObject.put("quizzer", "");
+                    questionAndAnswerObject.put("question", "");
+                    questionAndAnswerObject.put("responder", "");
+                    questionAndAnswerObject.put("answer", "");
                     witnessTestimonyArray.add(questionAndAnswerObject);
                 }
                 JSONObject witnessEvidenceObject = new JSONObject();
