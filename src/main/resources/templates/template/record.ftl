@@ -745,7 +745,7 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="24"/>
                             </w:rPr>
-                            <w:t>原告诉讼请求项：${courtInvestigate.accuserClaimItem}。事实与理由：${courtInvestigate.accuserClaimFactReason}</w:t>
+                            <w:t>原告诉讼请求项：${courtInvestigate.accuserClaimItem}。事实与理由：${courtInvestigate.accuserClaimFactReason}。</w:t>
                         </w:r>
                     </w:p>
                     </#if>
