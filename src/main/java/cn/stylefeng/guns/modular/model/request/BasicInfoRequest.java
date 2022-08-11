@@ -39,6 +39,11 @@ public class BasicInfoRequest extends BaseRequest {
     private String courtTime;
 
     /**
+     * （时间区间）开庭时间
+     */
+    private String timeLimit;
+
+    /**
      * 开庭地点
      */
     @NotNull(message = "courtPlace不能为空", groups = {add.class, edit.class})

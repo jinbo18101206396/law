@@ -1,12 +1,20 @@
-layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
+layui.use(['table', 'admin', 'HttpRequest', 'func', 'form', 'layer', 'laydate', 'element'], function () {
     var $ = layui.$;
     var table = layui.table;
     var HttpRequest = layui.HttpRequest;
-    var func = layui.func;
     var form = layui.form;
+    var laydate = layui.laydate;
+    var layer = layui.layer;
+
+    laydate.render({
+        elem: '#timeLimit',
+        format: 'yyyy年MM月dd日',
+        range: "至",
+        max: Feng.currentDate()
+    });
 
     /**
-     * 初始化参数re
+     * 初始化参数
      */
     var Record = {
         tableId: "recordTable"
@@ -36,7 +44,7 @@ layui.use(['table', 'HttpRequest', 'func', 'form', 'laydate'], function () {
         queryData['courtNumber'] = $("#court_number").val();
         queryData['courtCause'] = $("#court_cause").val();
         queryData['judge'] = $("#judge").val();
-        queryData['courtClerk'] = $("#court_clerk").val();
+        queryData['timeLimit'] = $("#timeLimit").val();
 
         table.reload(Record.tableId, {
             where: queryData, page: {curr: 1}

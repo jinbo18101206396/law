@@ -12,13 +12,16 @@
                     <div class="layui-form toolbar">
                         <div class="layui-form-item">
                             <div class="layui-inline">
-                                <input id="court_number" class="layui-input" type="text" placeholder="案号" autocomplete="off"/>
+                                <input id="court_number" class="layui-input" type="text" placeholder="请输入案号" autocomplete="off"/>
                             </div>
                             <div class="layui-inline">
-                                <input id="court_cause" class="layui-input" type="text" placeholder="案由" autocomplete="off"/>
+                                <input id="court_cause" class="layui-input" type="text" placeholder="请输入案由" autocomplete="off"/>
                             </div>
                             <div class="layui-inline">
-                                <input id="judge" class="layui-input" type="text" placeholder="审判员" autocomplete="off"/>
+                                <input id="judge" class="layui-input" type="text" placeholder="请输入审判员" autocomplete="off"/>
+                            </div>
+                            <div class="layui-inline">
+                                <input id="timeLimit" class="layui-input" type="text" placeholder="请选择开庭时间" autocomplete="off"/>
                             </div>
                             <div class="layui-inline">
                                 <button id="btnSearch" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>查询</button>
@@ -32,6 +35,10 @@
         </div>
     </div>
 </div>
+
+<script src="${ctxPath}/assets/common/libs/echarts/echarts.min.js?v=${constants.getReleaseVersion()}"></script>
+<script src="${ctxPath}/assets/common/libs/echarts/echartsTheme.js?v=${constants.getReleaseVersion()}"></script>
+<script src="${ctxPath}/assets/map/js/china.js?v=${constants.getReleaseVersion()}"></script>
 
 <script type="text/html" id="tableBar">
     <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="detail">继续开庭</a>

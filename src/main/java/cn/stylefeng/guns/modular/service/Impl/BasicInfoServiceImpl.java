@@ -1303,13 +1303,18 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         String courtNumber = basicInfoRequest.getCourtNumber();
         String courtCause = basicInfoRequest.getCourtCause();
         String judge = basicInfoRequest.getJudge();
-        String courtClerk = basicInfoRequest.getCourtClerk();
+        String timeLimit = basicInfoRequest.getTimeLimit();
 
+        if (!ObjectUtils.isEmpty(timeLimit)) {
+            String[] split = timeLimit.split(" 至 ");
+            String beginTime = split[0] + " 00:00:00";
+            String endTime = split[1] + " 23:59:59";
+            queryWrapper.between(BasicInfo::getCourtTime,beginTime ,endTime);
+        }
         queryWrapper.eq(ObjectUtil.isNotEmpty(basicId), BasicInfo::getBasicId, basicId);
         queryWrapper.eq(ObjectUtil.isNotEmpty(courtNumber), BasicInfo::getCourtNumber, courtNumber);
         queryWrapper.like(ObjectUtil.isNotEmpty(courtCause), BasicInfo::getCourtCause, courtCause);
         queryWrapper.eq(ObjectUtil.isNotEmpty(judge), BasicInfo::getJudge, judge);
-        queryWrapper.eq(ObjectUtil.isNotEmpty(courtClerk), BasicInfo::getJudge, courtClerk);
 
         // 查询未删除状态的
         queryWrapper.eq(BasicInfo::getDelFlag, YesOrNotEnum.N.getCode());
