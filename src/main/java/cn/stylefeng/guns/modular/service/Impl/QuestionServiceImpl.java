@@ -6,6 +6,7 @@ import cn.stylefeng.guns.modular.service.QuestionService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
 
     @Override
     public List<String> getInquiryQuestionList() {
-        List<Question> inquiryQuestions = getQuestions("1","inquiry");
+        List<Question> inquiryQuestions = getQuestions("1","inquiry","");
         List<String> inquiryQuestionList = new ArrayList<>();
         for (int i = 0; i < inquiryQuestions.size(); i++) {
             Question question = inquiryQuestions.get(i);
@@ -37,14 +38,17 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
     }
 
     @Override
-    public List<Question> getWitnessQuestionList() {
-        return getQuestions("1", "witness");
+    public List<Question> getWitnessQuestionList(String keyword) {
+        return getQuestions("1", "witness",keyword);
     }
 
-    private List<Question> getQuestions(String type, String module){
+    private List<Question> getQuestions(String type, String module,String keyword){
         LambdaQueryWrapper<Question> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Question::getType, type);
         queryWrapper.eq(Question::getModule, module);
+        if(!ObjectUtils.isEmpty(keyword)){
+            queryWrapper.like(Question::getQuestion,keyword);
+        }
         return questionService.list(queryWrapper);
     }
 }

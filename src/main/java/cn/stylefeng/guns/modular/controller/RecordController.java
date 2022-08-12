@@ -352,8 +352,8 @@ public class RecordController {
      * @date 2022/08/12
      */
     @GetResource(name = "证人证言问题列表", path = "/record/witness/question")
-    public ResponseData getWitnessQuestionList() {
-        List<Question> witnessQuestionList = questionService.getWitnessQuestionList();
+    public ResponseData getWitnessQuestionList(String keyword) {
+        List<Question> witnessQuestionList = questionService.getWitnessQuestionList(keyword);
         return new SuccessResponseData(witnessQuestionList);
     }
 

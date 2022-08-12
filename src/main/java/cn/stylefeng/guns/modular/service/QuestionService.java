@@ -31,6 +31,6 @@ public interface QuestionService extends IService<Question> {
      * @author jinbo
      * @Date 2022-08-12
      */
-    List<Question> getWitnessQuestionList();
+    List<Question> getWitnessQuestionList(String keyword);
 
 }
