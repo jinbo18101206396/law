@@ -21,4 +21,12 @@ public interface WitnessTestimonyService extends IService<WitnessTestimony> {
      */
     void delete(String courtNumber);
 
+    /**
+     * 证人证言（修改删除标记）
+     *
+     * @author jinbo
+     * @Date 2022-08-12
+     */
+    Boolean deleteWitnessTestimonyInfo(String courtNumber);
+
 }

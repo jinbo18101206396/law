@@ -339,10 +339,22 @@ public class RecordController {
      * @author 金波
      * @date 2022/05/31
      */
-    @GetResource(name = "问题列表", path = "/record/question")
-    public ResponseData getQuestionList() {
-        List<String> questionList = questionService.getQuestionList();
-        return new SuccessResponseData(questionList);
+    @GetResource(name = "法庭询问问题列表", path = "/record/inquiry/question")
+    public ResponseData getInquiryQuestionList() {
+        List<String> inquiryQuestionList = questionService.getInquiryQuestionList();
+        return new SuccessResponseData(inquiryQuestionList);
+    }
+
+    /**
+     * 获取证人证言问题列表
+     *
+     * @author 金波
+     * @date 2022/08/12
+     */
+    @GetResource(name = "证人证言问题列表", path = "/record/witness/question")
+    public ResponseData getWitnessQuestionList() {
+        List<Question> witnessQuestionList = questionService.getWitnessQuestionList();
+        return new SuccessResponseData(witnessQuestionList);
     }
 
     /**
@@ -370,7 +382,7 @@ public class RecordController {
     }
 
     /**
-     * 删除笔录
+     * 删除笔录(修改删除标记)
      *
      * @author 金波
      * @date 2022/06/04
@@ -474,7 +486,7 @@ public class RecordController {
     }
 
     /**
-     * 删除已经生成的笔录
+     * 删除已经生成的笔录文件
      *
      * @author jinbo
      * @date 2022/6/19

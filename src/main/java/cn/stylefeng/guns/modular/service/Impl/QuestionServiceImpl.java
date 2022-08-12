@@ -26,16 +26,25 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
     private QuestionService questionService;
 
     @Override
-    public List<String> getQuestionList() {
-        LambdaQueryWrapper<Question> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Question::getType, "1");
-        List<Question> questions = questionService.list(queryWrapper);
-
-        List<String> questionList = new ArrayList<>();
-        for (int i = 0; i < questions.size(); i++) {
-            Question question = questions.get(i);
-            questionList.add(question.getQuestion());
+    public List<String> getInquiryQuestionList() {
+        List<Question> inquiryQuestions = getQuestions("1","inquiry");
+        List<String> inquiryQuestionList = new ArrayList<>();
+        for (int i = 0; i < inquiryQuestions.size(); i++) {
+            Question question = inquiryQuestions.get(i);
+            inquiryQuestionList.add(question.getQuestion());
         }
-        return questionList;
+        return inquiryQuestionList;
+    }
+
+    @Override
+    public List<Question> getWitnessQuestionList() {
+        return getQuestions("1", "witness");
+    }
+
+    private List<Question> getQuestions(String type, String module){
+        LambdaQueryWrapper<Question> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Question::getType, type);
+        queryWrapper.eq(Question::getModule, module);
+        return questionService.list(queryWrapper);
     }
 }

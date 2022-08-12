@@ -1274,6 +1274,8 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         basicInfoService.deleteBasicInfo(courtNumber);
         accuserService.deleteAccuserInfo(courtNumber);
         defendantService.deleteDefendantInfo(courtNumber);
+        thirdPartyService.deleteThirdPartyInfo(courtNumber);
+        thirdPartyStateService.deleteThirdPartyStateInfo(courtNumber);
         agentService.deleteAgentInfo(courtNumber);
         stateService.deleteStateInfo(courtNumber);
         argueService.deleteArgueInfo(courtNumber);
@@ -1282,6 +1284,8 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         proofService.deleteProofInfo(courtNumber);
         replyService.deleteReplyInfo(courtNumber);
         allegeService.deleteAllegeInfo(courtNumber);
+        judgeRandomInquiryService.deleteJudgeRandomInquiryInfo(courtNumber);
+        witnessTestimonyService.deleteWitnessTestimonyInfo(courtNumber);
     }
 
     /**

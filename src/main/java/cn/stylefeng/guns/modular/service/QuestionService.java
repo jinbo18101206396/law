@@ -23,6 +23,14 @@ public interface QuestionService extends IService<Question> {
      * @author jinbo
      * @Date 2022-05-31
      */
-    List<String> getQuestionList();
+    List<String> getInquiryQuestionList();
+
+    /**
+     * 获取证人证言问题列表
+     *
+     * @author jinbo
+     * @Date 2022-08-12
+     */
+    List<Question> getWitnessQuestionList();
 
 }

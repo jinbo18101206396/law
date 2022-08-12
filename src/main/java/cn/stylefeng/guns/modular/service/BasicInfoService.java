@@ -210,7 +210,7 @@ public interface BasicInfoService extends IService<BasicInfo> {
     void editStatus(BasicInfoRequest basicInfoRequest);
 
     /**
-     * 删除笔录
+     * 删除笔录（修改删除标记）
      *
      * @param basicInfoRequest 查看参数
      * @author 金波

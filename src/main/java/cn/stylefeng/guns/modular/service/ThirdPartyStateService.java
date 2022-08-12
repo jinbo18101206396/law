@@ -31,4 +31,12 @@ public interface ThirdPartyStateService extends IService<ThirdPartyState> {
      */
     void delete(String courtNumber);
 
+    /**
+     * 删除基本信息陈述（修改删除标记）
+     *
+     * @author jinbo
+     * @Date 2022-08-12
+     */
+    Boolean deleteThirdPartyStateInfo(String courtNumber);
+
 }

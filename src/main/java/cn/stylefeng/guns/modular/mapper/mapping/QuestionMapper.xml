@@ -5,9 +5,11 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.entity.Question">
         <id column="question_id" property="questionId"/>
-        <result column="user_id" property="userId"/>
-        <result column="type" property="type"/>
+        <result column="serial" property="serial"/>
         <result column="question" property="question"/>
+        <result column="type" property="type"/>
+        <result column="module" property="module"/>
+        <result column="user_id" property="userId"/>
         <result column="create_time" property="createTime"/>
         <result column="create_user" property="createUser"/>
         <result column="update_time" property="updateTime"/>

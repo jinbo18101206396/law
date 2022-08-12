@@ -1,6 +1,5 @@
 package cn.stylefeng.guns.modular.service.Impl;
 
-import cn.stylefeng.guns.modular.entity.ThirdParty;
 import cn.stylefeng.guns.modular.entity.ThirdPartyState;
 import cn.stylefeng.guns.modular.mapper.ThirdPartyStateMapper;
 import cn.stylefeng.guns.modular.service.ThirdPartyStateService;
@@ -8,6 +7,7 @@ import cn.stylefeng.roses.kernel.rule.enums.YesOrNotEnum;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,7 +38,7 @@ public class ThirdPartyStateServiceImpl extends ServiceImpl<ThirdPartyStateMappe
     public void saveThirdPartyStateInfo(String courtNumber, JSONObject courtInvestigateObject) {
         if (courtInvestigateObject != null && courtInvestigateObject.containsKey("third_party_state")) {
             List<ThirdPartyState> thirdPartStates = getThirdPartStates(courtNumber);
-            if(thirdPartStates != null && thirdPartStates.size() > 0){
+            if (thirdPartStates != null && thirdPartStates.size() > 0) {
                 thirdPartyStateService.delete(courtNumber);
             }
             JSONArray thirdPartyStateArray = courtInvestigateObject.getJSONArray("third_party_state");
@@ -46,7 +46,7 @@ public class ThirdPartyStateServiceImpl extends ServiceImpl<ThirdPartyStateMappe
                 JSONObject thirdPartyStateObject = thirdPartyStateArray.getJSONObject(i);
                 String name = thirdPartyStateObject.getString("name");
                 String state = thirdPartyStateObject.getString("state");
-                if(ObjectUtils.isEmpty(name) || ObjectUtils.isEmpty(state)){
+                if (ObjectUtils.isEmpty(name) || ObjectUtils.isEmpty(state)) {
                     continue;
                 }
                 ThirdPartyState thirdPartyState = new ThirdPartyState();
@@ -64,6 +64,13 @@ public class ThirdPartyStateServiceImpl extends ServiceImpl<ThirdPartyStateMappe
         lambdaQueryWrapper.eq(ThirdPartyState::getCourtNumber, courtNumber);
         lambdaQueryWrapper.eq(ThirdPartyState::getDelFlag, YesOrNotEnum.N.getCode());
         baseMapper.delete(lambdaQueryWrapper);
+    }
+
+    @Override
+    public Boolean deleteThirdPartyStateInfo(String courtNumber) {
+        LambdaUpdateWrapper<ThirdPartyState> thirdPartyStateWrapper = new LambdaUpdateWrapper<>();
+        thirdPartyStateWrapper.set(ThirdPartyState::getDelFlag, YesOrNotEnum.Y.getCode()).eq(ThirdPartyState::getCourtNumber, courtNumber);
+        return thirdPartyStateService.update(thirdPartyStateWrapper);
     }
 
     public List<ThirdPartyState> getThirdPartStates(String courtNumber) {

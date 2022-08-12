@@ -25,10 +25,16 @@ public class Question implements Serializable {
     private Long questionId;
 
     /**
-     * 用户id
+     * 序号
      */
-    @TableField("user_id")
-    private Long userId;
+    @TableField("serial")
+    private String serial;
+
+    /**
+     * 问题
+     */
+    @TableField("question")
+    private String question;
 
     /**
      * 案件类型（1-买卖合同类）
@@ -37,10 +43,16 @@ public class Question implements Serializable {
     private String type;
 
     /**
-     * 法庭询问的问题
+     * 所属模块（inquiry-法庭询问，witness-证人证言）
      */
-    @TableField("question")
-    private String question;
+    @TableField("module")
+    private String module;
+
+    /**
+     * 用户id
+     */
+    @TableField("user_id")
+    private Long userId;
 
     /**
      * 创建时间
@@ -66,6 +78,10 @@ public class Question implements Serializable {
     @TableField(value = "update_user", fill = FieldFill.UPDATE)
     private Long updateUser;
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
     public Long getQuestionId() {
         return questionId;
     }
@@ -74,12 +90,20 @@ public class Question implements Serializable {
         this.questionId = questionId;
     }
 
-    public Long getUserId() {
-        return userId;
+    public String getSerial() {
+        return serial;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setSerial(String serial) {
+        this.serial = serial;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
     }
 
     public String getType() {
@@ -90,12 +114,20 @@ public class Question implements Serializable {
         this.type = type;
     }
 
-    public String getQuestion() {
-        return question;
+    public String getModule() {
+        return module;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
+    public void setModule(String module) {
+        this.module = module;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Date getCreateTime() {
@@ -134,9 +166,11 @@ public class Question implements Serializable {
     public String toString() {
         return "Question{" +
                 "questionId=" + questionId +
-                ", userId=" + userId +
-                ", type='" + type + '\'' +
+                ", serial='" + serial + '\'' +
                 ", question='" + question + '\'' +
+                ", type='" + type + '\'' +
+                ", module='" + module + '\'' +
+                ", userId=" + userId +
                 ", createTime=" + createTime +
                 ", createUser=" + createUser +
                 ", updateTime=" + updateTime +
