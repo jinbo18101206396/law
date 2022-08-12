@@ -47,32 +47,26 @@ public class ThirdPartyServiceImpl extends ServiceImpl<ThirdPartyMapper, ThirdPa
             thirdPartyService.delete(courtNumber);
         }
         for (int i = 0; i < thirdPartyInfoArray.size(); i++) {
+            ThirdParty thirdParty = new ThirdParty();
             JSONObject thirdPartyInfoObject = thirdPartyInfoArray.getJSONObject(i);
             String thirdPartyName = thirdPartyInfoObject.getString("third_party");
             String thirdPartyShort = "";
             String thirdPartyType = thirdPartyInfoObject.getString("third_party_type");
-            if (thirdPartyType.equals(AccuserDefendantTypeEnum.PERSON.getCode())) {
-                thirdPartyShort = thirdPartyName;
-            } else if (thirdPartyType.equals(AccuserDefendantTypeEnum.DEPARTMENT.getCode())) {
+            if (thirdPartyType.equals(AccuserDefendantTypeEnum.DEPARTMENT.getCode())) {
                 thirdPartyShort = thirdPartyInfoObject.getString("third_party_short");
+                thirdParty.setThirdPartyRepresent(thirdPartyInfoObject.getString("third_party_represent"));
+                thirdParty.setThirdPartyDuty(thirdPartyInfoObject.getString("third_party_duty"));
+                thirdParty.setThirdPartyAddress(thirdPartyInfoObject.getString("third_party_address"));
+            } else if (thirdPartyType.equals(AccuserDefendantTypeEnum.PERSON.getCode())) {
+                thirdPartyShort = thirdPartyName;
+                thirdParty.setThirdPartyInfo(thirdPartyInfoObject.getString("third_party_info"));
+
             }
-            String thirdPartyInfo = thirdPartyInfoObject.getString("third_party_info");
-            String thirdPartyAddress = thirdPartyInfoObject.getString("third_party_address");
-            String thirdPartyRepresent = thirdPartyInfoObject.getString("third_party_represent");
-            String thirdPartyDuty = thirdPartyInfoObject.getString("third_party_duty");
-            ThirdParty thirdParty = new ThirdParty();
             thirdParty.setThirdParty(thirdPartyName);
             thirdParty.setThirdPartyShort(thirdPartyShort);
             thirdParty.setThirdPartyType(thirdPartyType);
             thirdParty.setCourtNumber(courtNumber);
-            //第三人（机构）
-            if (thirdPartyType.equals(AccuserDefendantTypeEnum.DEPARTMENT.getCode())) {
-                thirdParty.setThirdPartyRepresent(thirdPartyRepresent);
-                thirdParty.setThirdPartyDuty(thirdPartyDuty);
-                thirdParty.setThirdPartyAddress(thirdPartyAddress);
-            } else if (thirdPartyType.equals(AccuserDefendantTypeEnum.PERSON.getCode())) {
-                thirdParty.setThirdPartyInfo(thirdPartyInfo);
-            }
+
             //是否听清诉讼权利和义务（1-听清，2-没听清）、是否申请回避(1-回避，2-不回避)
             if (recordJsonObject.containsKey("rightInfo")) {
                 String rightInfo = recordJsonObject.getString("rightInfo");
@@ -297,7 +291,7 @@ public class ThirdPartyServiceImpl extends ServiceImpl<ThirdPartyMapper, ThirdPa
                 if (!ObjectUtils.isEmpty(mediatePlan)) {
                     mediate += "，调解方案：" + mediatePlan;
                 }
-                if(!ObjectUtils.isEmpty(timeLimit)){
+                if (!ObjectUtils.isEmpty(timeLimit)) {
                     mediate += "，庭外和解时限：" + timeLimit;
                 }
             } else if (mediate.equals(MediateEnum.N.getCode())) {

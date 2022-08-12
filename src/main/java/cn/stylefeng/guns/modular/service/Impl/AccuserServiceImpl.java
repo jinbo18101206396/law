@@ -52,7 +52,6 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
             JSONObject accuserInfoObject = accuserInfoArray.getJSONObject(i);
             String accuserName = accuserInfoObject.getString("accuser");
             String accuserShortName = "";
-            String accuserInfo = accuserInfoObject.getString("accuser_info");
             String accuserType = accuserInfoObject.getString("accuser_type");
             if (accuserType.equals(AccuserDefendantTypeEnum.DEPARTMENT.getCode())) {
                 accuserShortName = accuserInfoObject.getString("accuser_short");
@@ -61,7 +60,7 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
                 accuser.setAccuserDuty(accuserInfoObject.getString("accuser_duty"));
             } else if (accuserType.equals(AccuserDefendantTypeEnum.PERSON.getCode())) {
                 accuserShortName = accuserName;
-                accuser.setAccuserInfo(accuserInfo);
+                accuser.setAccuserInfo(accuserInfoObject.getString("accuser_info"));
             }
             accuser.setAccuser(accuserName);
             accuser.setAccuserShort(accuserShortName);
@@ -292,7 +291,7 @@ public class AccuserServiceImpl extends ServiceImpl<AccuserMapper, Accuser> impl
                 if (!ObjectUtils.isEmpty(mediatePlan)) {
                     mediate += "，调解方案：" + mediatePlan;
                 }
-                if(!ObjectUtils.isEmpty(timeLimit)){
+                if (!ObjectUtils.isEmpty(timeLimit)) {
                     mediate += "，庭外和解时限：" + timeLimit;
                 }
             } else if (mediate.equals(MediateEnum.N.getCode())) {

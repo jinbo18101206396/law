@@ -54,23 +54,20 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
             String defendantType = defendantInfoObject.getString("defendant_type");
             if (defendantType.equals(AccuserDefendantTypeEnum.DEPARTMENT.getCode())) {
                 defendantShortName = defendantInfoObject.getString("defendant_short");
+                defendant.setDefendantAddress(defendantInfoObject.getString("defendant_address"));
+                defendant.setDefendantRepresent(defendantInfoObject.getString("defendant_represent"));
+                defendant.setDefendantDuty(defendantInfoObject.getString("defendant_duty"));
             } else if (defendantType.equals(AccuserDefendantTypeEnum.PERSON.getCode())) {
                 defendantShortName = defendantLongName;
+                defendant.setDefendantInfo(defendantInfoObject.getString("defendant_info"));
             }
-            String defendantInfo = defendantInfoObject.getString("defendant_info");
             defendant.setDefendant(defendantLongName);
             defendant.setDefendantShort(defendantShortName);
             defendant.setDefendantType(defendantType);
-            defendant.setDefendantInfo(defendantInfo);
-            defendant.setDefendantAddress(defendantInfoObject.getString("defendant_address"));
             defendant.setCourtNumber(courtNumber);
-            if (defendantType.equals(AccuserDefendantTypeEnum.DEPARTMENT.getCode())) {
-                defendant.setDefendantRepresent(defendantInfoObject.getString("defendant_represent"));
-                defendant.setDefendantDuty(defendantInfoObject.getString("defendant_duty"));
-            }
 
+            //是否听清诉讼权利和义务（1-听清，2-没听清）、是否申请回避(1-回避，2-不回避)
             if (recordJsonObject.containsKey("rightInfo")) {
-                //是否听清诉讼权利和义务（1-听清，2-没听清）、是否申请回避(1-回避，2-不回避)
                 String rightInfo = recordJsonObject.getString("rightInfo");
                 JSONObject rightInfoObject = JSONObject.parseObject(rightInfo);
                 JSONArray defendantRightDutyArray = rightInfoObject.getJSONArray("defendant_right_duty");
@@ -83,7 +80,6 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
                     }
                 }
             }
-
             //是否能够调解
             if (recordJsonObject.containsKey("mediateInfo")) {
                 String mediateInfo = recordJsonObject.getString("mediateInfo");
@@ -104,7 +100,6 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
                     }
                 }
             }
-
             //是否同意电子裁判文书送达（1-同意，2-不同意）、邮件地址
             if (recordJsonObject.containsKey("deliveryInfo")) {
                 JSONArray deliveryInfoArray = recordJsonObject.getJSONArray("deliveryInfo");
@@ -124,7 +119,6 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
                     }
                 }
             }
-
             //最后陈述意见
             if (recordJsonObject.containsKey("finalStatementInfo")) {
                 JSONArray finalStatementInfoArray = recordJsonObject.getJSONArray("finalStatementInfo");
@@ -297,7 +291,7 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
                 if (!ObjectUtils.isEmpty(mediatePlan)) {
                     mediate += "，调解方案：" + mediatePlan;
                 }
-                if(!ObjectUtils.isEmpty(timeLimit)){
+                if (!ObjectUtils.isEmpty(timeLimit)) {
                     mediate += "，庭外和解时限：" + timeLimit;
                 }
             } else if (mediate.equals(MediateEnum.N.getCode())) {
