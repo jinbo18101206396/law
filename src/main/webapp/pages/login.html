@@ -249,7 +249,7 @@
             getKaptcha();
         @}
 
-        // 登录操作
+        // 登录
         form.on('submit(loginSubmit)', function (data){
             admin.btnLoading('#loginSubmit',"登录中");
             var request = new HttpRequest(Feng.ctxPath + "/login", 'post', function (data) {

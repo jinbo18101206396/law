@@ -50,6 +50,9 @@ public class ThirdPartyServiceImpl extends ServiceImpl<ThirdPartyMapper, ThirdPa
             ThirdParty thirdParty = new ThirdParty();
             JSONObject thirdPartyInfoObject = thirdPartyInfoArray.getJSONObject(i);
             String thirdPartyName = thirdPartyInfoObject.getString("third_party");
+            if(ObjectUtils.isEmpty(thirdPartyName)){
+                continue;
+            }
             String thirdPartyShort = "";
             String thirdPartyType = thirdPartyInfoObject.getString("third_party_type");
             if (thirdPartyType.equals(AccuserDefendantTypeEnum.DEPARTMENT.getCode())) {
