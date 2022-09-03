@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -67,7 +68,7 @@ public class Accuser implements Serializable {
     private String accuserDuty;
 
     @TableField(exist = false)
-    private String accuserAgent;
+    private List<String> accuserAgent;
 
     /**
      * 案号
@@ -117,6 +118,12 @@ public class Accuser implements Serializable {
      */
     @TableField("final_statement")
     private String finalStatement;
+
+    /**
+     * 是否有证据补充
+     */
+    @TableField(exist = false)
+    private String isSupplyEvidence;
 
     /**
      * 删除标记
@@ -207,14 +214,6 @@ public class Accuser implements Serializable {
 
     public void setAccuserDuty(String accuserDuty) {
         this.accuserDuty = accuserDuty;
-    }
-
-    public String getAccuserAgent() {
-        return accuserAgent;
-    }
-
-    public void setAccuserAgent(String accuserAgent) {
-        this.accuserAgent = accuserAgent;
     }
 
     public String getCourtNumber() {
@@ -327,6 +326,22 @@ public class Accuser implements Serializable {
 
     public void setUpdateUser(Long updateUser) {
         this.updateUser = updateUser;
+    }
+
+    public List<String> getAccuserAgent() {
+        return accuserAgent;
+    }
+
+    public void setAccuserAgent(List<String> accuserAgent) {
+        this.accuserAgent = accuserAgent;
+    }
+
+    public String getIsSupplyEvidence() {
+        return isSupplyEvidence;
+    }
+
+    public void setIsSupplyEvidence(String isSupplyEvidence) {
+        this.isSupplyEvidence = isSupplyEvidence;
     }
 
     @Override

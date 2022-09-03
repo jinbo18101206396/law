@@ -17,7 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -242,7 +244,7 @@ public class ThirdPartyServiceImpl extends ServiceImpl<ThirdPartyMapper, ThirdPa
     }
 
     @Override
-    public List<ThirdParty> getThirdPartyInfoList(String courtNumber) {
+    public List<ThirdParty> getThirdPartyInfoList(String courtNumber, Map<String, Object> recordMap) {
         List<ThirdParty> thirdPartList = getThirdParts(courtNumber);
         List<Agent> agents = getAgents(courtNumber);
         for (int i = 0; i < thirdPartList.size(); i++) {
@@ -281,52 +283,59 @@ public class ThirdPartyServiceImpl extends ServiceImpl<ThirdPartyMapper, ThirdPa
             if (!ObjectUtils.isEmpty(thirdPartyAvoid)) {
                 thirdParty.setThirdPartyAvoid(AvoidEnum.getMessage(thirdPartyAvoid));
             }
+
+            String isFinalStatement = "";
             String finalStatement = thirdParty.getFinalStatement();
-            if (ObjectUtils.isEmpty(finalStatement)) {
-                finalStatement = "坚持答辩意见";
+            if(!ObjectUtils.isEmpty(finalStatement)){
+                isFinalStatement = "是";
             }
+            recordMap.put("thirdIsFinalStatement",isFinalStatement);
             thirdParty.setFinalStatement(finalStatement);
+
             String mediate = thirdParty.getIsMediate();
             String mediatePlan = thirdParty.getMediatePlan();
             String timeLimit = thirdParty.getTimeLimit();
             if (mediate.equals(MediateEnum.Y.getCode())) {
-                mediate = "能";
-                if (!ObjectUtils.isEmpty(mediatePlan)) {
-                    mediate += "，调解方案：" + mediatePlan;
-                }
-                if (!ObjectUtils.isEmpty(timeLimit)) {
-                    mediate += "，庭外和解时限：" + timeLimit;
+                if(!ObjectUtils.isEmpty(mediatePlan) || !ObjectUtils.isEmpty(timeLimit)){
+                    mediate = "能，调解方案：" + mediatePlan + "，庭外和解时限：" + timeLimit;
+                }else{
+                    mediate = "";
                 }
             } else if (mediate.equals(MediateEnum.N.getCode())) {
                 mediate = "不能";
             }
             thirdParty.setIsMediate(mediate);
+            recordMap.put("thirdIsMediate",mediate);
+
+            String isDelivery = "";
             String delivery = thirdParty.getIsDelivery();
             String email = thirdParty.getEmail();
-            if (delivery.equals(DeliveryEnum.N.getCode()) && ObjectUtils.isEmpty(email)) {
-                email = thirdParty.getThirdPartyAddress();
+            if(ObjectUtils.isEmpty(email)){
+                thirdParty.setIsDelivery("");
+            }else{
+                if (delivery.equals(DeliveryEnum.Y.getCode())) {
+                    delivery = "同意，电子邮箱：" + email;
+                } else if (delivery.equals(DeliveryEnum.N.getCode())) {
+                    delivery = "不同意，纸质文书送达地址：" + email;
+                }
+                thirdParty.setIsDelivery(delivery);
+                isDelivery = "是";
             }
-            if (delivery.equals(DeliveryEnum.Y.getCode())) {
-                delivery = "同意";
-            } else if (delivery.equals(DeliveryEnum.N.getCode())) {
-                delivery = "不同意";
-            }
-            if (!ObjectUtils.isEmpty(email)) {
-                delivery += "，地址：" + email;
-            }
-            thirdParty.setIsDelivery(delivery);
-            String thirdPartyAgent = "";
+            recordMap.put("thirdIsDelivery",isDelivery);
+
+            List<String> thirdPartyAgentList = new ArrayList<>();
             for (int j = 0; j < agents.size(); j++) {
                 Agent agent = agents.get(j);
                 String agentName = agent.getAgentName();
                 String agent1 = agent.getAgent();
                 String agentAddress = agent.getAgentAddress();
                 if (agentName.equals(thirdPartyShort) && !ObjectUtils.isEmpty(agent1) && !ObjectUtils.isEmpty(agentAddress)) {
-                    String thirdPartyAndAddress = agent1 + "," + agentAddress;
-                    thirdPartyAgent += thirdPartyAndAddress + "。";
+                    String agentAndAddress = agent1 + "," + agentAddress + "。";
+                    thirdPartyAgentList.add(agentAndAddress);
                 }
             }
-            thirdParty.setThirdPartyAgent(thirdPartyAgent);
+            thirdParty.setThirdPartyAgent(thirdPartyAgentList);
+            thirdParty.setIsSupplyEvidence("没有");
         }
         return thirdPartList;
     }

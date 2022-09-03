@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -67,7 +68,7 @@ public class ThirdParty implements Serializable {
     private String thirdPartyDuty;
 
     @TableField(exist = false)
-    private String thirdPartyAgent;
+    private List<String> thirdPartyAgent;
 
     /**
      * 案号
@@ -128,6 +129,12 @@ public class ThirdParty implements Serializable {
      */
     @TableField("final_statement")
     private String finalStatement;
+
+    /**
+     * 是否有证据补充
+     */
+    @TableField(exist = false)
+    private String isSupplyEvidence;
 
     /**
      * 创建时间
@@ -217,11 +224,11 @@ public class ThirdParty implements Serializable {
         this.thirdPartyDuty = thirdPartyDuty;
     }
 
-    public String getThirdPartyAgent() {
+    public List<String> getThirdPartyAgent() {
         return thirdPartyAgent;
     }
 
-    public void setThirdPartyAgent(String thirdPartyAgent) {
+    public void setThirdPartyAgent(List<String> thirdPartyAgent) {
         this.thirdPartyAgent = thirdPartyAgent;
     }
 
@@ -335,6 +342,14 @@ public class ThirdParty implements Serializable {
 
     public void setUpdateUser(Long updateUser) {
         this.updateUser = updateUser;
+    }
+
+    public String getIsSupplyEvidence() {
+        return isSupplyEvidence;
+    }
+
+    public void setIsSupplyEvidence(String isSupplyEvidence) {
+        this.isSupplyEvidence = isSupplyEvidence;
     }
 
     @Override

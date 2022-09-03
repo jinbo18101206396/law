@@ -218,13 +218,13 @@ public class RecordController {
         inquiryService.saveInquiryInfo(courtNumber, counterClaim, recordJsonObject);
         //原告举证
         proofService.saveAccuserEvidence(courtNumber, CounterClaimEnum.NOT_COUNTER_CLAIM.getCode(), recordJsonObject);
-        //被告及其他原告质证
+        //被告及其他当事人质证
         queryService.saveDefendantAndOtherAccuserQuery(courtNumber, CounterClaimEnum.NOT_COUNTER_CLAIM.getCode(), recordJsonObject);
 
         if (!"".equals(defendantEvidence) && defendantEvidence.equals(DefendantEvidenceEnum.Y.getCode())) {
             //被告及第三人举证
             proofService.saveDefendantEvidence(courtNumber, CounterClaimEnum.NOT_COUNTER_CLAIM.getCode(), recordJsonObject);
-            //原告及其他被告质证
+            //原告及其他当事人质证
             queryService.saveAccuserAndOtherDefendantQuery(courtNumber, CounterClaimEnum.NOT_COUNTER_CLAIM.getCode(), recordJsonObject);
         }
 
@@ -408,13 +408,13 @@ public class RecordController {
         BasicInfo basicInfo = basicInfoService.getBasicInfo(courtNumber);
         recordMap.put("basicInfo", basicInfo);
 
-        List<Accuser> accuserList = accuserService.getAccuserInfoList(courtNumber);
+        List<Accuser> accuserList = accuserService.getAccuserInfoList(courtNumber, recordMap);
         recordMap.put("accuserList", accuserList);
 
-        List<Defendant> defendantList = defendantService.getDefendantInfoList(courtNumber);
+        List<Defendant> defendantList = defendantService.getDefendantInfoList(courtNumber, recordMap);
         recordMap.put("defendantList", defendantList);
 
-        List<ThirdParty> thirdPartyList = thirdPartyService.getThirdPartyInfoList(courtNumber);
+        List<ThirdParty> thirdPartyList = thirdPartyService.getThirdPartyInfoList(courtNumber, recordMap);
         recordMap.put("thirdPartyList", thirdPartyList);
 
         JSONObject judgeRandomInquiry = judgeRandomInquiryService.getJudgeRandomInquiry(courtNumber);
@@ -432,9 +432,9 @@ public class RecordController {
         recordMap.put("defendantReplyList", defendantReplyList);
 
         List<ThirdPartyState> thirdPartyStateList = basicInfoService.getThirdPartyState(courtNumber);
-        if(thirdPartyStateList != null && thirdPartyStateList.size() > 0){
+        if (thirdPartyStateList != null && thirdPartyStateList.size() > 0) {
             recordMap.put("judge_third_party_state", "请第三人进行述称。");
-        }else{
+        } else {
             recordMap.put("judge_third_party_state", "");
         }
         recordMap.put("thirdPartyStateList", thirdPartyStateList);

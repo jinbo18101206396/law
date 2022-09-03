@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -45,7 +46,7 @@ public interface ThirdPartyService extends IService<ThirdParty> {
      * @author 金波
      * @date 2022-07-12
      */
-    List<ThirdParty> getThirdPartyInfoList(String courtNumber);
+    List<ThirdParty> getThirdPartyInfoList(String courtNumber, Map<String, Object> recordMap);
 
     /**
      * 删除第三人信息（修改删除标记）
