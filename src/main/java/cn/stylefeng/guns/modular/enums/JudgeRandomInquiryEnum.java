@@ -10,7 +10,8 @@ import lombok.Getter;
 public enum JudgeRandomInquiryEnum {
     AFTER_ACCUSER_CLAIM("1", "原告诉陈后"),
     AFTER_DEFENDANT_REPLY("2", "被告答辩后"),
-    BEFORE_SUMMARIZE("3", "审判员最终陈述前");
+    BEFORE_SUMMARIZE("3", "审判员最终陈述前"),
+    BEFORE_THIRD_STATE("4", "第三人述称前");
 
     private final String code;
     private final String message;

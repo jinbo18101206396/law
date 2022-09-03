@@ -57,7 +57,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 /**
  * 笔录基本信息控制器
  *
@@ -177,7 +176,7 @@ public class RecordController {
         stateService.saveStateInfo(courtNumber, recordJsonObject);
         //原告诉讼请求项和事实与理由
         allegeService.saveAccuserClaimItem(courtNumber, CounterClaimEnum.NOT_COUNTER_CLAIM.getCode(), recordJsonObject);
-        //法官随机提问（审判员最后陈述前）
+        //审判员询问
         judgeRandomInquiryService.saveJudgeRandomInquiryInfo(courtNumber, CounterClaimEnum.NOT_COUNTER_CLAIM.getCode(), recordJsonObject);
         //被告答辩
         replyService.saveDefendantReply(courtNumber, CounterClaimEnum.NOT_COUNTER_CLAIM.getCode(), recordJsonObject);
@@ -419,6 +418,7 @@ public class RecordController {
 
         JSONObject judgeRandomInquiry = judgeRandomInquiryService.getJudgeRandomInquiry(courtNumber);
         recordMap.put("judgeInquiryAfterAccuserClaimArray", judgeRandomInquiry.getJSONArray("judge_inquiry_after_accuser_claim"));
+        recordMap.put("judgeInquiryBeforeThirdArray", judgeRandomInquiry.getJSONArray("judge_inquiry_before_third_state"));
         recordMap.put("judgeInquiryAfterDefendantReplyArray", judgeRandomInquiry.getJSONArray("judge_inquiry_after_defendant_reply"));
         recordMap.put("judgeInquiryBeforeSummarizeArray", judgeRandomInquiry.getJSONArray("judge_inquiry_before_summarize"));
 
