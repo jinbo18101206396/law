@@ -181,9 +181,6 @@ public class ProofServiceImpl extends ServiceImpl<ProofMapper, Proof> implements
                 String question = witnessTestimonyObject.getString("question");
                 String responder = witnessTestimonyObject.getString("responder");
                 String answer = witnessTestimonyObject.getString("answer");
-                if (ObjectUtils.isEmpty(quizzer) || ObjectUtils.isEmpty(question)) {
-                    continue;
-                }
                 WitnessTestimony witnessTestimony = new WitnessTestimony();
                 witnessTestimony.setCourtNumber(courtNumber);
                 witnessTestimony.setEvidence(evidence);

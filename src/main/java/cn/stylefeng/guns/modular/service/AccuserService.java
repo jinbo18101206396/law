@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -46,7 +47,7 @@ public interface AccuserService extends IService<Accuser> {
      * @author 金波
      * @date 2022/06/16
      */
-    List<Accuser> getAccuserInfoList(String courtNumber);
+    List<Accuser> getAccuserInfoList(String courtNumber, Map<String, Object> recordMap);
 
 
     /**

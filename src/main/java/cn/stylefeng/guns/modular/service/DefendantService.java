@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -45,7 +46,7 @@ public interface DefendantService extends IService<Defendant> {
      * @author 金波
      * @date 2022/06/16
      */
-    List<Defendant> getDefendantInfoList(String courtNumber);
+    List<Defendant> getDefendantInfoList(String courtNumber, Map<String, Object> recordMap);
 
     /**
      * 删除被告信息（修改删除标记）

@@ -17,7 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -240,7 +242,7 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
     }
 
     @Override
-    public List<Defendant> getDefendantInfoList(String courtNumber) {
+    public List<Defendant> getDefendantInfoList(String courtNumber, Map<String, Object> recordMap) {
         List<Defendant> defendantList = getDefendants(courtNumber);
         List<Agent> agents = getAgents(courtNumber);
         for (int i = 0; i < defendantList.size(); i++) {
@@ -278,52 +280,59 @@ public class DefendantServiceImpl extends ServiceImpl<DefendantMapper, Defendant
             if (!ObjectUtils.isEmpty(defendantAvoid)) {
                 defendant.setDefendantAvoid(AvoidEnum.getMessage(defendantAvoid));
             }
+
+            String isFinalStatement = "";
             String finalStatement = defendant.getFinalStatement();
-            if (ObjectUtils.isEmpty(finalStatement)) {
-                finalStatement = "坚持答辩意见";
+            if(!ObjectUtils.isEmpty(finalStatement)){
+                isFinalStatement = "是";
             }
+            recordMap.put("defendantIsFinalStatement",isFinalStatement);
             defendant.setFinalStatement(finalStatement);
+
             String mediate = defendant.getIsMediate();
             String mediatePlan = defendant.getMediatePlan();
             String timeLimit = defendant.getTimeLimit();
             if (mediate.equals(MediateEnum.Y.getCode())) {
-                mediate = "能";
-                if (!ObjectUtils.isEmpty(mediatePlan)) {
-                    mediate += "，调解方案：" + mediatePlan;
-                }
-                if (!ObjectUtils.isEmpty(timeLimit)) {
-                    mediate += "，庭外和解时限：" + timeLimit;
+                if(!ObjectUtils.isEmpty(mediatePlan) || !ObjectUtils.isEmpty(timeLimit)){
+                    mediate = "能，调解方案：" + mediatePlan + "，庭外和解时限：" + timeLimit;
+                }else{
+                    mediate = "";
                 }
             } else if (mediate.equals(MediateEnum.N.getCode())) {
                 mediate = "不能";
             }
             defendant.setIsMediate(mediate);
+            recordMap.put("defendantIsMediate",mediate);
+
+            String isDelivery = "";
             String delivery = defendant.getIsDelivery();
             String email = defendant.getEmail();
-            if (delivery.equals(DeliveryEnum.N.getCode()) && ObjectUtils.isEmpty(email)) {
-                email = defendant.getDefendantAddress();
+            if(ObjectUtils.isEmpty(email)){
+                defendant.setIsDelivery("");
+            }else{
+                if (delivery.equals(DeliveryEnum.Y.getCode())) {
+                    delivery = "同意，电子邮箱：" + email;
+                } else if (delivery.equals(DeliveryEnum.N.getCode())) {
+                    delivery = "不同意，纸质文书送达地址：" + email;
+                }
+                defendant.setIsDelivery(delivery);
+                isDelivery = "是";
             }
-            if (delivery.equals(DeliveryEnum.Y.getCode())) {
-                delivery = "同意";
-            } else if (delivery.equals(DeliveryEnum.N.getCode())) {
-                delivery = "不同意";
-            }
-            if (!ObjectUtils.isEmpty(email)) {
-                delivery += "，地址：" + email;
-            }
-            defendant.setIsDelivery(delivery);
-            String defendantAgent = "";
+            recordMap.put("defendantIsDelivery",isDelivery);
+
+            List<String> defendantAgentList = new ArrayList<>();
             for (int j = 0; j < agents.size(); j++) {
                 Agent agent = agents.get(j);
                 String agentName = agent.getAgentName();
                 String agent1 = agent.getAgent();
                 String agentAddress = agent.getAgentAddress();
                 if (agentName.equals(defendantShort) && !ObjectUtils.isEmpty(agent1) && !ObjectUtils.isEmpty(agentAddress)) {
-                    String defendantAndAddress = agent1 + "," + agentAddress;
-                    defendantAgent += defendantAndAddress + "。";
+                    String agentAndAddress = agent1 + "," + agentAddress + "。";
+                    defendantAgentList.add(agentAndAddress);
                 }
             }
-            defendant.setDefendantAgent(defendantAgent);
+            defendant.setDefendantAgent(defendantAgentList);
+            defendant.setIsSupplyEvidence("没有");
         }
         return defendantList;
     }

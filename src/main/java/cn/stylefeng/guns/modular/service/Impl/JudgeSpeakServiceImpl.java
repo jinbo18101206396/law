@@ -111,7 +111,7 @@ public class JudgeSpeakServiceImpl extends ServiceImpl<JudgeSpeakMapper, JudgeSp
 
     public JSONObject supplyJudgeSpeak(JSONObject recordJson){
         if(!recordJson.containsKey("judge_right_duty")){
-            recordJson.put("judge_right_duty", "审判员：依据《中华人民共和国民事诉讼法》的规定，当事人在法庭上享有下列权利：1.原告有权承认、变更、放弃自己的诉讼请求，被告有权反驳原告的诉讼请求或提起反诉；2.当事人有权申请回避；3.当事人有权举证；4.当事人有权辩论、有权请求法庭调解,当事人在享有上述权利的同时，负有以下义务：1.当事人有依法行使诉讼权利的义务；2.当事人有听从法庭指挥、遵守法庭纪律的义务；3.当事人有如实陈述事实、如实举证的义务。上述诉讼权利和义务双方是否听清？");
+            recordJson.put("judge_right_duty", "审判员：依据《中华人民共和国民事诉讼法》的规定，当事人在法庭上享有下列权利：1.原告有权承认、变更、放弃自己的诉讼请求，被告有权反驳原告的诉讼请求或提起反诉；2.当事人有权申请回避；3.当事人有权举证；4.当事人有权辩论、有权请求法庭调解,当事人在享有上述权利的同时，负有以下义务：1.当事人有依法行使诉讼权利的义务；2.当事人有听从法庭指挥、遵守法庭纪律的义务；3.当事人有如实陈述事实、如实举证的义务。上述诉讼权利和义务各方是否听清？");
         }
         if(!recordJson.containsKey("judge_avoid")){
             recordJson.put("judge_avoid", "审判员：当事人对审判员和书记是否申请回避？");
@@ -141,7 +141,7 @@ public class JudgeSpeakServiceImpl extends ServiceImpl<JudgeSpeakMapper, JudgeSp
             recordJson.put("judge_argue", "法庭询问结束，下面进行法庭辩论，首先原告发表辩论意见。");
         }
         if(!recordJson.containsKey("judge_finalstatement")){
-            recordJson.put("judge_finalstatement", "双方发表最后陈述意见。");
+            recordJson.put("judge_finalstatement", "各方发表最后陈述意见。");
         }
         if(!recordJson.containsKey("judge_mediate")){
             recordJson.put("judge_mediate", "当事人是否能够调解。");

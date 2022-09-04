@@ -273,6 +273,7 @@ layui.use(['table', 'admin', 'HttpRequest', 'func', 'form', 'layer', 'laydate', 
     // 渲染表格
     var tableResult = table.render({
         elem: '#' + Record.tableId,
+        limit:20,
         url: Feng.ctxPath + '/record/page',
         page: true,
         height: "full-158",

@@ -678,7 +678,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         JSONObject courtInvestigateObject = new JSONObject();
         //诉称内容
         courtInvesAllege(courtNumber, courtInvestigateObject);
-        //法官随机提问(原告诉称后，被告答辩后)
+        //法官随机提问(原告诉称后、第三人述陈前、被告答辩后)
         judgeRandomInquiry(courtNumber, courtInvestigateObject);
         //答辩内容
         courtInvesReply(courtNumber, courtInvestigateObject);
@@ -949,6 +949,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
     public void judgeRandomInquiry(String courtNumber, JSONObject courtInvestigateObject) {
         JSONObject judgeRandomInquiry = judgeRandomInquiryService.getJudgeRandomInquiry(courtNumber);
         courtInvestigateObject.put("judge_inquiry_after_accuser_claim", judgeRandomInquiry.getJSONArray("judge_inquiry_after_accuser_claim"));
+        courtInvestigateObject.put("judge_inquiry_before_third_state", judgeRandomInquiry.getJSONArray("judge_inquiry_before_third_state"));
         courtInvestigateObject.put("judge_inquiry_after_defendant_reply", judgeRandomInquiry.getJSONArray("judge_inquiry_after_defendant_reply"));
     }
 
