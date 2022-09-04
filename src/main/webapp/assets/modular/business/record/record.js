@@ -215,9 +215,11 @@ layui.use(['table', 'admin', 'HttpRequest', 'func', 'form', 'layer', 'laydate', 
                         let finalstatement_info = []
                         for (let i = 0; i < finalStatementInfoItem.length; i++) {
                             let finalstate = finalStatementInfoItem[i]
-                            if ((JSON.stringify(finalstate) != '{}') && (finalstate['name'] != '')) {
-                                console.log(JSON.stringify(finalstate))
-                                finalstatement_info.push(finalstate)
+                            if ((JSON.stringify(finalstate) != '{}') ) {
+                                if(finalstate['name'] != ''){
+                                    // console.log(JSON.stringify(finalstate))
+                                    finalstatement_info.push(finalstate)
+                                }
                             }
                         }
                         myLocalStorage["finalStatementInfo"]["judge_finalstatement"] = wholeItem.judge_finalstatement
@@ -238,8 +240,10 @@ layui.use(['table', 'admin', 'HttpRequest', 'func', 'form', 'layer', 'laydate', 
                         let delivery_info = []
                         for (let i = 0; i < deliveryInfoItem.length; i++) {
                             let delivery = deliveryInfoItem[i]
-                            if ((JSON.stringify(delivery) != '{}') && (delivery['name'] != '') ) {
-                                delivery_info.push(delivery)
+                            if (JSON.stringify(delivery) != '{}') {
+                                if(delivery['name'] != ''){
+                                    delivery_info.push(delivery)
+                                }
                             }
                         }
                         myLocalStorage["deliveryInfo"] = {}
