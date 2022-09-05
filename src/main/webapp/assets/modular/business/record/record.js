@@ -123,6 +123,7 @@ layui.use(['table', 'admin', 'HttpRequest', 'func', 'form', 'layer', 'laydate', 
                             judge_inquiry_after_accuser_claim: courtTemp.judge_inquiry_after_accuser_claim,
                             judge_inquiry_after_defendant_reply: courtTemp.judge_inquiry_after_defendant_reply,
                             is_change_claim_item: courtTemp.is_change_claim_item,
+                            judge_inquiry_before_third_state: courtTemp.judge_inquiry_before_third_state,
                             accuser_claim_item_after_change:courtTemp.accuser_claim_item_after_change,
                             accuser_claim_fact_reason_after_change: courtTemp.accuser_claim_fact_reason_after_change
                         }
