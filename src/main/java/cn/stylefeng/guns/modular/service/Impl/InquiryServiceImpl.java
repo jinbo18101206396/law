@@ -127,9 +127,11 @@ public class InquiryServiceImpl extends ServiceImpl<InquiryMapper, Inquiry> impl
                     inquiryAnswerArray.add(inquiryAnswerObject);
                 }
             }
-            if (inquiryAnswerArray.size() > 0) {
+            if (inquiryAnswerArray != null && inquiryAnswerArray.size() > 0) {
                 inquiryInfoObject.put("inquiry_answer", inquiryAnswerArray);
                 inquiryInfoArray.add(inquiryInfoObject);
+            }else{
+                inquiryInfoArray.add(blankInquiry());
             }
         }
         return inquiryInfoArray;
