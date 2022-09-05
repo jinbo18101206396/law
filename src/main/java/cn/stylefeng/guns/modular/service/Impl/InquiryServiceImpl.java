@@ -91,7 +91,7 @@ public class InquiryServiceImpl extends ServiceImpl<InquiryMapper, Inquiry> impl
         //法庭询问
         JSONArray inquiryInfoArray = new JSONArray();
         List<Inquiry> inquiries = getInquiries(courtNumber);
-        if (null == inquiries || inquiries.size() == 0) {
+        if (null == inquiries || inquiries.size() <= 0) {
             inquiryInfoArray.add(blankInquiry());
         } else {
             String lastInquiryQuestion = "";

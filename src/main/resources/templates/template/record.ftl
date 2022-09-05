@@ -1672,7 +1672,7 @@
                     </w:p>
                     </#if>
                     </#list>
-                    <#if (judge_mediate)?? && (judge_mediate) != "" && (accuserIsMediate != "" || defendantIsMediate != "" || thirdIsMediate != "")>
+                    <#if (judge_mediate)?? && (judge_mediate) != "" && (accuserIsMediate != "" || defendantIsMediate != "")>
                     <w:p w14:paraId="2CE1A4C6" w14:textId="379507AD" w:rsidR="00300833" w:rsidRPr="001822B7"
                          w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                         <w:pPr>
@@ -1774,7 +1774,7 @@
                     </w:p>
                     </#if>
                     </#list>
-                    <#if (judge_delivery)?? && (judge_delivery) != "" && (accuserIsDelivery != "" || defendantIsDelivery != "" || thirdIsDelivery != "")>
+                    <#if (judge_delivery)?? && (judge_delivery) != "" && (accuserIsDelivery != "" || defendantIsDelivery != "")>
                     <w:p w14:paraId="3215EE91" w14:textId="431B9DA5" w:rsidR="00300833" w:rsidRPr="001822B7"
                          w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                         <w:pPr>
