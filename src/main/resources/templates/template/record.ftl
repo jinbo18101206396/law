@@ -1246,7 +1246,7 @@
                                     <w:sz w:val="24"/>
                                     <w:szCs w:val="24"/>
                                 </w:rPr>
-                                <w:t>证据${defendantAndThirdEvidence.serial}：${defendantAndThirdEvidence.evidence}，证据类型：${defendantAndThirdEvidence.evidenceType}，证明事项：${defendantAndThirdEvidence.content}。
+                                <w:t>${defendantAndThirdEvidence.serialAndName}：${defendantAndThirdEvidence.evidence}，证据类型：${defendantAndThirdEvidence.evidenceType}，证明事项：${defendantAndThirdEvidence.content}。
                                 </w:t>
                             </w:r>
                         </w:p>

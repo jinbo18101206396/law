@@ -832,15 +832,26 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         return queryList;
     }
 
-    private List<Proof> getEvidenceContent(String courtNumber,String type){
-        List<Proof> proofs = getProofs(courtNumber,type);
+    private List<Proof> getEvidenceContent(String courtNumber, String type) {
+        List<Proof> proofs = getProofs(courtNumber, type);
         List<WitnessTestimony> witnessProofs = new ArrayList<>();
         for (int i = 0; i < proofs.size(); i++) {
             Proof proof = proofs.get(i);
+            String serial = proof.getSerial();
+            String name = proof.getName();
             String isWitness = proof.getIsWitness();
+            String serialAndlName = "证据" + serial;
             if (!ObjectUtils.isEmpty(isWitness) && "1".equals(isWitness)) {
+                //人证
                 witnessProofs = getWitnessProofs(courtNumber, proof.getEvidence());
+            } else {
+                //物证
+                if ("被告及第三人".equals(type)) {
+                    name = name.replace("（", "，").replace("）", "");
+                    serialAndlName = "证据" + serial + "（" + name + "）";
+                }
             }
+            proof.setSerialAndName(serialAndlName);
             proof.setWitnessProofs(witnessProofs);
         }
         return proofs;
@@ -880,7 +891,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         courtInvestigate.setAccuserClaimFactReason(accuserClaimFactReason);
         courtInvestigate.setAccuserClaimItemAfterChange(accuserClaimItemAfterChange);
         //原告举证（物证/人证）
-        List<Proof> accuserEvidenceList = getEvidenceContent(courtNumber,"原告");
+        List<Proof> accuserEvidenceList = getEvidenceContent(courtNumber, "原告");
         courtInvestigate.setAccuserEvidenceList(accuserEvidenceList);
         //被告及其他原告质证
         JSONArray defendantQueryArray = courtInvestigateObject.getJSONArray("defendant_and_other_accuser_query");
@@ -1010,11 +1021,11 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
     /**
      * 物证
      */
-    public List<Proof> getProofs(String courtNumber,String type) {
+    public List<Proof> getProofs(String courtNumber, String type) {
         LambdaQueryWrapper<Proof> proofQueryWrapper = new LambdaQueryWrapper<>();
         proofQueryWrapper.eq(Proof::getCourtNumber, courtNumber);
-        if(!ObjectUtils.isEmpty(type)){
-            proofQueryWrapper.eq(Proof::getType,type);
+        if (!ObjectUtils.isEmpty(type)) {
+            proofQueryWrapper.eq(Proof::getType, type);
         }
         proofQueryWrapper.eq(Proof::getDelFlag, YesOrNotEnum.N.getCode());
         return proofService.list(proofQueryWrapper);
@@ -1072,7 +1083,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         JSONArray accuserWitnessEvidenceArray = new JSONArray();
         JSONArray defendantAndThirdWitnessEvidenceArray = new JSONArray();
 
-        List<Proof> proofs = getProofs(courtNumber,"");
+        List<Proof> proofs = getProofs(courtNumber, "");
         for (int i = 0; i < proofs.size(); i++) {
             Proof proof = proofs.get(i);
             String isWitness = proof.getIsWitness();
@@ -1089,7 +1100,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
                 String witnessName = "";
                 String witnessType = "";
 
-                if(witnessProofs != null && witnessProofs.size() > 0){
+                if (witnessProofs != null && witnessProofs.size() > 0) {
                     for (int j = 0; j < witnessProofs.size(); j++) {
                         WitnessTestimony witnessTestimony = witnessProofs.get(j);
                         witnessName = witnessTestimony.getName();
@@ -1103,7 +1114,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
 
                         witnessTestimonyArray.add(questionAndAnswerObject);
                     }
-                }else{
+                } else {
                     JSONObject questionAndAnswerObject = new JSONObject();
                     questionAndAnswerObject.put("quizzer", "");
                     questionAndAnswerObject.put("question", "");
@@ -1314,7 +1325,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
             String[] split = timeLimit.split(" 至 ");
             String beginTime = split[0] + " 00:00:00";
             String endTime = split[1] + " 23:59:59";
-            queryWrapper.between(BasicInfo::getCourtTime,beginTime ,endTime);
+            queryWrapper.between(BasicInfo::getCourtTime, beginTime, endTime);
         }
         queryWrapper.eq(ObjectUtil.isNotEmpty(basicId), BasicInfo::getBasicId, basicId);
         queryWrapper.eq(ObjectUtil.isNotEmpty(courtNumber), BasicInfo::getCourtNumber, courtNumber);

@@ -44,6 +44,12 @@ public class Proof implements Serializable {
     private String serial;
 
     /**
+     * 证据编号和名称
+     */
+    @TableField(exist = false)
+    private String serialAndName;
+
+    /**
      * 证据名称
      */
     @TableField("evidence")
@@ -259,6 +265,14 @@ public class Proof implements Serializable {
 
     public void setWitnessProofs(List<WitnessTestimony> witnessProofs) {
         this.witnessProofs = witnessProofs;
+    }
+
+    public String getSerialAndName() {
+        return serialAndName;
+    }
+
+    public void setSerialAndName(String serialAndName) {
+        this.serialAndName = serialAndName;
     }
 
     @Override
