@@ -1570,7 +1570,7 @@
                     </w:p>
                     </#if>
                     </#list>
-                    <#if judge_finalstatement?? && judge_finalstatement != "" && (accuserIsFinalStatement != "" || thirdIsFinalStatement != "" || defendantIsFinalStatement != "")>
+                    <#if judge_finalstatement?? && judge_finalstatement != "" && (accuserIsFinalStatement != "" || defendantIsFinalStatement != "")>
                     <w:p w14:paraId="0248C834" w14:textId="631CDCE2" w:rsidR="00300833" w:rsidRPr="001822B7"
                          w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                         <w:pPr>
