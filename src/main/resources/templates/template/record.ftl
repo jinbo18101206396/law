@@ -799,33 +799,30 @@
                     </#if>
                     <#list judgeInquiryAfterAccuserClaimArray as judgeInquiryAfterAccuserClaim>
                         <#if (judgeInquiryAfterAccuserClaim.question)?? && (judgeInquiryAfterAccuserClaim.question) != "">
-                            <w:p w14:paraId="6248BCFE" w14:textId="0680E81B" w:rsidR="00B76C03" w:rsidRPr="001822B7"
-                                 w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
-                                <w:pPr>
-                                    <w:spacing w:line="360" w:lineRule="auto"/>
-                                    <w:ind w:firstLineChars="200" w:firstLine="480"/>
-                                    <w:rPr>
-                                        <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
-                                        <w:color w:val="000000" w:themeColor="text1"/>
-                                        <w:sz w:val="24"/>
-                                        <w:szCs w:val="24"/>
-                                    </w:rPr>
-                                </w:pPr>
-                                <w:r w:rsidRPr="001822B7">
-                                    <w:rPr>
-                                        <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
-                                        <w:color w:val="000000" w:themeColor="text1"/>
-                                        <w:sz w:val="24"/>
-                                        <w:szCs w:val="24"/>
-                                    </w:rPr>
-                                    <w:t>审判员：${judgeInquiryAfterAccuserClaim.question}</w:t>
-                                </w:r>
-                            </w:p>
-                        </#if>
-                        <#list judgeInquiryAfterAccuserClaim.answer as ans>
-                            <#if ans.answer?? && ans.answer != "">
-                                <w:p w14:paraId="05517C8C" w14:textId="0FB197AB" w:rsidR="00B76C03" w:rsidRPr="001822B7"
-                                     w:rsidRDefault="005F657E" w:rsidP="00B517E9">
+                            <#if (judgeInquiryAfterAccuserClaim.question)?contains("///")>
+                                <w:p w14:paraId="6248BCFE" w14:textId="0680E81B" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
+                                    <w:pPr>
+                                        <w:spacing w:line="360" w:lineRule="auto"/>
+                                        <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                        <w:rPr>
+                                            <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="fareast"/>
+                                            <w:color w:val="FF0000"/>
+                                            <w:sz w:val="24"/>
+                                            <w:szCs w:val="24"/>
+                                        </w:rPr>
+                                    </w:pPr>
+                                    <w:r w:rsidRPr="001822B7">
+                                        <w:rPr>
+                                            <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="fareast"/>
+                                            <w:color w:val="FF0000"/>
+                                            <w:sz w:val="24"/>
+                                            <w:szCs w:val="24"/>
+                                        </w:rPr>
+                                        <w:t>审判员：${judgeInquiryAfterAccuserClaim.question?replace('///','')}</w:t>
+                                    </w:r>
+                                </w:p>
+                            <#else>
+                                <w:p w14:paraId="6248BCFE" w14:textId="0680E81B" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                                     <w:pPr>
                                         <w:spacing w:line="360" w:lineRule="auto"/>
                                         <w:ind w:firstLineChars="200" w:firstLine="480"/>
@@ -838,14 +835,65 @@
                                     </w:pPr>
                                     <w:r w:rsidRPr="001822B7">
                                         <w:rPr>
-                                            <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+                                            <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
                                             <w:color w:val="000000" w:themeColor="text1"/>
                                             <w:sz w:val="24"/>
                                             <w:szCs w:val="24"/>
                                         </w:rPr>
-                                        <w:t>${ans.name}：${ans.answer}</w:t>
+                                        <w:t>审判员：${judgeInquiryAfterAccuserClaim.question}</w:t>
                                     </w:r>
                                 </w:p>
+                            </#if>
+                        </#if>
+                        <#list judgeInquiryAfterAccuserClaim.answer as ans>
+                            <#if ans.answer?? && ans.answer != "">
+                                <#if (ans.answer)?contains("///")>
+                                    <w:p w14:paraId="05517C8C" w14:textId="0FB197AB" w:rsidR="00B76C03" w:rsidRPr="001822B7"
+                                         w:rsidRDefault="005F657E" w:rsidP="00B517E9">
+                                        <w:pPr>
+                                            <w:spacing w:line="360" w:lineRule="auto"/>
+                                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                            <w:rPr>
+                                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="fareast"/>
+                                                <w:color w:val="FF0000"/>
+                                                <w:sz w:val="24"/>
+                                                <w:szCs w:val="24"/>
+                                            </w:rPr>
+                                        </w:pPr>
+                                        <w:r w:rsidRPr="001822B7">
+                                            <w:rPr>
+                                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:hint="fareast"/>
+                                                <w:color w:val="FF0000"/>
+                                                <w:sz w:val="24"/>
+                                                <w:szCs w:val="24"/>
+                                            </w:rPr>
+                                            <w:t>${ans.name}：${ans.answer?replace('///','')}</w:t>
+                                        </w:r>
+                                    </w:p>
+                                <#else>
+                                    <w:p w14:paraId="05517C8C" w14:textId="0FB197AB" w:rsidR="00B76C03" w:rsidRPr="001822B7"
+                                         w:rsidRDefault="005F657E" w:rsidP="00B517E9">
+                                        <w:pPr>
+                                            <w:spacing w:line="360" w:lineRule="auto"/>
+                                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                            <w:rPr>
+                                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                                <w:color w:val="000000" w:themeColor="text1"/>
+                                                <w:sz w:val="24"/>
+                                                <w:szCs w:val="24"/>
+                                            </w:rPr>
+                                        </w:pPr>
+                                        <w:r w:rsidRPr="001822B7">
+                                            <w:rPr>
+                                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+                                                <w:color w:val="000000" w:themeColor="text1"/>
+                                                <w:sz w:val="24"/>
+                                                <w:szCs w:val="24"/>
+                                            </w:rPr>
+                                            <w:t>${ans.name}：${ans.answer}</w:t>
+                                        </w:r>
+                                    </w:p>
+                                </#if>
                             </#if>
                         </#list>
                     </#list>
@@ -899,35 +947,33 @@
                             </#if>
                         </#list>
                     </#if>
+
                     <#list judgeInquiryBeforeThirdArray as judgeInquiryBeforeThird>
                         <#if (judgeInquiryBeforeThird.question)?? && (judgeInquiryBeforeThird.question) != "">
-                            <w:p w14:paraId="6248BCFE" w14:textId="0680E81B" w:rsidR="00B76C03" w:rsidRPr="001822B7"
-                                 w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
-                                <w:pPr>
-                                    <w:spacing w:line="360" w:lineRule="auto"/>
-                                    <w:ind w:firstLineChars="200" w:firstLine="480"/>
-                                    <w:rPr>
-                                        <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
-                                        <w:color w:val="000000" w:themeColor="text1"/>
-                                        <w:sz w:val="24"/>
-                                        <w:szCs w:val="24"/>
-                                    </w:rPr>
-                                </w:pPr>
-                                <w:r w:rsidRPr="001822B7">
-                                    <w:rPr>
-                                        <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
-                                        <w:color w:val="000000" w:themeColor="text1"/>
-                                        <w:sz w:val="24"/>
-                                        <w:szCs w:val="24"/>
-                                    </w:rPr>
-                                    <w:t>审判员：${judgeInquiryBeforeThird.question}</w:t>
-                                </w:r>
-                            </w:p>
-                        </#if>
-                        <#list judgeInquiryBeforeThird.answer as ans>
-                            <#if ans.answer?? && ans.answer != "">
-                                <w:p w14:paraId="05517C8C" w14:textId="0FB197AB" w:rsidR="00B76C03" w:rsidRPr="001822B7"
-                                     w:rsidRDefault="005F657E" w:rsidP="00B517E9">
+                            <#if (judgeInquiryBeforeThird.question)?contains("///")>
+                                <w:p w14:paraId="6248BCFE" w14:textId="0680E81B" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
+                                    <w:pPr>
+                                        <w:spacing w:line="360" w:lineRule="auto"/>
+                                        <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                        <w:rPr>
+                                            <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="fareast"/>
+                                            <w:color w:val="FF0000"/>
+                                            <w:sz w:val="24"/>
+                                            <w:szCs w:val="24"/>
+                                        </w:rPr>
+                                    </w:pPr>
+                                    <w:r w:rsidRPr="001822B7">
+                                        <w:rPr>
+                                            <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="fareast"/>
+                                            <w:color w:val="FF0000"/>
+                                            <w:sz w:val="24"/>
+                                            <w:szCs w:val="24"/>
+                                        </w:rPr>
+                                        <w:t>审判员：${judgeInquiryBeforeThird.question?replace('///','')}</w:t>
+                                    </w:r>
+                                </w:p>
+                            <#else>
+                                <w:p w14:paraId="6248BCFE" w14:textId="0680E81B" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                                     <w:pPr>
                                         <w:spacing w:line="360" w:lineRule="auto"/>
                                         <w:ind w:firstLineChars="200" w:firstLine="480"/>
@@ -940,14 +986,65 @@
                                     </w:pPr>
                                     <w:r w:rsidRPr="001822B7">
                                         <w:rPr>
-                                            <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+                                            <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
                                             <w:color w:val="000000" w:themeColor="text1"/>
                                             <w:sz w:val="24"/>
                                             <w:szCs w:val="24"/>
                                         </w:rPr>
-                                        <w:t>${ans.name}：${ans.answer}</w:t>
+                                        <w:t>审判员：${judgeInquiryBeforeThird.question}</w:t>
                                     </w:r>
                                 </w:p>
+                            </#if>
+                        </#if>
+                        <#list judgeInquiryBeforeThird.answer as ans>
+                            <#if ans.answer?? && ans.answer != "">
+                                <#if (ans.answer)?contains("///")>
+                                    <w:p w14:paraId="05517C8C" w14:textId="0FB197AB" w:rsidR="00B76C03" w:rsidRPr="001822B7"
+                                         w:rsidRDefault="005F657E" w:rsidP="00B517E9">
+                                        <w:pPr>
+                                            <w:spacing w:line="360" w:lineRule="auto"/>
+                                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                            <w:rPr>
+                                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="fareast"/>
+                                                <w:color w:val="FF0000"/>
+                                                <w:sz w:val="24"/>
+                                                <w:szCs w:val="24"/>
+                                            </w:rPr>
+                                        </w:pPr>
+                                        <w:r w:rsidRPr="001822B7">
+                                            <w:rPr>
+                                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:hint="fareast"/>
+                                                <w:color w:val="FF0000"/>
+                                                <w:sz w:val="24"/>
+                                                <w:szCs w:val="24"/>
+                                            </w:rPr>
+                                            <w:t>${ans.name}：${ans.answer?replace('///','')}</w:t>
+                                        </w:r>
+                                    </w:p>
+                                <#else>
+                                    <w:p w14:paraId="05517C8C" w14:textId="0FB197AB" w:rsidR="00B76C03" w:rsidRPr="001822B7"
+                                         w:rsidRDefault="005F657E" w:rsidP="00B517E9">
+                                        <w:pPr>
+                                            <w:spacing w:line="360" w:lineRule="auto"/>
+                                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                            <w:rPr>
+                                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                                <w:color w:val="000000" w:themeColor="text1"/>
+                                                <w:sz w:val="24"/>
+                                                <w:szCs w:val="24"/>
+                                            </w:rPr>
+                                        </w:pPr>
+                                        <w:r w:rsidRPr="001822B7">
+                                            <w:rPr>
+                                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+                                                <w:color w:val="000000" w:themeColor="text1"/>
+                                                <w:sz w:val="24"/>
+                                                <w:szCs w:val="24"/>
+                                            </w:rPr>
+                                            <w:t>${ans.name}：${ans.answer}</w:t>
+                                        </w:r>
+                                    </w:p>
+                                </#if>
                             </#if>
                         </#list>
                     </#list>
@@ -1001,35 +1098,33 @@
                             </w:p>
                         </#if>
                     </#list>
+
                     <#list judgeInquiryAfterDefendantReplyArray as judgeInquiryAfterDefendantReply>
                         <#if (judgeInquiryAfterDefendantReply.question)?? && (judgeInquiryAfterDefendantReply.question) != "">
-                            <w:p w14:paraId="6248BCFE" w14:textId="0680E81B" w:rsidR="00B76C03" w:rsidRPr="001822B7"
-                                 w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
-                                <w:pPr>
-                                    <w:spacing w:line="360" w:lineRule="auto"/>
-                                    <w:ind w:firstLineChars="200" w:firstLine="480"/>
-                                    <w:rPr>
-                                        <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
-                                        <w:color w:val="000000" w:themeColor="text1"/>
-                                        <w:sz w:val="24"/>
-                                        <w:szCs w:val="24"/>
-                                    </w:rPr>
-                                </w:pPr>
-                                <w:r w:rsidRPr="001822B7">
-                                    <w:rPr>
-                                        <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
-                                        <w:color w:val="000000" w:themeColor="text1"/>
-                                        <w:sz w:val="24"/>
-                                        <w:szCs w:val="24"/>
-                                    </w:rPr>
-                                    <w:t>审判员：${judgeInquiryAfterDefendantReply.question}</w:t>
-                                </w:r>
-                            </w:p>
-                        </#if>
-                        <#list judgeInquiryAfterDefendantReply.answer as ans>
-                            <#if ans.answer?? && ans.answer != "">
-                                <w:p w14:paraId="05517C8C" w14:textId="0FB197AB" w:rsidR="00B76C03" w:rsidRPr="001822B7"
-                                     w:rsidRDefault="005F657E" w:rsidP="00B517E9">
+                            <#if (judgeInquiryAfterDefendantReply.question)?contains("///")>
+                                <w:p w14:paraId="6248BCFE" w14:textId="0680E81B" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
+                                    <w:pPr>
+                                        <w:spacing w:line="360" w:lineRule="auto"/>
+                                        <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                        <w:rPr>
+                                            <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="fareast"/>
+                                            <w:color w:val="FF0000"/>
+                                            <w:sz w:val="24"/>
+                                            <w:szCs w:val="24"/>
+                                        </w:rPr>
+                                    </w:pPr>
+                                    <w:r w:rsidRPr="001822B7">
+                                        <w:rPr>
+                                            <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="fareast"/>
+                                            <w:color w:val="FF0000"/>
+                                            <w:sz w:val="24"/>
+                                            <w:szCs w:val="24"/>
+                                        </w:rPr>
+                                        <w:t>审判员：${judgeInquiryAfterDefendantReply.question?replace('///','')}</w:t>
+                                    </w:r>
+                                </w:p>
+                            <#else>
+                                <w:p w14:paraId="6248BCFE" w14:textId="0680E81B" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
                                     <w:pPr>
                                         <w:spacing w:line="360" w:lineRule="auto"/>
                                         <w:ind w:firstLineChars="200" w:firstLine="480"/>
@@ -1042,17 +1137,69 @@
                                     </w:pPr>
                                     <w:r w:rsidRPr="001822B7">
                                         <w:rPr>
-                                            <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+                                            <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
                                             <w:color w:val="000000" w:themeColor="text1"/>
                                             <w:sz w:val="24"/>
                                             <w:szCs w:val="24"/>
                                         </w:rPr>
-                                        <w:t>${ans.name}：${ans.answer}</w:t>
+                                        <w:t>审判员：${judgeInquiryAfterDefendantReply.question}</w:t>
                                     </w:r>
                                 </w:p>
                             </#if>
+                        </#if>
+                        <#list judgeInquiryAfterDefendantReply.answer as ans>
+                            <#if ans.answer?? && ans.answer != "">
+                                <#if (ans.answer)?contains("///")>
+                                    <w:p w14:paraId="05517C8C" w14:textId="0FB197AB" w:rsidR="00B76C03" w:rsidRPr="001822B7"
+                                         w:rsidRDefault="005F657E" w:rsidP="00B517E9">
+                                        <w:pPr>
+                                            <w:spacing w:line="360" w:lineRule="auto"/>
+                                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                            <w:rPr>
+                                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="fareast"/>
+                                                <w:color w:val="FF0000"/>
+                                                <w:sz w:val="24"/>
+                                                <w:szCs w:val="24"/>
+                                            </w:rPr>
+                                        </w:pPr>
+                                        <w:r w:rsidRPr="001822B7">
+                                            <w:rPr>
+                                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:hint="fareast"/>
+                                                <w:color w:val="FF0000"/>
+                                                <w:sz w:val="24"/>
+                                                <w:szCs w:val="24"/>
+                                            </w:rPr>
+                                            <w:t>${ans.name}：${ans.answer?replace('///','')}</w:t>
+                                        </w:r>
+                                    </w:p>
+                                <#else>
+                                    <w:p w14:paraId="05517C8C" w14:textId="0FB197AB" w:rsidR="00B76C03" w:rsidRPr="001822B7"
+                                         w:rsidRDefault="005F657E" w:rsidP="00B517E9">
+                                        <w:pPr>
+                                            <w:spacing w:line="360" w:lineRule="auto"/>
+                                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                            <w:rPr>
+                                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                                <w:color w:val="000000" w:themeColor="text1"/>
+                                                <w:sz w:val="24"/>
+                                                <w:szCs w:val="24"/>
+                                            </w:rPr>
+                                        </w:pPr>
+                                        <w:r w:rsidRPr="001822B7">
+                                            <w:rPr>
+                                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+                                                <w:color w:val="000000" w:themeColor="text1"/>
+                                                <w:sz w:val="24"/>
+                                                <w:szCs w:val="24"/>
+                                            </w:rPr>
+                                            <w:t>${ans.name}：${ans.answer}</w:t>
+                                        </w:r>
+                                    </w:p>
+                                </#if>
+                            </#if>
                         </#list>
                     </#list>
+
                     <#if (judge_accuser_evidence)?? && (judge_accuser_evidence) != "" && (courtInvestigate.accuserEvidenceList)?? && (courtInvestigate.accuserEvidenceList?size>0)>
                         <w:p w14:paraId="3C86C047" w14:textId="2C0113E9" w:rsidR="00DB47D8" w:rsidRPr="001822B7"
                              w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
@@ -1468,57 +1615,107 @@
                         </w:r>
                     </w:p>
                     </#if>
+
                     <#list inquiryList as inquiry>
-                    <#if (inquiry.question)?? && (inquiry.question) != "">
-                    <w:p w14:paraId="6248BCFE" w14:textId="0680E81B" w:rsidR="00B76C03" w:rsidRPr="001822B7"
-                         w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
-                        <w:pPr>
-                            <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
-                                <w:color w:val="000000" w:themeColor="text1"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                        </w:pPr>
-                        <w:r w:rsidRPr="001822B7">
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
-                                <w:color w:val="000000" w:themeColor="text1"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                            <w:t>审判员：${inquiry.question}</w:t>
-                        </w:r>
-                    </w:p>
-                    </#if>
-                    <#list inquiry.answerList as answer>
-                    <#if answer?? && answer != "">
-                    <w:p w14:paraId="05517C8C" w14:textId="0FB197AB" w:rsidR="00B76C03" w:rsidRPr="001822B7"
-                         w:rsidRDefault="005F657E" w:rsidP="00B517E9">
-                        <w:pPr>
-                            <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
-                                <w:color w:val="000000" w:themeColor="text1"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                        </w:pPr>
-                        <w:r w:rsidRPr="001822B7">
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
-                                <w:color w:val="000000" w:themeColor="text1"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                            <w:t>${answer}</w:t>
-                        </w:r>
-                    </w:p>
-                    </#if>
-                    </#list>
+                        <#if (inquiry.question)?? && (inquiry.question) != "">
+                            <#if (inquiry.question)?contains("///")>
+                                <w:p w14:paraId="6248BCFE" w14:textId="0680E81B" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
+                                    <w:pPr>
+                                        <w:spacing w:line="360" w:lineRule="auto"/>
+                                        <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                        <w:rPr>
+                                            <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="fareast"/>
+                                            <w:color w:val="FF0000"/>
+                                            <w:sz w:val="24"/>
+                                            <w:szCs w:val="24"/>
+                                        </w:rPr>
+                                    </w:pPr>
+                                    <w:r w:rsidRPr="001822B7">
+                                        <w:rPr>
+                                            <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="fareast"/>
+                                            <w:color w:val="FF0000"/>
+                                            <w:sz w:val="24"/>
+                                            <w:szCs w:val="24"/>
+                                        </w:rPr>
+                                        <w:t>审判员：${inquiry.question?replace('///','')}</w:t>
+                                    </w:r>
+                                </w:p>
+                            <#else>
+                                <w:p w14:paraId="6248BCFE" w14:textId="0680E81B" w:rsidR="00B76C03" w:rsidRPr="001822B7"
+                                     w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
+                                    <w:pPr>
+                                        <w:spacing w:line="360" w:lineRule="auto"/>
+                                        <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                        <w:rPr>
+                                            <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                            <w:color w:val="000000" w:themeColor="text1"/>
+                                            <w:sz w:val="24"/>
+                                            <w:szCs w:val="24"/>
+                                        </w:rPr>
+                                    </w:pPr>
+                                    <w:r w:rsidRPr="001822B7">
+                                        <w:rPr>
+                                            <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                            <w:color w:val="000000" w:themeColor="text1"/>
+                                            <w:sz w:val="24"/>
+                                            <w:szCs w:val="24"/>
+                                        </w:rPr>
+                                        <w:t>审判员：${inquiry.question}</w:t>
+                                    </w:r>
+                                </w:p>
+                            </#if>
+                        </#if>
+                        <#list inquiry.answerList as answer>
+                            <#if answer?? && answer != "">
+                                <#if (answer)?contains("///")>
+                                    <w:p w14:paraId="05517C8C" w14:textId="0FB197AB" w:rsidR="00B76C03" w:rsidRPr="001822B7"
+                                         w:rsidRDefault="005F657E" w:rsidP="00B517E9">
+                                        <w:pPr>
+                                            <w:spacing w:line="360" w:lineRule="auto"/>
+                                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                            <w:rPr>
+                                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="fareast"/>
+                                                <w:color w:val="FF0000"/>
+                                                <w:sz w:val="24"/>
+                                                <w:szCs w:val="24"/>
+                                            </w:rPr>
+                                        </w:pPr>
+                                        <w:r w:rsidRPr="001822B7">
+                                            <w:rPr>
+                                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:hint="fareast"/>
+                                                <w:color w:val="FF0000"/>
+                                                <w:sz w:val="24"/>
+                                                <w:szCs w:val="24"/>
+                                            </w:rPr>
+                                            <w:t>${(answer)?replace('///','')}</w:t>
+                                        </w:r>
+                                    </w:p>
+                                <#else>
+                                    <w:p w14:paraId="05517C8C" w14:textId="0FB197AB" w:rsidR="00B76C03" w:rsidRPr="001822B7"
+                                         w:rsidRDefault="005F657E" w:rsidP="00B517E9">
+                                        <w:pPr>
+                                            <w:spacing w:line="360" w:lineRule="auto"/>
+                                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                            <w:rPr>
+                                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                                <w:color w:val="000000" w:themeColor="text1"/>
+                                                <w:sz w:val="24"/>
+                                                <w:szCs w:val="24"/>
+                                            </w:rPr>
+                                        </w:pPr>
+                                        <w:r w:rsidRPr="001822B7">
+                                            <w:rPr>
+                                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+                                                <w:color w:val="000000" w:themeColor="text1"/>
+                                                <w:sz w:val="24"/>
+                                                <w:szCs w:val="24"/>
+                                            </w:rPr>
+                                            <w:t>${answer}</w:t>
+                                        </w:r>
+                                    </w:p>
+                                </#if>
+                            </#if>
+                        </#list>
                     </#list>
                     <#if judge_argue?? && judge_argue != "" && argueList?? && (argueList?size > 0)>
                     <w:p w14:paraId="13D9E9C1" w14:textId="5CB74E63" w:rsidR="00125693" w:rsidRPr="001822B7"
@@ -1878,58 +2075,108 @@
                     </w:p>
                     </#if>
                     </#list>
+
                     <#list judgeInquiryBeforeSummarizeArray as judgeInquiryBeforeSummarize>
-                    <#if (judgeInquiryBeforeSummarize.question)?? && (judgeInquiryBeforeSummarize.question) != "">
-                    <w:p w14:paraId="6248BCFE" w14:textId="0680E81B" w:rsidR="00B76C03" w:rsidRPr="001822B7"
-                         w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
-                        <w:pPr>
-                            <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
-                                <w:color w:val="000000" w:themeColor="text1"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                        </w:pPr>
-                        <w:r w:rsidRPr="001822B7">
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
-                                <w:color w:val="000000" w:themeColor="text1"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                            <w:t>审判员：${judgeInquiryBeforeSummarize.question}</w:t>
-                        </w:r>
-                    </w:p>
-                    </#if>
-                    <#list judgeInquiryBeforeSummarize.answer as ans>
-                    <#if ans.answer?? && ans.answer != "">
-                    <w:p w14:paraId="05517C8C" w14:textId="0FB197AB" w:rsidR="00B76C03" w:rsidRPr="001822B7"
-                         w:rsidRDefault="005F657E" w:rsidP="00B517E9">
-                        <w:pPr>
-                            <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
-                                <w:color w:val="000000" w:themeColor="text1"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                        </w:pPr>
-                        <w:r w:rsidRPr="001822B7">
-                            <w:rPr>
-                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
-                                <w:color w:val="000000" w:themeColor="text1"/>
-                                <w:sz w:val="24"/>
-                                <w:szCs w:val="24"/>
-                            </w:rPr>
-                            <w:t>${ans.name}：${ans.answer}</w:t>
-                        </w:r>
-                    </w:p>
-                    </#if>
+                        <#if (judgeInquiryBeforeSummarize.question)?? && (judgeInquiryBeforeSummarize.question) != "">
+                            <#if (judgeInquiryBeforeSummarize.question)?contains("///")>
+                                <w:p w14:paraId="6248BCFE" w14:textId="0680E81B" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
+                                    <w:pPr>
+                                        <w:spacing w:line="360" w:lineRule="auto"/>
+                                        <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                        <w:rPr>
+                                            <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="fareast"/>
+                                            <w:color w:val="FF0000"/>
+                                            <w:sz w:val="24"/>
+                                            <w:szCs w:val="24"/>
+                                        </w:rPr>
+                                    </w:pPr>
+                                    <w:r w:rsidRPr="001822B7">
+                                        <w:rPr>
+                                            <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="fareast"/>
+                                            <w:color w:val="FF0000"/>
+                                            <w:sz w:val="24"/>
+                                            <w:szCs w:val="24"/>
+                                        </w:rPr>
+                                        <w:t>审判员：${judgeInquiryBeforeSummarize.question?replace('///','')}</w:t>
+                                    </w:r>
+                                </w:p>
+                            <#else>
+                                <w:p w14:paraId="6248BCFE" w14:textId="0680E81B" w:rsidR="00B76C03" w:rsidRPr="001822B7" w:rsidRDefault="00EE3894" w:rsidP="00B517E9">
+                                    <w:pPr>
+                                        <w:spacing w:line="360" w:lineRule="auto"/>
+                                        <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                        <w:rPr>
+                                            <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                            <w:color w:val="000000" w:themeColor="text1"/>
+                                            <w:sz w:val="24"/>
+                                            <w:szCs w:val="24"/>
+                                        </w:rPr>
+                                    </w:pPr>
+                                    <w:r w:rsidRPr="001822B7">
+                                        <w:rPr>
+                                            <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri" w:hint="eastAsia"/>
+                                            <w:color w:val="000000" w:themeColor="text1"/>
+                                            <w:sz w:val="24"/>
+                                            <w:szCs w:val="24"/>
+                                        </w:rPr>
+                                        <w:t>审判员：${judgeInquiryBeforeSummarize.question}</w:t>
+                                    </w:r>
+                                </w:p>
+                            </#if>
+                        </#if>
+                        <#list judgeInquiryBeforeSummarize.answer as ans>
+                            <#if ans.answer?? && ans.answer != "">
+                                <#if (ans.answer)?contains("///")>
+                                    <w:p w14:paraId="05517C8C" w14:textId="0FB197AB" w:rsidR="00B76C03" w:rsidRPr="001822B7"
+                                         w:rsidRDefault="005F657E" w:rsidP="00B517E9">
+                                        <w:pPr>
+                                            <w:spacing w:line="360" w:lineRule="auto"/>
+                                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                            <w:rPr>
+                                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="fareast"/>
+                                                <w:color w:val="FF0000"/>
+                                                <w:sz w:val="24"/>
+                                                <w:szCs w:val="24"/>
+                                            </w:rPr>
+                                        </w:pPr>
+                                        <w:r w:rsidRPr="001822B7">
+                                            <w:rPr>
+                                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:hint="fareast"/>
+                                                <w:color w:val="FF0000"/>
+                                                <w:sz w:val="24"/>
+                                                <w:szCs w:val="24"/>
+                                            </w:rPr>
+                                            <w:t>${ans.name}：${ans.answer?replace('///','')}</w:t>
+                                        </w:r>
+                                    </w:p>
+                                <#else>
+                                    <w:p w14:paraId="05517C8C" w14:textId="0FB197AB" w:rsidR="00B76C03" w:rsidRPr="001822B7"
+                                         w:rsidRDefault="005F657E" w:rsidP="00B517E9">
+                                        <w:pPr>
+                                            <w:spacing w:line="360" w:lineRule="auto"/>
+                                            <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                            <w:rPr>
+                                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                                <w:color w:val="000000" w:themeColor="text1"/>
+                                                <w:sz w:val="24"/>
+                                                <w:szCs w:val="24"/>
+                                            </w:rPr>
+                                        </w:pPr>
+                                        <w:r w:rsidRPr="001822B7">
+                                            <w:rPr>
+                                                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+                                                <w:color w:val="000000" w:themeColor="text1"/>
+                                                <w:sz w:val="24"/>
+                                                <w:szCs w:val="24"/>
+                                            </w:rPr>
+                                            <w:t>${ans.name}：${ans.answer}</w:t>
+                                        </w:r>
+                                    </w:p>
+                                </#if>
+                            </#if>
+                        </#list>
                     </#list>
-                    </#list>
+
                     <#if (basicInfo.summarize)?? && (basicInfo.summarize) != "">
                     <w:p w14:paraId="03EDED93" w14:textId="1C07E2D2" w:rsidR="003B2B23" w:rsidRPr="001822B7"
                          w:rsidRDefault="00B354CB" w:rsidP="003B2B23">
