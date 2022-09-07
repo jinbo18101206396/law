@@ -112,6 +112,26 @@ layui.use(['table', 'admin', 'HttpRequest', 'func', 'form', 'layer', 'laydate', 
                     //法庭调查数据，包含原被告举证表，法庭调查表三个表
                     if ("courtInvestigate" in wholeItem) {
                         let courtTemp = wholeItem.courtInvestigate // 临时存储数据
+
+                        courtTemp.judge_inquiry_after_accuser_claim.forEach(e=>{
+                            e.question = e.question.replaceAll("///",""),
+                            e.answer.forEach(h=>{
+                                h.answer = h.answer.replaceAll("///","")
+                            })
+                        })
+                        courtTemp.judge_inquiry_after_defendant_reply.forEach(e=>{
+                            e.question = e.question.replaceAll("///",""),
+                                e.answer.forEach(h=>{
+                                    h.answer = h.answer.replaceAll("///","")
+                                })
+                        })
+                        courtTemp.judge_inquiry_before_third_state.forEach(e=>{
+                            e.question = e.question.replaceAll("///",""),
+                                e.answer.forEach(h=>{
+                                    h.answer = h.answer.replaceAll("///","")
+                                })
+                        })
+
                         let courtInves = {
                             judge_accuser_claim_item:wholeItem.judge_accuser_claim_item,
                             judge_defendant_reply:wholeItem.judge_defendant_reply,
@@ -174,7 +194,6 @@ layui.use(['table', 'admin', 'HttpRequest', 'func', 'form', 'layer', 'laydate', 
                             accuser_and_other_defendant_query: courtTemp.accuser_and_other_defendant_query,
                             judge_defendant_evidence:wholeItem.judge_defendant_evidence,
 
-
                             judge_accuser_and_other_defendant_query:wholeItem.judge_accuser_and_other_defendant_query,
                             //反诉后的答辩情况
 
@@ -194,6 +213,12 @@ layui.use(['table', 'admin', 'HttpRequest', 'func', 'form', 'layer', 'laydate', 
                     if ("inquiryInfo" in wholeItem) {
                         let inquiryInfoItem = wholeItem.inquiryInfo
 
+                        inquiryInfoItem.forEach(e=>{
+                            e.inquiry_question = e.inquiry_question.replaceAll("///",""),
+                            e.inquiry_answer.forEach(h=>{
+                                h.answer = h.answer.replaceAll("///","")
+                            })
+                        })
                         myLocalStorage["inquiryInfo"] = {}
                         myLocalStorage["inquiryInfo"]["inquiry_info"] = inquiryInfoItem
                         myLocalStorage["inquiryInfo"]["judge_inquiry"]=wholeItem.judge_inquiry
