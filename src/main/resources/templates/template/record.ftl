@@ -204,6 +204,30 @@
                             </w:r>
                         </w:p>
                     </#if>
+                    <#if (basicInfo.chiefJudge)?? && (basicInfo.chiefJudge) != "">
+                        <w:p w14:paraId="03664602" w14:textId="40CB764B" w:rsidR="00B660E3" w:rsidRPr="001822B7"
+                             w:rsidRDefault="00B660E3" w:rsidP="00BF01D8">
+                            <w:pPr>
+                                <w:spacing w:line="360" w:lineRule="auto"/>
+                                <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                <w:rPr>
+                                    <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                    <w:color w:val="000000" w:themeColor="text1"/>
+                                    <w:sz w:val="24"/>
+                                    <w:szCs w:val="24"/>
+                                </w:rPr>
+                            </w:pPr>
+                            <w:r w:rsidRPr="001822B7">
+                                <w:rPr>
+                                    <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+                                    <w:color w:val="000000" w:themeColor="text1"/>
+                                    <w:sz w:val="24"/>
+                                    <w:szCs w:val="24"/>
+                                </w:rPr>
+                                <w:t>审判长：${basicInfo.chiefJudge}</w:t>
+                            </w:r>
+                        </w:p>
+                    </#if>
                     <#if (basicInfo.judge)?? && (basicInfo.judge) != "">
                         <w:p w14:paraId="03664602" w14:textId="40CB764B" w:rsidR="00B660E3" w:rsidRPr="001822B7"
                              w:rsidRDefault="00B660E3" w:rsidP="00BF01D8">
@@ -225,6 +249,54 @@
                                     <w:szCs w:val="24"/>
                                 </w:rPr>
                                 <w:t>审判员：${basicInfo.judge}</w:t>
+                            </w:r>
+                        </w:p>
+                    </#if>
+                    <#if (basicInfo.juror)?? && (basicInfo.juror) != "">
+                        <w:p w14:paraId="03664602" w14:textId="40CB764B" w:rsidR="00B660E3" w:rsidRPr="001822B7"
+                             w:rsidRDefault="00B660E3" w:rsidP="00BF01D8">
+                            <w:pPr>
+                                <w:spacing w:line="360" w:lineRule="auto"/>
+                                <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                <w:rPr>
+                                    <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                    <w:color w:val="000000" w:themeColor="text1"/>
+                                    <w:sz w:val="24"/>
+                                    <w:szCs w:val="24"/>
+                                </w:rPr>
+                            </w:pPr>
+                            <w:r w:rsidRPr="001822B7">
+                                <w:rPr>
+                                    <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+                                    <w:color w:val="000000" w:themeColor="text1"/>
+                                    <w:sz w:val="24"/>
+                                    <w:szCs w:val="24"/>
+                                </w:rPr>
+                                <w:t>人民陪审员：${basicInfo.juror}</w:t>
+                            </w:r>
+                        </w:p>
+                    </#if>
+                    <#if (basicInfo.peopleJuror)?? && (basicInfo.peopleJuror) != "">
+                        <w:p w14:paraId="03664602" w14:textId="40CB764B" w:rsidR="00B660E3" w:rsidRPr="001822B7"
+                             w:rsidRDefault="00B660E3" w:rsidP="00BF01D8">
+                            <w:pPr>
+                                <w:spacing w:line="360" w:lineRule="auto"/>
+                                <w:ind w:firstLineChars="200" w:firstLine="480"/>
+                                <w:rPr>
+                                    <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:cs="Calibri"/>
+                                    <w:color w:val="000000" w:themeColor="text1"/>
+                                    <w:sz w:val="24"/>
+                                    <w:szCs w:val="24"/>
+                                </w:rPr>
+                            </w:pPr>
+                            <w:r w:rsidRPr="001822B7">
+                                <w:rPr>
+                                    <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+                                    <w:color w:val="000000" w:themeColor="text1"/>
+                                    <w:sz w:val="24"/>
+                                    <w:szCs w:val="24"/>
+                                </w:rPr>
+                                <w:t>陪审员：${basicInfo.peopleJuror}</w:t>
                             </w:r>
                         </w:p>
                     </#if>
