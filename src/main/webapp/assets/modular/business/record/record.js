@@ -282,6 +282,12 @@ layui.use(['table', 'admin', 'HttpRequest', 'func', 'form', 'layer', 'laydate', 
                     if ("summarize" in wholeItem) {
                         let summarize={}
                         summarize["summarize"]=wholeItem.summarize
+                        wholeItem.judge_inquiry_before_summarize.forEach(e=>{
+                            e.question = e.question.replaceAll("///",""),
+                                e.answer.forEach(h=>{
+                                    h.answer = h.answer.replaceAll("///","")
+                                })
+                        })
                         summarize["summarize_inquiry"] = wholeItem.judge_inquiry_before_summarize
 
                         myLocalStorage["summarize"] = summarize
