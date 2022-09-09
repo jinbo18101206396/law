@@ -962,6 +962,7 @@ public class BasicInfoServiceImpl extends ServiceImpl<BasicInfoMapper, BasicInfo
         courtInvestigateObject.put("judge_inquiry_after_accuser_claim", judgeRandomInquiry.getJSONArray("judge_inquiry_after_accuser_claim"));
         courtInvestigateObject.put("judge_inquiry_before_third_state", judgeRandomInquiry.getJSONArray("judge_inquiry_before_third_state"));
         courtInvestigateObject.put("judge_inquiry_after_defendant_reply", judgeRandomInquiry.getJSONArray("judge_inquiry_after_defendant_reply"));
+        courtInvestigateObject.put("judge_inquiry_before_summarize",judgeRandomInquiry.getJSONArray("judge_inquiry_before_summarize"));
     }
 
     /**

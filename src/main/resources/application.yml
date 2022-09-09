@@ -61,7 +61,7 @@ spring:
 # 笔录文件相关
 record:
   backup:
-    path: src/main/backup
+    path: src/main/resources/backup
   templates:
     generate-path: src/main/resources/templates/
     template-path: src/main/resources/templates/template/

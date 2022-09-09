@@ -252,8 +252,8 @@
                             </w:r>
                         </w:p>
                     </#if>
-                    <#if (basicInfo.juror)?? && (basicInfo.juror) != "">
-                        <w:p w14:paraId="03664602" w14:textId="40CB764B" w:rsidR="00B660E3" w:rsidRPr="001822B7"
+                    <#if (basicInfo.courtClerk)?? && (basicInfo.courtClerk) != "">
+                        <w:p w14:paraId="65F1DA6F" w14:textId="43B9E507" w:rsidR="00B660E3" w:rsidRPr="001822B7"
                              w:rsidRDefault="00B660E3" w:rsidP="00BF01D8">
                             <w:pPr>
                                 <w:spacing w:line="360" w:lineRule="auto"/>
@@ -272,7 +272,7 @@
                                     <w:sz w:val="24"/>
                                     <w:szCs w:val="24"/>
                                 </w:rPr>
-                                <w:t>人民陪审员：${basicInfo.juror}</w:t>
+                                <w:t>书记员：${basicInfo.courtClerk}</w:t>
                             </w:r>
                         </w:p>
                     </#if>
@@ -300,8 +300,8 @@
                             </w:r>
                         </w:p>
                     </#if>
-                    <#if (basicInfo.courtClerk)?? && (basicInfo.courtClerk) != "">
-                        <w:p w14:paraId="65F1DA6F" w14:textId="43B9E507" w:rsidR="00B660E3" w:rsidRPr="001822B7"
+                    <#if (basicInfo.juror)?? && (basicInfo.juror) != "">
+                        <w:p w14:paraId="03664602" w14:textId="40CB764B" w:rsidR="00B660E3" w:rsidRPr="001822B7"
                              w:rsidRDefault="00B660E3" w:rsidP="00BF01D8">
                             <w:pPr>
                                 <w:spacing w:line="360" w:lineRule="auto"/>
@@ -320,7 +320,7 @@
                                     <w:sz w:val="24"/>
                                     <w:szCs w:val="24"/>
                                 </w:rPr>
-                                <w:t>书记员：${basicInfo.courtClerk}</w:t>
+                                <w:t>人民陪审员：${basicInfo.juror}</w:t>
                             </w:r>
                         </w:p>
                     </#if>
@@ -2194,7 +2194,7 @@
                                         <w:t>审判员：${judgeInquiryBeforeSummarize.question}</w:t>
                                     </w:r>
                                 </w:p>
-                            </#if>
+                            </#if>re
                         </#if>
                         <#list judgeInquiryBeforeSummarize.answer as ans>
                             <#if ans.answer?? && ans.answer != "">

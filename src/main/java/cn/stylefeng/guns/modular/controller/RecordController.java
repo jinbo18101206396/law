@@ -305,8 +305,7 @@ public class RecordController {
         recordJson.put("deliveryInfo", deliveryInfoArray);
 
         //审判员随机提问（审判员最终陈述前）
-        JSONArray judgeRandomInquiryBeforeSummarize = judgeRandomInquiryService.getJudgeRandomInquiryBeforeSummarize(courtNumber);
-        recordJson.put("judge_inquiry_before_summarize", judgeRandomInquiryBeforeSummarize);
+        recordJson.put("judge_inquiry_before_summarize", courtInvestigateObject.getJSONArray("judge_inquiry_before_summarize"));
 
         //审判员最终总结
         String summarize = basicInfoService.getSummarize(courtNumber);

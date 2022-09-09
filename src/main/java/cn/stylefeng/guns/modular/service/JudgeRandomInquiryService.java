@@ -36,17 +36,6 @@ public interface JudgeRandomInquiryService extends IService<JudgeRandomInquiry> 
     JSONObject getJudgeRandomInquiry(String courtNumber);
 
     /**
-     * 获取法官随机提问信息（审判员最终陈述前）
-     *
-     * @param courtNumber 请求参数
-     * @return
-     * @author 金波
-     * @Date 2022-07-13
-     */
-    JSONArray getJudgeRandomInquiryBeforeSummarize(String courtNumber);
-
-
-    /**
      * 删除法庭询问信息（修改删除标记）
      *
      * @param courtNumber 请求参数

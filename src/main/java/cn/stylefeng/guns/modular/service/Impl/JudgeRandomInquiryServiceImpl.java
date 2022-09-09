@@ -204,12 +204,6 @@ public class JudgeRandomInquiryServiceImpl extends ServiceImpl<JudgeRandomInquir
     }
 
     @Override
-    public JSONArray getJudgeRandomInquiryBeforeSummarize(String courtNumber) {
-        JSONObject judgeRandomInquiry = getJudgeRandomInquiry(courtNumber);
-        return judgeRandomInquiry.getJSONArray("judge_inquiry_before_summarize");
-    }
-
-    @Override
     public Boolean deleteJudgeRandomInquiryInfo(String courtNumber) {
         LambdaUpdateWrapper<JudgeRandomInquiry> judgeRandomInquiryWrapper = new LambdaUpdateWrapper<>();
         judgeRandomInquiryWrapper.set(JudgeRandomInquiry::getDelFlag, YesOrNotEnum.Y.getCode()).eq(JudgeRandomInquiry::getCourtNumber, courtNumber);
